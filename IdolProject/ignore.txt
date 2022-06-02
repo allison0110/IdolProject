@@ -154,6 +154,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+META-INF/*.MF
+controller/*.properties
+
 # End of https://www.toptal.com/developers/gitignore/api/maven,java,git,eclipse,windows
 
 .classpath
