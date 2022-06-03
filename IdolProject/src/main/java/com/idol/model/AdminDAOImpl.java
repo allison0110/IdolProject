@@ -9,5 +9,16 @@ public class AdminDAOImpl implements AdminDAO{
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+
+
+	@Override
+	public AdminDTO getAdminCont(String id) {
+		
+		return this.sqlSession.selectOne("admin_check", id);		
+	}
+
+	
+
+	
 	
 }

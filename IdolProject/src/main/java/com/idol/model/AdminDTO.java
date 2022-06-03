@@ -9,6 +9,6 @@ public class AdminDTO {
 		private String admin_pwd;
 		private String admin_name;
 		private String admin_email;
-		private int admin_date;
+		private String admin_date;
 		
 }
