@@ -23,6 +23,11 @@
 										등록
 									</a>
 								</li>
+								<li>
+									<a href="<%=request.getContextPath() %>/test.do">
+										test1
+									</a>
+								</li>
 								<li>수정</li>
 								<li>리스트</li>
 							</ul>

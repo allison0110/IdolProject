@@ -88,5 +88,20 @@ public class AdminController {
 	}
 	
 	
+	@RequestMapping("test.do")
+	public String test() {
+		return "admin/test_insert";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 } // AdminController end
