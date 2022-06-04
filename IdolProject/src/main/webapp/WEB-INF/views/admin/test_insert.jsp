@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/test2.do">
+	<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/test3.do">
 		<input multiple="multiple" type="file" name="file">
 		<input type="submit" value="등록">
 	</form>
