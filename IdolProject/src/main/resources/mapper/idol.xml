@@ -10,4 +10,7 @@
     		select * from admin where admin_id = #{id}
     	</select>
     	
+    	<insert id="test2" parameterType="Map">
+    		insert into test values(#{map})
+    	</insert>
     </mapper>
