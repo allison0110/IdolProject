@@ -13,4 +13,8 @@
     	<insert id="test2" parameterType="Map">
     		insert into test values(#{map})
     	</insert>
+    	
+    	<insert id="test" parameterType="com.idol.model.TestDTO">
+    		insert into test values(#{good}, #{good3}, #{good2})
+    	</insert>
     </mapper>

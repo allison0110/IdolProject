@@ -21,9 +21,8 @@ public class AdminDAOImpl implements AdminDAO{
 
 
 	@Override
-	public int insertTest(TestDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+	public void insertTest(TestDTO dto) {
+		this.sqlSession.insert("test", dto);
 	}
 
 
