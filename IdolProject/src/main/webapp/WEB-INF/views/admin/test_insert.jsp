@@ -42,8 +42,8 @@
 		<input type="submit" value="단일 파일 등록  DB OK test5">
 	</form>
 	<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/test6.do">
-		<input name="good2">
-		<input name="good3">
+		<input name="happy1">
+		<input name="happy2">
 		<input multiple="multiple" type="file" name="file">
 		<input type="submit" value=" 등록 test6">
 	</form>

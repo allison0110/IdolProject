@@ -1,6 +1,7 @@
 package com.idol.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -52,7 +53,15 @@ public class FileUtils {
 				originalName = mulFile.getOriginalFilename();
 				originalExtension = mulFile.getOriginalFilename().substring(originalName.lastIndexOf("."));
 				
-				mulFile.transferTo(file);
+				try {
+					mulFile.transferTo(file);
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				fileMap = new HashMap<String, Object>();
 				

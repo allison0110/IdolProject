@@ -17,4 +17,14 @@
     	<insert id="test" parameterType="com.idol.model.TestDTO">
     		insert into test values(#{good}, #{good3}, #{good2})
     	</insert>
+    	
+    	<insert id="happy" parameterType="com.idol.model.HappyDTO">
+    		insert into happy values(#{happy1}, #{happy2}, #{happy3})
+    	</insert>
+    	
+    	<insert id="jong" parameterType="com.idol.model.TestDTO">
+    		insert into happy values('', #{good3}, #{good2})
+    	</insert>
+    	
+    	
     </mapper>

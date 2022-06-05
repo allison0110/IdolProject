@@ -3,11 +3,15 @@ package com.idol.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.processing.FilerException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -22,6 +26,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.idol.model.AdminDAO;
 import com.idol.model.AdminDTO;
+import com.idol.model.HappyDTO;
 import com.idol.model.TestDTO;
 
 @Controller
@@ -217,6 +222,8 @@ public class AdminController {
 
         String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb\\";
 
+        String tempName = "";
+        
         for (MultipartFile mFile : fileList) {
         	
             String originFileName = mFile.getOriginalFilename(); // 원본 파일 명
@@ -229,8 +236,14 @@ public class AdminController {
 
             String safeFile = path + System.currentTimeMillis() + originFileName;
             
+            tempName += originFileName + "/";
+            
             try {
+            	
             	mFile.transferTo(new File(safeFile));
+            	
+            	
+            	
             } catch (IllegalStateException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -239,7 +252,11 @@ public class AdminController {
                 e.printStackTrace();
             }
         }
-
+        
+        
+        dto.setGood(tempName);
+    	
+        this.dao.insertTest(dto);
         
         return "admin/admin_main";
     }
@@ -330,48 +347,91 @@ public class AdminController {
 		return "admin/admin_main";
 	}
 	
+	
+	
 	@RequestMapping("test6.do")
-	public String fileUpload(
-			@RequestParam("article_file") List<MultipartFile> multipartFile
-			, HttpServletRequest request) {
+	public String test6(MultipartHttpServletRequest mRequest, HappyDTO dto) throws FilerException {
 		
-		String strResult = "{ \"result\":\"FAIL\" }";
-		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
-		String fileRoot;
-		try {
-			// 파일이 있을때 탄다.
-			if(multipartFile.size() > 0 && !multipartFile.get(0).getOriginalFilename().equals("")) {
+		boolean flag = false;
+		
+		String uploadPath = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb\\";
+		
+		Iterator<String> iterator = mRequest.getFileNames();
+		
+		System.out.println("mRequest.getfileName : " + iterator); 
+		
+		MultipartFile mFile = null;
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		Map<String, Object> listMap = null;
+		
+		while(iterator.hasNext()) {
+			
+			mFile = mRequest.getFile(iterator.next());
+			
+			if(mFile.isEmpty() == false) {
 				
-				for(MultipartFile file:multipartFile) {
-					fileRoot = contextRoot + "resources/upload/";
-					System.out.println(fileRoot);
-					
-					String originalFileName = file.getOriginalFilename();	//오리지날 파일명
-					String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
-					String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
-					
-					File targetFile = new File(fileRoot + savedFileName);	
-					try {
-						InputStream fileStream = file.getInputStream();
-						FileUtils.copyInputStreamToFile(fileStream, targetFile); //파일 저장
-						
-					} catch (Exception e) {
-						//파일삭제
-						FileUtils.deleteQuietly(targetFile);	//저장된 현재 파일 삭제
-						e.printStackTrace();
-						break;
-					}
+				// 오리진 파일 이름
+				
+				String originName = mFile.getOriginalFilename();
+				
+				System.out.println("multipartFIle.getName() : " + mFile.getName());
+
+				System.out.println("multipartFIle.getOriginFileNmae() : " + originName);
+				
+				// 디비에 저장할 파일 경로 + 이름
+				
+				File path = new File(uploadPath); 
+				
+				if(!path.exists()) {
+					path.mkdirs();
 				}
-				strResult = "{ \"result\":\"OK\" }";
-			}
-			// 파일 아무것도 첨부 안했을때 탄다.(게시판일때, 업로드 없이 글을 등록하는경우)
-			else
-				strResult = "{ \"result\":\"OK\" }";
-		}catch(Exception e){
-			e.printStackTrace();
+				
+				// 실제 파일 만들기
+				
+				String saveFileName = originName;
+				
+				if(saveFileName != null) {
+					saveFileName = System.currentTimeMillis() + "_" + saveFileName;
+					
+				}
+				
+				File dest = new File(uploadPath + "/" + saveFileName);
+
+				try {
+					
+					
+					mFile.transferTo(dest);
+					
+					flag = true;
+					
+				} catch (Exception e) {
+					
+				} 
+				
+				listMap = new HashMap<String, Object>();
+				
+				listMap.put("originName", originName);
+				
+				listMap.put("fileName", dest.getName());
+				
+				list.add(listMap);
+				
+			} // the end of if 
+			
+		} // the end of while
+		
+		if(flag == false) {
+			throw new FilerException("파일 저장을 실패하였습니다 :(");
 		}
-		return strResult;
-	}
+		
+		
+		this.dao.insertHappy(dto);
+		
+		return "admin/admin_main";
+    }
+	
 	
 	
 	
