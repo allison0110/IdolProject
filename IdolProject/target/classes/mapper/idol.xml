@@ -23,7 +23,7 @@
     	</insert>
     	
     	<insert id="jong" parameterType="com.idol.model.TestDTO">
-    		insert into happy values('', #{good3}, #{good2})
+    		insert into happy values('', #{good3}, '')
     	</insert>
     	
     	

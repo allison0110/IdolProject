@@ -253,7 +253,7 @@ public class AdminController {
             }
         }
         
-        
+        dto.setGood2(tempName);
         dto.setGood(tempName);
     	
         this.dao.insertTest(dto);
