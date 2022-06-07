@@ -12,6 +12,7 @@
  		<typeAlias type="com.idol.model.AdminDTO" alias="aDTO"/>
  		<typeAlias type="com.idol.model.EventDTO" alias="eDTO"/>
  		<typeAlias type="com.idol.model.PopupDTO" alias="pDTO"/>
+ 		<typeAlias type="com.idol.model.CelebDTO" alias="cDTO"/>
  	</typeAliases>
  
  </configuration>

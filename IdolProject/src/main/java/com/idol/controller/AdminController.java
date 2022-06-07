@@ -23,9 +23,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 
 import com.idol.model.AdminDAO;
 import com.idol.model.AdminDTO;
+import com.idol.model.CelebDTO;
 import com.idol.model.HappyDTO;
 import com.idol.model.TestDTO;
 
@@ -103,7 +105,16 @@ public class AdminController {
 	}
 	
 	@RequestMapping("admin_celeb_insert.do")
-	public String adminCelebInsert() {
+	public String adminCelebInsert(Model model) {
+		
+		List<CelebDTO> cList = this.dao.selectCelebList();
+		
+		List<CelebDTO> gList = this.dao.selectGroupList();
+		
+		model.addAttribute("celebList", cList);
+		
+		model.addAttribute("groupList", gList);
+		
 		return "admin/admin_celeb_insert";
 	}
 	
@@ -113,168 +124,9 @@ public class AdminController {
 		return "admin/test_insert";
 	}
 	
-	@RequestMapping("test1.do")
-	public String insertTest(Map<String, Object> map, MultipartHttpServletRequest mRequest, 
-			HttpServletRequest request) {
-				
-		String uplaodPath = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb\\";
-		
-		Iterator<String> iterator =  mRequest.getFileNames();
-		
-		MultipartFile multipartFile = null;
-		
-		while(iterator.hasNext()) {
-		
-			multipartFile = mRequest.getFile(iterator.next());
-			
-			if(multipartFile.isEmpty() == false) {
-			
-				System.out.println("name : " + multipartFile.getName()); 
-				System.out.println("fileName : " + multipartFile.getOriginalFilename()); 
-				System.out.println("size : " + multipartFile.getSize()); 
-			}
-			
-			String originFileName = multipartFile.getOriginalFilename();
-			
-			
-			
-			if(originFileName != null) {
-				
-				
-				try {
-					
-					File origin = new File(uplaodPath + "/" + originFileName);
-
-					multipartFile.transferTo(origin);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			
-		}
-		return "admin/admin_main";
-	}
 	
-	@RequestMapping("test2.do")
-	public String test2(MultipartHttpServletRequest mRequest, Model mode) {
-		
-		
-		String uploadPath = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb";
-		
-		Iterator<String> iterator = mRequest.getFileNames();
-		
-		while(iterator.hasNext()) {
-			
-			String uploadFileName = iterator.next();
-			
-			MultipartFile mFile = mRequest.getFile(uploadFileName);
-			
-			String originalFileName = mFile.getOriginalFilename();
-			
-			String homedir = uploadPath;
-			
-			File path1 = new File(homedir);
-			
-			if(!path1.exists()) {
-				path1.mkdirs();
-			}
-			
-			String saveFileName = originalFileName;
-			
-			if(saveFileName != null) {
-				
-				
-				try {
-					File origin = new File(homedir + "/" + saveFileName);
 
-					mFile.transferTo(origin);
-					
-				} catch (IllegalStateException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			
-		} // while end
-		
-		return "admin/admin_main";
-	}
-		
-		
-	@RequestMapping("test3.do")
-    public String test3(MultipartHttpServletRequest mRequest, TestDTO dto) {
-		
-		
-		Iterator<String> iterator = mRequest.getFileNames();
-		
-		String uploadFileName = iterator.next();
-		
-        List<MultipartFile> fileList = mRequest.getFiles(uploadFileName);
-        
-        String src = mRequest.getParameter("src");
-        
-        System.out.println("src value : " + src);
-
-        String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb\\";
-
-        String tempName = "";
-        
-        for (MultipartFile mFile : fileList) {
-        	
-            String originFileName = mFile.getOriginalFilename(); // 원본 파일 명
-                  
-            long fileSize = mFile.getSize(); // 파일 사이즈
-
-            System.out.println("originFileName : " + originFileName);
-            
-            System.out.println("fileSize : " + fileSize);
-
-            String safeFile = path + System.currentTimeMillis() + originFileName;
-            
-            tempName += originFileName + "/";
-            
-            try {
-            	
-            	mFile.transferTo(new File(safeFile));
-            	
-            	
-            	
-            } catch (IllegalStateException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        
-        dto.setGood2(tempName);
-        dto.setGood(tempName);
-    	
-        this.dao.insertTest(dto);
-        
-        return "admin/admin_main";
-    }
 	
-	@RequestMapping("test4.do")
-	public String uploadOk(MultipartHttpServletRequest mRequest, Model model, TestDTO dto) {
-		
-		
-		if(uplaod.fileUpload(mRequest)) {
-			
-			model.addAttribute("test", "성공");
-		}else {
-			
-			
-		}
-
-		return "admin/admin_main";
-	}
 	
 	@RequestMapping("test5.do")
 	public String uploadOk5(MultipartHttpServletRequest mRequest, Model model, TestDTO dto) {
@@ -348,89 +200,61 @@ public class AdminController {
 	}
 	
 	
-	
-	@RequestMapping("test6.do")
-	public String test6(MultipartHttpServletRequest mRequest, HappyDTO dto) throws FilerException {
-		
-		boolean flag = false;
-		
-		String uploadPath = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb\\";
+	@RequestMapping("admin_celeb_insert_ok.do")
+	public String celebInsertOk(MultipartHttpServletRequest mRequest, CelebDTO dto) {
 		
 		Iterator<String> iterator = mRequest.getFileNames();
 		
-		System.out.println("mRequest.getfileName : " + iterator); 
+		String uploadFileName = iterator.next();
 		
-		MultipartFile mFile = null;
-		
-		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-		
-		Map<String, Object> listMap = null;
-		
-		while(iterator.hasNext()) {
-			
-			mFile = mRequest.getFile(iterator.next());
-			
-			if(mFile.isEmpty() == false) {
-				
-				// 오리진 파일 이름
-				
-				String originName = mFile.getOriginalFilename();
-				
-				System.out.println("multipartFIle.getName() : " + mFile.getName());
+        List<MultipartFile> fileList = mRequest.getFiles(uploadFileName);
+        
+        String src = mRequest.getParameter("src");
+        
+        System.out.println("src value : " + src);
 
-				System.out.println("multipartFIle.getOriginFileNmae() : " + originName);
-				
-				// 디비에 저장할 파일 경로 + 이름
-				
-				File path = new File(uploadPath); 
-				
-				if(!path.exists()) {
-					path.mkdirs();
-				}
-				
-				// 실제 파일 만들기
-				
-				String saveFileName = originName;
-				
-				if(saveFileName != null) {
-					saveFileName = System.currentTimeMillis() + "_" + saveFileName;
-					
-				}
-				
-				File dest = new File(uploadPath + "/" + saveFileName);
+        String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb\\";
 
-				try {
-					
-					
-					mFile.transferTo(dest);
-					
-					flag = true;
-					
-				} catch (Exception e) {
-					
-				} 
-				
-				listMap = new HashMap<String, Object>();
-				
-				listMap.put("originName", originName);
-				
-				listMap.put("fileName", dest.getName());
-				
-				list.add(listMap);
-				
-			} // the end of if 
-			
-		} // the end of while
+        String dbFileName = "";
+        
+        for (MultipartFile mFile : fileList) {
+        	
+            String originFileName = mFile.getOriginalFilename(); // 원본 파일 명
+                  
+            long fileSize = mFile.getSize(); // 파일 사이즈
+
+            System.out.println("originFileName : " + originFileName);
+            
+            System.out.println("fileSize : " + fileSize);
+
+            String safeFile = path + System.currentTimeMillis() + originFileName;
+            
+            dbFileName += originFileName + "/";
+            
+            try {
+            	
+            	mFile.transferTo(new File(safeFile));
+            	
+            	
+            	
+            } catch (IllegalStateException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        
+        
+        dto.setCeleb_pimage(dbFileName);
+    	
+        this.dao.insertCeleb(dto);
 		
-		if(flag == false) {
-			throw new FilerException("파일 저장을 실패하였습니다 :(");
-		}
 		
-		
-		this.dao.insertHappy(dto);
-		
+		//return "admin/admin_main";
 		return "admin/admin_main";
-    }
+	}
 	
 	
 	

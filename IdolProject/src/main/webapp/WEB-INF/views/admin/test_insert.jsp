@@ -23,9 +23,9 @@
 	
 	<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/test3.do">
 		<input name="good3">
-		<input multiple="multiple" type="file" name="file2">
 		<input multiple="multiple" type="file" name="file1">
-		<input type="submit" value="다중 파일 등록 DB X test3">
+		<input multiple="multiple" type="file" name="file2">
+		<input type="submit" value="다중 파일 등록 DB okay test3">
 	</form>
 	
 	<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/test4.do">
@@ -44,8 +44,8 @@
 	<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/test6.do">
 		<input name="happy1">
 		<input name="happy2">
-		<input multiple="multiple" type="file" name="file">
-		<input type="submit" value=" 등록 test6">
+		<input type="file" name="file">
+		<input type="submit" value="단일 파일 test 13 등록 test6">
 	</form>
 </body>
 </html> 

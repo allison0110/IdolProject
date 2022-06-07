@@ -10,21 +10,26 @@
     		select * from admin where admin_id = #{id}
     	</select>
     	
-    	<insert id="test2" parameterType="Map">
-    		insert into test values(#{map})
-    	</insert>
-    	
     	<insert id="test" parameterType="com.idol.model.TestDTO">
     		insert into test values(#{good}, #{good3}, #{good2})
     	</insert>
     	
-    	<insert id="happy" parameterType="com.idol.model.HappyDTO">
-    		insert into happy values(#{happy1}, #{happy2}, #{happy3})
+    	<insert id="celeb" parameterType="cDTO">
+    		<selectKey resultType="int" keyProperty="celeb_no" order="BEFORE"> 
+    			select max(celeb_no) from celeb
+    		</selectKey>
+    		insert into celeb values(#{celeb_no} + 1, #{celeb_name}, #{celeb_realname}, 
+    			#{celeb_agency}, #{celeb_dateofbirth}, #{celeb_debutdate}, 
+    				#{celeb_pimage}, #{celeb_group},'')
     	</insert>
     	
-    	<insert id="jong" parameterType="com.idol.model.TestDTO">
-    		insert into happy values('', #{good3}, '')
-    	</insert>
     	
+    	<select id="celebList" resultType="cDTO">
+    		select * from celeb order by celeb_no
+    	</select>
+    	
+    	<select id="groupList" resultType="cDTO">
+    		select distinct(celeb_group) from celeb order by celeb_group
+    	</select>
     	
     </mapper>

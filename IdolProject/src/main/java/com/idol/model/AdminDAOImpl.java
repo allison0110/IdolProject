@@ -1,12 +1,12 @@
 package com.idol.model;
 
+
+
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO{
@@ -29,25 +29,31 @@ public class AdminDAOImpl implements AdminDAO{
 
 
 	@Override
-	public void insertTest2(Map<String, Object> map) {
-
-		this.sqlSession.insert("test2", map);
+	public void insertCeleb(CelebDTO dto) {
+		
+		this.sqlSession.insert("celeb", dto);
 		
 	}
 
 
 	@Override
-	public void insertHappy(HappyDTO dto) {
+	public List<CelebDTO> selectCelebList() {
 
-		this.sqlSession.insert("happy", dto);
+		return this.sqlSession.selectList("celebList");
 		
 	}
 
 
 	@Override
-	public void jongtest(TestDTO test) {
-		this.sqlSession.insert("jong", test);
+	public void selectCelebCont(int no) {
+		// TODO Auto-generated method stub
 		
+	}
+
+
+	@Override
+	public List<CelebDTO> selectGroupList() {
+		return this.sqlSession.selectList("groupList");
 	}
 
 	

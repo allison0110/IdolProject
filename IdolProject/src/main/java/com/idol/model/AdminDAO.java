@@ -1,24 +1,24 @@
 package com.idol.model;
 
 import java.util.List;
-import java.util.Map;
-
-import org.springframework.web.multipart.MultipartFile;
 
 public interface AdminDAO {
 	
 	
 	public AdminDTO getAdminCont(String id);
 	
+	public void insertCeleb(CelebDTO dto);
+	
 	public void insertTest(TestDTO dto);
 
-	public void insertTest2(Map<String, Object> map);
+	public List<CelebDTO> selectCelebList();
 	
-	public void insertHappy(HappyDTO dto);
+	public List<CelebDTO> selectGroupList();
 	
-	public void jongtest(List<MultipartFile> test);
+	public void selectCelebCont(int no);
+	
 
-	void jongtest(TestDTO test);
+	
 	
 }
 
