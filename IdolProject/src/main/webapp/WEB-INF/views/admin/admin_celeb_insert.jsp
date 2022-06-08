@@ -3,6 +3,10 @@
     
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
+    <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+    
+  
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,13 +72,32 @@
 			border: 3px solid blue;
 			max-width: 50%;
 			width: 100%;
+			display: flex;
+		    flex-direction: column;
+		    justify-content: center;
+		    align-items: center;
 		}
 		
 		.selecting {
 			display: none;
 		}
 		
+		.pImagesContainer {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+		}
 		
+		.pImagesContainer img {
+			width: 100%;
+			height: 100%;
+		}
+		
+		.pimageBoxes {
+			width: 200px;
+			height: 200px;
+		}
 	</style>
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js" ></script>
@@ -92,19 +115,26 @@
 	</script>
 </head>
 <body>
-	
+	<!-- 가수 전체 리스트 -->
 	<c:set var="cList" value="${celebList }" />
+	<!-- 그룹 이름 리스트 -->
 	<c:set var="gList" value="${groupList }" />
+	<!-- 등록 후 가수 상세 내역 불러오기 -->
+	<c:set var="cCont" value="${contByname }" />
+	
+	<c:set var="pImages" value="${arrtokened }" />
+	
 	<div class="admin_celeb_insertForm_wrapper">
 	
 		<div class="admin_celeb_insertForm_div">
+			
 			<form class="celeb_form" enctype="multipart/form-data" method="post"  
 				action="<%=request.getContextPath()%>/admin_celeb_insert_ok.do">
 				
 				<div class="admin_celeb_insertForm_container">
 					<div class="celeb_insertForm_left">그룹 이름</div>
 					
-					<select name="celeb_group" class="celeb_insertForm_right selecting">
+				<!-- 	<select name="celeb_group" class="celeb_insertForm_right selecting">
 						<option value="" selected>
 							::: 선택 하셈 ::: 
 						</option>
@@ -122,7 +152,7 @@
 							</c:if>
 						</c:forEach>
 					</select>
-					
+					 -->
 										
 					<div class="celeb_insertForm_right WrittingDown">
 						<input name="celeb_group">
@@ -171,19 +201,85 @@
 				</div>
 			</form>
 			
+			
+			
+			
+			
+			
+			
+			<hr />
 			<div class="admin_celeb_groupManager">
-				<h1>가수 디테일 수정 폼 영역</h1>
+				<h1>:) </h1>
+					<div class="pImagesContainer">
+						<c:forEach var="pImages" items="${arrtokened}">
+							<div class="pimageBoxes">
+								<img alt="" src="<spring:url value='/resources/upload/celeb/${pImages}'/>">
+							</div>
+						</c:forEach>
+						
+					</div>
+
+					<table>
+						<c:if test="${!empty cCont.celeb_group}">
+							<tr>
+								<th>그룹이름</th>
+								<td>
+									${cCont.celeb_group }
+								</td>							
+							</tr>
+						</c:if>
+						<tr>
+							<th>활동 이름</th>
+							<td>
+								${cCont.celeb_name }
+							</td>
+						</tr>
+						<tr>
+							<th>본명</th>
+							<td>
+								${cCont.celeb_realname }
+							</td>
+						</tr>
+						<tr>
+							<th>소속사</th>
+							<td>
+								${cCont.celeb_agency }
+							</td>
+						</tr>
+						<tr>
+							<th>생일</th>
+							<td>
+								${cCont.celeb_dateofbirth.substring(0, 10) }
+							</td>
+						</tr>
+						<tr>
+							<th>데뷔일</th>
+							<td>
+								${cCont.celeb_debutdate.substring(0, 10) }
+							</td>
+						</tr>
+						
+						
+						
+					</table>
 				
 				
-				<form method="post" action="<%=request.getContextPath()%>/celeb_update.do">
+				<form method="post" enctype="multipart/form-data" 
+					 action="<%=request.getContextPath()%>/celeb_gimage_update.do">
+					 
+					<input type="hidden" name="celeb_no" value="${cCont.celeb_no }">
+					<input type="hidden" name="celeb_name" value="${cCont.celeb_name }">
+					 
 					<div>
 						<input multiple="multiple" type="file" name="file"> 
 					</div>
+					
 					<div>
 						<input type="submit" value="등록">
 						<input type="reset" value="다시작성">
 					</div>
 				</form>
+				
 			</div>
 		</div>
 	</div>

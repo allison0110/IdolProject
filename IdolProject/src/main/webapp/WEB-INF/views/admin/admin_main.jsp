@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,8 +16,11 @@
 			<div class="admin_navbar">
 				<ul>
 					<li>
-						가수
+						<a href="<%=request.getContextPath() %>/admin_celeb_list.do">
+							가수
+						</a>
 						<div>
+						
 							<ul>
 								<li>
 									<a href="<%=request.getContextPath() %>/admin_celeb_insert.do">
@@ -29,12 +33,13 @@
 									</a>
 								</li>
 								<li>수정</li>
-								<li>리스트</li>
 							</ul>
 						</div>
 					</li>
 					<li>
-						곡
+						<a href="<%=request.getContextPath() %>/admin_celeb_list.do">
+							음원
+						</a>
 						<div>
 							<ul>
 								<li>등록</li>
@@ -66,7 +71,13 @@
 						</div>
 					</li>
 				</ul>
-				
+				<div>
+					<c:set var="d" value="${date }" />
+					<c:set var="t" value="${time }" />
+					<c:forEach items="${d }" var="date">
+						${date }홀 
+					</c:forEach>
+				</div>
 				
 			</div>
 		</div>

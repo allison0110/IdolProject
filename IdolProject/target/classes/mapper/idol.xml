@@ -6,14 +6,12 @@
 
     <mapper namespace="aDAO">
     	
+    	<!-- 관리자 정보 불러오기 -->
     	<select id="admin_check" parameterType="String" resultType="aDTO">
     		select * from admin where admin_id = #{id}
     	</select>
-    	
-    	<insert id="test" parameterType="com.idol.model.TestDTO">
-    		insert into test values(#{good}, #{good3}, #{good2})
-    	</insert>
-    	
+ 
+    	<!-- 가수 등록 -->
     	<insert id="celeb" parameterType="cDTO">
     		<selectKey resultType="int" keyProperty="celeb_no" order="BEFORE"> 
     			select max(celeb_no) from celeb
@@ -23,13 +21,42 @@
     				#{celeb_pimage}, #{celeb_group},'')
     	</insert>
     	
-    	
+    	<!-- 가수 전체 리스트 불러오기 -->
     	<select id="celebList" resultType="cDTO">
     		select * from celeb order by celeb_no
     	</select>
     	
+    	<!-- 그룹 이름 리스트 불러오기 -->
     	<select id="groupList" resultType="cDTO">
     		select distinct(celeb_group) from celeb order by celeb_group
     	</select>
+    	
+    	<!-- 가수 상세정보 가져오기 by name-->
+    	<select id="celebCont" parameterType="String" resultType="cDTO">
+    		select * from celeb where celeb_name = #{celeb_name}
+    	</select>
+    	
+    	<!-- 가수 등록 후 그룹일 경우 그룹 이미지 넣기 -->
+    	<update id="updateGimage" parameterType="cDTO">
+    		update celeb set celeb_gimage = #{celeb_gimage} where celeb_no = #{celeb_no}
+    	</update>
+    	   	
+    	
+    	<insert id="test" parameterType="com.idol.model.TestDTO">
+    		insert into test values(#{good}, #{good3}, #{good2})
+    	</insert>
+    	
+    	<!-- 가수 전체 리스트 불러오기 -->
+    	<select id="celectList" resultType="cDTO">
+    		select * from celeb order by celeb_no
+    	</select>
+    	
+    	<!-- 가수 상세 정보 불러오기 by number -->
+    	<select id="contentByNO" parameterType="int" resultType="cDTO">
+    		select * from celeb where celeb_no = #{no}
+    	</select>
+    	
+    	
+    	
     	
     </mapper>
