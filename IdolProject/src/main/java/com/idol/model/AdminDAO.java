@@ -28,10 +28,8 @@ public interface AdminDAO {
 	public void updateSequen(int no);
 	
 	
-	// 테스트
-	public void insertTest(TestDTO dto);
-
-
+	//음원 등록 
+	
 	
 	
 }

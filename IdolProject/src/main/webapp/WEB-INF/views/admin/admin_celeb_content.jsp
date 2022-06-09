@@ -39,6 +39,29 @@
 	.testImage img {
 		width: 100%;
 	}
+	
+	.admin_cont_imageBox {
+		display: flex;
+		flex-direction: row;
+	}
+	
+	.admin_cont_imageBox img {
+		width: 100%;
+		height: 100%;
+	}
+	
+	.admin_content_box {
+	
+	
+	}
+	
+	.admin_content_container {
+		display: flex;
+   		flex-direction: column;
+		align-items: center;
+	}
+	
+	
 </style>
 </head>
 <body>
@@ -47,48 +70,48 @@
 	<c:set var="imgs" value="${arrtokened }" />
 	<div class="admin_content_wrapper">
 		<div class="admin_content_container">
-		<!--  
-			<div class="testImage">
-				<img src="<spring:url value='/resources/upload/celeb/1654665381521김채원3.jpg'/>">
+		
+			<div class="admin_cont_imageBox">
+				<c:forEach items="${arrtokened }" var="imgs">
+					<div class="testImage">
+						<img alt="" src="./resources/upload/celeb/${imgs }">
+					</div>
+				
+				</c:forEach>
 			</div>
-		-->
-		<c:forEach items="${arrtokened }" var="imgs">
-			<div class="testImage">
-				<img alt="" src="./resources/upload/celeb/${imgs }">
+			<div class="admin_content_box">
+				<ul>
+					<li>
+						${cont.celeb_no }
+					</li>
+					<li>
+						${cont.celeb_name }
+					</li>
+					<li>
+						${cont.celeb_realname }
+					</li>
+					<li>
+						${cont.celeb_agency }
+					</li>
+					<li>
+						${cont.celeb_dateofbirth.substring(0, 10) }
+					</li>
+					<li>
+						${cont.celeb_debutdate.substring(0, 10) }
+					</li>
+					<li>
+						${cont.celeb_group }
+					</li>
+				</ul>
+				
+				<input type="button" value="수정"
+				onclick="location.href=''">
+				<input type="button" value="삭제"
+				onclick="if(confirm('삭제 하시겠습니까 ?? :(')){
+					location.href='<%=request.getContextPath()%>/celeb_delete.do?no=${cont.celeb_no }&img=${cont.celeb_pimage }'
+				}else {return}">
+				<input type="button" value="임시">
 			</div>
-		
-		</c:forEach>
-		
-			<ul>
-				<li>
-					${cont.celeb_no }
-				</li>
-				<li>
-					${cont.celeb_name }
-				</li>
-				<li>
-					${cont.celeb_realname }
-				</li>
-				<li>
-					${cont.celeb_agency }
-				</li>
-				<li>
-					${cont.celeb_dateofbirth.substring(0, 10) }
-				</li>
-				<li>
-					${cont.celeb_debutdate.substring(0, 10) }
-				</li>
-				<li>
-					${cont.celeb_group }
-				</li>
-			</ul>
-			
-			<input type="button" value="수정"
-			onclick="location.href=''">
-			<input type="button" value="삭제"
-			onclick="location.href='<%=request.getContextPath()%>/celeb_delete.do?no=${cont.celeb_no }&img=${cont.celeb_pimage }'">
-			<input type="button" value="임시">
-		
 		</div> <!-- the end of admin_content_container -->
 	</div> <!-- the end of admin_content_wrapper -->
 </body>
