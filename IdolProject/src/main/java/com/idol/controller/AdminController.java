@@ -370,16 +370,21 @@ public class AdminController {
 		
 			System.out.println("img : " + img);
 			
-			String[] splitList = img.split("|");
+			StringTokenizer tokenizer = new StringTokenizer(img, "|");
 					
-			for(int i = 0; i < splitList.length; i ++) {
+			String[] tokenList = new  String[tokenizer.countTokens()];
+			
+			for(int i = 0; i < tokenList.length; i ++) {
 				
-				File file = new File(path + splitList[i]);
+				tokenList[i] = tokenizer.nextToken();
+				
+				System.out.println("tokenList : " + tokenList);
+				
+				File file = new File(path + tokenList[i]);
 				
 				file.delete();
 			}
-			
-			System.out.println("after splitList : " + splitList);
+		
 			
 			
 			this.dao.updateSequen(no);

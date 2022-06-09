@@ -32,7 +32,7 @@
 										test1
 									</a>
 								</li>
-								<li>수정</li>
+								
 							</ul>
 						</div>
 					</li>
@@ -42,7 +42,11 @@
 						</a>
 						<div>
 							<ul>
-								<li>등록</li>
+								<li>
+									<a href="<%=request.getContextPath() %>/admin_music_insert.do">
+										등록
+									</a>
+								</li>
 								<li>수정</li>
 								<li>리스트</li>
 							</ul>
