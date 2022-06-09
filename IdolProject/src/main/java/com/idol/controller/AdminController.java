@@ -135,10 +135,6 @@ public class AdminController {
 		String uploadFileName = iterator.next();
 		
         List<MultipartFile> fileList = mRequest.getFiles(uploadFileName);
-        
-        //String src = mRequest.getParameter("src");
-        
-        //System.out.println("src value : " + src);
 
         String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb\\";
 
@@ -212,23 +208,25 @@ public class AdminController {
 		
 		String str = dto.getCeleb_pimage();
 				
-		System.out.println("str : " + str);
+		System.out.println("-str : " + str);
 		
 		StringTokenizer tokened = new StringTokenizer(str, "|");
 		
 		String[] arrtokened = new String[tokened.countTokens()];
 		
 		for(int i = 0; i < arrtokened.length; i++) {
+			
 			arrtokened[i] = tokened.nextToken();
-			System.out.println("arrtokened.length : " + arrtokened.length);
-			System.out.println(arrtokened[i]);
+			
+			System.out.println("-arrtokened.length : " + arrtokened.length);
+			
+			System.out.println("-" + arrtokened[i]);
 
 		}
 	
 		model.addAttribute("arrtokened", arrtokened);
 		
 		
-		//System.out.println("그룹 이미지 등록시 가수 번호 : " + dto.getCeleb_no());
 		
 		return "admin/admin_celeb_insert";
 	}

@@ -100,7 +100,6 @@
 		}
 	</style>
 	
-	
 		
 	
 </head>
@@ -157,7 +156,7 @@
 				
 				<div class="celeb_btn">
 					<div>
-						<input type="submit" value="등록">
+						<input type="submit" value="등록" id="inset_btn">
 					</div>
 					<div>
 						<input type="reset" value="다시작성">
