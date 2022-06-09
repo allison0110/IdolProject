@@ -321,16 +321,98 @@ public class AdminController {
 		return "admin/admin_celeb_list";
 	}
 	
-	
+	// 가수 상세 정보 페이지 이동 from list
 	@RequestMapping("admin_celeb_content.do")
 	public String celebContent(@RequestParam("no") int no, Model model) {
 		
 		CelebDTO dto = this.dao.getCelebContByNo(no);
 		
+		String str = dto.getCeleb_pimage();
+		
+		System.out.println("str : " + str);
+		
+		StringTokenizer tokened = new StringTokenizer(str, "|");
+		
+		String[] arrtokened = new String[tokened.countTokens()];
+		
+		for(int i = 0; i < arrtokened.length; i++) {
+			
+			arrtokened[i] = tokened.nextToken();
+			
+			System.out.println("arrtokened.length : " + arrtokened.length);
+			
+			System.out.println(arrtokened[i]);
+
+		}
+		System.out.println("dtoPimages : " + dto.getCeleb_pimage());
+		model.addAttribute("arrtokened", arrtokened);
+		
 		model.addAttribute("celebContByNo", dto);
+		
 		
 		return "admin/admin_celeb_content";
 	}
+	
+	@RequestMapping("celeb_delete.do")
+	public void celebDelete(@RequestParam("no") int no, 
+			@RequestParam("img") String img, HttpServletResponse response) throws IOException {
+		
+		
+		int check = this.dao.deleteCeleb(no);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		if(check > 0) {
+
+			String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb\\";
+		
+			System.out.println("img : " + img);
+			
+			String[] splitList = img.split("|");
+					
+			for(int i = 0; i < splitList.length; i ++) {
+				
+				File file = new File(path + splitList[i]);
+				
+				file.delete();
+			}
+			
+			System.out.println("after splitList : " + splitList);
+			
+			
+			this.dao.updateSequen(no);
+			
+			out.println("<script>");
+			out.println("alert('삭제 성공 :)')");
+			out.println("location.href='admin_celeb_list.do'");
+			out.println("</script>");
+			
+		}else {
+			
+			out.println("<script>");
+			out.println("alert('삭제 실패 :(')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+		
+		
+	} // end of celebDelete()
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -502,6 +584,19 @@ public class AdminController {
 		
 		return "admin/admin_main";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

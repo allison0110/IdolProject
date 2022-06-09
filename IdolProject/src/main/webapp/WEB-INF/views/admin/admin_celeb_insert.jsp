@@ -100,19 +100,9 @@
 		}
 	</style>
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js" ></script>
-	
-	<script type="text/javascript">
-		
-		$(function(){
-			$('.switch').click(function(){
-				$('.selecting').show();
-			});
-		});
 	
 		
-		
-	</script>
+	
 </head>
 <body>
 	<!-- 가수 전체 리스트 -->
@@ -121,9 +111,9 @@
 	<c:set var="gList" value="${groupList }" />
 	<!-- 등록 후 가수 상세 내역 불러오기 -->
 	<c:set var="cCont" value="${contByname }" />
-	
+	<!--  
 	<c:set var="pImages" value="${arrtokened }" />
-	
+	-->
 	<div class="admin_celeb_insertForm_wrapper">
 	
 		<div class="admin_celeb_insertForm_div">
@@ -132,31 +122,7 @@
 				action="<%=request.getContextPath()%>/admin_celeb_insert_ok.do">
 				
 				<div class="admin_celeb_insertForm_container">
-					<div class="celeb_insertForm_left">그룹 이름</div>
 					
-				<!-- 	<select name="celeb_group" class="celeb_insertForm_right selecting">
-						<option value="" selected>
-							::: 선택 하셈 ::: 
-						</option>
-						<c:forEach items="${gList }" var="g">
-							<c:if test="${empty gList}">
-								<option>
-									:::등록된 그룹이 없습다:::
-								</option>
-							</c:if>
-							<c:if test="${!empty gList }">
-								
-								<option value="${g.celeb_group }">
-										${g.celeb_group }
-								</option>
-							</c:if>
-						</c:forEach>
-					</select>
-					 -->
-										
-					<div class="celeb_insertForm_right WrittingDown">
-						<input name="celeb_group">
-					</div>
 					
 					<div class="celeb_insertForm_left">활동 이름</div>
 					<div class="celeb_insertForm_right">
@@ -213,7 +179,7 @@
 					<div class="pImagesContainer">
 						<c:forEach var="pImages" items="${arrtokened}">
 							<div class="pimageBoxes">
-								<img alt="" src="<spring:url value='/resources/upload/celeb/${pImages}'/>">
+								<img alt="" src="./resources/upload/celeb/${pImages}">
 							</div>
 						</c:forEach>
 						
@@ -270,6 +236,34 @@
 					<input type="hidden" name="celeb_no" value="${cCont.celeb_no }">
 					<input type="hidden" name="celeb_name" value="${cCont.celeb_name }">
 					 
+					 
+					 <div class="celeb_insertForm_left">그룹 이름</div>
+					
+				<!-- 	<select name="celeb_group" class="celeb_insertForm_right selecting">
+						<option value="" selected>
+							::: 선택 하셈 ::: 
+						</option>
+						<c:forEach items="${gList }" var="g">
+							<c:if test="${empty gList}">
+								<option>
+									:::등록된 그룹이 없습다:::
+								</option>
+							</c:if>
+							<c:if test="${!empty gList }">
+								
+								<option value="${g.celeb_group }">
+										${g.celeb_group }
+								</option>
+							</c:if>
+						</c:forEach>
+					</select>
+					 -->
+										
+					<div class="celeb_insertForm_right WrittingDown">
+						<input name="celeb_group">
+					</div>
+					
+					
 					<div>
 						<input multiple="multiple" type="file" name="file"> 
 					</div>

@@ -18,7 +18,7 @@
     		</selectKey>
     		insert into celeb values(#{celeb_no} + 1, #{celeb_name}, #{celeb_realname}, 
     			#{celeb_agency}, #{celeb_dateofbirth}, #{celeb_debutdate}, 
-    				#{celeb_pimage}, #{celeb_group},'')
+    				#{celeb_pimage}, '','')
     	</insert>
     	
     	<!-- 가수 전체 리스트 불러오기 -->
@@ -38,7 +38,7 @@
     	
     	<!-- 가수 등록 후 그룹일 경우 그룹 이미지 넣기 -->
     	<update id="updateGimage" parameterType="cDTO">
-    		update celeb set celeb_gimage = #{celeb_gimage} where celeb_no = #{celeb_no}
+    		update celeb set celeb_group = #{celeb_group}, celeb_gimage = #{celeb_gimage} where celeb_no = #{celeb_no}
     	</update>
     	   	
     	
@@ -56,7 +56,16 @@
     		select * from celeb where celeb_no = #{no}
     	</select>
     	
+    	<delete id="deleteCeleb" parameterType="int">
+    		delete from celeb where celeb_no = #{no}
+    	</delete>
     	
+    	<update id="updateSequ" parameterType="int">
+    		<![CDATA[
+    			update celeb set celeb_no = celeb_no - 1 where celeb_no > #{no} 
+    		]]>
+    		
+    	</update>
     	
     	
     </mapper>

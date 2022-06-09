@@ -20,6 +20,11 @@ public interface AdminDAO {
 	public List<CelebDTO> celebList();
 	// 가수 상세 정보 by number
 	public CelebDTO getCelebContByNo(int no);
+	// 가수 삭제 하기 
+	public int deleteCeleb(int no);
+	// 가수 삭제시 셀럽 넘버 재정의
+	public void updateSequen(int no);
+	
 	
 	// 테스트
 	public void insertTest(TestDTO dto);

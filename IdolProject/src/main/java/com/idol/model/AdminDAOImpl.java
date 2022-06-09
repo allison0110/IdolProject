@@ -78,6 +78,23 @@ public class AdminDAOImpl implements AdminDAO{
 		return this.sqlSession.selectOne("contentByNO", no);
 		
 	}
+
+	@Override
+	public int deleteCeleb(int no) {
+		
+		return this.sqlSession.delete("deleteCeleb", no);
+		
+		
+	}
+
+	@Override
+	public void updateSequen(int no) {
+		
+		this.sqlSession.update("updateSequ", no);
+		
+	}
+
+	
 	
 	
 	

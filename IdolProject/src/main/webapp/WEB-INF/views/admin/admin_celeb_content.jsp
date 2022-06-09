@@ -44,7 +44,7 @@
 <body>
 
 	<c:set var="cont" value="${celebContByNo }" />
-	
+	<c:set var="imgs" value="${arrtokened }" />
 	<div class="admin_content_wrapper">
 		<div class="admin_content_container">
 		<!--  
@@ -52,14 +52,13 @@
 				<img src="<spring:url value='/resources/upload/celeb/1654665381521김채원3.jpg'/>">
 			</div>
 		-->
+		<c:forEach items="${arrtokened }" var="imgs">
+			<div class="testImage">
+				<img alt="" src="./resources/upload/celeb/${imgs }">
+			</div>
 		
-		<div class="testImage">
-			<img alt="" src="<spring:url value='/resources/upload/celeb/${cont.celeb_pimage }'/>">
-		</div>
-		<div class="testImage">
-			<img alt="" src="/resources/upload/celeb/${cont.celeb_pimage }">
-		</div>
-		${cont.celeb_pimage }
+		</c:forEach>
+		
 			<ul>
 				<li>
 					${cont.celeb_no }
@@ -87,7 +86,7 @@
 			<input type="button" value="수정"
 			onclick="location.href=''">
 			<input type="button" value="삭제"
-			onclick="location.href='<%=request.getContextPath()%>/celeb_delete.do?no=${cont.celeb_no }'">
+			onclick="location.href='<%=request.getContextPath()%>/celeb_delete.do?no=${cont.celeb_no }&img=${cont.celeb_pimage }'">
 			<input type="button" value="임시">
 		
 		</div> <!-- the end of admin_content_container -->

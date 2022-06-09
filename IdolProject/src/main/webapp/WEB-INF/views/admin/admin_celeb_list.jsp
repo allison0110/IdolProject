@@ -51,6 +51,7 @@
 			<c:if test="${!empty list }">
 				<c:forEach items="${list }" var="dto">
 					<a href="<%=request.getContextPath()%>/admin_celeb_content.do?no=${dto.celeb_no}">
+						
 						<div class="admin_celeb_content">
 							<ul>
 								<li>
