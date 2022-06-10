@@ -337,7 +337,7 @@ public class AdminCelebController {
 		
 		String str = dto.getCeleb_pimage();
 		
-		System.out.println("str : " + str);
+		System.out.println("dtogetImg(content) : " + str);
 		
 		StringTokenizer tokened = new StringTokenizer(str, "|");
 		
@@ -430,70 +430,46 @@ public class AdminCelebController {
 	
 	@RequestMapping("admin_celeb_modify_ok.do")
 	public void celebUpdateOk(MultipartHttpServletRequest mRequest, 
-			@RequestParam("originFiles") String originFiles, CelebDTO dto, HttpServletResponse response) throws IOException {
+			@RequestParam("originFiles") String paramFiles, CelebDTO dto, HttpServletResponse response) throws IOException {
+		System.out.println("paramFiles : " + paramFiles);
+		String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb\\";
+		
+    	// 신규 파일 업로드 
+        
+        System.out.println("===========================");
+
+		Iterator<String> iterator = mRequest.getFileNames();
+		
+		String uploadFileName = iterator.next();
 		
 		
-		if(dto.getCeleb_pimage() == null) { // 이미지 업로드 하지 않은 경우
-			
-			System.out.println("이미지 업로드 X : " + dto.getCeleb_pimage());
-			
-			dto.setCeleb_pimage(originFiles);
-			
-			int check = this.dao.updateCeleb(dto);
-			
-			response.setContentType("text/html; charset=UTF-8");
-			
-			PrintWriter out = response.getWriter();
-			
-			if(check > 0) {
-				
-				
-				out.println("<script>");
-				out.println("alert('수정 성공(이미지X) :)')");
-				out.println("location.href='admin_celeb_content.do?no="+dto.getCeleb_no()+"'");
-				out.println("</script>");
-				
-			}else {  
-				
-				out.println("<script>");
-				out.println("alert('수정 실패(이미지X) :(')");
-				out.println("history.back()");
-				out.println("</script>");
-			}
-			
-		}else {   // 이미지를 새로 수정한 경우
-			
-			// 기존 파일 삭제 
-	        String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\music\\";
+		System.out.println("iterator : " + iterator);
+		System.out.println("uploadFileName : " + uploadFileName);
+		System.out.println("uploadFileName.length : " + uploadFileName.length());
+		
+		System.out.println("이미지 dto 1 : " + dto.getCeleb_pimage());
+		
+		List<MultipartFile> fileList = mRequest.getFiles(uploadFileName);
 
-	        File dFile = new File(path + originFiles);
-	        dFile.delete();
-			
-			// 신규 파일 업로드 
-			Iterator<String> iterator = mRequest.getFileNames();
-			
-			String uploadFileName = iterator.next();
-			
-	        List<MultipartFile> fileList = mRequest.getFiles(uploadFileName);
+        String dbFilesName = "";
+        
+        
+        for (MultipartFile mFile : fileList) {
+        	
+            String originFileName = mFile.getOriginalFilename(); // 원본 파일 명
 
-	        String dbFilesName = "";
-	        
-	        System.out.println("===========================");
-	        
-	        for (MultipartFile mFile : fileList) {
-	        	
-	            String originFileName = mFile.getOriginalFilename(); // 원본 파일 명
-	                  
-	            long fileSize = mFile.getSize(); // 파일 사이즈
-	            
-	            System.out.println("originFileName : " + originFileName);
-	            
-	            System.out.println("fileSize : " + fileSize);
+            long fileSize = mFile.getSize(); // 파일 사이즈
+            
+            System.out.println("originFileName : " + originFileName);
+            
+            System.out.println("fileSize : " + fileSize);
 
-	            String saveFile = path + System.currentTimeMillis() + originFileName;
-	            
-	            dbFilesName += System.currentTimeMillis() + originFileName + "|";
-	            
+            String saveFile = path + System.currentTimeMillis() + originFileName;
+            System.out.println("saveFile : " + saveFile);
+
+            dbFilesName += System.currentTimeMillis() + originFileName + "|";
+            System.out.println("dbFilesName : " + dbFilesName);
+
 	            try {
 	            	
 	            	mFile.transferTo(new File(saveFile));
@@ -504,7 +480,7 @@ public class AdminCelebController {
 	        } // for() end
 			
 	        dto.setCeleb_pimage(dbFilesName);
-			
+			System.out.println("dtoNO : " + dto.getCeleb_no());
 			int check = this.dao.updateCeleb(dto);
 			
 			response.setContentType("text/html; charset=UTF-8");
@@ -524,6 +500,44 @@ public class AdminCelebController {
 				out.println("history.back()");
 				out.println("</script>");
 			}
+		
+		if(dto.getCeleb_pimage() == null) { // 이미지 업로드 하지 않은 경우
+			
+			System.out.println("이미지 업로드 X 2 : " + dto.getCeleb_pimage());
+			
+			dto.setCeleb_pimage(paramFiles);
+			
+			int check2 = this.dao.updateCeleb(dto);
+			
+			response.setContentType("text/html; charset=UTF-8");
+			
+			PrintWriter out2 = response.getWriter();
+			
+			if(check2 > 0) {
+				
+				out2.println("<script>");
+				out2.println("alert('수정 성공(이미지X) :)')");
+				out2.println("location.href='admin_celeb_content.do?no="+dto.getCeleb_no()+"'");
+				out2.println("</script>");
+				
+			}else {  
+				
+				out2.println("<script>");
+				out2.println("alert('수정 실패(이미지X) :(')");
+				out2.println("history.back()");
+				out2.println("</script>");
+			}
+			
+		}else {   // 이미지를 새로 수정한 경우
+			
+			
+	        
+
+			
+		
+			
+			
+	        
 		}
 		
 		

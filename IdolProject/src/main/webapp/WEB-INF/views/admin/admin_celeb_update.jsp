@@ -83,9 +83,9 @@
 				</div>
 				<div class="admin_celeb_update-btn">
 				
-					<input type="hidden" value="${celeb_pimage }" name="originFiles">
+					<input type="hidden" value="${cont.celeb_pimage }" name="originFiles">
 					
-					<input type="file" multiple="multiple" name="file">
+					<input type="file" multiple="multiple" name="file1">
 					<input type="submit" value="수정">
 					<input type="reset" value="다시작성">
 					

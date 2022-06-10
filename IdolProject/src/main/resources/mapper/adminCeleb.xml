@@ -69,7 +69,7 @@
 
 		<update id="celebUpdate" parameterType="celebDTO">
 			update celeb set celeb_name = #{celeb_name}, celeb_agency = #{celeb_agency}, celeb_group = #{celeb_group},
-				celeb_dateofbirth = #{celeb_dateofbirth}, celeb_debutdate = #{celeb_debutdate} where celeb_no = #{celeb_no}
+				celeb_dateofbirth = #{celeb_dateofbirth}, celeb_debutdate = #{celeb_debutdate}, celeb_pimage = #{celeb_pimage} where celeb_no = #{celeb_no}
 		</update>
 		
 
