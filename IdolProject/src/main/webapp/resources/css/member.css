@@ -1,0 +1,128 @@
+@charset "UTF-8";
+
+/* **************join.jsp**************** */
+	/* 가수선택하기 - join.jsp & mypage_settings.jsp */
+	.celeb_container{
+		display:flex;
+	}
+	.celeb_container .celeb_item input{
+		  display:none; 
+	}
+	
+	.celeb_container input:checked ~ label {
+		background-color:pink;
+		color:white;
+	}
+	
+	.celeb_container label{
+		display: block;
+	    padding: 10px;
+	   
+	    position: absolute;
+	    text-align: center;
+	    top: -0.5px;
+	    left: -0.3px;
+	    text-align: center;
+	    width: 81px;
+	    height: 81px;
+	    border-radius: 50%;
+	
+	}
+	
+	.celeb_container .celeb_item{/* 가수선택 원형 박스 */
+		border : 1px solid gray;
+		border-radius: 50%;
+		width:100px;
+		height:100px;
+		position:relative;
+	}
+	
+	.celeb_container .celeb_item span{
+		display: inline-block;
+    	margin-top: 1.6em;
+    
+    }
+    
+    
+    
+    
+    /* ********** mypage 마이페이지 공통************ */
+
+	.mypage_container{
+		display:flex;	
+		width:80%;
+		
+		border:1px solid lightgray;
+		
+	}
+	
+	.mypage_aside{
+		width:18%;
+		border: 1px solid lightgray;
+	}
+	
+	.profile_box{
+		
+		padding:20px;
+		background-color:#dadbdb;
+		
+	}
+	
+	.profile_image{
+		display:block;
+		overflow:hidden;
+		border-radius: 50%;
+		width:175px;
+		height:175px;
+		margin-top:7%;
+		margin-left: 15%;
+	}
+
+	.profile_image >img{
+		display:block;
+		width:auto;
+		height:100%
+	}
+	
+	.info{
+		margin-top:5%;
+		margin-bottom:30px;
+		text-align: center;
+	}
+	
+	.info_cont{
+		padding:10px;
+		font-weight: bold;
+		color:white;
+		
+		
+	}
+	
+	.info_cont .nickname{
+		display:inline-block;
+		font-size:1.2em;
+		margin-bottom:5px;
+	}
+	
+	.mypage_menu ul{
+		list-style: none;
+		line-height: 3;
+		font-size: 1.2em;
+	}
+	
+	.mypage_menu ul a{
+		text-decoration: none;
+		color:black;
+	}
+	
+	.mypage_menu ul a:hover {
+	
+		color:green;
+	}
+	
+	
+	
+	.mypage_main{
+		width:90%;
+	}
+	
