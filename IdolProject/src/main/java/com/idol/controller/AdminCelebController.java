@@ -464,82 +464,71 @@ public class AdminCelebController {
             
             System.out.println("fileSize : " + fileSize);
 
-            String saveFile = path + System.currentTimeMillis() + originFileName;
-            System.out.println("saveFile : " + saveFile);
+            if(fileSize == 0) {
+            	
+            	dto.setCeleb_pimage(paramFiles);
+    			System.out.println("이미지 업로드 X 2 : " + dto.getCeleb_pimage());
+    			int check2 = this.dao.updateCeleb(dto);
+    			
+    			response.setContentType("text/html; charset=UTF-8");
+    			
+    			PrintWriter out2 = response.getWriter();
+    			
+    			if(check2 > 0) {
+    				
+    				out2.println("<script>");
+    				out2.println("alert('수정 성공(이미지X) :)')");
+    				out2.println("location.href='admin_celeb_content.do?no="+dto.getCeleb_no()+"'");
+    				out2.println("</script>");
+    				
+    			}else {  
+    				
+    				out2.println("<script>");
+    				out2.println("alert('수정 실패(이미지X) :(')");
+    				out2.println("history.back()");
+    				out2.println("</script>");
+    			}
+    			
+            }else {
+            	
+            	String saveFile = path + System.currentTimeMillis() + originFileName;
+                System.out.println("saveFile : " + saveFile);
 
-            dbFilesName += System.currentTimeMillis() + originFileName + "|";
-            System.out.println("dbFilesName : " + dbFilesName);
+                dbFilesName += System.currentTimeMillis() + originFileName + "|";
+                
+                System.out.println("dbFilesName : " + dbFilesName);
 
-	            try {
-	            	
-	            	mFile.transferTo(new File(saveFile));
-	       	
-	            } catch (Exception e) {
-	               
-	            } 
-	        } // for() end
-			
-	        dto.setCeleb_pimage(dbFilesName);
-			System.out.println("dtoNO : " + dto.getCeleb_no());
-			int check = this.dao.updateCeleb(dto);
-			
-			response.setContentType("text/html; charset=UTF-8");
-			
-			PrintWriter out = response.getWriter();
-			
-			if(check > 0) {
-				
-				
-				out.println("<script>");
-				out.println("alert('수정 성공(이미지 포함) :)')");
-				out.println("location.href='admin_celeb_content.do?no="+dto.getCeleb_no()+"'");
-				out.println("</script>");
-			}else {
-				out.println("<script>");
-				out.println("alert('수정 실패(이미지 포함) :(')");
-				out.println("history.back()");
-				out.println("</script>");
-			}
-		
-		if(dto.getCeleb_pimage() == null) { // 이미지 업로드 하지 않은 경우
-			
-			System.out.println("이미지 업로드 X 2 : " + dto.getCeleb_pimage());
-			
-			dto.setCeleb_pimage(paramFiles);
-			
-			int check2 = this.dao.updateCeleb(dto);
-			
-			response.setContentType("text/html; charset=UTF-8");
-			
-			PrintWriter out2 = response.getWriter();
-			
-			if(check2 > 0) {
-				
-				out2.println("<script>");
-				out2.println("alert('수정 성공(이미지X) :)')");
-				out2.println("location.href='admin_celeb_content.do?no="+dto.getCeleb_no()+"'");
-				out2.println("</script>");
-				
-			}else {  
-				
-				out2.println("<script>");
-				out2.println("alert('수정 실패(이미지X) :(')");
-				out2.println("history.back()");
-				out2.println("</script>");
-			}
-			
-		}else {   // 이미지를 새로 수정한 경우
-			
-			
-	        
-
-			
-		
-			
-			
-	        
-		}
-		
+    	            try {
+    	            	
+    	            	mFile.transferTo(new File(saveFile));
+    	       	
+    	            } catch (Exception e) {
+    	               
+    	            } 
+    	        } // for() end
+    			
+    	        dto.setCeleb_pimage(dbFilesName);
+    			System.out.println("dtoNO : " + dto.getCeleb_no());
+    			int check = this.dao.updateCeleb(dto);
+    			
+    			response.setContentType("text/html; charset=UTF-8");
+    			
+    			PrintWriter out = response.getWriter();
+    			
+    			if(check > 0) {
+    				
+    				
+    				out.println("<script>");
+    				out.println("alert('수정 성공(이미지 포함) :)')");
+    				out.println("location.href='admin_celeb_content.do?no="+dto.getCeleb_no()+"'");
+    				out.println("</script>");
+    			}else {
+    				out.println("<script>");
+    				out.println("alert('수정 실패(이미지 포함) :(')");
+    				out.println("history.back()");
+    				out.println("</script>");
+    			}
+            }
 		
 
 		
