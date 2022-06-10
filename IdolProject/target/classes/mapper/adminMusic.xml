@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    
+    <mapper namespace="musicDAO">
+    
+    	<insert id="musicInsert" parameterType="musicDTO">
+    		insert into music values(#{music_aname}, #{music_name}, #{music_lyrics}, 
+    			#{music_composer}, #{music_lyricst}, #{music_coverimage}, 
+    				#{music_movie_link}, #{music_release_date} ) 
+    	</insert>
+    
+    	<select id="musicList" resultType="musicDTO">
+    		select * from music order by music_aname
+    	</select>
+    
+ 	   	<select id="musicCont" parameterType="String" resultType="musicDTO">
+    		select * from music where music_name = #{name}
+    	</select>
+    
+    
+    </mapper>

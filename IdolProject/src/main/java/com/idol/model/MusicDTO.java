@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class MusicDTO {
 	
-	private String music_anmae;
+	private String music_aname;
 	private String music_name;
 	private String music_lyrics;
 	private String music_composer;

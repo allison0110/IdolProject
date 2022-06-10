@@ -37,7 +37,7 @@
 						</div>
 					</li>
 					<li>
-						<a href="<%=request.getContextPath() %>/admin_celeb_list.do">
+						<a href="<%=request.getContextPath() %>/admin_music_list.do">
 							음원
 						</a>
 						<div>
