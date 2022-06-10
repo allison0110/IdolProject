@@ -92,6 +92,20 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 		
 	}
 
+	@Override
+	public int updateCeleb(CelebDTO dto) {
+		
+		return this.sqlSession.update("celebUpdate", dto);
+		
+	}
+
+	@Override
+	public AdminDTO selecttest() {
+		
+		return this.sqlSession.selectOne("test3");
+		
+	}
+
 	
 	
 	

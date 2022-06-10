@@ -10,7 +10,11 @@
     	<select id="admin_check" parameterType="String" resultType="adminDTO">
     		select * from admin where admin_id = #{id}
     	</select>
- 
+    	
+ 		<select id="test3" resultType="adminDTO">
+ 			select * from admin 
+ 		</select>
+ 		
     	<!-- 가수 등록 -->
     	<insert id="celeb" parameterType="celebDTO">
     		<selectKey resultType="int" keyProperty="celeb_no" order="BEFORE"> 
@@ -63,6 +67,10 @@
     		]]>
     	</update>
 
+		<update id="celebUpdate" parameterType="celebDTO">
+			update celeb set celeb_name = #{celeb_name}, celeb_agency = #{celeb_agency}, celeb_group = #{celeb_group},
+				celeb_dateofbirth = #{celeb_dateofbirth}, celeb_debutdate = #{celeb_debutdate} where celeb_no = #{celeb_no}
+		</update>
 		
 
 		

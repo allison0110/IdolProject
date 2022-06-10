@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -119,10 +120,33 @@ public class AdminMusicController {
 		
 		MusicDTO dto = this.dao.getMusicCont(name);
 		
+		String str = dto.getMusic_coverimage();
+		
+		System.out.println("str : " + str);
+		
+		StringTokenizer tokened = new StringTokenizer(str, "|");
+		
+		String[] arrtokened = new String[tokened.countTokens()];
+		
+		for(int i = 0; i < arrtokened.length; i++) {
+			
+			arrtokened[i] = tokened.nextToken();
+			
+			System.err.println("arrtokened.length : " + arrtokened.length);
+			
+			System.out.println(arrtokened[i]);
+		}
+		
+		System.out.println("dtocoverimage : " + dto.getMusic_coverimage());
+		
+		model.addAttribute("arrtokened", arrtokened);
+		
 		model.addAttribute("musicCont", dto);
 		
 		return "admin/admin_music_cont";
 	}
+	
+	
 	
 	
 	

@@ -28,6 +28,9 @@
 				<a href="<%=request.getContextPath() %>/admin_login.do">
 					<h3>IDOL ADMIN PAGE</h3>
 				</a>
+				<a href="<%=request.getContextPath() %>/admin_login2.do">
+					<h3>IDOL ADMIN PAGE2</h3>
+				</a>
 				
 			</div>
 	</div>

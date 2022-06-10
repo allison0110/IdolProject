@@ -26,10 +26,10 @@ public interface AdminCelebDAO {
 	public int deleteCeleb(int no);
 	// 가수 삭제시 셀럽 넘버 재정의
 	public void updateSequen(int no);
-	
-	
-	//음원 등록 
-	
+	// 가수 정보 수정 
+	public int updateCeleb(CelebDTO dto);
+
+	public AdminDTO selecttest();
 	
 	
 

@@ -42,8 +42,21 @@ public class AdminCelebController {
 	// 관리자 로그인 페이지 접속
 	@RequestMapping("admin_login.do")
 	public String adminLogin() {
+		
 		return "admin/admin_login";
 	}
+	
+	@RequestMapping("admin_login2.do")
+	public String adminLogin2(Model model) {
+		
+		AdminDTO dto = this.dao.selecttest();
+		
+		model.addAttribute("test", dto);
+		
+		return "admin/admin_login2";
+	}
+	
+	
 	
 	// 관리자 메인 페이지 접속
 	@RequestMapping("admin_main.do")
@@ -57,6 +70,7 @@ public class AdminCelebController {
 	public void adminLoginOk(@RequestParam("admin_id") String id, 
 			@RequestParam("admin_pwd") String pwd, HttpServletResponse response, 
 				HttpServletRequest request) throws IOException {
+		
 		
 		
 		AdminDTO dto = this.dao.getAdminCont(id);
@@ -97,7 +111,10 @@ public class AdminCelebController {
 			out.println("alert('아이디가 존재하지 않거나 일치 하지 않습니다 :(')");
 			out.println("history.back()");
 			out.println("</script>");
+			
 		}
+		
+		
 		
 	} //adminLoginOk() end 
 	
@@ -335,7 +352,9 @@ public class AdminCelebController {
 			System.out.println(arrtokened[i]);
 
 		}
+		
 		System.out.println("dtoPimages : " + dto.getCeleb_pimage());
+		
 		model.addAttribute("arrtokened", arrtokened);
 		
 		model.addAttribute("celebContByNo", dto);
@@ -398,8 +417,128 @@ public class AdminCelebController {
 	} // end of celebDelete()
 	
 	
+	@RequestMapping("admin_celeb_modify.do")
+	public String modifyCeleb(@RequestParam("no") int no, Model model) {
+		
+		CelebDTO dto = this.dao.getCelebContByNo(no);
+		
+		model.addAttribute("celebCont", dto);
+		
+		return "admin/admin_celeb_update";
+		
+	}
+	
+	@RequestMapping("admin_celeb_modify_ok.do")
+	public void celebUpdateOk(MultipartHttpServletRequest mRequest, 
+			@RequestParam("originFiles") String originFiles, CelebDTO dto, HttpServletResponse response) throws IOException {
+		
+		
+		if(dto.getCeleb_pimage() == null) { // 이미지 업로드 하지 않은 경우
+			
+			System.out.println("이미지 업로드 X : " + dto.getCeleb_pimage());
+			
+			dto.setCeleb_pimage(originFiles);
+			
+			int check = this.dao.updateCeleb(dto);
+			
+			response.setContentType("text/html; charset=UTF-8");
+			
+			PrintWriter out = response.getWriter();
+			
+			if(check > 0) {
+				
+				
+				out.println("<script>");
+				out.println("alert('수정 성공(이미지X) :)')");
+				out.println("location.href='admin_celeb_content.do?no="+dto.getCeleb_no()+"'");
+				out.println("</script>");
+				
+			}else {  
+				
+				out.println("<script>");
+				out.println("alert('수정 실패(이미지X) :(')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+			
+		}else {   // 이미지를 새로 수정한 경우
+			
+			// 기존 파일 삭제 
+	        String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\music\\";
+
+	        File dFile = new File(path + originFiles);
+	        dFile.delete();
+			
+			// 신규 파일 업로드 
+			Iterator<String> iterator = mRequest.getFileNames();
+			
+			String uploadFileName = iterator.next();
+			
+	        List<MultipartFile> fileList = mRequest.getFiles(uploadFileName);
+
+	        String dbFilesName = "";
+	        
+	        System.out.println("===========================");
+	        
+	        for (MultipartFile mFile : fileList) {
+	        	
+	            String originFileName = mFile.getOriginalFilename(); // 원본 파일 명
+	                  
+	            long fileSize = mFile.getSize(); // 파일 사이즈
+	            
+	            System.out.println("originFileName : " + originFileName);
+	            
+	            System.out.println("fileSize : " + fileSize);
+
+	            String saveFile = path + System.currentTimeMillis() + originFileName;
+	            
+	            dbFilesName += System.currentTimeMillis() + originFileName + "|";
+	            
+	            try {
+	            	
+	            	mFile.transferTo(new File(saveFile));
+	       	
+	            } catch (Exception e) {
+	               
+	            } 
+	        } // for() end
+			
+	        dto.setCeleb_pimage(dbFilesName);
+			
+			int check = this.dao.updateCeleb(dto);
+			
+			response.setContentType("text/html; charset=UTF-8");
+			
+			PrintWriter out = response.getWriter();
+			
+			if(check > 0) {
+				
+				
+				out.println("<script>");
+				out.println("alert('수정 성공(이미지 포함) :)')");
+				out.println("location.href='admin_celeb_content.do?no="+dto.getCeleb_no()+"'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('수정 실패(이미지 포함) :(')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+		}
+		
+		
+
+		
+		
+	}
 	
 	
+	
+	
+	
+	
+	
+	//test
 	@RequestMapping("ajaxTest.do")
 	public String testAjax(Model model, @RequestParam("no") int no) {
 		
@@ -414,6 +553,7 @@ public class AdminCelebController {
 		return "admin/testAjax";
 	}
 	
+	 
 
 	
 	

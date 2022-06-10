@@ -25,13 +25,45 @@
 		}
 		
 	</style>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
+	<script type="text/javascript">
+		
+		$(function(){
+			let inputId = $('#id').val();
+			let inputPwd = $('#pwd').val();
+			
 	
+			$('#go').click(function(){
+				alert('${t.admin_id}')
+				if(${t.admin_id == inputId }){
+					if(${t.admin_pwd == inputPwd}){
+						$(function(){
+							location.href='admin_main.do';
+						}eles{
+							alert('비번 틀림');
+						}
+					}else {
+						if(value == null || value.length === 0){
+							return "";
+						}else {
+							return value;
+						}
+						
+					}
+				}
+			})
+		}
+		
+		
+		
+		
+	</script>
 </head>
 <body>
 	
 	<div class="admin_main_wrapper">
-
-		<form method="post" action="<%=request.getContextPath() %>/admin_login_ok.do">
+	${t.admin_id }
+	${t.admin_pwd }
 			<div class="admin_login_form">
 			
 				<div>
@@ -46,10 +78,10 @@
 			</div>
 			<div>
 				
-				<input type="submit" value="로그인">
+				<button id="go">로그인</button> 
 				<input type="reset" value="다시 작성">
 			</div>
-		 </form>  
+		
 	</div>
 	
 

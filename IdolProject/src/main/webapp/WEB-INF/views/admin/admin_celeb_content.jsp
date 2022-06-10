@@ -74,7 +74,7 @@
 			<div class="admin_cont_imageBox">
 				<c:forEach items="${arrtokened }" var="imgs">
 					<div class="testImage">
-						<img alt="" src="./resources/upload/celeb/${imgs }">
+						<img alt="" src="./celeb/${imgs }">
 					</div>
 				
 				</c:forEach>
@@ -100,12 +100,17 @@
 						${cont.celeb_debutdate.substring(0, 10) }
 					</li>
 					<li>
-						${cont.celeb_group }
+						<c:if test="${!empty cont.celeb_group}">
+							${cont.celeb_group }
+						</c:if>
+						<c:if test="${empty cont.celeb_group}">
+						
+						</c:if>
 					</li>
 				</ul>
 				
 				<input type="button" value="수정"
-				onclick="location.href=''">
+				onclick="location.href='admin_celeb_modify.do?no=${cont.celeb_no}'">
 				<input type="button" value="삭제"
 				onclick="if(confirm('삭제 하시겠습니까 ?? :(')){
 					location.href='<%=request.getContextPath()%>/celeb_delete.do?no=${cont.celeb_no }&img=${cont.celeb_pimage }'
