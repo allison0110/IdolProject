@@ -8,11 +8,11 @@
  <configuration>
  
  	<typeAliases>
- 		<typeAlias type="com.idol.model.AdminDAO" alias="aDAO"/>
- 		<typeAlias type="com.idol.model.AdminDTO" alias="aDTO"/>
- 		<typeAlias type="com.idol.model.EventDTO" alias="eDTO"/>
- 		<typeAlias type="com.idol.model.PopupDTO" alias="pDTO"/>
- 		<typeAlias type="com.idol.model.CelebDTO" alias="cDTO"/>
+ 		<typeAlias type="com.idol.model.AdminCelebDAO" alias="celebDAO"/>
+ 		<typeAlias type="com.idol.model.AdminDTO" alias="adminDTO"/>
+ 		<typeAlias type="com.idol.model.EventDTO" alias="eventDTO"/>
+ 		<typeAlias type="com.idol.model.PopupDTO" alias="popupDTO"/>
+ 		<typeAlias type="com.idol.model.CelebDTO" alias="celebDTO"/>
  	</typeAliases>
  
  </configuration>

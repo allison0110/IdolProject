@@ -28,7 +28,7 @@
 									</a>
 								</li>
 								<li>
-									<a href="<%=request.getContextPath() %>/test.do">
+									<a href="<%=request.getContextPath() %>/ajaxTest.do?no=3">
 										test1
 									</a>
 								</li>
