@@ -99,6 +99,14 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 		return this.sqlSession.update("celebUpdate", dto);
 		
 	}
+	
+
+	// 그룹 가수 멤버 가져오기 
+	@Override
+	public List<CelebDTO> getGroupMemberList(String gName) {
+		
+		return this.sqlSession.selectList("gmList", gName);
+	}
 
 	
 	

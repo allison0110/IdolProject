@@ -20,6 +20,13 @@
 		height: 100vh;
 	
 	}
+	
+	.admin_group_whollContainer {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+	}
+	
 	li {
 		list-style-type: none;
 		
@@ -30,56 +37,112 @@
 	    flex-direction: row;
 	    flex-wrap: wrap;
 	    gap: 10px;
+	    flex: 50%;
 	}
 	
-	.admin_group_content{
-		border: 1px solid pink;
-		width: 200px;
-		height: 200px;
+	.admin_solo_container {
+		display: flex;
+	    flex-direction: row;
+	    flex-wrap: wrap;
+	    gap: 10px;
+	    flex: 50%;
 	}
 	
 	a {
 		text-decoration: none;
 	}
+	
+	.null {
+		display: none;
+	}
+	
+	.admin_group_boxes {
+		border: 2px solid red;
+		width: 200px;
+		height: 200px;
+	}
+	
+	.admin_solo_boxes {
+		border: 2px solid blue;
+		width: 200px;
+		height: 200px;
+	}
 </style>
 </head>
 <body>
-	<c:set var="list" value="${groupList }" />
-	
+	<c:set var="glist" value="${groupList }" />
+	<c:set var="clist" value="${celebList }" />
 	<div class="admin_group_wrapper">
-		<div class="admin_group_container">
-			<c:if test="${!empty list }">
-				<c:forEach items="${list }" var="dto">
-					<a href="<%=request.getContextPath()%>/admin_group_content.do?no=${dto.celeb_no}">
-						
-						<div class="admin_group_content">
-							<ul>
-								
-								<li>
-									${dto.celeb_name }
-								</li>
-								<li>
-									${dto.celeb_realname }
-								</li>
-								<li>
-									${dto.celeb_agency }
-								</li>
-								<li>
-									${dto.celeb_dateofbirth.substring(0, 10) }
-								</li>
-								<li>
-									${dto.celeb_debutdate.substring(0, 10) }
-								</li>
-								<li>
-									${dto.celeb_group }
-								</li>
-							</ul>
-						</div>
-					</a>
-				</c:forEach>
-			</c:if>	
-		</div>
-	</div>
+	
+		<div class="admin_group_whollContainer">
+			
+			<!-- 그룹 파트 -->
+			<div class="admin_group_container">
+				<c:if test="${!empty glist }">
+					<c:forEach items="${glist }" var="dto">
+						<a href="<%=request.getContextPath()%>/admin_groupMember_list.do?gName=${dto.celeb_group}">
+							<c:if test="${!empty dto.celeb_group }">
+								<div class="admin_group_boxes">
+									<ul>
+										<li>
+											<label>그룹 이름 : </label>${dto.celeb_group }
+										</li>
+										
+										<li>
+											<label>소속사 : </label>${dto.celeb_agency }
+										</li>
+										
+										<li>
+											<label>데뷔 : </label>${dto.celeb_debutdate.substring(0, 10) }
+										</li>
+										
+									</ul>
+								</div>
+							</c:if>
+							<c:if test="${empty dto.celeb_group }">
+								<div class="null"></div>
+							</c:if>
+						</a>
+					</c:forEach>
+				</c:if>	
+			</div> <!-- admin_group_container end -->
+			
+			<!-- 솔로 가수 파트 -->
+			<div class="admin_solo_container">
+				<c:if test="${!empty clist }">
+					<c:forEach items="${clist }" var="cdto">
+						<a href="<%=request.getContextPath()%>/admin_celeb_content.do?no=${cdto.celeb_no}">
+							<c:if test="${cdto.celeb_group == null }">
+								<div class="admin_solo_boxes">
+									<ul>
+										<li>
+											<label>가수 이름 : </label>${cdto.celeb_name }
+										</li>
+										
+										<li>
+											<label>소속사 : </label>${cdto.celeb_agency }
+										</li>
+										
+										<li>
+											<label>데뷔 : </label>${cdto.celeb_debutdate.substring(0, 10) }
+										</li>
+										
+									</ul>
+								</div>
+							</c:if>
+							<c:if test="${cdto.celeb_group != null}">
+								<div class="null"></div>
+							</c:if>
+						</a>
+					</c:forEach>
+				</c:if>	
+			</div> <!-- admin_solo_container end -->
+		</div> <!-- admin_group_whollContainer end -->
+		
+		
+		
+		
+	</div> <!-- admin_group_wrapper end  -->
 	
 	
 	

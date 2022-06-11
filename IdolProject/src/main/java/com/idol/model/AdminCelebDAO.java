@@ -10,9 +10,9 @@ public interface AdminCelebDAO {
 	
 	// 가수 등록 
 	public int insertCeleb(CelebDTO dto);
-	// 가수 전체 리스트
+	// 가수 전체 리스트 
 	public List<CelebDTO> selectCelebList();
-	// 그룹 이름 리스트
+	// 그룹 이름 리스트 (중복 없이/맴버중 넘버가 가장 낮은 맴버들을 대표로 리스트 뽑음/널값 포함)
 	public List<CelebDTO> selectGroupList();
 	// 가수 상세 정보 by name
 	public CelebDTO getCelebContByName(String celeb_name);
@@ -28,11 +28,9 @@ public interface AdminCelebDAO {
 	public void updateSequen(int no);
 	// 가수 정보 수정 
 	public int updateCeleb(CelebDTO dto);
-	// 그룹 전체 리스트 (중복 없이)
-	public List<CelebDTO> getGroupList();
+	// 그룸에 속한 맴버 리스트 가져오기 by gname
+	public List<CelebDTO> getGroupMemberList(String gName);
 	
-	
-
 	
 }
 
