@@ -28,8 +28,8 @@ public interface AdminCelebDAO {
 	public void updateSequen(int no);
 	// 가수 정보 수정 
 	public int updateCeleb(CelebDTO dto);
-
-	public AdminDTO selecttest();
+	// 그룹 전체 리스트 (중복 없이)
+	public List<CelebDTO> getGroupList();
 	
 	
 

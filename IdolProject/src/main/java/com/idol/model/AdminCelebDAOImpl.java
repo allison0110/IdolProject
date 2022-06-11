@@ -91,7 +91,8 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 		this.sqlSession.update("updateSequ", no);
 		
 	}
-
+	
+	// 가수 정보 수정 
 	@Override
 	public int updateCeleb(CelebDTO dto) {
 		
@@ -99,13 +100,9 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 		
 	}
 
-	@Override
-	public AdminDTO selecttest() {
-		
-		return this.sqlSession.selectOne("test3");
-		
-	}
-
+	
+	
+	
 	
 	
 	

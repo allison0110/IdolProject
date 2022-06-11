@@ -32,7 +32,7 @@
     	
     	<!-- 그룹 이름 리스트 불러오기 -->
     	<select id="groupList" resultType="celebDTO">
-    		select distinct(celeb_group) from celeb order by celeb_group
+    		select * from celeb where celeb_no in (select min(celeb_no) from celeb group by celeb_group)
     	</select>
     	
     	<!-- 가수 상세정보 가져오기 by name-->
@@ -72,7 +72,6 @@
 				celeb_dateofbirth = #{celeb_dateofbirth}, celeb_debutdate = #{celeb_debutdate}, celeb_pimage = #{celeb_pimage} where celeb_no = #{celeb_no}
 		</update>
 		
-
 		
     	
     </mapper>

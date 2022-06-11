@@ -28,8 +28,8 @@
 									</a>
 								</li>
 								<li>
-									<a href="<%=request.getContextPath() %>/ajaxTest.do?no=3">
-										test1
+									<a href="<%=request.getContextPath() %>/admin_group_list.do">
+										그룹
 									</a>
 								</li>
 								

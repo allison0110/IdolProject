@@ -568,28 +568,17 @@ public class AdminCelebController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//test
-	@RequestMapping("ajaxTest.do")
-	public String testAjax(Model model, @RequestParam("no") int no) {
+	// 그룹 리스트 (중복 없애서 그룹리스트 뽑기)
+	@RequestMapping("admin_group_list.do")
+	public String GroupList(Model model) {
 		
-		List<CelebDTO> list = this.dao.selectCelebList();
-		
-		CelebDTO dto = this.dao.getCelebContByNo(no);
-		
-		model.addAttribute("list", list);
-		model.addAttribute("cont", dto);
+		List<CelebDTO> list = this.dao.selectGroupList();
 		
 		
-		return "admin/testAjax";
+		
+		model.addAttribute("groupList", list);
+		
+		return "admin/admin_group_list";
 	}
 	
 	 
