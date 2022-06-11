@@ -88,7 +88,8 @@
 						${cont.music_name }
 					</li>
 					<li>
-						${cont.music_lyrics }
+					<textarea rows="13" cols="33" id="lyrics" name="music_lyrics" readonly>${cont.music_lyrics }</textarea>
+						
 					</li>
 					<li>
 						${cont.music_composer }
@@ -105,7 +106,7 @@
 				</ul>
 				
 				<input type="button" value="수정"
-				onclick="location.href=''">
+				onclick="location.href='<%=request.getContextPath()%>/music_content.do?name=${cont.music_name }&img=${cont.music_coverimage }'">
 				<input type="button" value="삭제"
 				onclick="if(confirm('삭제 하시겠습니까 ?? :(')){
 					location.href='<%=request.getContextPath()%>/music_delete.do?name=${cont.music_name }&img=${cont.music_coverimage }'

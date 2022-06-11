@@ -426,7 +426,7 @@ public class AdminCelebController {
 		
 	}
 	
-	// 가수 정보 수정 
+	// 가수 정보 수정 (파일 새로 업로드 시 이전 파일 삭제 후 저장) 
 	@RequestMapping("admin_celeb_modify_ok.do")
 	public void celebUpdateOk(MultipartHttpServletRequest mRequest, 
 			@RequestParam("originFiles") String paramFiles, CelebDTO dto, 

@@ -12,7 +12,8 @@ public interface AdminMusicDAO {
 	public MusicDTO getMusicCont(String name);
 	// 음원 삭제
 	public int deleteMusic(String name);
-	
+	// 음원 수정하기 
+	public int musicUpdate(MusicDTO dto);
 	
 	
 	
