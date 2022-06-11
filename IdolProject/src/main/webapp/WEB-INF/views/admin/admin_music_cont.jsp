@@ -19,7 +19,7 @@
 	
 	}
 	
-	.admin_content_wrapper {
+	.admin_music_wrapper {
 		display: flex;
 		flex-direction: column;
 		height: 100vh;
@@ -50,12 +50,12 @@
 		height: 100%;
 	}
 	
-	.admin_content_box {
+	.admin_music_box {
 	
 	
 	}
 	
-	.admin_content_container {
+	.admin_music_container {
 		display: flex;
    		flex-direction: column;
 		align-items: center;
@@ -68,8 +68,8 @@
 
 	<c:set var="cont" value="${musicCont }" />
 	<c:set var="imgs" value="${arrtokened }" />
-	<div class="admin_content_wrapper">
-		<div class="admin_content_container">
+	<div class="admin_music_wrapper">
+		<div class="admin_music_container">
 		
 			<div class="admin_cont_imageBox">
 				<c:forEach items="${arrtokened }" var="imgs">
@@ -79,7 +79,7 @@
 				
 				</c:forEach>
 			</div>
-			<div class="admin_content_box">
+			<div class="admin_music_box">
 				<ul>
 					<li>
 						${cont.music_aname }
@@ -108,11 +108,12 @@
 				onclick="location.href=''">
 				<input type="button" value="삭제"
 				onclick="if(confirm('삭제 하시겠습니까 ?? :(')){
-					location.href='<%=request.getContextPath()%>/celeb_delete.do?name=${music_name }&img=${music_coverimage }'
+					location.href='<%=request.getContextPath()%>/music_delete.do?name=${cont.music_name }&img=${cont.music_coverimage }'
 				}else {return}">
-				<input type="button" value="임시">
+				<input type="button" value="메인"
+				onclick="location.href='admin_main.do'">
 			</div>
-		</div> <!-- the end of admin_content_container -->
-	</div> <!-- the end of admin_content_wrapper -->
+		</div> <!-- the end of admin_music_container -->
+	</div> <!-- the end of admin_music_wrapper -->
 </body>
 </html>

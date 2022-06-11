@@ -21,5 +21,10 @@
     		select * from music where music_name = #{name}
     	</select>
     
-    
+    	<delete id="deleteMusic" parameterType="String">
+    		delete from music where music_name = #{music_name} 
+    	</delete>
+    	
+    	
+    	
     </mapper>

@@ -26,6 +26,12 @@ public class AdminMusicDAOImpl implements AdminMusicDAO{
 	public MusicDTO getMusicCont(String name) {
 		return this.sqlSession.selectOne("musicCont", name);
 	}
+
+	@Override
+	public int deleteMusic(String name) {
+
+		return this.sqlSession.delete("deleteMusic", name);
+	}
 	
 	
 

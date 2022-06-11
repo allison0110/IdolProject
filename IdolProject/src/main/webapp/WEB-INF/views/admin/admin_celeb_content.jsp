@@ -115,7 +115,8 @@
 				onclick="if(confirm('삭제 하시겠습니까 ?? :(')){
 					location.href='<%=request.getContextPath()%>/celeb_delete.do?no=${cont.celeb_no }&img=${cont.celeb_pimage }'
 				}else {return}">
-				<input type="button" value="임시">
+				<input type="button" value="리스트"
+				onclick = "location.href='admin_main.do'">
 			</div>
 		</div> <!-- the end of admin_content_container -->
 	</div> <!-- the end of admin_content_wrapper -->

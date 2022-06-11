@@ -146,7 +146,54 @@ public class AdminMusicController {
 		return "admin/admin_music_cont";
 	}
 	
-	
+	// 음원 삭제 !
+	@RequestMapping("music_delete.do")
+	public void musicDelete(@RequestParam("name") String name, @RequestParam("img") String imgs, 
+			HttpServletResponse response) throws IOException {
+		
+		int check = this.dao.deleteMusic(name);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		if(check > 0) {
+			
+			// 이미지도 함께 삭제 하자!
+			String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\music\\";
+			
+			System.out.println("imgs : " + imgs);
+			
+			StringTokenizer tokenizer = new StringTokenizer(imgs, "|");
+			
+			String[] tokenList = new String[tokenizer.countTokens()];
+			
+			for(int i = 0; i < tokenList.length; i++) {
+				
+				tokenList[i] = tokenizer.nextToken();
+				
+				System.out.println("tokenList : " + tokenList);
+				
+				File file = new File(path + tokenList[i]);
+				
+				file.delete();
+			}
+			
+			out.println("<script>");
+			out.println("alert('음원 삭제 성공 :)')");
+			out.println("location.href='admin_music_list.do'");
+			out.println("</script>");
+			
+		}else {
+			
+			out.println("<script>");
+			out.println("alert('음원 삭제 실패  :(')");
+			out.println("history.back()");
+			out.println("</script>");
+			
+		}
+		
+	}
 	
 	
 	

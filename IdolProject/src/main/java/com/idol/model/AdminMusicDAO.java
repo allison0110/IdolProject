@@ -10,6 +10,8 @@ public interface AdminMusicDAO {
 	public List<MusicDTO> getMusicList();
 	// 음원 상세 정보 가져오기 by music_name
 	public MusicDTO getMusicCont(String name);
+	// 음원 삭제
+	public int deleteMusic(String name);
 	
 	
 	

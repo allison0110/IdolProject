@@ -396,8 +396,6 @@ public class AdminCelebController {
 				file.delete();
 			}
 		
-			
-			
 			this.dao.updateSequen(no);
 			
 			out.println("<script>");
@@ -416,7 +414,7 @@ public class AdminCelebController {
 		
 	} // end of celebDelete()
 	
-	
+	// 가수 정보 수정 페이지로 가기
 	@RequestMapping("admin_celeb_modify.do")
 	public String modifyCeleb(@RequestParam("no") int no, Model model) {
 		
@@ -428,18 +426,16 @@ public class AdminCelebController {
 		
 	}
 	
+	// 가수 정보 수정 
 	@RequestMapping("admin_celeb_modify_ok.do")
 	public void celebUpdateOk(MultipartHttpServletRequest mRequest, 
-			@RequestParam("originFiles") String paramFiles, CelebDTO dto, HttpServletResponse response) throws IOException {
+			@RequestParam("originFiles") String paramFiles, CelebDTO dto, 
+			HttpServletResponse response) throws IOException {
 		
-		
-		
+	
 		String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb\\";
-		
-    	// 신규 파일 업로드 
-        
+		  
         System.out.println("===========================");
-
 		System.out.println("paramFiles 0 : " + paramFiles);
 		System.out.println("이미지 dto 0 : " + dto.getCeleb_pimage());
 
@@ -447,11 +443,9 @@ public class AdminCelebController {
 		
 		String uploadFileName = iterator.next();
 		
-		
 		System.out.println("iterator : " + iterator);
 		System.out.println("uploadFileName : " + uploadFileName);
 		System.out.println("uploadFileName.length : " + uploadFileName.length());
-		
 		
 		List<MultipartFile> fileList = mRequest.getFiles(uploadFileName);
 
@@ -490,7 +484,7 @@ public class AdminCelebController {
         System.out.println("paramFiles 0.1 : " + paramFiles);
 		System.out.println("이미지 dto 0.1 : " + dto.getCeleb_pimage());
         
-        // 이미지 업로드 하지 않음
+        // 이미지 업로드 하지 않음  [파일 사이즈가 0이면 수정할 파일들을 첨부 하지 않음]
 		if(fileSize == 0) {
     	
 	    	System.out.println("paramFiles imgX : " + paramFiles);
@@ -520,9 +514,10 @@ public class AdminCelebController {
 				out2.println("</script>");
 			}
 		
-		// 이미지도 함께 수정 
+		// 수정할 이미지들을 첨부하였음 
 		}else {
 			
+			// 기존 이미지 파일들을 삭제 시키자 !
 			StringTokenizer tokenizer = new StringTokenizer(paramFiles, "|");
 			
 			String[] tokenList = new  String[tokenizer.countTokens()];
@@ -540,7 +535,7 @@ public class AdminCelebController {
 			
 			System.out.println("paramFiles imgO : " + paramFiles);
 
-	        
+	        // 기존 이미지들 삭제 후 저장할 이미지들을 dto에 담기
 	        dto.setCeleb_pimage(dbFilesName);
 	        
 			System.out.println("dtoNO : " + dto.getCeleb_no());
@@ -553,12 +548,13 @@ public class AdminCelebController {
 			
 			if(check > 0) {
 				
-				
 				out.println("<script>");
 				out.println("alert('수정 성공(이미지 포함) :)')");
 				out.println("location.href='admin_celeb_content.do?no="+dto.getCeleb_no()+"'");
 				out.println("</script>");
+				
 			}else {
+				
 				out.println("<script>");
 				out.println("alert('수정 실패(이미지 포함) :(')");
 				out.println("history.back()");
@@ -570,6 +566,10 @@ public class AdminCelebController {
 		
 		
 	}
+	
+	
+	
+	
 	
 	
 	
