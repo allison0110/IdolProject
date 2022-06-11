@@ -431,12 +431,17 @@ public class AdminCelebController {
 	@RequestMapping("admin_celeb_modify_ok.do")
 	public void celebUpdateOk(MultipartHttpServletRequest mRequest, 
 			@RequestParam("originFiles") String paramFiles, CelebDTO dto, HttpServletResponse response) throws IOException {
-		System.out.println("paramFiles : " + paramFiles);
+		
+		
+		
 		String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb\\";
 		
     	// 신규 파일 업로드 
         
         System.out.println("===========================");
+
+		System.out.println("paramFiles 0 : " + paramFiles);
+		System.out.println("이미지 dto 0 : " + dto.getCeleb_pimage());
 
 		Iterator<String> iterator = mRequest.getFileNames();
 		
@@ -447,90 +452,121 @@ public class AdminCelebController {
 		System.out.println("uploadFileName : " + uploadFileName);
 		System.out.println("uploadFileName.length : " + uploadFileName.length());
 		
-		System.out.println("이미지 dto 1 : " + dto.getCeleb_pimage());
 		
 		List<MultipartFile> fileList = mRequest.getFiles(uploadFileName);
 
         String dbFilesName = "";
-        
+        long fileSize = 0;
         
         for (MultipartFile mFile : fileList) {
         	
             String originFileName = mFile.getOriginalFilename(); // 원본 파일 명
 
-            long fileSize = mFile.getSize(); // 파일 사이즈
+            fileSize = mFile.getSize(); // 파일 사이즈
             
             System.out.println("originFileName : " + originFileName);
             
             System.out.println("fileSize : " + fileSize);
 
-            if(fileSize == 0) {
-            	
-            	dto.setCeleb_pimage(paramFiles);
-    			System.out.println("이미지 업로드 X 2 : " + dto.getCeleb_pimage());
-    			int check2 = this.dao.updateCeleb(dto);
-    			
-    			response.setContentType("text/html; charset=UTF-8");
-    			
-    			PrintWriter out2 = response.getWriter();
-    			
-    			if(check2 > 0) {
-    				
-    				out2.println("<script>");
-    				out2.println("alert('수정 성공(이미지X) :)')");
-    				out2.println("location.href='admin_celeb_content.do?no="+dto.getCeleb_no()+"'");
-    				out2.println("</script>");
-    				
-    			}else {  
-    				
-    				out2.println("<script>");
-    				out2.println("alert('수정 실패(이미지X) :(')");
-    				out2.println("history.back()");
-    				out2.println("</script>");
-    			}
-    			
-            }else {
-            	
-            	String saveFile = path + System.currentTimeMillis() + originFileName;
-                System.out.println("saveFile : " + saveFile);
 
-                dbFilesName += System.currentTimeMillis() + originFileName + "|";
-                
-                System.out.println("dbFilesName : " + dbFilesName);
+        	String saveFile = path + System.currentTimeMillis() + originFileName;
+          
+        	System.out.println("saveFile : " + saveFile);
 
-    	            try {
-    	            	
-    	            	mFile.transferTo(new File(saveFile));
-    	       	
-    	            } catch (Exception e) {
-    	               
-    	            } 
-    	        } // for() end
-    			
-    	        dto.setCeleb_pimage(dbFilesName);
-    			System.out.println("dtoNO : " + dto.getCeleb_no());
-    			int check = this.dao.updateCeleb(dto);
-    			
-    			response.setContentType("text/html; charset=UTF-8");
-    			
-    			PrintWriter out = response.getWriter();
-    			
-    			if(check > 0) {
-    				
-    				
-    				out.println("<script>");
-    				out.println("alert('수정 성공(이미지 포함) :)')");
-    				out.println("location.href='admin_celeb_content.do?no="+dto.getCeleb_no()+"'");
-    				out.println("</script>");
-    			}else {
-    				out.println("<script>");
-    				out.println("alert('수정 실패(이미지 포함) :(')");
-    				out.println("history.back()");
-    				out.println("</script>");
-    			}
+            dbFilesName += System.currentTimeMillis() + originFileName + "|";
+            
+            System.out.println("dbFilesName : " + dbFilesName);
+
+            try {
+            	
+            	mFile.transferTo(new File(saveFile));
+       	
+            } catch (Exception e) {
+               
             }
+            
+        }// for end
+        
+        System.out.println("paramFiles 0.1 : " + paramFiles);
+		System.out.println("이미지 dto 0.1 : " + dto.getCeleb_pimage());
+        
+        // 이미지 업로드 하지 않음
+		if(fileSize == 0) {
+    	
+	    	System.out.println("paramFiles imgX : " + paramFiles);
+	    	
+	    	dto.setCeleb_pimage(paramFiles);
+	    	
+			System.out.println("이미지 dto (첨부 X) : " + dto.getCeleb_pimage());
+			
+			int check2 = this.dao.updateCeleb(dto);
+			
+			response.setContentType("text/html; charset=UTF-8");
+			
+			PrintWriter out2 = response.getWriter();
+			
+			if(check2 > 0) {
+				
+				out2.println("<script>");
+				out2.println("alert('수정 성공(이미지X) :)')");
+				out2.println("location.href='admin_celeb_content.do?no="+dto.getCeleb_no()+"'");
+				out2.println("</script>");
+				
+			}else {  
+				
+				out2.println("<script>");
+				out2.println("alert('수정 실패(이미지X) :(')");
+				out2.println("history.back()");
+				out2.println("</script>");
+			}
 		
+		// 이미지도 함께 수정 
+		}else {
+			
+			StringTokenizer tokenizer = new StringTokenizer(paramFiles, "|");
+			
+			String[] tokenList = new  String[tokenizer.countTokens()];
+			
+			for(int i = 0; i < tokenList.length; i ++) {
+				
+				tokenList[i] = tokenizer.nextToken();
+				
+				System.out.println("tokenList : " + tokenList);
+				
+				File file = new File(path + tokenList[i]);
+				
+				file.delete();
+			}
+			
+			System.out.println("paramFiles imgO : " + paramFiles);
 
+	        
+	        dto.setCeleb_pimage(dbFilesName);
+	        
+			System.out.println("dtoNO : " + dto.getCeleb_no());
+			
+			int check = this.dao.updateCeleb(dto);
+			
+			response.setContentType("text/html; charset=UTF-8");
+			
+			PrintWriter out = response.getWriter();
+			
+			if(check > 0) {
+				
+				
+				out.println("<script>");
+				out.println("alert('수정 성공(이미지 포함) :)')");
+				out.println("location.href='admin_celeb_content.do?no="+dto.getCeleb_no()+"'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('수정 실패(이미지 포함) :(')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+			
+	    } // else end
+        
 		
 		
 	}
