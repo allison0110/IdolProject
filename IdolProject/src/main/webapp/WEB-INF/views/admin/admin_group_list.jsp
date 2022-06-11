@@ -18,7 +18,7 @@
 		display: flex;
 		flex-direction: column;
 		height: 100vh;
-	
+		
 	}
 	
 	.admin_group_whollContainer {
@@ -67,12 +67,17 @@
 		width: 200px;
 		height: 200px;
 	}
+	
+	.tempBtn {
+		
+	}
 </style>
 </head>
 <body>
 	<c:set var="glist" value="${groupList }" />
 	<c:set var="clist" value="${celebList }" />
 	<div class="admin_group_wrapper">
+	
 	
 		<div class="admin_group_whollContainer">
 			
@@ -137,9 +142,13 @@
 					</c:forEach>
 				</c:if>	
 			</div> <!-- admin_solo_container end -->
+			
 		</div> <!-- admin_group_whollContainer end -->
 		
-		
+		<div class="tempBtn">
+			<input type="button" value="메인 메뉴"
+			onclick="location.href='admin_main.do'">
+		</div>
 		
 		
 	</div> <!-- admin_group_wrapper end  -->

@@ -9,12 +9,16 @@
  
  	<typeAliases>
  	 	<typeAlias type="com.idol.model.AdminDTO" alias="adminDTO"/>
+ 	 	
  		<typeAlias type="com.idol.model.AdminCelebDAO" alias="celebDAO"/>
+ 		<typeAlias type="com.idol.model.AdminMusicDAO" alias="musicDAO"/>
+ 		<typeAlias type="com.idol.model.AdminImagesDAO" alias="imagesDAO"/>
+ 		
  		<typeAlias type="com.idol.model.EventDTO" alias="eventDTO"/>
  		<typeAlias type="com.idol.model.PopupDTO" alias="popupDTO"/>
  		<typeAlias type="com.idol.model.CelebDTO" alias="celebDTO"/>
- 		<typeAlias type="com.idol.model.AdminMusicDAO" alias="musicDAO"/>
  		<typeAlias type="com.idol.model.MusicDTO" alias="musicDTO"/>
+ 		<typeAlias type="com.idol.model.ImagesDTO" alias="imagesDTO"/>
  		
  	</typeAliases>
  

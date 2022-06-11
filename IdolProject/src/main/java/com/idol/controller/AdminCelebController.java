@@ -46,18 +46,6 @@ public class AdminCelebController {
 		return "admin/admin_login";
 	}
 	
-	@RequestMapping("admin_login2.do")
-	public String adminLogin2(Model model) {
-		
-		AdminDTO dto = this.dao.selecttest();
-		
-		model.addAttribute("test", dto);
-		
-		return "admin/admin_login2";
-	}
-	
-	
-	
 	// 관리자 메인 페이지 접속
 	@RequestMapping("admin_main.do")
 	public String adminMain() {

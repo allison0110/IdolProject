@@ -51,7 +51,9 @@
 						</div>
 					</li>
 					<li>
-						팝업 관리
+						<a href="<%=request.getContextPath() %>/admin_main_image.do">
+							메인 페이지 이미지 관리
+						</a>
 					</li>
 					<li>
 						이벤트 관리

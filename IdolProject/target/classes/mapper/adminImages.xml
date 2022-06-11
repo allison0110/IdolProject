@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+	<mapper namespace="imagesDAO">
+	
+		<insert id="insertImage" parameterType="imagesDTO">
+			<selectKey resultType="int" keyProperty="image_no" order="BEFORE">
+				select max(image_no) from images
+			</selectKey>
+			insert into images values(#{image_no} + 1, #{image_path}, 
+				#{image_link}, #{image_priority}, #{image_visible})
+		</insert>
+	
+	
+	
+	</mapper>
+
