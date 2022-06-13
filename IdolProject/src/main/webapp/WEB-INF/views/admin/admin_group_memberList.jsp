@@ -41,12 +41,49 @@
 	a {
 		text-decoration: none;
 	}
+	
+	.group_content {
+		border: 3px solid blue;
+	}
+	
+	
+	.admin_group_imageBox {
+		display: flex;
+		flex-direction: row;
+	}
+	
+	.admin_group_imageBox img {
+		width: 100%;
+		height: 100%;
+	}
 </style>
 </head>
 <body>
 	<c:set var="mList" value="${gmList }" />
+	<c:set var="cont" value="${gCont }" />
+	<c:set var="gimgs" value="${arrGourpImg }" />
 	
 	<div class="admin_member_wrapper">
+		
+		<div class="admin_group_imageBox">
+			<c:forEach items="${arrGourpImg }" var="gimgs">
+				<div class="groupImage">
+					<img alt="" src="./resources/upload/group/${gimgs }">
+				</div>
+			
+			</c:forEach>
+		</div>
+		
+		
+		<div class="group_content">
+			<div>
+				그룹명 : ${cont.group_name }
+			</div>
+			<div>
+				그룹 정보 : ${cont.group_info }
+			</div>
+		</div>
+	
 	
 		<div class="admin_member_container">
 			<c:if test="${!empty mList }">

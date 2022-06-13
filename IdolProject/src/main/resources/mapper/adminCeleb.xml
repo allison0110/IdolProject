@@ -76,7 +76,7 @@
 		
 		
 		<select id="groupCont" parameterType="String" resultType="groupDTO">
-			select * from celeb_group where group_name = ${gName}
+			select * from celeb_group where group_name = #{gName}
 		</select>
 		
     	

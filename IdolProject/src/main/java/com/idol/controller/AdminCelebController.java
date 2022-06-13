@@ -568,11 +568,27 @@ public class AdminCelebController {
 		
 		List<CelebDTO> gList = this.dao.getGroupMemberList(gName);
 		
-		//GroupDTO dto = this.dao.getGroupCont(gName);
+		GroupDTO dto = this.dao.getGroupCont(gName);
+		
+		String str = dto.getGroup_image();
+		
+		System.out.println("dto img :" + str);
+		
+		StringTokenizer tokenizer = new StringTokenizer(str, "|");
+		
+		String[] arrtoken = new String[tokenizer.countTokens()];
+		
+		for(int i = 0; i < arrtoken.length; i++) {
+			
+			arrtoken[i] = tokenizer.nextToken();
+			
+		}
+		
+		model.addAttribute("arrGourpImg", arrtoken);
 		
 		model.addAttribute("gmList", gList);
 		
-		//model.addAttribute("gCont", dto);
+		model.addAttribute("gCont", dto);
 		
 		return "admin/admin_group_memberList";
 		
