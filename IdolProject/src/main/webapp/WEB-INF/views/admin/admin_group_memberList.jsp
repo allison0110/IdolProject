@@ -44,14 +44,14 @@
 </style>
 </head>
 <body>
-	<c:set var="gmList" value="${gmList }" />
+	<c:set var="mList" value="${gmList }" />
 	
 	<div class="admin_member_wrapper">
+	
 		<div class="admin_member_container">
-			<c:if test="${!empty gmList }">
-				<c:forEach items="${gmList }" var="dto">
+			<c:if test="${!empty mList }">
+				<c:forEach items="${mList }" var="dto">
 					<a href="<%=request.getContextPath()%>/admin_celeb_content.do?no=${dto.celeb_no}">
-						
 						<div class="admin_member_content">
 							<ul>
 								<li>
@@ -73,15 +73,17 @@
 									${dto.celeb_debutdate.substring(0, 10) }
 								</li>
 								<li>
-									${dto.celeb_group }
+								WORLD
 								</li>
 							</ul>
 						</div>
 					</a>
 				</c:forEach>
 			</c:if>	
-		</div>
-	</div>
+			
+		</div> <!-- admin_member_container -->
+		
+	</div><!-- admin_member_wrapper -->
 	
 	
 	

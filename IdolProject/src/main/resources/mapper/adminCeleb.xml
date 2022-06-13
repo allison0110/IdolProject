@@ -30,10 +30,6 @@
     		select * from celeb order by celeb_no
     	</select>
     	
-    	<!-- 그룹 이름 리스트 불러오기 -->
-    	<select id="groupList" resultType="celebDTO">
-    		select * from celeb where celeb_no in (select min(celeb_no) from celeb group by celeb_group)
-    	</select>
     	
     	<!-- 가수 상세정보 가져오기 by name-->
     	<select id="celebCont" parameterType="String" resultType="celebDTO">
@@ -75,7 +71,13 @@
 		
 		<!-- 그룸 맴버 리스트 불러오기 -->
 		<select id="gmList" parameterType="String" resultType="celebDTO">
-			select * from celeb where celeb_group = #{gname}
+			select * from celeb where celeb_group = #{gName}
 		</select>
+		
+		
+		<select id="groupCont" parameterType="String" resultType="groupDTO">
+			select * from celeb_group where group_name = ${gName}
+		</select>
+		
     	
     </mapper>

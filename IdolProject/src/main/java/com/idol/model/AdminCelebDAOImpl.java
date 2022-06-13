@@ -45,10 +45,10 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 	}
 		
 	// 그룹 이름 리스트 불러오기
-	@Override
-	public List<CelebDTO> selectGroupList() {
-		return this.sqlSession.selectList("groupList");
-	}
+	//@Override
+	//public List<CelebDTO> selectGroupList() {
+	//	return this.sqlSession.selectList("groupList");
+	//}
 
 	
 	// 그룹 가수 멤버 가져오기 
@@ -132,7 +132,19 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 		this.sqlSession.update("updateSequ", no);
 		
 	}
-	
+
+
+
+	@Override
+	public GroupDTO getGroupCont(String gName) {
+		
+		return this.sqlSession.selectOne("groupCont", gName);
+
+	}
+
+
+
+
 	
 	
 

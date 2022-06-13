@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartRequest;
 import com.idol.model.AdminCelebDAO;
 import com.idol.model.AdminDTO;
 import com.idol.model.CelebDTO;
+import com.idol.model.GroupDTO;
 
 @Controller
 public class AdminCelebController {
@@ -52,11 +53,9 @@ public class AdminCelebController {
 		
 		List<CelebDTO> cList = this.dao.selectCelebList();
 		
-		List<CelebDTO> gList = this.dao.selectGroupList();
 		
 		model.addAttribute("cList", cList);
 		
-		model.addAttribute("gList", gList);
 		
 		return "admin/admin_main";
 	}
@@ -122,11 +121,9 @@ public class AdminCelebController {
 		// 가수 전체 리스트 불러오기
 		List<CelebDTO> cList = this.dao.selectCelebList();
 		// 그룹 이름 리스트 불러오기
-		List<CelebDTO> gList = this.dao.selectGroupList();
 		
 		model.addAttribute("celebList", cList);
 		
-		model.addAttribute("groupList", gList);
 		
 		return "admin/admin_celeb_insert";
 	}
@@ -562,31 +559,20 @@ public class AdminCelebController {
 		
 	}
 	
-	
-	// 그룹 리스트 (중복 걸러서 그룹/솔로리스트 뽑기)
-	@RequestMapping("admin_group_list.do")
-	public String GroupList(Model model) {
-		
-		// 중복 걸러서 리스트 보냄
-		List<CelebDTO> gList = this.dao.selectGroupList();
-		// 전체리스트 보내서 널값 >> 솔로 리스트로 잡기 
-		List<CelebDTO> list = this.dao.selectCelebList();
-		
-		model.addAttribute("groupList", gList);
-		
-		model.addAttribute("celebList", list);
-		
-		return "admin/admin_group_list";
-	}
-	
 	 
 	// 그룹 맴버 리스트 페이지로 가기 !
 	@RequestMapping("admin_groupMember_list.do")
 	public String GroupContent(Model model, @RequestParam("gName") String gName) {
 			
+		System.out.println("gNmae : " + gName);
+		
 		List<CelebDTO> gList = this.dao.getGroupMemberList(gName);
 		
+		//GroupDTO dto = this.dao.getGroupCont(gName);
+		
 		model.addAttribute("gmList", gList);
+		
+		//model.addAttribute("gCont", dto);
 		
 		return "admin/admin_group_memberList";
 		

@@ -75,36 +75,36 @@
 </head>
 <body>
 	<c:set var="glist" value="${groupList }" />
-	<c:set var="clist" value="${celebList }" />
 	<div class="admin_group_wrapper">
 	
 	
 		<div class="admin_group_whollContainer">
 			
 			<!-- 그룹 파트 -->
+			
+			<div>
+				<h2>그룹</h2>
+			</div>
 			<div class="admin_group_container">
+			
 				<c:if test="${!empty glist }">
-					<c:forEach items="${glist }" var="dto">
-						<a href="<%=request.getContextPath()%>/admin_groupMember_list.do?gName=${dto.celeb_group}">
-							<c:if test="${!empty dto.celeb_group }">
+					<c:forEach items="${glist }" var="gdto">
+						<a href="<%=request.getContextPath()%>/admin_groupMember_list.do?gName=${gdto.group_name}">
+							<c:if test="${!empty gdto.group_name }">
 								<div class="admin_group_boxes">
 									<ul>
 										<li>
-											<label>그룹 이름 : </label>${dto.celeb_group }
+											<label>그룹 이름 : </label>${gdto.group_name }
 										</li>
 										
 										<li>
-											<label>소속사 : </label>${dto.celeb_agency }
-										</li>
-										
-										<li>
-											<label>데뷔 : </label>${dto.celeb_debutdate.substring(0, 10) }
+											<label>소속사 : </label>${gdto.group_info }
 										</li>
 										
 									</ul>
 								</div>
 							</c:if>
-							<c:if test="${empty dto.celeb_group }">
+							<c:if test="${empty gdto.group_name }">
 								<div class="null"></div>
 							</c:if>
 						</a>
@@ -113,34 +113,14 @@
 			</div> <!-- admin_group_container end -->
 			
 			<!-- 솔로 가수 파트 -->
+			
+			<div>
+				<h2>솔로</h2>
+			</div>
 			<div class="admin_solo_container">
-				<c:if test="${!empty clist }">
-					<c:forEach items="${clist }" var="cdto">
-						<a href="<%=request.getContextPath()%>/admin_celeb_content.do?no=${cdto.celeb_no}">
-							<c:if test="${cdto.celeb_group == null }">
-								<div class="admin_solo_boxes">
-									<ul>
-										<li>
-											<label>가수 이름 : </label>${cdto.celeb_name }
-										</li>
-										
-										<li>
-											<label>소속사 : </label>${cdto.celeb_agency }
-										</li>
-										
-										<li>
-											<label>데뷔 : </label>${cdto.celeb_debutdate.substring(0, 10) }
-										</li>
-										
-									</ul>
-								</div>
-							</c:if>
-							<c:if test="${cdto.celeb_group != null}">
-								<div class="null"></div>
-							</c:if>
-						</a>
-					</c:forEach>
-				</c:if>	
+			
+			
+			
 			</div> <!-- admin_solo_container end -->
 			
 		</div> <!-- admin_group_whollContainer end -->

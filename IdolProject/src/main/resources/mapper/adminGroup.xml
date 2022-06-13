@@ -7,6 +7,7 @@
     
     <mapper namespace="groupDAO">
     	
+    	<!-- 그룹 등록  -->
     	<insert id="groupInsert" parameterType="groupDTO">
     		<selectKey resultType="int" keyProperty="group_no" order="BEFORE">
     			select max(group_no) from celeb_group
@@ -14,6 +15,10 @@
     		insert into celeb_group values(#{group_no} + 1, #{group_name}, #{group_image}, #{group_info})
     	</insert>
     	
+    	<!-- 그룹 전체 리스트 받기 -->
+    	<select id="groupList" resultType="groupDTO">
+    		select * from celeb_group order by group_no
+    	</select>
     	
     	
     

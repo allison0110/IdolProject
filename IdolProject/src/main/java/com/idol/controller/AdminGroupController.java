@@ -11,11 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileUploadBase.FileSizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.idol.model.AdminGroupDAO;
+import com.idol.model.CelebDTO;
 import com.idol.model.GroupDTO;
 
 @Controller
@@ -126,11 +128,33 @@ public class AdminGroupController {
         	
         	
         }
-        
-       
-		
-		
-		
+
 	}
+	
+	// 그룹 리스트 불러오기 
+	@RequestMapping("admin_group_list.do")
+	public String GroupList(Model model) {
+		
+		List<GroupDTO> list = this.dao.getGroupList();
+		
+		model.addAttribute("groupList", list);
+		
+		return "admin/admin_group_list";
+	}
+	
+	
+		
+		
+		
+		
+
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
