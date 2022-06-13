@@ -25,6 +25,11 @@ public class AdminGroupDAOImpl implements AdminGroupDAO{
 		return this.sqlSession.selectList("groupList");
 	}
 
+	@Override
+	public GroupDTO getGroupCont(int no) {
+		return this.sqlSession.selectOne("groupContforUpdate", no);
+	}
+
 	
 	
 }

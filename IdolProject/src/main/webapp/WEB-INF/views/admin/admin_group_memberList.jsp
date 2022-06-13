@@ -82,6 +82,15 @@
 			<div>
 				그룹 정보 : ${cont.group_info }
 			</div>
+			<div>
+				<input type="button" value="수정"
+				onclick="location.href='admin_group_modify?no=${cont.group_no}'">
+				
+				<input type="button" value="삭제"
+				onclick="if(confirm('그룹을 삭제 하시렵니까? :(')){
+					 location.href='admin_group_delete.do?no=${cont.group_no}'
+				}else {return; }">
+			</div>
 		</div>
 	
 	
@@ -92,25 +101,22 @@
 						<div class="admin_member_content">
 							<ul>
 								<li>
-									${dto.celeb_no }
+									그룹 명 : ${dto.celeb_group }
 								</li>
 								<li>
-									${dto.celeb_name }
+									가수 명 : ${dto.celeb_name }
 								</li>
 								<li>
-									${dto.celeb_realname }
+									본명 : ${dto.celeb_realname }
 								</li>
 								<li>
-									${dto.celeb_agency }
+									소속사 : ${dto.celeb_agency }
 								</li>
 								<li>
-									${dto.celeb_dateofbirth.substring(0, 10) }
+									생일 : ${dto.celeb_dateofbirth.substring(0, 10) }
 								</li>
 								<li>
-									${dto.celeb_debutdate.substring(0, 10) }
-								</li>
-								<li>
-								WORLD
+									데뷔 일 :${dto.celeb_debutdate.substring(0, 10) }
 								</li>
 							</ul>
 						</div>

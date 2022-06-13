@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -143,7 +144,17 @@ public class AdminGroupController {
 	}
 	
 	
+	//그룹 정보 수정
+	@RequestMapping("admin_group_modify")
+	public String groupModify(@RequestParam("no") int no, Model model) {
 		
+		GroupDTO dto = this.dao.getGroupCont(no);
+		
+		model.addAttribute("groupCont", dto);
+		
+		return "admin/admin_group_modify";
+		
+	}
 		
 		
 		

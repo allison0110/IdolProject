@@ -20,7 +20,9 @@
     		select * from celeb_group order by group_no
     	</select>
     	
-    	
+    	<select id="groupContforUpdate" parameterType="int" resultType="groupDTO">
+    		select * from celeb_group where group_no = #{no}
+    	</select>
     
     
     </mapper>

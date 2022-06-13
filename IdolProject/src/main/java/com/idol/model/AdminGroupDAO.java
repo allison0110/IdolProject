@@ -9,6 +9,9 @@ public interface AdminGroupDAO {
 	
 	//그룹 리스트
 	public List<GroupDTO> getGroupList();
+	
+	//그룹 정보 가져오기
+	public GroupDTO getGroupCont(int no);
 
 	
 }
