@@ -33,7 +33,7 @@
     	<update id="musicUpdate" parameterType="musicDTO">
     		update music set music_aname = #{music_aname}, music_name = #{music_name}, music_lyrics = #{music_lyrics},
     			music_composer = #{music_composer}, music_lyricst = #{music_lyricst}, music_coverimage = #{music_coverimage},
-    				music_movie_link = #{music_movie_link}, music_release_date = #{music_release_date}  
+    				music_movie_link = #{music_movie_link}, music_release_date = #{music_release_date} where music_name = #{music_name} 
     	</update>
     	
     	

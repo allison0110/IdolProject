@@ -14,6 +14,9 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+	
+	
+	
 	// 관리자 정보 불러오기
 	@Override
 	public AdminDTO getAdminCont(String id) {
@@ -21,13 +24,9 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 		return this.sqlSession.selectOne("admin_check", id);		
 	}
 
-	// 가수 등록
-	@Override
-	public int insertCeleb(CelebDTO dto) {
-		
-		return this.sqlSession.insert("celeb", dto);
-		
-	}
+	
+	
+	/////////////// select 영역 /////////////////////
 
 	// 가수 전체 리스트 불러오기
 	@Override
@@ -37,17 +36,63 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 		
 	}
 
+	// 가수 전체 리스트 불러오기
+	@Override
+	public List<CelebDTO> celebList() {
+		
+		return this.sqlSession.selectList("celectList");
+		
+	}
+		
 	// 그룹 이름 리스트 불러오기
 	@Override
 	public List<CelebDTO> selectGroupList() {
 		return this.sqlSession.selectList("groupList");
 	}
 
+	
+	// 그룹 가수 멤버 가져오기 
+	@Override
+	public List<CelebDTO> getGroupMemberList(String gName) {
+		
+		return this.sqlSession.selectList("gmList", gName);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	// 이름으로 가수 상세 내역 불러오괴 by name
 	@Override
 	public CelebDTO getCelebContByName(String celeb_name) {
 		
 		return this.sqlSession.selectOne("celebCont", celeb_name);
+	}
+	
+	// 가수 상세 정보 불러 오기 by number
+	@Override
+	public CelebDTO getCelebContByNo(int no) {
+		
+		return this.sqlSession.selectOne("contentByNO", no);
+		
+	}
+	
+	
+
+	
+	
+	
+	/////////////// insert & update 영역  //////////////
+	
+	// 가수 등록
+	@Override
+	public int insertCeleb(CelebDTO dto) {
+		
+		return this.sqlSession.insert("celeb", dto);
+		
 	}
 	
 	// 가수 등록 후 그룹 일 경우 그룹 이미지 넣기
@@ -58,22 +103,18 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 		
 	}
 	
-
-	// 가수 전체 리스트 불러오기
+	// 가수 정보 수정 
 	@Override
-	public List<CelebDTO> celebList() {
+	public int updateCeleb(CelebDTO dto) {
 		
-		return this.sqlSession.selectList("celectList");
+		return this.sqlSession.update("celebUpdate", dto);
 		
 	}
+	
 
-	// 가수 상세 정보 불러 오기 by number
-	@Override
-	public CelebDTO getCelebContByNo(int no) {
-		
-		return this.sqlSession.selectOne("contentByNO", no);
-		
-	}
+	
+
+	///////////////////삭제 영역////////////////
 
 	// 가수 삭제 하는 로직
 	@Override
@@ -92,22 +133,10 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 		
 	}
 	
-	// 가수 정보 수정 
-	@Override
-	public int updateCeleb(CelebDTO dto) {
-		
-		return this.sqlSession.update("celebUpdate", dto);
-		
-	}
+	
 	
 
-	// 그룹 가수 멤버 가져오기 
-	@Override
-	public List<CelebDTO> getGroupMemberList(String gName) {
-		
-		return this.sqlSession.selectList("gmList", gName);
-	}
-
+	
 	
 	
 	

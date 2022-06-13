@@ -296,7 +296,7 @@ public class AdminMusicController {
 				
 				out.println("<script>");
 				out.println("alert('음원 수정 성공(old) :) ')");
-				out.println("location.href='admin_music_list.do'");
+				out.println("location.href='admin_music_content.do?name="+dto.getMusic_name()+"'");
 				out.println("</script>");
 				
 			}else {
@@ -339,7 +339,7 @@ public class AdminMusicController {
 				
 				out.println("<script>");
 				out.println("alert('음원 수정 성공(new) :) ')");
-				out.println("location.href='admin_music_list.do'");
+				out.println("location.href='admin_music_content.do?name="+dto.getMusic_name()+"'");
 				out.println("</script>");
 				
 			}else {

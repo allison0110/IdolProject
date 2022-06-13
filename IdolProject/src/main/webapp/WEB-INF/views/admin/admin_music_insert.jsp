@@ -79,7 +79,7 @@
 					
 						<input name="music_aname">
 						<input name="music_name">
-						<input name="music_lyrics">
+						<textarea rows="15" cols="25" name="music_lyrics"></textarea>
 						<input name="music_composer">
 						<input name="music_lyricst">
 						<input type="file" multiple="multiple" name='file'>

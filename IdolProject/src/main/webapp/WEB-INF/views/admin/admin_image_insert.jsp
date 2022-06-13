@@ -43,7 +43,7 @@
 			<div class="admin_image_right">
 				<div> <input name="image_path"> </div>
 				<div> <input name="image_link"> </div>
-				<div> <input type="number" name="image_priority" min="1"> </div>
+				<div> <input type="number" name="image_priority" min="1" max="10"> </div>
 				<div>
 					<select name="image_visible">
 						<option>

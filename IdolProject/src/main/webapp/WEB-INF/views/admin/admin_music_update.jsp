@@ -53,7 +53,9 @@
 <body>
 	<c:set var="mCont" value="${musicCont }" />
 	<c:set var="imgs" value="${arrimgs }" />
+	
 	<div class="admin_music_modify_wrapper">
+	
 		<div class="admin_music_modify_container">
 		
 			<div class="music_img_container">
@@ -62,18 +64,20 @@
 						<img alt="" src="./resources/upload/music/${imgs }">
 					</div>
 				</c:forEach>
-				
 			</div> <!-- music_img_container -->
 		
 			<div class="music_modify_form">
+			
 				<form enctype="multipart/form-data" method="post" 
 					action="<%=request.getContextPath() %>/admin_music_update_ok.do">
+					
 					<input type="hidden" value="${mCont.music_coverimage }" name="oldimgs">
+					
 					<div>
-						<label for="aname">앨범 이름</label> <input id="aname" name="music_aname" value="${mCont.music_aname }">
+						<label for="aname">앨범 이름</label> <input id="aname" name="music_aname" value="${mCont.music_aname }" readonly>
 					</div>
 					<div>
-						<label for="name">곡명</label> <input id="name" name="music_name" value="${mCont.music_name }">
+						<label for="name">곡명</label> <input id="name" name="music_name" value="${mCont.music_name }" readonly>
 					</div>
 					<div>
 						<label for="lyrics">가사</label> <textarea rows="20" cols="50" id="lyrics" name="music_lyrics">${mCont.music_lyrics }</textarea>
@@ -98,7 +102,8 @@
 						<input type="reset" value="다시작성">
 					</div>
 				</form>
-			</div>
+				
+			</div> <!--music_modify_form -->
 			
 			
 			

@@ -16,7 +16,23 @@
 				#{image_link}, #{image_priority}, #{image_visible})
 		</insert>
 	
+		<select id="imageList" resultType="imagesDTO">
+			select * from images order by image_no
+		</select>
+		
+		<select id="imagesCont" parameterType="int" resultType="imagesDTO">
+			select * from images where image_no = #{no}
+		</select>
 	
+		<delete id="imageDelete" parameterType="int">
+			delete from images where image_no = #{no}
+		</delete>
+	
+		<update id="imageDeleteSeq" parameterType="int">
+			<![CDATA[
+				update images set image_no = image_no - 1 where image_no > #{no}
+			]]>	
+		</update>
 	
 	</mapper>
 

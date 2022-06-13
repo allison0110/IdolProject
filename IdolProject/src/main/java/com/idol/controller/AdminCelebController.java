@@ -48,7 +48,15 @@ public class AdminCelebController {
 	
 	// 관리자 메인 페이지 접속
 	@RequestMapping("admin_main.do")
-	public String adminMain() {
+	public String adminMain(Model model) {
+		
+		List<CelebDTO> cList = this.dao.selectCelebList();
+		
+		List<CelebDTO> gList = this.dao.selectGroupList();
+		
+		model.addAttribute("cList", cList);
+		
+		model.addAttribute("gList", gList);
 		
 		return "admin/admin_main";
 	}
