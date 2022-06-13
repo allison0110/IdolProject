@@ -20,13 +20,29 @@
     		select * from celeb_group order by group_no
     	</select>
     	
+    	<!-- 그룹 정보 가져오기 to 정보 수정 페이지  --> 
     	<select id="groupContforUpdate" parameterType="int" resultType="groupDTO">
     		select * from celeb_group where group_no = #{no}
     	</select>
     
+    	<!-- 그룹 정보 수정ok -->
     	<update id="updateGroup" parameterType="groupDTO">
     		update celeb_group set group_image = #{group_image}, group_info = #{group_info} where group_name = #{group_name}
     	</update>
+    
+    	<!-- 그룹 삭제하기  -->
+    	<delete id="deleteGroup" parameterType="int">
+    		delete from celeb_group where group_no = #{no}
+    	</delete>
+    	
+    	<!-- 그룹 삭제후 넘버링 재정의 -->
+    	<update id="updateGroupSequen" parameterType="int">
+    		<![CDATA[
+    			update celeb_group set group_no = group_no - 1 where group_no > #{no}
+    		]]>
+    	</update>
+    
+    
     
     
     

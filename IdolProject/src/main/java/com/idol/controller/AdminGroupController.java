@@ -287,7 +287,54 @@ public class AdminGroupController {
 		
 	}
 		
-
+	// 그룹 삭제 
+	@RequestMapping("admin_group_delete.do")
+	public void deleteGroup(@RequestParam("no") int no, 
+			HttpServletResponse response, @RequestParam("imgs") String imgs) throws IOException {
+		
+		int check = this.dao.deleteGroup(no);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		if(check > 0) {
+			
+			// 파일도 같이 삭제하기 
+			String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\group\\";
+			
+			System.out.println("imgs : " + imgs);
+			
+			StringTokenizer tokenizer = new StringTokenizer(imgs, "|");
+			
+			String[] tokenList = new String[tokenizer.countTokens()];
+			
+			for(int i = 0; i < tokenList.length; i++) {
+				
+				tokenList[i] = tokenizer.nextToken();
+				
+				File file = new File(path + tokenList[i]);
+				
+				file.delete();
+			}
+			
+			
+			this.dao.updateGroupSeque(no);
+			
+			out.println("<script>");
+			out.println("alert('그룹 삭제 성공 :)')");
+			out.println("location.href='admin_group_list.do'");
+			out.println("</script>");
+		}else {
+			
+			out.println("<script>");
+			out.println("alert('그룹 삭제 실패 :(')");
+			out.println("history.back()'");
+			out.println("</script>");
+			
+		}
+		
+	}
 	
 	
 	

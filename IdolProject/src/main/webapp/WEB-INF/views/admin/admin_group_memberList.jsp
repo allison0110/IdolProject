@@ -88,7 +88,7 @@
 				
 				<input type="button" value="삭제"
 				onclick="if(confirm('그룹을 삭제 하시렵니까? :(')){
-					 location.href='admin_group_delete.do?no=${cont.group_no}'
+					 location.href='admin_group_delete.do?no=${cont.group_no}&&imgs=${cont.group_image}'
 				}else {return; }">
 			</div>
 		</div>

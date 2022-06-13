@@ -35,6 +35,18 @@ public class AdminGroupDAOImpl implements AdminGroupDAO{
 		return this.sqlSession.update("updateGroup", dto);
 	}
 
+	@Override
+	public int deleteGroup(int no) {
+		return this.sqlSession.delete("deleteGroup", no);
+		
+	}
+
+	@Override
+	public void updateGroupSeque(int no) {
+		this.sqlSession.update("updateGroupSequen", no);
+		
+	}
+
 	
 	
 }

@@ -16,5 +16,10 @@ public interface AdminGroupDAO {
 	// 그룹 정보 수정하기
 	public int updateGroup(GroupDTO dto);
 
+	// 그룹 삭제 하기
+	public int deleteGroup(int no);
+	
+	// 그룹 삭제 후 넘버링 재정의
+	public void updateGroupSeque(int no);
 	
 }

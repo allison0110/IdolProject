@@ -90,7 +90,7 @@
 				<c:if test="${!empty glist }">
 					<c:forEach items="${glist }" var="gdto">
 						<a href="<%=request.getContextPath()%>/admin_groupMember_list.do?gName=${gdto.group_name}">
-							<c:if test="${!empty gdto.group_name }">
+							<c:if test="${gdto.group_no != 1}">
 								<div class="admin_group_boxes">
 									<ul>
 										<li>
