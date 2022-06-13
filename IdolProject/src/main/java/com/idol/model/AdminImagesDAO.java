@@ -14,7 +14,8 @@ public interface AdminImagesDAO {
 	public int imageDelete(int no);
 	// 삭제 후 넘버링 재정의
 	public void imageNoSequen(int no);
-	
+	// 이미지 정보 수정하기
+	public int imageModifyOk(ImagesDTO dto);
 	
 	
 }

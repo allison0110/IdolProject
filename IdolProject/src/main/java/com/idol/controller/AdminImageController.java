@@ -117,10 +117,50 @@ public class AdminImageController {
 	}
 	
 	
+	// 이미지 상세 정보 불러오기
+	@RequestMapping("admin_images_modify.do")
+	public String imageModify(Model model, @RequestParam("no") int no) {
+		
+		ImagesDTO dto = this.dao.imagesCont(no);
+		
+		model.addAttribute("imagesModify", dto);
+		
+		return "admin/admin_images_modify";
+	}
 	
 	
-	
-	
+	@RequestMapping("admin_images_modify_ok.do")
+	public void imageModifyOk(ImagesDTO dto, HttpServletResponse response) throws IOException {
+		
+		System.out.println("no:" + dto.getImage_no());
+
+		int check = this.dao.imageModifyOk(dto);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		System.out.println("path:" + dto.getImage_path());
+		System.out.println("link:" + dto.getImage_link());
+		System.out.println("priorority:" + dto.getImage_priority());
+		System.out.println("visible:" + dto.getImage_visible());
+		System.out.println("check : " + check);
+		if(check >0) {
+			
+			out.println("<script>");
+			out.println("alert('수정 성공 :)')");
+			out.println("location.href='admin_images_content.do?no="+dto.getImage_no()+"'");
+			out.println("</script>");
+		
+		}else {
+			
+			out.println("<script>");
+			out.println("alert('수정 실패 :(')");
+			out.println("history.back()");
+			out.println("</script>");
+			
+		}
+	}
 	
 	
 	

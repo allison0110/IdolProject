@@ -133,8 +133,7 @@ public class AdminCelebController {
 	
 	// 가수 등록 완료
 	@RequestMapping("admin_celeb_insert_ok.do")
-	public void celebInsertOk(MultipartHttpServletRequest mRequest, CelebDTO dto, 
-			Model model, HttpServletResponse response) throws IOException {
+	public void celebInsertOk(MultipartHttpServletRequest mRequest, CelebDTO dto, HttpServletResponse response) throws IOException {
 		
 		Iterator<String> iterator = mRequest.getFileNames();
 		

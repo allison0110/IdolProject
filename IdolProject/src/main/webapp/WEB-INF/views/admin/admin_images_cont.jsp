@@ -86,10 +86,10 @@
 						이미지 순서 : ${cont.image_priority }
 					</li>
 					<li>
-						<c:if test="${cont.image_visible == 0 }">
+						<c:if test="${cont.image_visible == 1 }">
 						visible : on
 						</c:if>
-						<c:if test="${cont.image_visible == 1 }">
+						<c:if test="${cont.image_visible == 0 }">
 						visible : off
 						</c:if>
 					</li>
@@ -102,7 +102,7 @@
 				onclick="if(confirm('삭제 하시겠습니까 ?? :(')){
 					location.href='<%=request.getContextPath()%>/admin_images_delete.do?no=${cont.image_no }'
 				}else {return}">
-				<input type="button" value="리스트"
+				<input type="button" value="메인으로"
 				onclick = "location.href='admin_main.do'">
 			</div>
 		</div> <!-- the end of admin_content_container -->

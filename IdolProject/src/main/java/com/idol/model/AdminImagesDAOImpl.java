@@ -38,6 +38,11 @@ public class AdminImagesDAOImpl implements AdminImagesDAO{
 		this.sqlSession.update("imageDeleteSeq", no);
 		
 	}
+
+	@Override
+	public int imageModifyOk(ImagesDTO dto) {
+		return this.sqlSession.update("imageUpdate", dto);
+	}
 	
 	
 	

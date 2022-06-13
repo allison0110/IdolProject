@@ -7,7 +7,6 @@ public interface AdminCelebDAO {
 	// 관리자 상세 정보
 	public AdminDTO getAdminCont(String id);
 	
-	
 	// 가수 등록 
 	public int insertCeleb(CelebDTO dto);
 	// 가수 전체 리스트 

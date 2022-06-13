@@ -68,6 +68,15 @@
 								<a href="<%=request.getContextPath() %>/admin_group_list.do">
 									그룹
 								</a>
+								<div>
+									<ul>
+										<li>
+											<a href="<%=request.getContextPath() %>/admin_group_insert.do">
+												등록
+											</a>
+										</li>
+									</ul>
+								</div>
 							</li>
 							
 						</ul>
@@ -102,7 +111,7 @@
 					</div>
 				</li>
 				<li>
-					이벤트 관리
+					공지 관리
 				</li>
 				<li>
 					팝업 관리

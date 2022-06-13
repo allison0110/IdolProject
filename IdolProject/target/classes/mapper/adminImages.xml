@@ -33,6 +33,11 @@
 				update images set image_no = image_no - 1 where image_no > #{no}
 			]]>	
 		</update>
+		
+		<update id="imageUpdate" parameterType="imagesDTO">
+			update images set image_path = #{image_path}, image_link = #{image_link}, image_priority = #{image_priority}, 
+				image_visible = #{image_visible} where image_no = #{image_no}
+		</update>
 	
 	</mapper>
 
