@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.Response;
 
 import org.apache.commons.fileupload.FileUploadBase.FileSizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,7 +158,134 @@ public class AdminGroupController {
 		
 	}
 		
+	// 그룹 정보 수정 업데이트 
+	@RequestMapping("admin_group_modify_ok.do")
+	public void groupModifyOk(GroupDTO dto, @RequestParam("oldImgs") String oldeImgs, 
+			MultipartHttpServletRequest mRequest, HttpServletResponse response) throws IOException {
 		
+		System.out.println("==== group update =====");
+		
+		String path ="C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\group\\";
+		
+		System.out.println("oldImgs :" + oldeImgs);
+		System.out.println("dtoImgs : " + dto.getGroup_image());
+		
+		Iterator<String> iterator = mRequest.getFileNames();
+		
+		String uploadFileName = iterator.next();
+		
+		System.out.println("uploadFileName : " + uploadFileName);
+		
+		List<MultipartFile> fileList = mRequest.getFiles(uploadFileName);
+		
+		String dbFileName = "";
+		
+		long fileSize = 0;
+		
+		for(MultipartFile mFile : fileList) {
+			
+			String originFileName = mFile.getOriginalFilename();
+			
+			System.out.println("originFileName : " + originFileName);
+			
+			fileSize = mFile.getSize();
+			
+			System.out.println("fileSize : " + fileSize);
+			
+			String saveFile = path + System.currentTimeMillis() + originFileName;
+			
+			System.out.println("svaFile : " + saveFile);
+			
+			dbFileName += System.currentTimeMillis() + originFileName + "|";
+			
+			System.out.println("dbFilName : " + dbFileName);
+			
+			try {
+				
+				mFile.transferTo(new File(saveFile));
+				
+			} catch (Exception e) {
+				
+			} 
+		}// for end 
+		
+		if(fileSize == 0) {
+			
+			dto.setGroup_image(oldeImgs);
+			
+			System.out.println("oldimgs-dto" + dto.getGroup_image());
+
+			int check = this.dao.updateGroup(dto);
+			
+			response.setContentType("text/html; charset=UTF-8");
+			
+			PrintWriter out = response.getWriter();
+			
+			if(check > 0) {
+				
+				out.println("<script>");
+				out.println("alert('그룹 정보 수정 성공 with oldone :)')");
+				out.println("location.href='admin_groupMember_list.do?gName="+dto.getGroup_name()+"'");
+				out.println("</script>");
+				
+			}else {
+				
+				out.println("<script>");
+				out.println("alert('그룹 정보 수정 실패 with oldone :(')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+			
+			
+			
+		}else {
+			
+			// 기존 파일을 삭제 시자!
+			StringTokenizer tokenizer = new StringTokenizer(oldeImgs, "|");
+			
+			String[] tokenList = new String[tokenizer.countTokens()];
+			
+			for(int i = 0; i < tokenList.length; i++) {
+				
+				tokenList[i] = tokenizer.nextToken();
+				
+				File file = new File(path + tokenList[i]);
+				
+				file.delete();
+				
+			}
+			
+			dto.setGroup_image(dbFileName);
+			
+			System.out.println("dtoImgs(dbFileName) : " + dto.getGroup_image());
+			
+			int check = this.dao.updateGroup(dto);
+			
+			response.setContentType("text/html; charset=UTF-8");
+			
+			PrintWriter out = response.getWriter();
+			
+			if(check > 0) {
+				
+				out.println("<script>");
+				out.println("alert('그룹 정보 수정 성공 with newone :)')");
+				out.println("location.href='admin_groupMember_list.do?gName="+dto.getGroup_name()+"'");
+				out.println("</script>");
+				
+			}else {
+				
+				out.println("<script>");
+				out.println("alert('그룹 정보 수정 실패 with newone :(')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+			
+			
+			
+		}// else end
+		
+		
+	}
 		
 
 	

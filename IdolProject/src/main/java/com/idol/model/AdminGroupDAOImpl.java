@@ -30,6 +30,11 @@ public class AdminGroupDAOImpl implements AdminGroupDAO{
 		return this.sqlSession.selectOne("groupContforUpdate", no);
 	}
 
+	@Override
+	public int updateGroup(GroupDTO dto) {
+		return this.sqlSession.update("updateGroup", dto);
+	}
+
 	
 	
 }

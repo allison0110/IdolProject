@@ -24,5 +24,10 @@
     		select * from celeb_group where group_no = #{no}
     	</select>
     
+    	<update id="updateGroup" parameterType="groupDTO">
+    		update celeb_group set group_image = #{group_image}, group_info = #{group_info} where group_name = #{group_name}
+    	</update>
+    
+    
     
     </mapper>
