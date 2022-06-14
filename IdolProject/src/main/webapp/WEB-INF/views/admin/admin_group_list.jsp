@@ -111,7 +111,7 @@
 			</div>
 			<div class="admin_solo_container">
 				<c:forEach items="${slist }" var="sdto">
-						<a href="<%=request.getContextPath()%>/admin_groupMember_list.do?gName=${gdto.group_name}">
+						<a href="<%=request.getContextPath()%>/admin_celeb_content.do?no=${sdto.celeb_no}">
 							<div class="admin_solo_boxes">
 								<ul>
 									<li>
