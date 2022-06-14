@@ -140,8 +140,11 @@ public class AdminGroupController {
 		
 		List<GroupDTO> list = this.dao.getGroupList();
 		
+		List<CelebDTO> slist = this.dao.getSoloList();
 		
 		model.addAttribute("groupList", list);
+		
+		model.addAttribute("soloList", slist);
 		
 		return "admin/admin_group_list";
 	}

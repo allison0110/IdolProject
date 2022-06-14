@@ -75,6 +75,8 @@
 </head>
 <body>
 	<c:set var="glist" value="${groupList }" />
+	<c:set var="slist" value="${soloList }" />
+	
 	<div class="admin_group_wrapper">
 	
 	
@@ -86,26 +88,20 @@
 				<h2>그룹</h2>
 			</div>
 			<div class="admin_group_container">
-			
-				<c:if test="${!empty glist }">
-					<c:forEach items="${glist }" var="gdto">
+				<c:forEach items="${glist }" var="gdto">
+					<c:if test="${gdto.group_name != 'solo' }">
 						<a href="<%=request.getContextPath()%>/admin_groupMember_list.do?gName=${gdto.group_name}">
-							<c:if test="${gdto.group_no != 1}">
-								<div class="admin_group_boxes">
-									<ul>
-										<li>
-											<label>그룹 이름 : </label>${gdto.group_name }
-										</li>
-										
-									</ul>
-								</div>
-							</c:if>
-							<c:if test="${empty gdto.group_name }">
-								<div class="null"></div>
-							</c:if>
+							<div class="admin_group_boxes">
+								<ul>
+									<li>
+										<label>그룹 이름 : </label>${gdto.group_name }
+									</li>
+									
+								</ul>
+							</div>
 						</a>
-					</c:forEach>
-				</c:if>	
+					</c:if>	
+				</c:forEach>
 			</div> <!-- admin_group_container end -->
 			
 			<!-- 솔로 가수 파트 -->
@@ -114,7 +110,18 @@
 				<h2>솔로</h2>
 			</div>
 			<div class="admin_solo_container">
-			
+				<c:forEach items="${slist }" var="sdto">
+						<a href="<%=request.getContextPath()%>/admin_groupMember_list.do?gName=${gdto.group_name}">
+							<div class="admin_solo_boxes">
+								<ul>
+									<li>
+										<label> 이름 : </label>${sdto.celeb_name }
+									</li>
+									
+								</ul>
+							</div>
+						</a>
+				</c:forEach>
 			
 			
 			</div> <!-- admin_solo_container end -->

@@ -42,7 +42,9 @@
     		]]>
     	</update>
     
-    
+    	<select id="getSoloList" resultType="celebDTO">
+    		select * from celeb where celeb_group = 'solo'
+    	</select>
     
     
     

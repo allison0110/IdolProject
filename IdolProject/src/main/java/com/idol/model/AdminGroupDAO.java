@@ -22,4 +22,7 @@ public interface AdminGroupDAO {
 	// 그룹 삭제 후 넘버링 재정의
 	public void updateGroupSeque(int no);
 	
+	// 솔로 가수 리스트 가져오기 
+	public List<CelebDTO> getSoloList();
+	
 }

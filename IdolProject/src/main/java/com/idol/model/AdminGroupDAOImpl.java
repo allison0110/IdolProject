@@ -47,6 +47,13 @@ public class AdminGroupDAOImpl implements AdminGroupDAO{
 		
 	}
 
+	@Override
+	public List<CelebDTO> getSoloList() {
+		
+		return this.sqlSession.selectList("getSoloList");
+		
+	}
+
 	
 	
 }
