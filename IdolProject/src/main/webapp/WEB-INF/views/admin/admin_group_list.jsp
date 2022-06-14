@@ -97,10 +97,6 @@
 											<label>그룹 이름 : </label>${gdto.group_name }
 										</li>
 										
-										<li>
-											<label>소속사 : </label>${gdto.group_info }
-										</li>
-										
 									</ul>
 								</div>
 							</c:if>

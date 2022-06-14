@@ -50,7 +50,7 @@
 		
 			<div class="admin_celeb_updateForm">
 				<div>
-					<label for="realName">본명</label><input id="realNmae" value="${cont.celeb_realname}" readonly>
+					<label for="realName">본명</label><input id="realNmae" value="${cont.celeb_realname}" name="celeb_realname">
 				</div>
 				
 				<div>

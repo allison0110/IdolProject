@@ -32,12 +32,13 @@
 	}
 	
 	.testImage {
-		width: 450px;
-		height: 500px;
+		width: 200px;
+		height: 200px;
 	}
 	
 	.testImage img {
 		width: 100%;
+		height: 100%;
 	}
 	
 	.admin_cont_imageBox {
@@ -123,7 +124,7 @@
 					location.href='<%=request.getContextPath()%>/celeb_delete.do?no=${cont.celeb_no }&img=${cont.celeb_pimage }'
 				}else {return}">
 				<input type="button" value="리스트"
-				onclick = "location.href='admin_main.do'">
+				onclick = "location.href='admin_celeb_list.do'">
 			</div>
 		</div> <!-- the end of admin_content_container -->
 	</div> <!-- the end of admin_content_wrapper -->
