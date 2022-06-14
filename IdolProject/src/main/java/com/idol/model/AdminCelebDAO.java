@@ -29,9 +29,10 @@ public interface AdminCelebDAO {
 	public int updateCeleb(CelebDTO dto);
 	// 그룸에 속한 맴버 리스트 가져오기 by gname
 	public List<CelebDTO> getGroupMemberList(String gName);
-	// 그룹 정보 가져오기 
+	// 그룹 정보 가져오기  by name
 	public GroupDTO getGroupCont(String gName);
-	
+	// 그룹명 리스트 가져오기
+	public List<GroupDTO> getGroupNameList();
 }
 
 

@@ -143,6 +143,13 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 	}
 
 
+	// 그룹명 불러오기 
+	@Override
+	public List<GroupDTO> getGroupNameList() {
+		return this.sqlSession.selectList("getGroupList");
+	}
+
+
 
 
 	

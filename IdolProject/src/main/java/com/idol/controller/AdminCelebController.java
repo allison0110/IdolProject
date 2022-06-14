@@ -121,10 +121,12 @@ public class AdminCelebController {
 		// 가수 전체 리스트 불러오기
 		List<CelebDTO> cList = this.dao.selectCelebList();
 		// 그룹 이름 리스트 불러오기
+		List<GroupDTO> gList =  this.dao.getGroupNameList();
 		
 		model.addAttribute("celebList", cList);
 		
-		
+		model.addAttribute("groupList", gList);
+
 		return "admin/admin_celeb_insert";
 	}
 	
@@ -187,12 +189,12 @@ public class AdminCelebController {
         
         if(check > 0) {
         	out.println("<script>");
-        	// 가수 등록 후 오른쪽 파트로 정보 넘김 임시로 이름을 했지만 등록 번호로 넘기는 걸로 바꾸기 
-        	out.println("location.href='admin_insertCeleb_next.do?name="+dto.getCeleb_name() +"'");
+        	out.println("alert('가수 등록 성공 :)')"); 
+        	out.println("location.href='admin_celeb_list.do'");
         	out.println("</script>");
         }else {
         	out.println("<script>");
-        	out.println("alert('실패 :(')");
+        	out.println("alert('가수 등록 실패 :(')");
         	out.println("history.back()");
         	out.println("</script>");
         }

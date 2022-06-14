@@ -103,11 +103,9 @@
 </head>
 <body>
 	<!-- 가수 전체 리스트 -->
-	<c:set var="cList" value="${celebList }" />
 	<!-- 그룹 이름 리스트 -->
 	<c:set var="gList" value="${groupList }" />
 	<!-- 등록 후 가수 상세 내역 불러오기 -->
-	<c:set var="cCont" value="${contByname }" />
 	<!--  
 	<c:set var="pImages" value="${arrtokened }" />
 	-->
@@ -120,8 +118,25 @@
 				
 				<div class="admin_celeb_insertForm_container">
 					
+					<div class="celeb_insertForm_left">그룹 선택</div>
+					<div class="celeb_insertForm_right">
+						
+						<select name=celeb_group>
+							<c:forEach items="${groupList }" var="g">
+								<option value="${g.group_name }">
+									${g.group_name }
+								</option>
+								
+							</c:forEach>
+							<option value="" selected>
+								선택 안함
+							</option>
+						</select>
+						
+						
+					</div>
 					
-					<div class="celeb_insertForm_left">활동 이름</div>
+					<div class="celeb_insertForm_left">가수 이름</div>
 					<div class="celeb_insertForm_right">
 						<input name="celeb_name">
 					</div>
@@ -150,7 +165,7 @@
 					<div class="celeb_insertForm_right">
 						<input multiple="multiple" type="file" name="file1">
 					</div>
-				</div>
+				</div> <!-- admin_celeb_insertForm_container -->
 				
 				<div class="celeb_btn">
 					<div>
@@ -164,116 +179,8 @@
 				</div>
 			</form>
 			
-			
-			
-			
-			
-			
-			
-			<hr />
-			<div class="admin_celeb_groupManager">
-				<h1>:) </h1>
-					<div class="pImagesContainer">
-						<c:forEach var="pImages" items="${arrtokened}">
-							<div class="pimageBoxes">
-								<img alt="" src="./resources/upload/celeb/${pImages}">
-							</div>
-						</c:forEach>
-						
-					</div>
-
-					<table>
-						<c:if test="${!empty cCont.celeb_group}">
-							<tr>
-								<th>그룹이름</th>
-								<td>
-									${cCont.celeb_group }
-								</td>							
-							</tr>
-						</c:if>
-						<tr>
-							<th>활동 이름</th>
-							<td>
-								${cCont.celeb_name }
-							</td>
-						</tr>
-						<tr>
-							<th>본명</th>
-							<td>
-								${cCont.celeb_realname }
-							</td>
-						</tr>
-						<tr>
-							<th>소속사</th>
-							<td>
-								${cCont.celeb_agency }
-							</td>
-						</tr>
-						<tr>
-							<th>생일</th>
-							<td>
-								${cCont.celeb_dateofbirth.substring(0, 10) }
-							</td>
-						</tr>
-						<tr>
-							<th>데뷔일</th>
-							<td>
-								${cCont.celeb_debutdate.substring(0, 10) }
-							</td>
-						</tr>
-						
-						
-						
-					</table>
-				
-				
-				<form method="post" enctype="multipart/form-data" 
-					 action="<%=request.getContextPath()%>/celeb_gimage_update.do">
-					 
-					<input type="hidden" name="celeb_no" value="${cCont.celeb_no }">
-					<input type="hidden" name="celeb_name" value="${cCont.celeb_name }">
-					 
-					 
-					 <div class="celeb_insertForm_left">그룹 이름</div>
-					
-				<!-- 	<select name="celeb_group" class="celeb_insertForm_right selecting">
-						<option value="" selected>
-							::: 선택 하셈 ::: 
-						</option>
-						<c:forEach items="${gList }" var="g">
-							<c:if test="${empty gList}">
-								<option>
-									:::등록된 그룹이 없습다:::
-								</option>
-							</c:if>
-							<c:if test="${!empty gList }">
-								
-								<option value="${g.celeb_group }">
-										${g.celeb_group }
-								</option>
-							</c:if>
-						</c:forEach>
-					</select>
-					 -->
-										
-					<div class="celeb_insertForm_right WrittingDown">
-						<input name="celeb_group">
-					</div>
-					
-					
-					<div>
-						<input multiple="multiple" type="file" name="file"> 
-					</div>
-					
-					<div>
-						<input type="submit" value="등록">
-						<input type="reset" value="다시작성">
-					</div>
-				</form>
-				
-			</div>
-		</div>
-	</div>
-
+		</div> <!-- admin_celeb_insertForm_div -->
+	</div> <!-- admin_celeb_insertForm_wrapper -->
+ 
 </body>
 </html>
