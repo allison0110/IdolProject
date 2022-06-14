@@ -47,41 +47,48 @@
 	<c:set var="list" value="${celecList }" />
 	
 	<div class="admin_celeb_wrapper">
+	
 		<div class="admin_celeb_container">
 			<c:if test="${!empty list }">
 				<c:forEach items="${list }" var="dto">
 					<a href="<%=request.getContextPath()%>/admin_celeb_content.do?no=${dto.celeb_no}">
-						
-						<div class="admin_celeb_content">
-							<ul>
+						<div class="admin_celeb_content">	
+							<ul>						
+								<c:if test="${dto.celeb_group != 'solo'}">
+									<li>
+									 ${dto.celeb_group }
+									</li>
+								</c:if>	
+								<c:if test="${dto.celeb_group =='solo'}">
+									
+								</c:if>	
 								<li>
-									${dto.celeb_no }
+									가수 명 : ${dto.celeb_name }
 								</li>
 								<li>
-									${dto.celeb_name }
+									본명 : ${dto.celeb_realname }
 								</li>
 								<li>
-									${dto.celeb_realname }
+									소속사 : ${dto.celeb_agency }
 								</li>
 								<li>
-									${dto.celeb_agency }
+									생일 : ${dto.celeb_dateofbirth.substring(0, 10) }
 								</li>
 								<li>
-									${dto.celeb_dateofbirth.substring(0, 10) }
+									데뷔일 : ${dto.celeb_debutdate.substring(0, 10) }
 								</li>
-								<li>
-									${dto.celeb_debutdate.substring(0, 10) }
-								</li>
-								<li>
-									${dto.celeb_group }
-								</li>
+								
 							</ul>
-						</div>
+						</div> <!-- admin_celeb_content -->
 					</a>
 				</c:forEach>
 			</c:if>	
-		</div>
-	</div>
+				
+		
+			
+		</div> <!-- admin_celeb_container -->
+		
+	</div> <!-- admin_celeb_wrapper -->
 	
 	
 	

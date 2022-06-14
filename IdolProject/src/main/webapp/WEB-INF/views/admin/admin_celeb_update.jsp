@@ -38,6 +38,7 @@
 </head>
 <body>
 	<c:set var="cont" value="${celebCont }" />
+	<c:set var="clist" value="${gList }" />
 	
 	<div class="admin_celeb_update_wrapper">
 	
@@ -55,21 +56,20 @@
 				<div>
 					<label for="name">가수명</label><input id="name" value="${cont.celeb_name}" name="celeb_name">
 				</div>
-				
-				<!-- 그룹일 경우 -->
-				<c:if test="${!empty cont.celeb_group }">
-					<div id="group">
-						<label for="group">그룹명</label><input id="group" value="${cont.celeb_group}" name="celeb_group">
-					</div>
-				</c:if>
-				<c:if test="${empty cont.celeb_group }">
-				</c:if>
-				
-				<!-- 솔로일 경우 -->
-				<c:if test="${empty cont.celeb_group}">
-					<label for="solo">솔로(임시)</label><input id="solo" value="${cont.celeb_group}" name="celeb_group" readonly>
-				</c:if>
-				 
+				<div>
+					<select name="celeb_group">
+						<c:forEach items="${clist }" var="c">
+							<c:if test="${c.group_name == cont.celeb_group }">
+								<option value="${c.group_name}" selected>
+									${c.group_name}
+								</option>
+							</c:if>
+							<option value="${c.group_name}">
+							  	 ${c.group_name}
+							</option>	
+						</c:forEach>
+					</select>
+				</div>
 				<div>
 					<label for="agency">소속사</label><input id="agency" value="${cont.celeb_agency}" name="celeb_agency">
 				</div>

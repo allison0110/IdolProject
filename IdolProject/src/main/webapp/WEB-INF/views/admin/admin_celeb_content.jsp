@@ -82,29 +82,36 @@
 			<div class="admin_content_box">
 				<ul>
 					<li>
-						${cont.celeb_no }
+						넘버(임시) : ${cont.celeb_no }
 					</li>
 					<li>
-						${cont.celeb_name }
+						가수명 : ${cont.celeb_name }
 					</li>
 					<li>
-						${cont.celeb_realname }
+						본명 : ${cont.celeb_realname }
 					</li>
 					<li>
-						${cont.celeb_agency }
+						소속사 : ${cont.celeb_agency }
 					</li>
 					<li>
-						${cont.celeb_dateofbirth.substring(0, 10) }
+						생일 : ${cont.celeb_dateofbirth.substring(0, 10) }
 					</li>
 					<li>
-						${cont.celeb_debutdate.substring(0, 10) }
+						데뷔일 : ${cont.celeb_debutdate.substring(0, 10) }
 					</li>
 					<li>
 						<c:if test="${!empty cont.celeb_group}">
-							${cont.celeb_group }
+							[그룹] ${cont.celeb_group }
 						</c:if>
 						<c:if test="${empty cont.celeb_group}">
 						
+						</c:if>
+						<br>
+						<c:if test="${cont.celeb_group != 'solo' }">
+							group: ${cont.celeb_group }
+						</c:if>
+						<c:if test="${cont.celeb_group == 'solo' }">
+							solo name: ${cont.celeb_name }
 						</c:if>
 					</li>
 				</ul>

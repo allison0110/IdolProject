@@ -128,9 +128,6 @@
 								</option>
 								
 							</c:forEach>
-							<option value="" selected>
-								선택 안함
-							</option>
 						</select>
 						
 						

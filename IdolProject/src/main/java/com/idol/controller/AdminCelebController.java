@@ -235,82 +235,7 @@ public class AdminCelebController {
 		return "admin/admin_celeb_insert";
 	}
 	
-	// 가수 등록 후 그룹이면 그룹 이미지도 업로드 하는 로직
-	@RequestMapping("celeb_gimage_update.do")
-	public void celebGimageUpdate(MultipartHttpServletRequest mRequest, HttpServletRequest request, 
-			CelebDTO dto, HttpServletResponse response) throws IOException {
-		
-		Iterator<String> iterator = mRequest.getFileNames();
-		
-		String uploadFileName = iterator.next();
-		
-        List<MultipartFile> fileList = mRequest.getFiles(uploadFileName);
-        
-        //String src = mRequest.getParameter("src");
-        
-        //System.out.println("src value : " + src);
-
-        String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb\\";
-
-        String dbFileName = "";
-        
-        System.out.println("===========================");
-        
-        for (MultipartFile mFile : fileList) {
-        	
-            String originFileName = mFile.getOriginalFilename(); // 원본 파일 명
-                  
-            long fileSize = mFile.getSize(); // 파일 사이즈
-            
-           
-
-            System.out.println("originFileName : " + originFileName);
-            
-            System.out.println("fileSize : " + fileSize);
-
-            String saveFile = path + System.currentTimeMillis() + originFileName;
-            
-            dbFileName += System.currentTimeMillis() + originFileName + "|";
-            
-            try {
-            	
-            	mFile.transferTo(new File(saveFile));
-       	
-            } catch (Exception e) {
-               
-            } 
-        } // for() end 
-		
-        dto.setCeleb_gimage(dbFileName);
-        
-        System.out.println("no. : " + dto.getCeleb_no());
-        
-        int check = this.dao.updateGroupImage(dto);
-        
-        response.setContentType("text/html; charset=UTF-8");
-        
-        System.out.println("check.val " + check);
-        
-        PrintWriter out = response.getWriter();
-        
-        System.out.println("dbFileName : " + dbFileName);
-        
-        System.out.println(dto.getCeleb_name());
-        
-        System.out.println("===========================");
-     
-        if(check > 0) {
-        	out.println("<script>");
-        	out.println("location.href='admin_insertCeleb_next.do?name="+ dto.getCeleb_name() +"'");
-        	out.println("</script>");
-        }else {
-        	out.println("<script>");
-        	out.println("alert('실패 :(')");
-        	out.println("history.back()");
-        	out.println("</script>");
-        }
-        
-	}
+	
 	
 	// 가수 전체 리스트 불러오기 
 	@RequestMapping("admin_celeb_list.do")
@@ -414,7 +339,11 @@ public class AdminCelebController {
 		
 		CelebDTO dto = this.dao.getCelebContByNo(no);
 		
+		List<GroupDTO> gList = this.dao.getGroupNameList();
+		
 		model.addAttribute("celebCont", dto);
+
+		model.addAttribute("gList", gList);
 		
 		return "admin/admin_celeb_update";
 		

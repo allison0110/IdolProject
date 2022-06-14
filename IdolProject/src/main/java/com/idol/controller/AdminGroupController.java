@@ -140,6 +140,7 @@ public class AdminGroupController {
 		
 		List<GroupDTO> list = this.dao.getGroupList();
 		
+		
 		model.addAttribute("groupList", list);
 		
 		return "admin/admin_group_list";
