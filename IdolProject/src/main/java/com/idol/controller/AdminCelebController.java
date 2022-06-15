@@ -241,7 +241,7 @@ public class AdminCelebController {
 	@RequestMapping("admin_celeb_list.do")
 	public String celebList(Model model) {
 		
-		List<CelebDTO> list = this.dao.celebList();
+		List<CelebDTO> list = this.dao.celebList();		
 		
 		model.addAttribute("celecList", list);
 		
@@ -495,7 +495,7 @@ public class AdminCelebController {
 	@RequestMapping("admin_groupMember_list.do")
 	public String GroupContent(Model model, @RequestParam("gName") String gName) {
 			
-		System.out.println("gNmae : " + gName);
+		System.out.println("gName : " + gName);
 		
 		List<CelebDTO> gList = this.dao.getGroupMemberList(gName);
 		

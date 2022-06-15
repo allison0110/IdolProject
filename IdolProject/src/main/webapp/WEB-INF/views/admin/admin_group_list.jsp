@@ -52,9 +52,7 @@
 		text-decoration: none;
 	}
 	
-	.null {
-		display: none;
-	}
+	
 	
 	.admin_group_boxes {
 		border: 2px solid red;
