@@ -6,12 +6,16 @@
     
 <mapper namespace="celebDAO">
 
+	<select id="soloList" resultType="celebDTO">
+	<!-- solo 가수 리스트  -->
+		select * from celeb where celeb_group = 'solo'
+	</select>
+	
 	<select id="repList" resultType="celebDTO">
-	<!-- 그룹명 기준 제일적은 숫자의 코드를 가진 대표 레코드 뽑아내기(중복없는 가수리스트 뽑을 때 사용)  -->
-		select * 
-			from celeb 
-			where celeb_no in (select min(celeb_no) from celeb group by celeb_group) 
-			order by celeb_group
+		<!-- 그룹명기준 제일 적은 celeb_no를 가진 대표 레코드 뽑아내기 (중복없는 그룹리스트 뽑기)-->
+		select 	* from celeb
+		where celeb_no in (select min(celeb_no) from celeb where celeb_group != 'solo' group by celeb_group)
+		order by celeb_group
 	</select>
 
 </mapper>    

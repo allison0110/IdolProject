@@ -108,7 +108,15 @@
 		border:1px solid gray;
 	}
 	
+	.agreement{
+		margin:10px 0;
+	}
+	
 	.agreement label{
+		
+		display:inline-block;
+		margin:20px 0;
+	
 		font-size: 17px;
 		font-weight: 600;
 		text-align: left;
@@ -133,6 +141,9 @@
 		text-align: left;
 	}
 	
+	
+	
+
 
 </style>
 </head>
@@ -160,7 +171,7 @@
 			
 			<tr>
 				<th>비밀번호 확인*</th>
-				<td><input id="member_pwd_check "type="password" name="member_pwd_check"></td>
+				<td><input id="member_pwd_check" type="password" name="member_pwd_check"></td>
 			</tr>
 			<tr>
 				<th>이름*</th>
@@ -288,29 +299,41 @@
 		</table>
 		</div><!-- class="join_info1" end -->
 		
-		<div class="join_info2">
+		<div class="join_info2" align="center">
 		
 			<h3>CELEB 선택</h3>
 		<hr width="50%">
 		
-		<c:if test="${empty celebList  }">
+		<c:if test="${empty totalList  }">
 		<h2>셀럽 정보가 없습니다.</h2>
 		</c:if>
 		
-		<c:if test="${!empty celebList }">
+		<c:if test="${!empty totalList}">
 		
-		<div class="celeb_container">
-		<c:set var="list" value="${celebList }"/>
+		<div class="celeb_container" > 
+		<c:set var="list" value="${totalList }"/>
 		<c:forEach items="${list }" var="dto">
+		<c:if test="${dto.getCeleb_group() != 'solo' }"> <!-- totalList 그룹가수인 경우 -->
 		<div class="celeb_item">
 		<input type="checkbox" name="fav_celeb[]" id="celeb_${dto.getCeleb_no() }" value="${dto.getCeleb_no() }" onchange="check_celeb(${dto.getCeleb_no()})" > 
 		<label for="celeb_${dto.getCeleb_no() }" >
        <span class="celeb_span"> ${dto.getCeleb_group() } </span>
        	</label>
 		</div>
+		</c:if>
+		<c:if test="${dto.getCeleb_group() == 'solo' }"> <!-- totalList 솔로 가수인 경우 -->
+		<div class="celeb_item">
+		<input type="checkbox" name="fav_celeb[]" id="celeb_${dto.getCeleb_no() }" value="${dto.getCeleb_no() }" onchange="check_celeb(${dto.getCeleb_no()})" > 
+		<label for="celeb_${dto.getCeleb_no() }" >
+       <span class="celeb_span"> ${dto.getCeleb_name() } </span>
+       	</label>
+		</div>
+		</c:if>
+		
 		</c:forEach>
 			
 		</div><!-- class="celeb_container" end -->
+		</c:if>
 		
 		<script type="text/javascript">
 			
@@ -322,7 +345,7 @@
 					
 				console.log(no);
 				
-				if($("#celeb_"+no).prop("checked")){
+				if($("#celeb_"+no).prop("checked")){//체크되면 배열에 저장
 					
 					++count; 
 					
@@ -331,7 +354,7 @@
 					checked.push($("#celeb_"+no).val());
 					console.log(count);
 					
-					}else {
+					}else {//3명이상 선택했을 경우 취소 및 삭제
 					
 						alert("최대 3명까지 선택 가능합니다.");
 						$("#celeb_"+no).prop("checked",false);
@@ -339,10 +362,11 @@
 					}
 					
 				}else {
+					var findNO = String(no);
+					const index = checked.indexOf(findNO);
+					console.log("index:"+index)
 					
-					console.log(count);
-					var size = checked.length;
-					checked.splice(size-1);
+					checked.splice(index,1);
 
 					--count;
 				}
@@ -353,10 +377,10 @@
 				
 			}
 			
+			
+			
 		
 		</script>
-		
-		</c:if>
 		</div><!-- class="join_info2"  -->
 		
 		<div class="join_info3">
@@ -375,75 +399,76 @@
 		<div class="agreement">
 		<label for="agree_check2">개인정보 수집 및 이용 동의<span class="mandatory_word">(필수)</span> <input type="checkbox" id="agree_check2"></label>
 		<div class="agreement_cont" tabindex="0">
-					<b><span style="font-family: 굴림; font-size: 14pt; mso-bidi-font-family: 굴림; mso-font-kerning: 18.0pt;">수집하는 개인정보 항목 및 수집방법</span></b></p><p><font face="굴림" size="3">
+					<b><span style="font-family: Noto Sans KR; font-size: 14pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 18.0pt;">수집하는 개인정보 항목 및 수집방법</span></b></p><p><font face="Noto Sans KR" size="3">
 			
-			</font><span lang="EN-US" style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">1. </span></span><span lang="EN-US" style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">YOUR CELEB </span><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">는 별도의 회원가입 절차 없이 대부분의 컨텐츠에 자유롭게 접근할 수 있습니다<span lang="EN-US">. </span></span></p><p><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"><span lang="EN-US"></span></span><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"><span lang="EN-US">YOUR CELEB
-			</span>는 회원제 서비스를 이용하시고자 할 경우 다음의 정보를 입력해주셔야 합니다<span lang="EN-US">.<br />
-			- </span>입력항목<span lang="EN-US"> : </span>아이디<span lang="EN-US">, </span>비밀번호<span lang="EN-US">, </span>이름<span lang="EN-US">, </span>휴대전화<span lang="EN-US">, </span>이메일주소</span></p><p><font face="굴림" size="3">
+			</font><span lang="EN-US" style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">1. </span></span><span lang="EN-US" style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">YOUR CELEB </span><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">은 별도의 회원가입 절차 없이 대부분의 컨텐츠에 자유롭게 접근할 수 있습니다<span lang="EN-US">. </span></span></p><p><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"><span lang="EN-US"></span></span><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"><span lang="EN-US">
+
+			YOUR CELEB</span>은 회원제 서비스를 이용하시고자 할 경우 다음의 정보를 입력해주셔야 합니다<span lang="EN-US">.<br />
+			- </span>입력항목<span lang="EN-US"> : </span>아이디<span lang="EN-US">, </span>비밀번호<span lang="EN-US">, </span>이름<span lang="EN-US">, </span>휴대전화<span lang="EN-US">, </span>이메일주소</span></p><p><font face="Noto Sans KR" size="3">
 			
-			</font><span lang="EN-US" style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">2. </span></span><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">또한 서비스 이용과정이나 사업 처리 과정에서 아래와 같은 정보들이
+			</font><span lang="EN-US" style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">2. </span></span><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">또한 서비스 이용과정이나 사업 처리 과정에서 아래와 같은 정보들이
 			생성되어 수집될 수 있습니다<span lang="EN-US">.<br />
 			- </span>최근접속일<span lang="EN-US">, </span>접속<span lang="EN-US"> IP </span>정보<span lang="EN-US">, </span>쿠키<span lang="EN-US">, </span>구매로그<span lang="EN-US">, </span>이벤트로그<span lang="EN-US"><br />
-			- </span>회원가입 시 회원이 원하시는 경우에 한하여 추가 정보를 선택<span lang="EN-US">, </span>제공하실 수 있도록 되어있으며<span lang="EN-US">, </span></span></p><p><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"><span lang="EN-US"></span>일부 재화 또는 용역 상품에 대한 주문 및 접수 시 회원이 원하는 정확한 주문 내용 파악을 통한 </span></p><p><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">원활한 주문
-			및 결제<span lang="EN-US">, </span>배송을 위하여 추가적인 정보를 요구하고 있습니다<span lang="EN-US">. </span></span></p><p><font face="굴림" size="3">
+			- </span>회원가입 시 회원이 원하시는 경우에 한하여 추가 정보를 선택<span lang="EN-US">, </span>제공하실 수 있도록 되어있으며<span lang="EN-US">, </span></span></p><p><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"><span lang="EN-US"></span>일부 재화 또는 용역 상품에 대한 주문 및 접수 시 회원이 원하는 정확한 주문 내용 파악을 통한 </span></p><p><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">원활한 주문
+			및 결제<span lang="EN-US">, </span>배송을 위하여 추가적인 정보를 요구하고 있습니다<span lang="EN-US">. </span></span></p><p><font face="Noto Sans KR" size="3">
 			
-			</font><span lang="EN-US" style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">3.<font face="Times New Roman"> </font></span></span><span lang="EN-US" style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">YOUR CELEB </span><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">는 다음과 같은 방법으로 개인정보를 수집합니다<span lang="EN-US">.<br />
+			</font><span lang="EN-US" style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">3.<font face="Times New Roman"> </font></span></span><span lang="EN-US" style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">YOUR CELEB </span><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">은 다음과 같은 방법으로 개인정보를 수집합니다<span lang="EN-US">.<br />
 			- </span>홈페이지<span lang="EN-US">, </span>서면양식<span lang="EN-US">, </span>팩스<span lang="EN-US">, </span>전화<span lang="EN-US">, </span>상담 게시판<span lang="EN-US">, </span>이메일<span lang="EN-US">, </span>이벤트 응모<span lang="EN-US">, </span>배송요청<span lang="EN-US"> <br />
 			- </span>협력회사로부터의 제공<span lang="EN-US"><br />
-			- </span>로그 분석 프로그램을 통한 생성정보 수집 </span></p><p><font face="굴림" size="3">
+			- </span>로그 분석 프로그램을 통한 생성정보 수집 </span></p><p><font face="Noto Sans KR" size="3">
 			
-			</font><span lang="EN-US" style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">4.<span style="\\'font:" 7pt="" normal="" "times="" new="" roman";="" font-size-adjust:="" none;="" font-stretch:="" normal;\\'="">&nbsp;</span></span></span><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">개인정보 수집에 대한 동의<span lang="EN-US"><br />
-			- YOUR CELEB </span>는 귀하께서 <span lang="EN-US">YOUR CELEB </span>의 개인정보취급방침
-			및 이용약관의 내용에 대해</span></p><p><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"></span><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">「동의한다」버튼 또는 「동의하지 않는다」버튼을 클릭할 수 있는 절차를 마련하여<span lang="EN-US">, </span>「동의한다」버튼을
-			</span></p><p><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">클릭하면 개인정보 수집에 대해 동의한 것으로 봅니다<span lang="EN-US">. </span></span></p><p><font face="굴림" size="3">
+			</font><span lang="EN-US" style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">4.<span style="\\'font:" 7pt="" normal="" "times="" new="" roman";="" font-size-adjust:="" none;="" font-stretch:="" normal;\\'="">&nbsp;</span></span></span><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">개인정보 수집에 대한 동의<span lang="EN-US"><br />
+			- YOUR CELEB </span>은 귀하께서 <span lang="EN-US">YOUR CELEB </span>의 개인정보취급방침
+			및 이용약관의 내용에 대해</span></p><p><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"></span><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">「동의한다」버튼 또는 「동의하지 않는다」버튼을 클릭할 수 있는 절차를 마련하여<span lang="EN-US">, </span>「동의한다」버튼을
+			</span></p><p><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">클릭하면 개인정보 수집에 대해 동의한 것으로 봅니다<span lang="EN-US">. </span></span></p><p><font face="Noto Sans KR" size="3">
 			
-			</font><span lang="EN-US" style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">5.<span style="\\'font:" 7pt="" normal="" "times="" new="" roman";="" font-size-adjust:="" none;="" font-stretch:="" normal;\\'="">&nbsp;</span></span></span><span lang="EN-US" style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">14</span><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">세 미만 아동의 개인정보보호<span lang="EN-US"><br />
-			YOUR CELEB </span>는 법정 대리인의 동의가 필요한 만<span lang="EN-US">14</span>세 미만 아동의 회원가입은
-			받고 있지 않습니다<span lang="EN-US">. </span></span></p><p><font face="굴림" size="3">
+			</font><span lang="EN-US" style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">5.<span style="\\'font:" 7pt="" normal="" "times="" new="" roman";="" font-size-adjust:="" none;="" font-stretch:="" normal;\\'="">&nbsp;</span></span></span><span lang="EN-US" style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">14</span><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">세 미만 아동의 개인정보보호<span lang="EN-US"><br />
+			YOUR CELEB </span>은 법정 대리인의 동의가 필요한 만<span lang="EN-US">14</span>세 미만 아동의 회원가입은
+			받고 있지 않습니다<span lang="EN-US">. </span></span></p><p><font face="Noto Sans KR" size="3">
 			
-			</font><span lang="EN-US" style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">6.<span style="\\'font:" 7pt="" normal="" "times="" new="" roman";="" font-size-adjust:="" none;="" font-stretch:="" normal;\\'="">&nbsp;</span></span></span><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">비회원의 개인정보보호<span lang="EN-US"><br />
-			① YOUR CELEB </span>는 비회원 주문의 경우에도 배송<span lang="EN-US">, </span>대금결제<span lang="EN-US">, </span>주문내역 조회 및 구매확인<span lang="EN-US">, </span>실명여부 확인을 </span></p><p><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">위하여 필요한 개인정보만을
-			요청하고 있으며<span lang="EN-US">, </span>이 경우 그 정보는 대금결제 및 상품의 배송에 관련된 용도 이외에는 </span></p><p><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">다른 어떠한 용도로도
+			</font><span lang="EN-US" style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">6.<span style="\\'font:" 7pt="" normal="" "times="" new="" roman";="" font-size-adjust:="" none;="" font-stretch:="" normal;\\'="">&nbsp;</span></span></span><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">비회원의 개인정보보호<span lang="EN-US"><br />
+			① YOUR CELEB </span>은 비회원 주문의 경우에도 배송<span lang="EN-US">, </span>대금결제<span lang="EN-US">, </span>주문내역 조회 및 구매확인<span lang="EN-US">, </span>실명여부 확인을 </span></p><p><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">위하여 필요한 개인정보만을
+			요청하고 있으며<span lang="EN-US">, </span>이 경우 그 정보는 대금결제 및 상품의 배송에 관련된 용도 이외에는 </span></p><p><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">다른 어떠한 용도로도
 			사용되지 않습니다<span lang="EN-US">.<br />
-			② YOUR CELEB </span>는 비회원의 개인정보도 회원과 동등한 수준으로 보호합니다<span lang="EN-US">. </span></span></p><p><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"><span lang="EN-US"><br /></span></span></p><p><font face="굴림" size="3">
+			② YOUR CELEB </span>은 비회원의 개인정보도 회원과 동등한 수준으로 보호합니다<span lang="EN-US">. </span></span></p><p><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"><span lang="EN-US"><br /></span></span></p><p><font face="Noto Sans KR" size="3">
 			
-			</font><b><span style="font-family: 굴림; font-size: 14pt; mso-bidi-font-family: 굴림; mso-font-kerning: 18.0pt;">개인정보의 수집목적 및 이용 목적</span></b></p><p><font face="굴림" size="3">
+			</font><b><span style="font-family: Noto Sans KR; font-size: 14pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 18.0pt;">개인정보의 수집목적 및 이용 목적</span></b></p><p><font face="Noto Sans KR" size="3">
 			
-			</font><span lang="EN-US" style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">YOUR CELEB </span><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">는 다음과 같은 목적을 위하여 개인정보를
-			수집하고 있습니다<span lang="EN-US">.</span></span></p><p><font face="굴림" size="3">
+			</font><span lang="EN-US" style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">YOUR CELEB </span><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">은 다음과 같은 목적을 위하여 개인정보를
+			수집하고 있습니다<span lang="EN-US">.</span></span></p><p><font face="Noto Sans KR" size="3">
 			
-			</font><span lang="EN-US" style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">1. </span></span><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">성명<span lang="EN-US">, </span>아이디<span lang="EN-US">, </span>비밀번호<span lang="EN-US"> : </span>회원제 서비스 이용에 따른 본인 식별 절차에 이용</span></p><p><font face="굴림" size="3">
+			</font><span lang="EN-US" style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">1. </span></span><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">성명<span lang="EN-US">, </span>아이디<span lang="EN-US">, </span>비밀번호<span lang="EN-US"> : </span>회원제 서비스 이용에 따른 본인 식별 절차에 이용</span></p><p><font face="Noto Sans KR" size="3">
 			
-			</font><span lang="EN-US" style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">2.<span style="\\'font:" 7pt="" normal="" "times="" new="" roman";="" font-size-adjust:="" none;="" font-stretch:="" normal;\\'="">&nbsp;</span></span></span><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">이메일주소<span lang="EN-US">(</span>뉴스레터
-			수신여부<span lang="EN-US">) : </span>고지사항 전달<span lang="EN-US">, </span>본인 의사 확인<span lang="EN-US">, </span>불만 처리 등 </span></p><p><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">원활한 의사소통 경로의 확보<span lang="EN-US">, </span>새로운 서비스<span lang="EN-US">, </span>신상품이나 이벤트 정보 등 최신 정보의 안내</span></p><p><font face="굴림" size="3">
+			</font><span lang="EN-US" style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">2.<span style="\\'font:" 7pt="" normal="" "times="" new="" roman";="" font-size-adjust:="" none;="" font-stretch:="" normal;\\'="">&nbsp;</span></span></span><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">이메일주소<span lang="EN-US">(</span>뉴스레터
+			수신여부<span lang="EN-US">) : </span>고지사항 전달<span lang="EN-US">, </span>본인 의사 확인<span lang="EN-US">, </span>불만 처리 등 </span></p><p><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">원활한 의사소통 경로의 확보<span lang="EN-US">, </span>새로운 서비스<span lang="EN-US">, </span>신상품이나 이벤트 정보 등 최신 정보의 안내</span></p><p><font face="Noto Sans KR" size="3">
 			
-			</font><span lang="EN-US" style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">3. <span style="\\'font:" 7pt="" normal="" "times="" new="" roman";="" font-size-adjust:="" none;="" font-stretch:="" normal;\\'="">
-			</span></span></span><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">주소<span lang="EN-US">, </span>전화번호<span lang="EN-US"> : </span>쇼핑 물품 배송에 대한 정확한 배송지의 확보</span></p><p><font face="굴림" size="3">
+			</font><span lang="EN-US" style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">3. <span style="\\'font:" 7pt="" normal="" "times="" new="" roman";="" font-size-adjust:="" none;="" font-stretch:="" normal;\\'="">
+			</span></span></span><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">주소<span lang="EN-US">, </span>전화번호<span lang="EN-US"> : </span>쇼핑 물품 배송에 대한 정확한 배송지의 확보</span></p><p><font face="Noto Sans KR" size="3">
 			
-			</font><span lang="EN-US" style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">4.<span style="\\'font:" 7pt="" normal="" "times="" new="" roman";="" font-size-adjust:="" none;="" font-stretch:="" normal;\\'="">&nbsp;</span></span></span><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">그 외 선택항목<span lang="EN-US"> : </span>개인맞춤
-			서비스를 제공하기 위한 자료</span></p><p><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"><br /></span></p><p><font face="굴림" size="3">
+			</font><span lang="EN-US" style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">4.<span style="\\'font:" 7pt="" normal="" "times="" new="" roman";="" font-size-adjust:="" none;="" font-stretch:="" normal;\\'="">&nbsp;</span></span></span><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">그 외 선택항목<span lang="EN-US"> : </span>개인맞춤
+			서비스를 제공하기 위한 자료</span></p><p><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"><br /></span></p><p><font face="Noto Sans KR" size="3">
 			
-			</font><b><span style="font-family: 굴림; font-size: 24pt; mso-bidi-font-family: 굴림; mso-font-kerning: 18.0pt;"><span style="font-size: 10pt;"></span></span></b></p><p><b><span style="font-family: 굴림; font-size: 14pt; mso-bidi-font-family: 굴림; mso-font-kerning: 18.0pt;">개인정보의 보유<span lang="EN-US">, </span>이용기간</span></b></p><p><font face="굴림" size="3">
+			</font><b><span style="font-family: Noto Sans KR; font-size: 24pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 18.0pt;"><span style="font-size: 11pt;"></span></span></b></p><p><b><span style="font-family: Noto Sans KR; font-size: 14pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 18.0pt;">개인정보의 보유<span lang="EN-US">, </span>이용기간</span></b></p><p><font face="Noto Sans KR" size="3">
 			
-			</font><span lang="EN-US" style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">1.<span style="\\'font:" 7pt="" normal="" "times="" new="" roman";="" font-size-adjust:="" none;="" font-stretch:="" normal;\\'="">&nbsp;</span></span></span><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">귀하의 개인정보는 회사가 신청인에게 서비스를 제공하는 기간 동안에
-			한하여 보유하고 </span></p><p><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">이를 활용합니다<span lang="EN-US">. </span>다만 다른 법률에 특별한 규정이 있는 경우에는 관계법령에 따라 보관합니다<span lang="EN-US">.<br />
+			</font><span lang="EN-US" style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">1.<span style="\\'font:" 7pt="" normal="" "times="" new="" roman";="" font-size-adjust:="" none;="" font-stretch:="" normal;\\'="">&nbsp;</span></span></span><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">귀하의 개인정보는 회사가 신청인에게 서비스를 제공하는 기간 동안에
+			한하여 보유하고 </span></p><p><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">이를 활용합니다<span lang="EN-US">. </span>다만 다른 법률에 특별한 규정이 있는 경우에는 관계법령에 따라 보관합니다<span lang="EN-US">.<br />
 			① </span>회원가입정보<span lang="EN-US"> : </span>회원가입을 탈퇴하거나 회원에 제명된 때<span lang="EN-US"> <br />
 			② </span>대금지급정보<span lang="EN-US"> : </span>대금의 완제일 또는 채권소명시효기간이 만료된 때<span lang="EN-US"><br />
 			③ </span>배송정보<span lang="EN-US"> : </span>물품 또는 서비스가 인도되거나 제공된 때<span lang="EN-US">
 			<br />
-			④ </span>설문조사<span lang="EN-US">, </span>이벤트 등 일시적 목적을 위하여 수집한 경우<span lang="EN-US"> : </span>당해 설문조사<span lang="EN-US">, </span>이벤트 등이 종료한 때 </span></p><p><font face="굴림" size="3">
+			④ </span>설문조사<span lang="EN-US">, </span>이벤트 등 일시적 목적을 위하여 수집한 경우<span lang="EN-US"> : </span>당해 설문조사<span lang="EN-US">, </span>이벤트 등이 종료한 때 </span></p><p><font face="Noto Sans KR" size="3">
 			
-			</font><span lang="EN-US" style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">2.<span style="\\'font:" 7pt="" normal="" "times="" new="" roman";="" font-size-adjust:="" none;="" font-stretch:="" normal;\\'="">&nbsp;</span></span></span><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">위 개인정보 수집목적 달성시 즉시파기 원칙에도 불구하고 다음과
-			같이 거래 관련 권리 의무 관계의 </span></p><p><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">확인 등을 이유로 일정기간 보유하여야 할 필요가 있을 경우에는 전자상거래 등에서의 소비자보호에 </span></p><p><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">관한 법률 등에
+			</font><span lang="EN-US" style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">2.<span style="\\'font:" 7pt="" normal="" "times="" new="" roman";="" font-size-adjust:="" none;="" font-stretch:="" normal;\\'="">&nbsp;</span></span></span><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">위 개인정보 수집목적 달성시 즉시파기 원칙에도 불구하고 다음과
+			같이 거래 관련 권리 의무 관계의 </span></p><p><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">확인 등을 이유로 일정기간 보유하여야 할 필요가 있을 경우에는 전자상거래 등에서의 소비자보호에 </span></p><p><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">관한 법률 등에
 			근거하여 일정기간 보유합니다<span lang="EN-US">.<br />
 			① </span>계약 또는 청약철회 등에 관한 기록<span lang="EN-US"> : 5</span>년<span lang="EN-US"><br />
 			② </span>대금결제 및 재화 등의 공급에 관한 기록<span lang="EN-US"> : 5</span>년<span lang="EN-US"><br />
 			③ </span>소비자의 불만 또는 분쟁처리에 관한 기록<span lang="EN-US"> : 3</span>년<span lang="EN-US"><br />
-			④ </span>설문조사<span lang="EN-US">, </span>이벤트 등 일시적 목적을 위하여 수집한 경우<span lang="EN-US"> : </span>당해 설문조사<span lang="EN-US">, </span>이벤트 등의 종료 시점 </span></p><p><font face="굴림" size="3">
+			④ </span>설문조사<span lang="EN-US">, </span>이벤트 등 일시적 목적을 위하여 수집한 경우<span lang="EN-US"> : </span>당해 설문조사<span lang="EN-US">, </span>이벤트 등의 종료 시점 </span></p><p><font face="Noto Sans KR" size="3">
 			
-			</font><span lang="EN-US" style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">3.<span style="\\'font:" 7pt="" normal="" "times="" new="" roman";="" font-size-adjust:="" none;="" font-stretch:="" normal;\\'="">&nbsp;</span></span></span><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;">귀하의 동의를 받아 보유하고 있는 거래정보 등을 귀하께서 열람을
-			요구하는 경우 </span></p><p><span style="font-family: 굴림; font-size: 10pt; mso-bidi-font-family: 굴림; mso-font-kerning: 0pt;"><span lang="EN-US">YOUR CELEB </span>는 지체없이 그 열람<span lang="EN-US">, </span>확인
-			할 수 있도록 조치합니다<span lang="EN-US">.</span></span></p><p><font face="굴림" size="3">
+			</font><span lang="EN-US" style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"><span style="mso-list: Ignore;">3.<span style="\\'font:" 7pt="" normal="" "times="" new="" roman";="" font-size-adjust:="" none;="" font-stretch:="" normal;\\'="">&nbsp;</span></span></span><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;">귀하의 동의를 받아 보유하고 있는 거래정보 등을 귀하께서 열람을
+			요구하는 경우 </span></p><p><span style="font-family: Noto Sans KR; font-size: 11pt; mso-bidi-font-family: Noto Sans KR; mso-font-kerning: 0pt;"><span lang="EN-US">YOUR CELEB </span>은 지체없이 그 열람<span lang="EN-US">, </span>확인
+			할 수 있도록 조치합니다<span lang="EN-US">.</span></span></p><p><font face="Noto Sans KR" size="3">
 
 <br /></font></p>
 		</div> <!-- class=" agreement_cont" end -->

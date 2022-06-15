@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,9 +46,29 @@
 		});
 	});
 	
+	$(document).ready(function(){
+		
+		let result = '<c:out value="${find_result}"/>';
+		
+		console.log(result);
+		
+		if(result =="null"){
+			alert("회원정보를 다시 확인해주세요.");
+		}
+		
+	});
 
 </script>
 <style type="text/css">
+
+	.find_tab{
+		display:flex;
+	}
+	
+	.find_tab .tab_title{
+		margin:0 20px;
+	}
+
 
 	#findPw{
 		display:none;
@@ -71,8 +92,8 @@
 				<form method="post" class="find_form" action="findIdPwd_ok.do">
 					<input type="hidden" name="find_word" value="id">
 					<div class="content">
-						<div class="find_tab">
-							<div class="tab_title_selected" onclick="findTab('findId')">아이디 찾기</div>
+						<div class="find_tab" align="center">
+							<div class="tab_title" onclick="findTab('findId')">아이디 찾기</div>
 							<div class="tab_title" onclick="findTab('findPw')">비밀번호 찾기</div>
 						</div>	
 						<br>
@@ -116,7 +137,7 @@
 					<div class="content">
 						<div class="find_tab">
 							<div class="tab_title" onclick="findTab('findId')">아이디 찾기</div>
-							<div class="tab_title_selected" onclick="findTab('findPw')">비밀번호 찾기</div>
+							<div class="tab_title" onclick="findTab('findPw')">비밀번호 찾기</div>
 						</div>	
 						<br>
 						<table border="1">

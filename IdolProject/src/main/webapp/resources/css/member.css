@@ -1,4 +1,7 @@
 @charset "UTF-8";
+	body{
+		font-family: 'Noto Sans KR', sans-serif;
+	}
 
 /* **************join.jsp**************** */
 	/* 가수선택하기 - join.jsp & mypage_settings.jsp */

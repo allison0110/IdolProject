@@ -55,7 +55,6 @@ public class MemberDAOImpl implements MemberDAO{
 	public String findIdPwd(HashMap<String, String> params, String find) {
 		
 		return this.sqlSession.selectOne("find"+find, params);
-
 		
 	}
 
@@ -76,6 +75,12 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public int profileUpload(MemberDTO dto) {
 		return this.sqlSession.update("profileUpload",dto);
+	}
+
+
+	@Override
+	public int coverUpload(MemberDTO dto) {
+		return this.sqlSession.update("coverUpload",dto);
 	}
 
 

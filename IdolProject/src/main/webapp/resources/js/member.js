@@ -123,6 +123,7 @@
 				return false;
 			}
 			
+			/* 비밀번호 확인 */
 			if(pwd != check){
 				alert("비밀번호가 틀립니다. 확인해주세요.");
 				$("#member_pwd").focus();
@@ -156,14 +157,23 @@
 				return false;
 			}
 			
-			if($("#agree_check1").prop("checked",false)){
-				alert("이용약관 동의를 선택해주세요.");
+			/* 약관동의 체크 여부 */
+			let agree= false;
+			
+			if($("#agree_check1").prop("checked") && $("#agree_check2").prop("checked")){
+
+				agree = true;
+
+			}else{
+				agree = false;
+			}
+			
+			if(agree == false){
+				alert("약관동의를 확인해주세요");
 				return false;
 			}
-			if($("#agree_check2").prop("checked",false)){
-				alert("개인정보 동의를 선택해주세요.");
-				return false;
-			}
+			
+		
 			
 			
 		}

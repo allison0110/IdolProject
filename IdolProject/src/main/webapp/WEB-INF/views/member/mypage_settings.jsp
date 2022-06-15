@@ -76,7 +76,7 @@
 </script>
 </head>
 <body>
-	<c:set var="dto" value="${memInfo }"/> <!-- 세션에 저장된 정보 -->
+	<c:set var="dto" value="${memInfo }"/> 
 	<c:set var="fav" value="${mem_fav }"/>
 	<script type="text/javascript">
 	
@@ -88,16 +88,17 @@
 		<!-- aisde inlcude 추가  -->
 		<jsp:include page="../include/mypage_aside.jsp"/>
 		
-		<div class="mypage_main">
+		<div class="mypage_main" style="margin-left: 20px; margin-top: 50px;">
 		<div class="manage_top">
-		<span>내 정보 수정</span>	
-		
+		<h2>기본 정보 수정</h2>
 		</div>
+		<hr style="border: 2px solid black;">
 			<form method="post" action="<%=request.getContextPath() %>/member_update.do" onsubmit="return checkUpdate()">
 				<input type="hidden" name="checked_celeb" id="hidden_chcked" value="">
 				<input type="hidden" name="member_no"  value="${dto.getMember_no() }">
+			
 			<div class="manage_basic">
-			<span>기본 정보 수정</span>
+			<h3>기본 정보 수정</h3>
 			<hr align="left" color="lightgray" width="30%">
 			<table border="1" cellspacing="0">
 				<tr>
@@ -198,21 +199,32 @@
 			<span>좋아하는 가수 변경</span>
 			<hr align="left" color="lightgray" width="30%">
 			
-			<c:if test="${empty celebList  }">
+			<c:if test="${empty totalList  }">
 			<h2>셀럽 정보가 없습니다.</h2>
 			</c:if>
 			
-			<c:if test="${!empty celebList }">
+			<c:if test="${!empty totalList }">
 			
-			<div class="celeb_container">
-			<c:set var="list" value="${celebList }"/>
+			<div class="celeb_container" > 
+			<c:set var="list" value="${totalList }"/>
 			<c:forEach items="${list }" var="dto">
+			<c:if test="${dto.getCeleb_group() != 'solo' }"> <!-- totalList 그룹가수인 경우 -->
 			<div class="celeb_item">
 			<input type="checkbox" name="fav_celeb[]" id="celeb_${dto.getCeleb_no() }" value="${dto.getCeleb_no() }" onchange="check_celeb(${dto.getCeleb_no()})" > 
 			<label for="celeb_${dto.getCeleb_no() }" >
 	       <span class="celeb_span"> ${dto.getCeleb_group() } </span>
 	       	</label>
 			</div>
+			</c:if>
+			<c:if test="${dto.getCeleb_group() == 'solo' }"> <!-- totalList 솔로 가수인 경우 -->
+			<div class="celeb_item">
+			<input type="checkbox" name="fav_celeb[]" id="celeb_${dto.getCeleb_no() }" value="${dto.getCeleb_no() }" onchange="check_celeb(${dto.getCeleb_no()})" > 
+			<label for="celeb_${dto.getCeleb_no() }" >
+	       <span class="celeb_span"> ${dto.getCeleb_name() } </span>
+	       	</label>
+			</div>
+			</c:if>
+			
 			</c:forEach>
 				
 			</div><!-- class="celeb_container" end -->
@@ -250,17 +262,16 @@
 					
 				}
 				
-				console.log("Result"+checked)
+				console.log("Result:"+checked)
 				
 			});
 		
 			
-			/* 셀럽 선택하기 이벤트 (3개제한 및 리스트 저장)  */
 			function check_celeb(no){
-					
+				
 				console.log(no);
 				
-				if($("#celeb_"+no).prop("checked")){
+				if($("#celeb_"+no).prop("checked")){//체크되면 배열에 저장
 					
 					++count; 
 					
@@ -269,7 +280,7 @@
 					checked.push($("#celeb_"+no).val());
 					console.log(count);
 					
-					}else {
+					}else {//3명이상 선택했을 경우 취소 및 삭제
 					
 						alert("최대 3명까지 선택 가능합니다.");
 						$("#celeb_"+no).prop("checked",false);
@@ -277,10 +288,11 @@
 					}
 					
 				}else {
+					var findNO = String(no);
+					const index = checked.indexOf(findNO);
+					console.log("index:"+index)
 					
-					console.log(count);
-					var size = checked.length;
-					checked.splice(size-1);
+					checked.splice(index,1);
 
 					--count;
 				}

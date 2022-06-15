@@ -4,5 +4,6 @@ import java.util.List;
 
 public interface CelebDAO {
 
+	List<CelebDTO> soloList();
 	List<CelebDTO> representList();
 }

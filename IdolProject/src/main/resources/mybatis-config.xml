@@ -14,6 +14,10 @@
 		<typeAlias type="com.idol.model.CelebDAO" alias="celebDAO"/>
 		<typeAlias type="com.idol.model.MileageDTO" alias="mileDTO"/>
 		<typeAlias type="com.idol.model.MileageDAO" alias="mileDAO"/>
+		<typeAlias type="com.idol.model.CommunityDTO" alias="communityDTO"/>
+		<typeAlias type="com.idol.model.CommunityDAO" alias="communityDAO"/>
+		<typeAlias type="com.idol.model.FollowDTO" alias="followDTO"/>
+		<typeAlias type="com.idol.model.FollowDAO" alias="followDAO"/>
 	</typeAliases>  	
 	
 </configuration>

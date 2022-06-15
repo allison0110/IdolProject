@@ -13,5 +13,6 @@ public interface MemberDAO {
 	String findIdPwd(HashMap<String, String> params, String find);
 	MemberDTO getMemInfo(String id);
 	int profileUpload(MemberDTO dto);
+	int coverUpload(MemberDTO dto);
 	
 }

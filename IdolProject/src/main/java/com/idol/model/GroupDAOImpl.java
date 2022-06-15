@@ -7,22 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CelebDAOImpl implements CelebDAO{
+public class GroupDAOImpl implements GroupDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-
-	@Override
-	public List<CelebDTO> soloList() {
-		// TODO Auto-generated method stub
-		return this.sqlSession.selectList("soloList");
-	}
-
-	@Override
-	public List<CelebDTO> representList() {
-		return this.sqlSession.selectList("repList");
-	}
 	
-	
+	//solo제외 group 리스트
+	@Override
+	public List<GroupDTO> representGList() {
+		return this.sqlSession.selectList("groupList"); 
+	}
 
 }

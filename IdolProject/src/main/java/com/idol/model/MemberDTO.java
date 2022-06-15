@@ -22,6 +22,7 @@ public class MemberDTO {
 	private String member_image;
 	private String member_favorite_celeb;
 	private String member_introduction;
+	private String member_cover;
 	
 	
 	

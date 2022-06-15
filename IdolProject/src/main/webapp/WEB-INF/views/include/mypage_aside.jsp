@@ -40,7 +40,7 @@
 	}
 	
 	
-	/********* product_detial.jsp 내의 레이어 팝업창 ***************/
+	/********* 레이어 팝업창 ***************/
 	.editProfile{
 		display: none;
 		
@@ -106,13 +106,18 @@
 </style>
 </head>
 <body>
-
-	<c:set var="dto" value="${memInfo }"/>	
+	<c:set var="dto" value="${loginInfo }"/>
+	<%-- <c:set var="dto" value="${memInfo }"/>	 --%>
 	<aside class="mypage_aside">
 			<div class="profile_box">
 				<div class="profile_image_wrap">
 				<div class="profile_image">
+					<c:if test="${!empty dto.getMember_image() }">
 					<img src="./resources/upload/member_image/${dto.getMember_no() }/${dto.getMember_image() }" alt="member_image">
+					</c:if>
+					<c:if test="${empty dto.getMember_image() }">
+						<i class="bi bi-card-image" style="font-size: 5em;text-align: center;margin-left: 25px;"></i>
+					</c:if>
 				</div>
 				<a href="#editProfile" class="image_setting"><i class="bi bi-gear-fill"></i></a>
 				</div>
@@ -123,6 +128,9 @@
 							enctype="multipart/form-data"> 
 							
 					<input type="hidden" name="member_no" value="${dto.getMember_no() }">
+					<input type="hidden" name="member_id" value="${dto.getMember_id() }">
+					<input type="hidden" name="old_img" value="${dto.getMember_image() }">
+					<input type="hidden" name="uri" value="<%=request.getRequestURI()%>">
 					<p>Upload Profile</p>
 					<br>
 					<input type="file" name="file1"><br>

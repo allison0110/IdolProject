@@ -20,7 +20,7 @@
 	
 		insert into member values(#{member_no}, #{member_id}, #{member_nickname}, #{member_name}, #{member_pwd}, #{member_gender}
 					, #{member_email}, #{member_phone}, #{member_dateofbirth}, #{member_address},
-					sysdate, '', '', #{member_favorite_celeb}, '')
+					sysdate, '', '', #{member_favorite_celeb}, '', '')
 	
 	</insert>
 	<!-- **************로그인 ****************** -->
@@ -39,7 +39,6 @@
 	<select id="findid" parameterType="HashMap" resultType="String">
 		select member_id from member 
 			where member_name = #{member_name}
-			
 			<if test="member_email != null"> <!-- 이메일로 찾기 한 경우 -->
 				and member_email = #{member_email}
 			</if>
@@ -78,6 +77,10 @@
 	
 	<update id="profileUpload" parameterType="memberDTO">
 		update member set member_image = #{member_image} where member_no = #{member_no}
+	</update>
+
+	<update id="coverUpload" parameterType="memberDTO">
+		update member set member_cover = #{member_cover} where member_no = #{member_no}
 	</update>
 	
 </mapper>

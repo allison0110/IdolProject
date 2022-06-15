@@ -1,3 +1,4 @@
+<%@page import="com.idol.model.MemberDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -5,6 +6,7 @@
 <head>
 <title>Home</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 <style type="text/css">
 *{
 	margin:0;
@@ -26,75 +28,6 @@ h2{
 }
 
 
-.select-box{
-	dsplay:flex;
-	width:400px;
-	flex-direction: column;
-}
-
-.select-box .options-container{
-
-	background-color:#2f3640;
-	color:#f5f6fa;
- 	max-height:0;
-	width:100%;
-	opacity: 0;
-	transition: all 0.4s;
-	border-radius: 8px;
-	overflow: hidden;
-	order:1;
-	
-}
-
-.selected{
-	background: #2f3640;
-	border-radius: 8px;
-	margin-bottom:8px;
-	color:#f5f6fa;
-	position: relative;
-	order:0;
-}
-
-.selected::after{
-	content:"";
-	
-}
-
-
-.select-box .options-container.active{
-	max-height:150px;
-	opacity:1;
-	overflow-y:scroll; 
-}
-
-.select-box .options-container::-webkit-scrollbar{
-	width:8px;
-	background-color:#0d141f;
-	border-radius: 0 8px 8px 0;
-}
-.select-box .options-container::-webkit-scrollbar-thumb{
-	background:#525861;
-	border-radius: 0 8px 8px 0;
-}
-
-.select-box .option,
-.selected{
-		padding:12px 24px;
-		cursor: pointer;
-}
-
-.select-box .option:hover{
-	background:#414b57;
-}
-
-.select-box label{
-	cursor: pointer;
-}
-
-.select-box .option .radio{
-	display:none;
-}
-
 </style>
 </head>
 <body>
@@ -103,71 +36,36 @@ h2{
 	 
 	 <a href="<%=request.getContextPath() %>/join.do">회원가입</a>
 	 <a href="<%=request.getContextPath() %>/login.do">로그인</a>
+	 <br><br>
+	 <a href="<%=request.getContextPath() %>/mypage.do">마이페이지</a><br>
 	 <br>
-	 <a href="<%=request.getContextPath() %>/mypage.do">마이페이지</a>
+	 <a href="<%=request.getContextPath() %>/myfeed.do?id=hong">hong 피드</a> &nbsp;
+	 <a href="<%=request.getContextPath() %>/myfeed.do?id=choi">choi 피드</a> &nbsp;
+	 <a href="<%=request.getContextPath() %>/myfeed.do?id=funfun">funfun 피드</a> &nbsp;
 	 </div>
 	 
-	 <% HttpSession session = request.getSession(); %>
-	 <script type="text/javascript">
-	 
-	 	$(document).ready(function(){
+	 <% HttpSession session = request.getSession(); 
+	 MemberDTO dto =null;
+	 	try{
+	 		dto = (MemberDTO)session.getAttribute("loginInfo");
+	 	}catch (Exception e){
+	 		System.out.println("오류발생");
+	 	}finally{
+	 		if(dto == null){
+		 		System.out.println("로그인아이디: null");
+		 	}else{
+		 		System.out.println("로그인아이디:"+dto.getMember_id());
+		 	}
 	 		
 	 		
-	 		
-	 		var login = "<%=(String)session.getAttribute("login_id") %>";
-	 		
-	 		if(login == "null"){
-	 			console.log("login - null");
-	 		}else{
-	 			console.log(login);
-	 		}
-	 		
-	 	});
-	 
-	 </script>
+	 	}
+	 	
+	 	
+	 %>
 	 
 	 
 	 
 	 
-	 
-	 <!-- <h2>선택박스만들기</h2>
-	
-	
-	<div class="select-box">
-	
-	
-	<div class="options-container active">
-		
-		<div class="option">
-			<input type="radio" class="radio" id="automobiles" name="category">
-			<label for="automobiles">First</label>
-		</div>
-		<div class="option">
-			<input type="radio" class="radio" id="automobiles" name="category">
-			<label for="automobiles">Second</label>
-		</div>
-		<div class="option">
-			<input type="radio" class="radio" id="automobiles" name="category">
-			<label for="automobiles">Third</label>
-		</div>
-		<div class="option">
-			<input type="radio" class="radio" id="automobiles" name="category">
-			<label for="automobiles">Forth</label>
-		</div>
-		<div class="option">
-			<input type="radio" class="radio" id="automobiles" name="category">
-			<label for="automobiles">Fifth</label>
-		</div>
-		<div class="option">
-			<input type="radio" class="radio" id="automobiles" name="category">
-			<label for="automobiles">Sixth</label>
-		</div>
-	</div>
-	</div>
-	<div class="selected">
-	 	Select video Category
-		</div>
-	 <script src="main.js"></script> -->
-	 
+	 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
 </html>
