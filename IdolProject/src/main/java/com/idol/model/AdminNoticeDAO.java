@@ -12,9 +12,10 @@ public interface AdminNoticeDAO {
 	public NoticeDTO getNoticeContent(int no);
 	// 공지 삭제 하기
 	public int deleteNotice(int no);
-	// 공자 삭제 후 넘버링 재정의
+	// 공지 삭제 후 넘버링 재정의
 	public void updateNoticeSeque(int no);
-	
+	// 공지 수정 완료
+	public int updateNoticeOk(NoticeDTO dto);
 	
 	
 	

@@ -1,3 +1,4 @@
+<%@page import="java.util.StringTokenizer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -74,15 +75,7 @@
 	}
 	
 	
-	.admin_celeb_list_image {
-		width: 100%;
-		height: 50%;
-	}
 	
-	.admin_celeb_list_image img {
-		width: 100%;
-		height: 100%;
-	}
 	
 	
 </style>
@@ -101,6 +94,13 @@
 				<c:forEach items="${list }" var="dto">
 					<a href="<%=request.getContextPath()%>/admin_celeb_content.do?no=${dto.celeb_no}">
 						<div data-aos="fade-in" class="admin_celeb_content">	
+							
+							<%
+								String img = "";
+								
+								
+							
+							%>
 							
 							<div class="admin_celeb_img_box">
 							

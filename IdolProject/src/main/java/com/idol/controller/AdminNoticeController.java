@@ -3,6 +3,7 @@ package com.idol.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Savepoint;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -201,6 +202,120 @@ public class AdminNoticeController {
 		
 		return "admin/admin_notice_update";
 	}
+	
+	
+	@RequestMapping("admin_notice_update_ok.do")
+	public void updateNotice(MultipartHttpServletRequest mRequest, NoticeDTO dto, 
+			@RequestParam("oldimgs") String oldimgs, HttpServletResponse response) throws IOException {
+		
+		String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\notice\\";
+		
+		Iterator<String> iterator = mRequest.getFileNames();
+		
+		String uploadFileName = iterator.next();
+		
+		List<MultipartFile> fileList = mRequest.getFiles(uploadFileName);
+		
+		String dbFileName = "";
+		
+		long fileSize = 0;
+		
+		for(MultipartFile mFile : fileList) {
+			
+			String originlFileName = mFile.getOriginalFilename();
+			
+			fileSize = mFile.getSize();
+			
+			String saveFile = path + System.currentTimeMillis() + originlFileName;
+			
+			dbFileName += System.currentTimeMillis() + originlFileName + "|";
+			
+			try {
+				mFile.transferTo(new File(saveFile));
+			} catch (Exception e) {
+				
+			}
+			
+		} // for end
+		
+		// 이미지 수정 파일 첨부 하지 않았을 경우
+		if(fileSize == 0) {
+			
+			dto.setNotice_image(oldimgs);
+			
+			int check = this.dao.updateNoticeOk(dto);
+			
+			response.setContentType("text/html; charset=UTF-8");
+			
+			PrintWriter out = response.getWriter();
+			
+			if(check> 0) {
+				
+				out.println("<script>");
+				out.println("alert('공지 사항 수정 성공(이미지X) :)')");
+				out.println("location.href='admin_notice_content.do?no="+dto.getNotice_no()+"'");
+				out.println("</script>");
+				
+			}else {  
+				
+				out.println("<script>");
+				out.println("alert('공지사항 수정 실패(이미지X) :(')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+			
+		
+		// 이미지 파일 첨부 했을 경우
+		}else {
+			
+			StringTokenizer tokenizer = new StringTokenizer(oldimgs, "|");
+			
+			String[] arrayToken = new String[tokenizer.countTokens()];
+			
+			for(int i =0; i < arrayToken.length; i++) {
+				
+				arrayToken[i] = tokenizer.nextToken();
+				
+				File file = new File(path + arrayToken[i]);
+				
+				file.delete();
+			}
+			
+			
+			dto.setNotice_image(dbFileName);
+			
+			int check = this.dao.updateNoticeOk(dto);
+						
+			response.setContentType("text/html; charset=UTF-8");
+			
+			PrintWriter out = response.getWriter();
+			
+			if(check> 0) {
+				
+				out.println("<script>");
+				out.println("alert('공지 사항 수정 성공(이미지 첨부) :)')");
+				out.println("location.href='admin_notice_content.do?no="+dto.getNotice_no()+"'");
+				out.println("</script>");
+				
+			}else {  
+				
+				out.println("<script>");
+				out.println("alert('공지사항 수정 실패(이미지 이미지 첨부) :(')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+			
+			
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

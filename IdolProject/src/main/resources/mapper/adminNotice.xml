@@ -34,4 +34,11 @@
     		]]>
     	</update>
     	
+    	<!-- 공지 사항 없데이트 -->
+    	<update id="updateNotice" parameterType="noticeDTO">
+    		update notice set notice_image = #{notice_image}, notice_cont = #{notice_cont}, 
+    			notice_update = sysdate, notice_enddate = #{notice_enddate} where notice_no = #{notice_no} 
+    	</update>
+    	
+    	
     </mapper>

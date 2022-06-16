@@ -42,6 +42,11 @@ public class AdminNoticeDAOImpl implements AdminNoticeDAO{
 		this.sqlSession.update("updateNoticeSeque", no);
 		
 	}
+
+	@Override
+	public int updateNoticeOk(NoticeDTO dto) {
+		return this.sqlSession.update("updateNotice", dto);
+	}
 	
 	
 
