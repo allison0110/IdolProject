@@ -20,7 +20,7 @@
 		padding: 0px;
 		margin: 0px;
 		height: 100%;
-		background-color: #f5f5f5;
+		background-color: #fafafa;
 	}
 	
 	li {
@@ -110,7 +110,7 @@
 								<ul>						
 									<c:if test="${dto.celeb_group != 'solo'}">
 										<li>
-										 그룹명(임시) :  ${dto.celeb_group }
+										  ${dto.celeb_group }
 										</li>
 									</c:if>	
 									<c:if test="${dto.celeb_group =='solo'}">

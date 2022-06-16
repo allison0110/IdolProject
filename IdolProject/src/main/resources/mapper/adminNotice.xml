@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    
+    <mapper namespace="noticeDAO">
+    
+    	<insert id="insertNotice" parameterType="noticeDTO">
+    		<selectKey resultType="int" keyProperty="notice_no" order="BEFORE">
+    			select max(notice_no) from notice
+    		</selectKey>
+    		insert into notice values(#{notice_no} + 1, #{admin_id}, #{notice_title}, 
+    			#{notice_image}, #{notice_cont}, default, sysdate, '', #{notice_enddate})
+    	</insert>
+    
+    	<select id="noticeLsit" resultType="noticeDTO">
+    		select * from notice order by notice_no desc
+    	</select>
+    	
+    	<select id="noticeCont" parameterType="int" resultType="noticeDTO">
+    		select * from notice where notice_no = #{no}
+    	</select>
+    	
+    	<delete id="deleteNotice" parameterType="int">
+    		delete from notice where notice_no = #{no}
+    	</delete>
+    	
+    	<update id="updateNoticeSeque" parameterType="int">
+    		<![CDATA[
+    			update notice set notice_no = notice_no - 1 where notice_no > #{no}
+    		]]>
+    	</update>
+    	
+    </mapper>

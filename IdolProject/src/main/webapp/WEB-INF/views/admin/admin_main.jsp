@@ -111,7 +111,19 @@
 					</div>
 				</li>
 				<li>
-					공지 관리
+					
+					<a href="<%=request.getContextPath() %>/admin_notice_list.do">
+						공지 관리
+					</a>
+					<div>
+						<ul>
+							<li>
+								<a href="<%=request.getContextPath() %>/admin_notice_insert.do">
+									등록 
+								</a>
+							</li>
+						</ul>
+					</div>
 				</li>
 				<li>
 					팝업 관리
@@ -120,23 +132,25 @@
 					판매관리
 				</li>
 				<li>
-					굿즈 관리
+					
+					<a href="<%=request.getContextPath() %>/admin_goods_list.do">
+						굿즈 관리
+					</a>
 					<div>
 						<ul>
-							<li>등록</li>
-							<li>수정</li>
-							<li>리스트</li>
+							<li>
+								<a href="<%=request.getContextPath() %>/admin_goods_insert.do">
+									등록 
+								</a>
+							</li>
 						</ul>
 					</div>
 				</li>
+				<li>
+					${admin_id }님 환영합니다 :D
+				</li>
 			</ul>
-			<div>
-				<c:set var="d" value="${date }" />
-				<c:set var="t" value="${time }" />
-				<c:forEach items="${d }" var="date">
-					${date }홀 
-				</c:forEach>
-			</div>
+			
 			
 		</div> <!-- admin_navbar end -->
 			

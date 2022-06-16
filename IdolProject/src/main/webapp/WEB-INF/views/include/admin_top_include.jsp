@@ -133,6 +133,9 @@
 							</ul>
 						</div>
 					</li>
+					<li>
+						${admin_id }님 환영합니다 :D
+					</li>
 				</ul>
 				
 			</div> <!-- admin_link -->

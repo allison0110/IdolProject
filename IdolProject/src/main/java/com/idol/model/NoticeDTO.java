@@ -13,5 +13,5 @@ public class NoticeDTO {
 	private int notice_hit;
 	private String notice_date;
 	private String notice_update;
-	
+	private String notice_enddate;
 }
