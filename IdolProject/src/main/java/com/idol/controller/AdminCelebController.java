@@ -241,9 +241,13 @@ public class AdminCelebController {
 	@RequestMapping("admin_celeb_list.do")
 	public String celebList(Model model) {
 		
-		List<CelebDTO> list = this.dao.celebList();		
+		List<CelebDTO> list = this.dao.celebList();
+		
+		List<GroupDTO> glist = this.dao.getGroupList();
 		
 		model.addAttribute("celecList", list);
+		
+		model.addAttribute("groupList", glist);
 		
 		return "admin/admin_celeb_list";
 	}

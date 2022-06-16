@@ -150,6 +150,13 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 	}
 
 
+	//그룹 리스트 불러오기
+	@Override
+	public List<GroupDTO> getGroupList() {
+		return this.sqlSession.selectList("getGroupAllList");
+	}
+
+
 
 
 	

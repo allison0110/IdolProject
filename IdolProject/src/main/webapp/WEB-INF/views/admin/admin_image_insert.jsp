@@ -30,22 +30,19 @@
 <body>
 	
 	<div class="admin_image_wrapper">
-		<form method="post" action="<%=request.getContextPath()%>/admin_insert_image_ok.do">
+		
 		
 		<div class="admin_image_container">
-			<div class="admin_image_left">
-				<div>이미지 경로</div>
-				<div>이미지 링크</div>
-				<div>이미지 순서</div>
-				<div>이미지 on/off</div>
-			</div>
-			
-			<div class="admin_image_right">
-				<div> <input name="image_path"> </div>
-				<div> <input name="image_link"> </div>
-				<div> <input type="number" name="image_priority" min="1" max="10"> </div>
+			<form method="post" enctype="multipart/form-data"  
+				action="<%=request.getContextPath()%>/admin_insert_image_ok.do">
+				<div> 
+					이미지 링크<input name="image_link"> 
+				</div>
+				<div> 
+					순번 정하기<input type="number" name="image_priority" min="1" max="10"> 
+				</div>
 				<div>
-					<select name="image_visible">
+					on/off 선택<select name="image_visible">
 						<option>
 							on/off 선택
 						</option>
@@ -57,12 +54,16 @@
 						</option>
 					</select>
 				</div>
-			</div><!-- admin_image_right end -->
-		</div> <!--admin_image_container end  -->
-			<input type="submit" value="등록">
-			<input type="reset" value="다시작성">
+				<div>
+					<input type="file" multiple="multiple" name="file">
+				</div>
+				<input type="submit" value="등록">
+				<input type="reset" value="다시작성">
 			
-		</form>
+			</form>
+		</div> <!--admin_image_container end  -->
+			
+	
 	</div> <!-- admin_image_wrapper end -->
 
 

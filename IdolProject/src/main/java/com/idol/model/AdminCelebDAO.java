@@ -33,6 +33,10 @@ public interface AdminCelebDAO {
 	public GroupDTO getGroupCont(String gName);
 	// 그룹명 리스트 가져오기
 	public List<GroupDTO> getGroupNameList();
+	// 그룹 리스트 가져오기
+	public List<GroupDTO> getGroupList();
+	
+	
 }
 
 

@@ -1,12 +1,16 @@
+<%@page import="com.idol.model.GroupDTO"%>
+<%@page import="com.idol.model.CelebDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.StringTokenizer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
-    <c:set var="list" value="${celecList }" />
+    <c:set var="cList" value="${celecList }" />
+    <c:set var="gList" value="${groupList }" />
    
-   
+  
    
 <!DOCTYPE html>
 <html>
@@ -58,22 +62,36 @@
 		width: 320px;
 		height: 370px;
 		background-color: white;
-		display: flex;
-		flex-direction: column;
+		display: grid;
+    	grid-template-rows: 80% 20%;
 		
 	}
 	
 	.admin_celeb_img_box {
-		max-height: 100%;
-		flex: 50%;
+		height: 100%;
+		width: 100%;
+		grid-row: 1;
+		background-size: cover;
+		border-bottom: 1px solid gray;
+	}
+	
+	.imgs{
+		width: 100%;
+		object-fit: none;
+		width: 160px;
 	}
 	
 	.admin_celeb_content_box {
-		max-height: 100%;
-		flex: 50%;
+		height: 100%;
+		width: 100%;
+		grid-row: 2;
 	
 	}
 	
+	.admin_celeb_content_box ul {
+		
+		
+	}
 	
 	
 	
@@ -90,70 +108,97 @@
 	<div class="admin_celeb_wrapper">
 	
 		<div class="admin_celeb_container">
-			<c:if test="${!empty list }">
-				<c:forEach items="${list }" var="dto">
-					<a href="<%=request.getContextPath()%>/admin_celeb_content.do?no=${dto.celeb_no}">
-						<div data-aos="fade-in" class="admin_celeb_content">	
+		
+
+			<c:if test="${!empty cList }">
+				<%
+					List<CelebDTO> list = (List<CelebDTO>)request.getAttribute("celecList");
+
+					List<GroupDTO> glist = (List<GroupDTO>)request.getAttribute("groupList");	
+				
+					for(int i=0; i < list.size(); i++){
+						
+						CelebDTO dto = list.get(i);
+						
+						String imgs = dto.getCeleb_pimage();
+						
+						StringTokenizer tokenizer = new StringTokenizer(imgs, "|");
+						
+						String[] arrayToekn = new String[tokenizer.countTokens()];
+						
+						for(int j =0; j < arrayToekn.length; j++ ) {
+							arrayToekn[j] = tokenizer.nextToken();
 							
-							<%
-								String img = "";
-								
-								
-							
-							%>
-							
-							<div class="admin_celeb_img_box">
-							
-							
+						}
+						
+					
+						
+						
+					%>
+					<a href="<%=request.getContextPath()%>/admin_celeb_content.do?no=<%=dto.getCeleb_no() %>">			
+						<div data-aos="fade-in" class="admin_celeb_content">
+						
+							<div class="admin_celeb_img_box" style="background-image: url('./resources/upload/celeb/<%= arrayToekn[0] %>')">
+								<!-- <img class="imgs" alt="" src="./resources/upload/celeb/<%= arrayToekn[0] %>">	
+								 -->
 							</div>
+							
 							<div class="admin_celeb_content_box">
 								<ul>						
-									<c:if test="${dto.celeb_group != 'solo'}">
-										<li>
-										  ${dto.celeb_group }
-										</li>
-									</c:if>	
-									<c:if test="${dto.celeb_group =='solo'}">
-										
-									</c:if>	
+									<%
+									if(dto.getCeleb_group().equals("solo")){
+										%>
 									<li>
-										가수 명 : ${dto.celeb_name }
+									</li>		
+								<%	} else {%>
+									<li>
+										 <%=dto.getCeleb_group() %>
+									</li>
+								<% } %>	
+									<li>
+										 <%=dto.getCeleb_name() %>
+									</li>
+									<!-- 
+									<li>
+										본명 : <%=dto.getCeleb_realname() %>
 									</li>
 									<li>
-										본명 : ${dto.celeb_realname }
+										소속사 : <%=dto.getCeleb_agency() %>
+									</li>
+									
+									<li>
+										생일 : <%=dto.getCeleb_dateofbirth().substring(0, 10) %>
 									</li>
 									<li>
-										소속사 : ${dto.celeb_agency }
+										데뷔일 : <%=dto.getCeleb_debutdate().substring(0, 10) %>
 									</li>
-									<li>
-										생일 : ${dto.celeb_dateofbirth.substring(0, 10) }
-									</li>
-									<li>
-										데뷔일 : ${dto.celeb_debutdate.substring(0, 10) }
-									</li>
+									 -->
+									
 								</ul>
-							</div> <!-- admin_celeb_content -->
-						</div> <!-- admin_celeb_content -->
-					</a>
-				</c:forEach>
-			</c:if>	
-				
-		<div
-		    data-aos="fade-up"
-		    data-aos-offset="200"
-		    data-aos-delay="50"
-		    data-aos-duration="1000"
-		    data-aos-easing="ease-in-out"
-		    data-aos-mirror="true"
-		    data-aos-once="false"
-		    data-aos-anchor-placement="top-center"
-		  >
-		  </div>
-			
+							</div> <!-- admin_celeb_content_box -->
+							
+						
+
+						
+					</div> <!-- admin_celeb_content -->		
+					</a>		
+								
+					<%} %>
+		</c:if>		
 		</div> <!-- admin_celeb_container -->
 		
 	</div> <!-- admin_celeb_wrapper -->
-	
+	<div
+	    data-aos="fade-up"
+	    data-aos-offset="200"
+	    data-aos-delay="50"
+	    data-aos-duration="1000"
+	    data-aos-easing="ease-in-out"
+	    data-aos-mirror="true"
+	    data-aos-once="false"
+	    data-aos-anchor-placement="top-center"
+	  >
+	  </div>	
 	
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>
