@@ -34,10 +34,35 @@
 		
 	}
 	
-	.feed_introduction{
-		background-color:white;
-		
-		padding:10px;
+	.feed_fList{
+		width: 50%;	
+	}
+	
+	.fList_item{
+		margin: 15px 0;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		align-items: center;
+	}
+	
+	.fList_img{
+		margin-left:100px;
+		display:block;
+		overflow:hidden;
+		border-radius: 50%;
+		width:70px;
+		height:70px;
+	}
+	
+	.fList_img >img{
+		display:block;
+		width:120%;
+		height:100%;
+		margin-left: -5px;
+	}
+
+	.fList_info{
+		text-align:left;
 	}
 
 </style>
@@ -65,15 +90,16 @@
 				</table>
 			</div><!-- class="feed_title"  end -->
 			
-			<div class="feed_fList">
+			<div class="feed_fList" align="center">
 				<c:if test="${!empty cont }">
+				
 				<c:forEach items="${cont }" var="cont"><!-- 피드회원의 팔로워리스트에 데이터가 있다면 반복문 -->
-				<div class="fList">
-					<div class="fList_img">
+				<div class="fList_item">
+					<div class="fList_img" align="right">
 						<img src="./resources/upload/member_image/${cont.getMember_no() }/${cont.getMember_image() }" alt="member_image">
 					</div>
 					<div class="fList_info">
-						${cont.getMember_id() } / ${cont.getMember_nickname() }
+						${cont.getMember_nickname() } <br> @${cont.getMember_id() }
 					</div>
 					<div class="fList_btn">
 						<c:if test="${!empty login_f }"> <!-- 로그인회원에게 팔로우리스트 데이터가 있다면 -->
@@ -111,9 +137,10 @@
 						<c:if test="${check == '-1' }">
 							
 						</c:if>
-					</div>				
-				</div>
+					</div>		
+					</div><!-- class=" fList_item" -->		
 				</c:forEach>
+				
 				</c:if>
 			</div><!-- class="feed_fList" -->
 			

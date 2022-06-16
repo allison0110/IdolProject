@@ -17,5 +17,10 @@
 		where celeb_no in (select min(celeb_no) from celeb where celeb_group != 'solo' group by celeb_group)
 		order by celeb_group
 	</select>
+	
+	<!-- 가수정보 확인 -->
+	<select id="celebInfo" resultType="celebDTO" parameterType="int">
+		select * from celeb where celeb_no = #{no}
+	</select>
 
 </mapper>    

@@ -11,11 +11,13 @@ public class GroupDAOImpl implements GroupDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
-	//solo제외 group 리스트
+
+	//celeb테이블 그룹명에 해당하는 정보 찾는 메서드
 	@Override
-	public List<GroupDTO> representGList() {
-		return this.sqlSession.selectList("groupList"); 
+	public GroupDTO getGroupInfo(String celeb_group) {
+
+		return this.sqlSession.selectOne("groupInfo", celeb_group);
 	}
+	
 
 }

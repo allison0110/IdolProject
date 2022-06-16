@@ -6,4 +6,5 @@ public interface CelebDAO {
 
 	List<CelebDTO> soloList();
 	List<CelebDTO> representList();
+	CelebDTO getCelebInfo(int no);
 }

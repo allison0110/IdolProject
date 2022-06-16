@@ -3,7 +3,12 @@ package com.idol.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -32,10 +37,14 @@ import com.idol.model.FollowDAO;
 import com.idol.model.FollowDTO;
 import com.idol.model.GroupDAO;
 import com.idol.model.GroupDTO;
+import com.idol.model.InquiryDAO;
+import com.idol.model.InquiryDTO;
+import com.idol.model.Inquiry_CategoryDTO;
 import com.idol.model.MemberDAO;
 import com.idol.model.MemberDTO;
 import com.idol.model.MileageDAO;
 import com.idol.model.MileageDTO;
+import com.idol.model.PageDTO;
 
 //회원과 관련된 지시를 처리하는 컨트롤러 
 //회원가입, 로그인, 마이페이지, 마이피드
@@ -51,8 +60,13 @@ public class MemberController {
 	@Autowired
 	private CelebDAO cdao;
 	
+	//그룹
 	@Autowired
 	private GroupDAO gdao;
+	
+	//문의게시판
+	@Autowired
+	private InquiryDAO idao;
 	
 	//마일리지
 	@Autowired
@@ -65,6 +79,12 @@ public class MemberController {
 	//팔로워
 	@Autowired
 	private FollowDAO followDao;
+	
+	
+	//게시판 페이지 관련 
+	//페이지 처리용 변수
+	private final int rowsize = 3;  //한 페이지당 보이는 게시글의 수
+	private int totalRecord ;       //DB상 전체 게시글 수 
 	
 	
 	// ************************************************* 회원가입 관련 *************************************************
@@ -180,9 +200,6 @@ public class MemberController {
 	public void loginOk(MemberDTO dto, HttpServletResponse response, HttpServletRequest request) 
 				throws IOException {
 		
-		
-		
-		
 		int check = this.dao.login(dto);
 		
 		
@@ -295,18 +312,28 @@ public class MemberController {
 	
 	//마이페이지 이동 
 	@RequestMapping("mypage.do")
-	public String mypage(HttpSession session, Model model) {
+	public String mypage(HttpSession session, HttpServletRequest request, Model model) {
 		
 		//로그인한 회원정보
 		MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
-//		session.setAttribute("memInfo", dto);//회원정보 세션저장
+		session.setAttribute("memInfo", dto);//회원정보 세션저장
 		
-		
+		//마일리지 정보
 		MileageDTO mdto = this.mdao.memMileage(dto);
 		
+		//문의내역
+		List<InquiryDTO> iList = this.idao.getInquiryList(dto.getMember_id());
 		
 		
+		//문의내역 - 답변대기중인 게시글 수
+		int waiting = this.idao.watingReply(dto.getMember_id());
+		
+		
+		//값전달
 		model.addAttribute("mileage", mdto); //회원에 대한 마일리지 정보
+		model.addAttribute("waiting", waiting);//답변대기 문의글
+		model.addAttribute("iList",iList); //문의내역
+		
 		
 		return "member/mypage";
 	}
@@ -420,7 +447,6 @@ public class MemberController {
 		PrintWriter out = response.getWriter();
 		
 		if(check>0) {
-			
 			out.println("<script>");
 			out.println("alert('회원 수정 성공')");
 			out.println("location.href='mySettings.do'");
@@ -435,6 +461,7 @@ public class MemberController {
 		
 	}
 	
+	//프로필 사진 수정 - 마이페이지 또는 피드 
 	@RequestMapping("editProfile.do")
 	public void editProfile(MultipartHttpServletRequest multi, MemberDTO dto, HttpServletResponse response, HttpServletRequest request) throws IOException {
 		
@@ -538,6 +565,7 @@ public class MemberController {
 				}
 	}
 	
+	//피드 커버사진 수정
 	@RequestMapping("editCover.do")
 	public void editCover(MultipartHttpServletRequest multi, MemberDTO dto, HttpServletResponse response) throws IOException {
 		
@@ -619,25 +647,408 @@ public class MemberController {
 	
 	
 	//마이페이지 - 구매내역페이지 이동
-	@RequestMapping("myOrderlist.do")
-	public String myorderlist() {
+	@RequestMapping("order_list.do")
+	public String order_list() {
 		
 		return"member/mypage_orderList" ;
 	}
 	
 	
 	//마이페이지 - 문의내역페이지 이동
-	@RequestMapping("myQnalist.do")
-	public String qnaist() {
+	@RequestMapping("inquiry_list.do")
+	public String qnaist(HttpServletRequest request, Model model,
+				HttpSession session) {
+		
+		String login_id = (String)session.getAttribute("login_id");
+		
+		int page; //현재 페이지 변수
+		
+		if(request.getParameter("page") != null) {
+			page= Integer.parseInt(request.getParameter("page"));
+		}else {
+			page =1; //넘겨받은 page 변수가 없다면 1페이지로 설정 
+		}
+		
+		//DB상 리스트 전체 게시물 수 확인하기
+		totalRecord = this.idao.getBoardCount(login_id);
+		
+		PageDTO pdto = new PageDTO(page, rowsize, totalRecord);
+		
+		//mybatis 다중 파라미터용 
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("inquiry_userid", login_id);
+		map.put("page", pdto);
+		
+		//페이지에 해당하는 게시물 가져오기
+		List<InquiryDTO> list = this.idao.getInquiryList(map);
+		
+		//답변 대기 중인 문의 수
+		int waiting = this.idao.watingReply(login_id);
+		
+		
+		model.addAttribute("List", list);
+		model.addAttribute("paging", pdto);
+		model.addAttribute("waiting", waiting);
 		
 		return "member/mypage_qnaList";
+	}
+	
+	//마이페이지 - 문의게시글 날짜검색
+	@RequestMapping("inquiry_date.do")
+	public String inquiry_date(HttpServletRequest request, Model model,
+			HttpSession session) throws ParseException {
+		
+		String login_id = (String)session.getAttribute("login_id");
+
+		int page; //현재 페이지 변수
+
+		if(request.getParameter("page") != null) {
+			page= Integer.parseInt(request.getParameter("page"));
+		}else {
+			page =1; //넘겨받은 page 변수가 없다면 1페이지로 설정 
+		}
+		
+		//날짜 조회 
+		int search_date = Integer.parseInt(request.getParameter("search_date"));
+		
+		//오늘날짜 기준 
+		Calendar cal = Calendar.getInstance();
+		
+		int year = cal.get(Calendar.YEAR);
+		int month =cal.get(Calendar.MONTH)+1;
+		int day =cal.get(Calendar.DAY_OF_MONTH);
+		
+		String endDate = year+"-"+month+"-"+day;
+		String startDate = "";
+		
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = format.parse(endDate);
+		
+		cal.setTime(date);
+		
+		switch (search_date) {
+		case 0: //오늘
+			startDate = endDate;
+			break;
+		case 7: //일주일
+			cal.add(Calendar.DATE, -7);
+			startDate = format.format(cal.getTime());
+			break;
+		case 1: //한달
+			cal.add(Calendar.DATE, -30);
+			startDate = format.format(cal.getTime());
+			break;
+		case 3: //3달
+			cal.add(Calendar.DATE, -90);
+			startDate = format.format(cal.getTime());
+			break;
+		case 6: //6달
+			cal.add(Calendar.DATE, -180);
+			startDate = format.format(cal.getTime());
+			break;
+		case 12: //1년
+			cal.add(Calendar.DATE, -365);
+			startDate = format.format(cal.getTime());
+			break;
+		}
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+	
+		map.put("inquiry_userid", login_id);
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		
+
+		//DB상 리스트 전체 게시물 수 확인하기
+		totalRecord = this.idao.getBoardCount(map);
+
+		PageDTO pdto = new PageDTO(page, rowsize, totalRecord);
+
+		//mybatis 다중 파라미터용 
+		map.put("page", pdto);
+
+		//페이지에 해당하는 게시물 가져오기
+		List<InquiryDTO> list = this.idao.getInquiryList(map);
+
+		//답변 대기 중인 문의 수
+		int waiting = this.idao.watingReply(login_id);
+
+
+		model.addAttribute("List", list);
+		model.addAttribute("paging", pdto);
+		model.addAttribute("search_date", search_date);
+		model.addAttribute("waiting", waiting);
+
+		return "member/mypage_qnaListDate";
+		
+	}
+	
+	
+	//마이페이지 - 문의게시글 작성하기 
+	@RequestMapping("inquiry_write.do")
+	public String inquiry_write(@RequestParam("id")String id, HttpServletRequest request, Model model) {
+		
+		//문의게시판 카테고리 리스트
+		List<Inquiry_CategoryDTO> cList = this.idao.getInquiryCategory();
+		
+		//넘겨받은 제품번호가 있다면
+		try {
+			
+			int pno = Integer.parseInt(request.getParameter("pno"));
+			
+			//상품정보 가져와 저장하기 
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("문의글 작성하기 - 상품정보 없음");
+		}
+		
+		
+		
+		model.addAttribute("cList", cList);
+		
+		
+		return "member/mypage_qna_write";
+	}
+	
+	//문의게시글 등록 완료
+	@RequestMapping("inquiry_write_ok.do")
+	public void qna_writeOk(InquiryDTO dto, MultipartHttpServletRequest multi, HttpServletResponse response) throws IOException {
+		
+		//올린 이미지 저장
+		Iterator<String> iterator = multi.getFileNames();
+
+		String uploadFileName = iterator.next();
+
+		List<MultipartFile> fileList = multi.getFiles(uploadFileName);
+
+		
+		String path = "C:\\Users\\ayss3\\Documents\\FinalProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\inquiry_board";
+
+		String dbFileName = "";
+
+		long fileSize = 0;
+		
+		
+		for (MultipartFile mFile : fileList) {
+
+			String originFileName = mFile.getOriginalFilename(); // 원본 파일 명
+			
+			fileSize = mFile.getSize(); // 파일 사이즈
+
+//			System.out.println("originFileName : " + originFileName);
+//			System.out.println("fileSize : " + fileSize);
+			
+			if(fileSize != 0) {
+			String saveFile = dto.getInquiry_userid()+"_" + originFileName;
+
+			dbFileName += dto.getInquiry_userid()+"_" + originFileName + "|";
+			
+			dto.setInquiry_image(dbFileName);
+			
+			try {
+
+				mFile.transferTo(new File(path+"/"+saveFile));
+
+			} catch (IllegalStateException e) {
+
+			}
+			
+			}else {
+				break;
+			}
+		}
+		
+		int check = this.idao.insertInquiry(dto);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		
+		if(check>0) {
+			
+			out.println("<script>");
+			out.println("alert('게시글 작성 완료')");
+			out.println("location.href='inquiry_list.do'"); 
+			out.println("</script>");
+		}else {
+			out.println("<script>");
+			out.println("alert('게시글 작성 실패')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+		
+	}
+	
+	//마이페이지 - 문의게시글 내용 
+	@RequestMapping("inquiry_cont.do")
+	public String qna_cont(@RequestParam("no")int no, @RequestParam("page") int page,
+						Model model) {
+		
+		//조회수 증가
+		this.idao.updateHit(no);
+		
+		//문의글 내용
+		InquiryDTO dto = this.idao.getInquirycont(no);
+		
+		//문의글 첨부파일 이미지 
+		String[] img = null;
+
+		StringTokenizer st = null;
+		if(dto.getInquiry_image() != null) {
+			st = new StringTokenizer(dto.getInquiry_image(),"|");
+
+			img= new String[st.countTokens()];
+
+			for(int i =0; i<img.length; i++){
+				img[i]=st.nextToken();	
+			}
+		}
+		
+		//원글에 답변글 있는경우 
+		InquiryDTO reply = this.idao.getReplyCont(no);
+		
+		model.addAttribute("Cont", dto);
+		model.addAttribute("page", page);
+		model.addAttribute("Img", img);
+		model.addAttribute("Reply", reply);
+		
+		return "member/mypage_qnaCont";
+	}
+	
+	//문의게시글 삭제
+	@RequestMapping("inquiry_delete.do")
+	public void inquiry_delete(@RequestParam("no")int no, HttpServletResponse response) throws IOException {
+		
+		int check = this.idao.deleteInquiry(no);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		if(check>0) {
+			
+			this.idao.adjustIno(no);
+			
+			out.println("<script>");
+			out.println("alert('삭제 완료')");
+			out.println("location.href='inquiry_list.do'");
+			out.println("</script>");
+			
+		}else {
+			out.println("<script>");
+			out.println("alert('삭제 실패')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+	}
+	
+	//문의게시글 수정
+	@RequestMapping("inquiry_update.do")
+	public String inquiry_update(@RequestParam("no")int no, @RequestParam("page") int page,
+			Model model) {
+		
+		//문의글 내용
+		InquiryDTO dto = this.idao.getInquirycont(no);
+		
+		model.addAttribute("Cont", dto);
+		model.addAttribute("page", page);
+		
+		return "member/mypage_qnaUpdate";
+		
+	}
+	
+	//문의게시글 수정 완료
+	@RequestMapping("inquiry_updateOk.do")
+	public void inquiry_updateOk(InquiryDTO dto, MultipartHttpServletRequest multi,
+				HttpServletResponse response) throws IOException {
+		
+		//수정 이미지 파일 저장
+		Iterator<String> iterator = multi.getFileNames();
+
+		String uploadFileName = iterator.next();
+
+		List<MultipartFile> fileList = multi.getFiles(uploadFileName);
+
+
+		String path = "C:\\Users\\ayss3\\Documents\\FinalProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\inquiry_board";
+
+		String dbFileName = "";
+
+		long fileSize = 0;
+
+
+		for (MultipartFile mFile : fileList) {
+
+			String originFileName = mFile.getOriginalFilename(); // 원본 파일 명
+
+			fileSize = mFile.getSize(); // 파일 사이즈
+
+//					System.out.println("originFileName : " + originFileName);
+//					System.out.println("fileSize : " + fileSize);
+
+			if(fileSize != 0) {
+				String saveFile = dto.getInquiry_userid()+"_" + originFileName;
+
+				dbFileName += dto.getInquiry_userid()+"_" + originFileName + "|";
+
+				dto.setInquiry_image(dbFileName);
+
+				try {
+
+					mFile.transferTo(new File(path+"/"+saveFile));
+
+				} catch (Exception e) {
+
+				}
+
+			}else {
+				break;
+			}
+		}//for문 end
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+
+		int page = Integer.parseInt(multi.getParameter("page"));
+
+		int check = this.idao.updateInquiry(dto);
+
+		if(check>0) {
+
+			out.println("<script>");
+			out.println("alert('수정 성공')");
+			out.println("location.href='inquiry_cont.do?no="+dto.getInquiry_no()+"&page="+page+"'");
+			out.println("</script>");
+
+		}else {
+
+			out.println("<script>");
+			out.println("alert('수정 실패')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+		
+		
+		
+	}
+	
+	
+	
+	//상품 검색
+	@RequestMapping("m_qna_product.do")
+	public String qna_product() {
+		
+		return "member/m_qna_product";
 	}
 	
 	
 	//********************************************* 마이피드 *************************************************
 	
 	//마이피드 메인 (about 화면이 디폴트)
-	@RequestMapping("myfeed.do")
+	@RequestMapping("myfeed.do") //get방식으로 id가 넘어옴
 	public String feed(@RequestParam("id")String id, HttpSession session, Model model) {
 		
 		//피드에 담길 정보들을 저장하는 map타입
@@ -672,13 +1083,82 @@ public class MemberController {
 	
 		
 		//about에 나오는 정보
+		//feed회원의 좋아하는 가수 정보 가져오기 
 		
+		// ','로 이어진 가수 번호 나눠 배열에 담기
+		String fav = dto.getMember_favorite_celeb();
+				
+		String[] mem_fav = null;
+
+		StringTokenizer st = null;
+		if(fav != null) {
+			st = new StringTokenizer(fav,",");
+						
+			mem_fav= new String[st.countTokens()];
+						
+  		    for(int i =0; i<mem_fav.length; i++){
+					mem_fav[i]=st.nextToken();			
+					}
+		}
 		
+		//좋아하는 가수 정보 담은 리스트
+		List<String[]> favList = new ArrayList<String[]>();
+
+		//배열에 담긴 각각 가수에 대해 정보 불러오기
+		//Celeb테이블에서 가수 정보를 불러왔기 때문에 celeb에서 1차로 정보 확인 후 그룹가수일 경우 group테이블에서 확인 필요 
+		if(mem_fav != null) {
+		for(int i=0; i<mem_fav.length; i++) {
+			CelebDTO celebDto = this.cdao.getCelebInfo(Integer.parseInt(mem_fav[i]));
+			
+			String [] img = null;//가수,그룹이미지 담을 배열
+			
+			//솔로+그룹 가수 통합 정보 담는 배열 
+			String [] groupCeleb = new String [4]; // 0: 번호 , 1:이름, 2:이미지, 3:그룹,솔로 구분 
+
+			if(celebDto.getCeleb_group().equalsIgnoreCase("solo")) {//솔로 가수일 경우
+				
+				st= new StringTokenizer(celebDto.getCeleb_pimage(), "|");
+				img = new String[st.countTokens()];
+				
+				for(int z =0; z<img.length; z++) {
+					img[z] = st.nextToken();
+				}
+				
+				groupCeleb[0] = celebDto.getCeleb_no()+"";
+				groupCeleb[1] = celebDto.getCeleb_name();
+				groupCeleb[2] = img[0];
+				groupCeleb[3] = "solo";
+
+			}else {//그룹 가수라면 
+				
+				GroupDTO groupDto = this.gdao.getGroupInfo(celebDto.getCeleb_group());
+				
+				st= new StringTokenizer(groupDto.getGroup_image(), "|");
+				img = new String[st.countTokens()];
+				
+				for(int z =0; z<img.length; z++) {
+					img[z] = st.nextToken();
+				}
+				
+				groupCeleb[0] = groupDto.getGroup_no()+"";
+				groupCeleb[1] = groupDto.getGroup_name();
+				groupCeleb[2] = img[0];
+				groupCeleb[3] = "group";
+
+			}
+			
+
+			favList.add(groupCeleb);
+
+		}
+		}
 		
 		//피드 관련 include에 들어갈 정보 
 		session.setAttribute("feedInfo", feedInfo); //세션에 저장
-		model.addAttribute("commList", commList);
+		
 		model.addAttribute("id", id);
+		model.addAttribute("favList", favList);
+		
 		
 		return "member/feed_about";
 	}

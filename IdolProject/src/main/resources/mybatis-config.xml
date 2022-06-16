@@ -18,6 +18,8 @@
 		<typeAlias type="com.idol.model.CommunityDAO" alias="communityDAO"/>
 		<typeAlias type="com.idol.model.FollowDTO" alias="followDTO"/>
 		<typeAlias type="com.idol.model.FollowDAO" alias="followDAO"/>
+		<typeAlias type="com.idol.model.InquiryDTO" alias="inquiryDTO"/>
+		<typeAlias type="com.idol.model.InquiryDAO" alias="inquiryDAO"/>
 	</typeAliases>  	
 	
 </configuration>

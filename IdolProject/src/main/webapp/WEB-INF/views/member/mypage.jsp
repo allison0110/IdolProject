@@ -1,3 +1,5 @@
+<%@page import="com.idol.model.InquiryDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="com.idol.model.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -157,10 +159,32 @@
 		
 		padding: 40px;
 	}
+	.recent_qna i , .recent_order i{
+		font-size:2em;
+	}
+	
+	.recent_qna a , .recent_order a{
+		text-decoration: none;
+		color:black;
+	}
 	
 	.recent_order span, .recent_qna span{
 		font-size: 1.3em;
 		font-weight: bold;
+	}
+	
+	.recent_qna_content a {
+		text-decoration: none;
+		color: black;
+	}
+	
+	.qna_item{
+		margin: 20px 0;
+		line-height: 1.5
+	}
+	
+	.qna_item span{
+		font-size: 1em;
 	}
 
 </style>
@@ -204,11 +228,18 @@
 				</div>
 				
 				<div class="top_item" align="center">
-				<a href="#">
+				<a href="<%=request.getContextPath()%>/inquiry_list.do">
 					<div class="main_top_icon icon_qna">
 						<label for="icon_qna" class="bi bi-chat-left-dots"></label>
 					</div>
 				온라인문의
+				<br>
+				<span>
+					<c:if test="${empty waiting }">0</c:if> 
+					<c:if test="${!empty waiting }">
+					<fmt:formatNumber value="${waiting }" /> 
+					</c:if>
+				</span>
 				</a>
 				</div>
 				
@@ -216,8 +247,9 @@
 			</div> <!-- class="mypage_main_top" end -->
 		
 			<div class="recent_order">
-			<span>최근 구매내역</span> <!-- 최근 구매내역 3개까지 -->
+			<a href="<%=request.getContextPath()%>/order_list.do"> <span>최근 구매내역</span>&nbsp;<i class="bi bi-plus"></i></a> 
 			<hr align="left" width="100%" color="lightgray">
+			<!-- 최근 구매내역 3개까지 -->
 			<div class="recent_order_content">
 			
 					<!-- 구매내역 없음  -->
@@ -238,11 +270,60 @@
 			</div> <!-- class="recent_order" end -->
 		
 			<div class="recent_qna">
-			<span>최근 문의내역</span>
+			<a href="<%=request.getContextPath()%>/inquiry_list.do"> <span>최근 문의내역</span>&nbsp; <i class="bi bi-plus"></i></a>
 			<hr align="left"  width="100%" color="lightgray">
-			<div class="recent_qna_content">
-			
-			</div>
+			<div class="recent_qna_content"> 
+			<c:if test="${!empty iList }">
+			<!-- 문의내역 최신 3개만 보이기 -->
+			<%
+				List<InquiryDTO> inquiry = (List<InquiryDTO>)request.getAttribute("iList");
+				for(int i=0; i<3; i++){
+					
+					InquiryDTO idto = inquiry.get(i);
+					
+					//카테고리구분
+					String icategory ="";
+					switch(idto.getCategory_inofk()){
+					case 1: 
+						icategory ="취소/환불";
+						break;
+					case 2: 
+						icategory ="상품문의";
+						break;
+					case 3: 
+						icategory ="배송";
+						break;
+					case 4: 
+						icategory ="교환";
+						break;
+					case 5: 
+						icategory ="기타";
+						break;
+				
+					}
+					//답변상태
+					String status = "";
+					if(idto.getInquiry_status() == 0){
+						status ="답변대기";
+					}else{
+						status="답변완료";
+					}
+					
+					
+			%>
+				<a href="<%=request.getContextPath()%>/inquiry_cont.do?no=<%=idto.getInquiry_no()%>&page=1">
+				<div class="qna_item">
+					<span style="color: #1f3093;font-size: 0.9em;"> [<%=icategory %>]</span>
+					&nbsp;<span><%=idto.getInquiry_title() %></span><br>
+					<span style="color: #858080;font-size: 0.9em; font-weight:normal;">
+					<%=idto.getInquiry_date().substring(0, 10) %></span>│ 
+					<span style="color:#ff5722;font-size: 0.9em;"><%=status %> </span>
+				</div><!-- class="qna_item" end -->
+				</a>
+			<%	}
+			%>
+			</c:if>
+			</div><!-- class="recent_qna_content" end -->
 			
 			</div>
 			

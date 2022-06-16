@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마이페이지> 문의내역</title>
+<title>마이페이지> 문의내역 날짜조회</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./resources/js/member.js"></script>
@@ -73,6 +73,7 @@
 	<c:set var="dto" value="${loginInfo }"/> <!--로그인회원 정보 저장 -->
 	<c:set var="list" value="${List }"/>
 	<c:set var="paging" value="${paging }"/>
+	<c:set var="search_date" value="${search_date }"/><!-- 날짜조회 -->
 	
 	<script type="text/javascript">
 	
@@ -119,30 +120,30 @@
 			
 			$(document).ready(function(){
 				
-				var preValue=0;
+				
+				
+				var preValue='<c:out value='${search_date}'/>';
 				var count =0;
-				/* 
-				if($("input[name='search_date']:checked")){
+				
+				console.log(preValue);
+				console.log(typeof preValue);
+				
+				if(preValue != null){
 					
-					preValue =$(this).val();
-				} */
+					$("#"+preValue).css('background-color','#e9e3e1');
+					count = 1;
+				}
 				
 				$("input[name='search_date']").click(function(){
 					
-					if(count >=1){
+					var check = String($(this).val());
+					
+					
 						$("#"+check).css('background-color','#e9e3e1');
 						$("#"+preValue).css('background-color', 'white');
 						preValue = String($(this).val());
-					}
 					
-					var check = String($(this).val());
-					preValue = String($(this).val());
 					
-					console.log("preValue:"+preValue);
-					
-					$("#"+check).css('background-color','#e9e3e1');
-					
-					count ++;
 				
 				});
 				
@@ -202,32 +203,37 @@
 				</tr>
 				</c:forEach>
 			</c:if>
+			<tr>
+				<td colspan="6" align="right">
+					<input type="button" value="전체목록" onclick="location.href='inquiry_list.do'">
+				</td>
+			</tr>
 		</table>
 		<!-- 검색기능..할까말까... -->
 		
 		<!-- 페이징 처리 -->
 		<div class="table_page">
 		<c:if test="${paging.getPage() > paging.getBlock() }"> <!-- 현재 페이지가 4인데 block사이즈는 3이라면 -->
-			<a href="inquiry_list.do?page=1">[맨 처음]</a>
-			<a href="inquiry_list.do?page=${paging.getStartBlock()-1 }">◀</a>
+			<a href="inquiry_date.do?page=1&search_date=${search_date }">[맨 처음]</a>
+			<a href="inquiry_date.do?page=${paging.getStartBlock()-1 }&search_date=${search_date}">◀</a>
 		</c:if>
 
 		<c:forEach begin="${paging.getStartBlock() }" end="${paging.getEndBlock() }" var="i">
 			
 			<c:if test="${i == paging.getPage() }">
-			<b><a href="inquiry_list.do?page=${i }">[${i }]</a></b>
+			<b><a href="inquiry_date.do?page=${i }&search_date=${search_date}">[${i }]</a></b>
 			</c:if>	
 			
 			<c:if test="${i != paging.getPage() }">
-			<a href="inquiry_list.do?page=${i }">[${i }]</a>
+			<a href="inquiry_date.do?page=${i }&search_date=${search_date}">[${i }]</a>
 			</c:if>
 				
 		</c:forEach>
 
 
 		<c:if test="${paging.getEndBlock() < paging.getAllPage() }"> <!-- endBlock이 6인데 allPage가 7이라면 -->
-			<a href="inquiry_list.do?page=${paging.getEndBlock()+1 }">▶</a>
-			<a href="inquiry_list.do?page=${paging.getAllPage()}">[마지막으로]</a>
+			<a href="inquiry_date.do?page=${paging.getEndBlock()+1 }&search_date=${search_date}">▶</a>
+			<a href="inquiry_date.do?page=${paging.getAllPage()}&search_date=${search_date}">[마지막으로]</a>
 		</c:if>
 		
 		</div>

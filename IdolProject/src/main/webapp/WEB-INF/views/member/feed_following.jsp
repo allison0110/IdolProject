@@ -34,11 +34,37 @@
 		
 	}
 	
-	.feed_introduction{
-		background-color:white;
-		
-		padding:10px;
+		.feed_fList{
+		width: 50%;	
 	}
+	
+	.fList_item{
+		margin: 15px 0;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		align-items: center;
+	}
+	
+	.fList_img{
+		margin-left:100px;
+		display:block;
+		overflow:hidden;
+		border-radius: 50%;
+		width:70px;
+		height:70px;
+	}
+	
+	.fList_img >img{
+		display:block;
+		width:120%;
+		height:100%;
+		margin-left: -5px;
+	}
+
+	.fList_info{
+		text-align:left;
+	}
+	
 
 </style>
 </head>
@@ -68,12 +94,12 @@
 			<div class="feed_fList">
 				<c:if test="${!empty cont }"> <!-- 피드회원의 팔로잉리스트 데이터가 있다면 -->
 				<c:forEach items="${cont }" var="cont">
-				<div class="fList">
+				<div class="fList_item">
 					<div class="fList_img">
 						<img src="./resources/upload/member_image/${cont.getMember_no() }/${cont.getMember_image() }" alt="member_image">
 					</div>
 					<div class="fList_info">
-						${cont.getMember_id() } / ${cont.getMember_nickname() }
+						${cont.getMember_nickname() } <br> @${cont.getMember_id() }
 					</div>
 					<div class="fList_btn">
 						<c:if test="${!empty login_f }"><!-- 로그인회원의 팔로우 리스트 데이터가 있다면  -->

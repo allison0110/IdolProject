@@ -6,9 +6,9 @@
     
 <mapper namespace="com.idol.model.GroupDAO">
 
-	<select id="groupList" resultType="com.idol.model.GroupDTO">
-	<!-- SOLO제외 그룹명 리스트  -->
-		select * from celeb_group where group_name != 'solo'
+	<select id="groupInfo" resultType="com.idol.model.GroupDTO" parameterType="String">
+	<!-- celeb테이블 그룹명에 해당하는 정보를 찾는 sql문  -->
+		select * from celeb_group where group_name = #{celeb_group}
 	</select>
 
 </mapper>    

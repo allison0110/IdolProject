@@ -13,5 +13,5 @@ public class CelebDTO {
 	private String celeb_debutdate;
 	private String celeb_group;
 	private String celeb_pimage;
-	private String celeb_gimage;
+	
 }

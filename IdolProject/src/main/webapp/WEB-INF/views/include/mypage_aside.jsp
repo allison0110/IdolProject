@@ -188,8 +188,8 @@
 					<ul>
 						<li><a href="<%=request.getContextPath()%>/mypage.do">마이페이지</a></li>
 						<li><a href="<%=request.getContextPath()%>/mySettings.do">회원정보관리</a></li>
-						<li><a href="<%=request.getContextPath()%>/myOrderlist.do">주문내역</a></li>
-						<li><a href="<%=request.getContextPath()%>/myQnalist.do">문의내역</a></li>
+						<li><a href="<%=request.getContextPath()%>/order_list.do">주문내역</a></li>
+						<li><a href="<%=request.getContextPath()%>/inquiry_list.do">문의내역</a></li>
 						<li><a href="<%=request.getContextPath()%>/logout.do">로그아웃</a></li>
 					</ul>
 			
