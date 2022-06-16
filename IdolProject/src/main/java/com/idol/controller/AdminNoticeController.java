@@ -178,7 +178,29 @@ public class AdminNoticeController {
 		
 	}
 	
-	
+	// 공지 수정 폼으로 이동
+	@RequestMapping("admin_notice_modify.do")
+	public String getNoticeModifyForm(@RequestParam("no") int no, Model model) {
+		
+		NoticeDTO dto = this.dao.getNoticeContent(no);
+		
+		String dimg = dto.getNotice_image();
+		
+		StringTokenizer tokenizer = new StringTokenizer(dimg, "|");
+		
+		String[] arrayToken = new String[tokenizer.countTokens()];
+		
+		for(int i =0; i < arrayToken.length; i++) {
+			
+			arrayToken[i] = tokenizer.nextToken();
+		}
+		
+		model.addAttribute("arrayImgs", arrayToken);
+		
+		model.addAttribute("noticeCont", dto);
+		
+		return "admin/admin_notice_update";
+	}
 	
 	
 	
