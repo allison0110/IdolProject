@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="celebDAO">
+  
+  <!-- // 셀럽 전체리스트 가져옴 -->
+  <select id="CelList" resultType="celebDTO">
+  	<![CDATA[select *from CELEB order by CELEB_NO asc]]>
+  </select>
+  
+  
+  <!-- // 셀럽 정보를 가져옴 -->
+  <select id="Cdetail" resultType="celebDTO">
+  	<![CDATA[select *from CELEB where CELEB_NO = #{cno}]]>
+  </select>
+  
+  
+</mapper>

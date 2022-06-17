@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductDAO">
+
+	<select id="allList" resultType="ProductDTO">
+		<![CDATA[select *from product order by product_no desc]]>
+	</select>
+
+  <!-- // 큰카테고리의 신제품,이름,낮은가격,높은가격 기준으로 리스트를 불러옴 -->
+  <select id="PCNList" parameterType="int" resultType="ProductDTO">
+  	<![CDATA[select *from product where category_pnofk= #{cno} or (category_pnofk>#{cno} and category_pnofk < #{cno}+100) order by product_input desc]]>
+  </select>
+  
+  <select id="PCNaList" parameterType="int" resultType="ProductDTO">
+  	<![CDATA[select *from product where category_pnofk= #{cno} or (category_pnofk>#{cno} and category_pnofk < #{cno}+100) order by product_name asc]]>
+  </select>
+  
+  <select id="PCRList" parameterType="int" resultType="ProductDTO">
+  	<![CDATA[select *from product where category_pnofk= #{cno} or (category_pnofk>#{cno} and category_pnofk < #{cno}+100) order by product_price asc]]>
+  </select>
+  
+  <select id="PCHList" parameterType="int" resultType="ProductDTO">
+  	<![CDATA[select *from product where category_pnofk= #{cno} or (category_pnofk>#{cno} and category_pnofk < #{cno}+100) order by product_price desc]]>
+  </select>
+  
+  <!-- // 세부카테고리의 신제품,이름,낮은가격,높은가격 기준으로 리스트를 불러옴 -->
+   <select id="PcNList" parameterType="int" resultType="ProductDTO">
+  	<![CDATA[select *from product where category_pnofk= #{cno} order by product_input desc]]>
+  </select>
+  
+  <select id="PcNaList" parameterType="int" resultType="ProductDTO">
+  	<![CDATA[select *from product where category_pnofk= #{cno} order by product_name asc]]>
+  </select>
+  
+  <select id="PcRList" parameterType="int" resultType="ProductDTO">
+  	<![CDATA[select *from product where category_pnofk= #{cno} order by product_price asc]]>
+  </select>
+  
+  <select id="PcHList" parameterType="int" resultType="ProductDTO">
+  	<![CDATA[select *from product where category_pnofk= #{cno} order by product_price desc]]>
+  </select>
+  
+  <!-- // 제품정보 -->
+  <select id="Pdetail" parameterType="int" resultType="ProductDTO">
+  	<![CDATA[select *from PRODUCT where PRODUCT_NO = #{pno}]]>
+  </select>
+  
+</mapper>

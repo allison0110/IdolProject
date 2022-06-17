@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="OrderDAO">
+  
+  <insert id="addOrder" parameterType="OrderDTO">
+  	<selectKey resultType="int" keyProperty="order_no" order="BEFORE">
+  		<![CDATA[select nvl(max(ORDER_NO),0) from ORDER_PRODUCT]]>
+  	</selectKey>
+  	
+		<![CDATA[insert into ORDER_PRODUCT values(#{order_no}+1, #{order_cno}, #{order_userid}, #{order_pimage},
+		 		#{order_pname}, #{order_qty}, #{order_total}, #{order_tcost},
+		 		#{order_mileage}, #{order_type}, sysdate, #{order_receivername}, #{order_receiveraddress}, #{order_receiverphone} )
+		 		]]>  	
+  </insert>
+  
+  
+  
+  
+  
+  
+  </mapper>
