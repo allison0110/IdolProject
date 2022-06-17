@@ -87,6 +87,9 @@
 			color: red;
 		}
 		
+		.rightBtn {
+			margin-right: 80px;
+		}
 	</style>
 	
 	
@@ -174,7 +177,7 @@
 							<input type="submit" value="INSERT" class="inset_btn">
 						</div>
 						<div>
-							<input type="reset" value="RESET" class="inset_btn">
+							<input type="reset" value="RESET" class="inset_btn rightBtn">
 						</div>
 					</div> <!-- celeb_btn -->
 					

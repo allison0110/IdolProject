@@ -20,6 +20,9 @@
 		
 	}
 	
+	a {
+		text-decoration: none;
+	}
 	.admin_content_wrapper {
 		display: flex;
 		flex-direction: column;
@@ -89,6 +92,7 @@
 	<div class="admin_content_wrapper">
 	
 		<jsp:include page="../include/admin_top_include.jsp" />
+		<jsp:include page="../include/admin_link_include.jsp" />
 	
 		<div class="admin_content_container">
 		

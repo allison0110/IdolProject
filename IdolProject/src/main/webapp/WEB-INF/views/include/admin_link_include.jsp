@@ -40,6 +40,7 @@
 	
 	.insert_btn a {
 		color: white;
+		text-decoration: none;
 	}
 	.search_btn:hover {
 		color: red;
