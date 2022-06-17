@@ -64,9 +64,11 @@
 									${c.group_name}
 								</option>
 							</c:if>
-							<option value="${c.group_name}">
-							  	 ${c.group_name}
-							</option>	
+							<c:if test="${c.group_name != cont.celeb_group }">
+								<option value="${c.group_name}">
+									${c.group_name}
+								</option>
+							</c:if>	
 						</c:forEach>
 					</select>
 				</div>

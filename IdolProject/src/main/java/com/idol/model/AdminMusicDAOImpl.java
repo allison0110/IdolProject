@@ -23,20 +23,37 @@ public class AdminMusicDAOImpl implements AdminMusicDAO{
 	}
 
 	@Override
-	public MusicDTO getMusicCont(String name) {
-		return this.sqlSession.selectOne("musicCont", name);
+	public MusicDTO getMusicCont(int no) {
+		return this.sqlSession.selectOne("musicCont", no);
 	}
 
 	@Override
-	public int deleteMusic(String name) {
+	public int deleteMusic(int no) {
 
-		return this.sqlSession.delete("deleteMusic", name);
+		return this.sqlSession.delete("deleteMusic", no);
 	}
 
 	@Override
 	public int musicUpdate(MusicDTO dto) {
 		
 		return this.sqlSession.update("musicUpdate", dto);
+		
+	}
+
+	@Override
+	public List<GroupDTO> getGroupList() {
+		return this.sqlSession.selectList("getGList");
+	}
+
+	@Override
+	public List<CelebDTO> getCelebList() {
+		return this.sqlSession.selectList("getCList");
+		
+	}
+
+	@Override
+	public void updateMusicSequen(int no) {
+		this.sqlSession.update("updateMusicSequen", no);
 		
 	}
 	

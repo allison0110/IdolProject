@@ -50,30 +50,33 @@
 		<div class="admin_celeb_container">
 			<c:if test="${!empty list }">
 				<c:forEach items="${list }" var="dto">
-					<a href="<%=request.getContextPath()%>/admin_music_content.do?name=${dto.music_name}">
+					<a href="<%=request.getContextPath()%>/admin_music_content.do?no=${dto.music_no}">
 						
 						<div class="admin_celeb_content">
 							<ul>
 								<li>
-									${dto.music_aname }
+									No. ${dto.music_no }
 								</li>
 								<li>
-									${dto.music_name }
+									<c:if test="${dto.group_name != null }">
+										그룹명 : ${dto.group_name }
+									</c:if>
+									<c:if test="${dto.celeb_name == null }">
+										
+									</c:if>
+									<c:if test="${dto.celeb_name != null }">
+										가수명 : ${dto.celeb_name }
+									</c:if>
 								</li>
 								<li>
-									${dto.music_lyrics }
+									앨범명 : ${dto.music_aname }
 								</li>
 								<li>
-									${dto.music_composer }
+									노래 제목 : ${dto.music_name }
 								</li>
+								
 								<li>
-									${dto.music_lyricst }
-								</li>
-								<li>
-									${dto.music_movie_link }
-								</li>
-								<li>
-									${dto.music_release_date.substring(0, 10) }
+									발매일 : ${dto.music_release_date.substring(0, 10) }
 								</li>
 								
 							</ul>

@@ -53,6 +53,8 @@
 <body>
 	<c:set var="mCont" value="${musicCont }" />
 	<c:set var="imgs" value="${arrimgs }" />
+	<c:set var="clist" value="${cList }" />
+	<c:set var="glist" value="${gList }" />
 	
 	<div class="admin_music_modify_wrapper">
 	
@@ -73,6 +75,45 @@
 					
 					<input type="hidden" value="${mCont.music_coverimage }" name="oldimgs">
 					
+					<input type="hidden" value="${mCont.music_no }" name="music_no">
+					
+					<div>
+						그룹 선택 
+						<select name="group_name">	
+							<c:forEach items="${glist }" var="gdto">
+								<c:if test="${gdto.group_name == mCont.group_name }">
+									<option value="${gdto.group_name }" selected>
+										${gdto.group_name }
+									</option>	
+								</c:if>
+								<c:if test="${gdto.group_name != mCont.group_name }">
+									<option value="${gdto.group_name}">
+										${gdto.group_name }
+									</option>
+								</c:if>
+									
+							</c:forEach>	
+						</select>
+						
+						셀럽 선택
+						<select name="celeb_name">	
+							<option value="">
+							선택 안함
+							</option>
+							<c:forEach items="${clist }" var="cdto">
+								<c:if test="${cdto.celeb_name == mCont.celeb_name }">
+									<option value="${cdto.celeb_name }" selected>
+										${cdto.celeb_name }
+									</option>
+								</c:if>
+								<c:if test="${cdto.celeb_name != mCont.celeb_name }">
+									<option value="${cdto.celeb_name }">
+										${cdto.celeb_name }
+									</option>
+								</c:if>
+							</c:forEach>	
+						</select>
+					</div>
 					<div>
 						<label for="aname">앨범 이름</label> <input id="aname" name="music_aname" value="${mCont.music_aname }" readonly>
 					</div>
@@ -88,14 +129,16 @@
 					<div>
 						<label for="lyricst">작사가</label> <input id="lyricst" name="music_lyricst" value="${mCont.music_lyricst }">
 					</div>
-					<div>
-						<input type="file" name="file1" multiple="multiple">
-					</div>
+					
 					<div>
 						<label for="link">뮤비 링크</label> <input id="link" name="music_movie_link" value="${mCont.music_movie_link }">
 					</div>
 					<div>
 						<label for="release">발매일</label> <input id="release" type="date" name="music_release_date" value="${mCont.music_release_date.substring(0, 10) }">
+					</div>
+					
+					<div>
+						<input type="file" name="file1" multiple="multiple">
 					</div>
 					<div class="update_btn">
 						<input type="submit" value="고!">

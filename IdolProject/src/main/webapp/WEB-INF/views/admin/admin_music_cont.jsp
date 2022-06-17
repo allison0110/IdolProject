@@ -82,34 +82,48 @@
 			<div class="admin_music_box">
 				<ul>
 					<li>
-						${cont.music_aname }
+						No. : ${cont.music_no }
 					</li>
 					<li>
-						${cont.music_name }
+						<c:if test="${dto.group_name != null }">
+							그룹명 : ${dto.group_name }
+						</c:if>
+						<c:if test="${dto.celeb_name == null }">
+							
+						</c:if>
+						<c:if test="${dto.celeb_name != null }">
+							가수명 : ${dto.celeb_name }
+						</c:if>
+					</li>
+					<li>
+						앨범 명: ${cont.music_aname }
+					</li>
+					<li>
+						노래 제목 : ${cont.music_name }
 					</li>
 					<li>
 					<textarea rows="13" cols="33" id="lyrics" name="music_lyrics" readonly>${cont.music_lyrics }</textarea>
 						
 					</li>
 					<li>
-						${cont.music_composer }
+						작곡가: ${cont.music_composer }
 					</li>
 					<li>
-						${cont.music_lyricst }
+						작사가: ${cont.music_lyricst }
 					</li>
 					<li>
-						${cont.music_movie_link }
+						뮤비 링크 : ${cont.music_movie_link }
 					</li>
 					<li>
-						${cont.music_release_date.substring(0, 10) }
+						발매일 : ${cont.music_release_date.substring(0, 10) }
 					</li>
 				</ul>
 				
 				<input type="button" value="수정"
-				onclick="location.href='<%=request.getContextPath()%>/music_content.do?name=${cont.music_name }&img=${cont.music_coverimage }'">
+				onclick="location.href='<%=request.getContextPath()%>/music_content.do?no=${cont.music_no }&img=${cont.music_coverimage }'">
 				<input type="button" value="삭제"
 				onclick="if(confirm('삭제 하시겠습니까 ?? :(')){
-					location.href='<%=request.getContextPath()%>/music_delete.do?name=${cont.music_name }&img=${cont.music_coverimage }'
+					location.href='<%=request.getContextPath()%>/music_delete.do?no=${cont.music_no }&img=${cont.music_coverimage }'
 				}else {return}">
 				<input type="button" value="메인"
 				onclick="location.href='admin_main.do'">

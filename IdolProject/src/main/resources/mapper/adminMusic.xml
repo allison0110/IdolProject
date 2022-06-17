@@ -9,7 +9,10 @@
     
     	<!-- 음원 등록 -->
     	<insert id="musicInsert" parameterType="musicDTO">
-    		insert into music values(#{music_aname}, #{music_name}, #{music_lyrics}, 
+    		<selectKey resultType="int" keyProperty="music_no" order="BEFORE">
+    			select max(music_no) from music
+    		</selectKey>
+    		insert into music values(#{music_no} + 1, #{group_name}, #{celeb_name}, #{music_aname}, #{music_name}, #{music_lyrics}, 
     			#{music_composer}, #{music_lyricst}, #{music_coverimage}, 
     				#{music_movie_link}, #{music_release_date} ) 
     	</insert>
@@ -20,21 +23,37 @@
     	</select>
     	
     	<!-- 음원 상세 내용  -->
- 	   	<select id="musicCont" parameterType="String" resultType="musicDTO">
-    		select * from music where music_name = #{name}
+ 	   	<select id="musicCont" parameterType="int" resultType="musicDTO">
+    		select * from music where music_no = #{no}
     	</select>
     	
     	<!-- 음원 삭제 -->
-    	<delete id="deleteMusic" parameterType="String">
-    		delete from music where music_name = #{music_name} 
+    	<delete id="deleteMusic" parameterType="int">
+    		delete from music where music_no = #{music_no} 
     	</delete>
     	
     	<!-- 음원 정보 수정 -->
     	<update id="musicUpdate" parameterType="musicDTO">
-    		update music set music_aname = #{music_aname}, music_name = #{music_name}, music_lyrics = #{music_lyrics},
+    		update music set celeb_name = #{celeb_name}, group_name = #{group_name}, music_aname = #{music_aname}, music_name = #{music_name}, music_lyrics = #{music_lyrics},
     			music_composer = #{music_composer}, music_lyricst = #{music_lyricst}, music_coverimage = #{music_coverimage},
     				music_movie_link = #{music_movie_link}, music_release_date = #{music_release_date} where music_name = #{music_name} 
     	</update>
+    	
+    	<!-- 셀럽 리스트 가져오기 --> 
+    	<select id="getCList" resultType="celebDTO">
+    		select * from celeb order by celeb_no
+    	</select>
+    	
+    	<!-- 그룹 리스트 가져오기 -->
+    	<select id="getGList" resultType="groupDTO">
+    		select * from celeb_group order by group_no
+    	</select>
+    	
+    	<update id="updateMusicSequen" parameterType="int">
+    		update music set music_no = music_no - 1 where music_no > #{no}
+    	</update>
+    	
+    	
     	
     	
     </mapper>

@@ -18,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.idol.model.AdminMusicDAO;
+import com.idol.model.CelebDTO;
+import com.idol.model.GroupDTO;
 import com.idol.model.MusicDTO;
 
 @Controller
@@ -28,7 +30,16 @@ public class AdminMusicController {
 	
 	// 음원 등록 페이지로 가기
 	@RequestMapping("admin_music_insert.do")
-	public String musicInsert() {
+	public String musicInsert(Model model) {
+		
+		List<CelebDTO> cList = this.dao.getCelebList();
+		
+		List<GroupDTO> gList = this.dao.getGroupList();
+		
+		model.addAttribute("cList", cList);
+		
+		model.addAttribute("gList", gList);
+		
 		return "admin/admin_music_insert";
 	}
 	
@@ -115,10 +126,12 @@ public class AdminMusicController {
 	
 	// 음원 상세 정보 페이지 이동
 	@RequestMapping("admin_music_content.do")
-	public String adminMusicCont(@RequestParam("name") String name, 
+	public String adminMusicCont(@RequestParam("no") int no, 
 			Model model) {
 		
-		MusicDTO dto = this.dao.getMusicCont(name);
+		System.out.println("========= music content ==========");
+		
+		MusicDTO dto = this.dao.getMusicCont(no);
 		
 		String str = dto.getMusic_coverimage();
 		
@@ -148,10 +161,10 @@ public class AdminMusicController {
 	
 	// 음원 삭제 !
 	@RequestMapping("music_delete.do")
-	public void musicDelete(@RequestParam("name") String name, @RequestParam("img") String imgs, 
+	public void musicDelete(@RequestParam("no") int no, @RequestParam("img") String imgs, 
 			HttpServletResponse response) throws IOException {
 		
-		int check = this.dao.deleteMusic(name);
+		int check = this.dao.deleteMusic(no);
 		
 		response.setContentType("text/html; charset=UTF-8");
 		
@@ -179,6 +192,8 @@ public class AdminMusicController {
 				file.delete();
 			}
 			
+			this.dao.updateMusicSequen(no);
+			
 			out.println("<script>");
 			out.println("alert('음원 삭제 성공 :)')");
 			out.println("location.href='admin_music_list.do'");
@@ -197,17 +212,19 @@ public class AdminMusicController {
 	
 	// 음원 수정 폼 페이지로 이동
 	@RequestMapping("music_content.do")
-	public String musicModify(Model model, @RequestParam("name") String name) {
+	public String musicModify(Model model, @RequestParam("no") int no) {
 		
 		System.out.println("music_content.do");
-		System.out.println("name: " + name);
+		System.out.println("no: " + no);
 		
-		MusicDTO dto = this.dao.getMusicCont(name);
+		MusicDTO dto = this.dao.getMusicCont(no);
+		
 		String imgs = dto.getMusic_coverimage();
 		System.out.println("imgs: " + imgs);
 
 		StringTokenizer tokenizer = new StringTokenizer(imgs, "|");
 		System.out.println("tokenizer: " + tokenizer);
+		
 		String[] arrImgs = new String[tokenizer.countTokens()];
 		System.out.println("arrImgs 1: " + arrImgs);
 
@@ -218,6 +235,13 @@ public class AdminMusicController {
 		
 		System.out.println("arrImgs 2: " + arrImgs);
 
+		List<CelebDTO> cList = this.dao.getCelebList();
+		
+		List<GroupDTO> gList = this.dao.getGroupList();
+		
+		model.addAttribute("cList", cList);
+		
+		model.addAttribute("gList", gList);
 		
 		model.addAttribute("arrimgs", arrImgs);
 		
@@ -260,7 +284,7 @@ public class AdminMusicController {
 			System.out.println("originFileNmae :" + originFileName);
 			System.out.println("fileSize : " + fileSize);
 			
-			String saveFiles = path + System.currentTimeMillis();
+			String saveFiles = path + System.currentTimeMillis() + originFileName;
 			
 			System.out.println("saveFiles :" + saveFiles);
 			
@@ -296,7 +320,7 @@ public class AdminMusicController {
 				
 				out.println("<script>");
 				out.println("alert('음원 수정 성공(old) :) ')");
-				out.println("location.href='admin_music_content.do?name="+dto.getMusic_name()+"'");
+				out.println("location.href='admin_music_content.do?no="+dto.getMusic_no()+"'");
 				out.println("</script>");
 				
 			}else {
@@ -307,6 +331,8 @@ public class AdminMusicController {
 				out.println("</script>");
 				
 			}
+			
+			
 		}else {             // 파일 새로 업로드 할 경우 
 			
 			// 기존 이미지 파일들을 삭제 시키자 !!
@@ -325,7 +351,7 @@ public class AdminMusicController {
 			
 			// 저장할 이미지들을 dto에 담기
 			
-			System.out.println("dbFilesName(formFiles) :" + dbFilesName);
+			System.out.println("dbFilesName(addedFiles) :" + dbFilesName);
 			
 			dto.setMusic_coverimage(dbFilesName);
 			
@@ -339,7 +365,7 @@ public class AdminMusicController {
 				
 				out.println("<script>");
 				out.println("alert('음원 수정 성공(new) :) ')");
-				out.println("location.href='admin_music_content.do?name="+dto.getMusic_name()+"'");
+				out.println("location.href='admin_music_content.do?no="+dto.getMusic_no()+"'");
 				out.println("</script>");
 				
 			}else {
