@@ -16,11 +16,12 @@
 		html, body {
 			padding: 0px;
 			margin: 0px;
-			height: 100%
+			height: 100%;
+			background-color: black;
 		}
 		
 		.admin_main_wrapper {
-			/*min-height: 100vh;*/
+			/*height: 100%;*/
 			display: flex;
 			flex-direction: column;
 			
@@ -28,7 +29,29 @@
 		
 		.admin_login_form_container {
 			flex:1 ;
+			display: flex;
+   			flex-direction: column;
+			align-items: center;
 		}
+		
+		.login_btn {
+			display: flex;
+   			flex-direction: row;
+			justify-content: center;
+		}
+		
+		.subBtn {
+			font-family: 'Creepster', cursive;
+			background-color: black;
+			color: white;
+			font-size: 1.8em;
+			cursor: pointer;
+			
+		}
+		.subBtn:hover {
+			color: red;
+		}
+		
 	</style>
 	
 </head>
@@ -39,31 +62,28 @@
 		<jsp:include page="../include/admin_top_include.jsp" />
 			
 			<div class="admin_login_form_container">
+				
+			<div class="admin_login_form">
 				<form method="post" action="<%=request.getContextPath() %>/admin_login_ok.do">
-					<div class="admin_login_form">
-					
-						<div>
-							<div class="admin_id" >관리자 아이디</div>
-							<input id="id" name="admin_id"></input>
-						</div>
-						<div>
-							<div class="admin_pwd" >관리자 비밀번호</div>
-							<input id="pwd" type="password" name="admin_pwd"></input>
-							
-						</div>
+					<div>
+						<div class="admin_id" ></div>
+						<input id="id" name="admin_id"></input>
 					</div>
 					<div>
+						<div class="admin_pwd" ></div>
+						<input id="pwd" type="password" name="admin_pwd"></input>
 						
-						<input type="submit" value="로그인">
-						<input type="reset" value="다시 작성">
 					</div>
-				 </form>  
-			 </div> <!-- admin_login_form_container -->
-			 <div>
-			 
-			 
-			 
-			 </div>
+			
+					<div class="login_btn">
+						<input type="submit" value="LOGIN" class="subBtn">
+						<input type="reset" value="RESET" class="subBtn">
+					</div>
+			 	</form>  
+			</div> <!-- admin_login_form -->
+			
+		</div> <!-- admin_login_form_container -->
+			
 	</div> <!-- admin_main_wrapper -->
 	
 

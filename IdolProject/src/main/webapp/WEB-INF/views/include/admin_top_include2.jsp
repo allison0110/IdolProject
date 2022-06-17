@@ -10,28 +10,26 @@
 <title>Insert title here</title>
 
 <style type="text/css">
-
 	
+	
+	/****** include tope    *****/
 	
 	.admin_navbar {
+		position: sticky;
+		top: 0px;
 		display: flex;
 		flex-direction: row;
 		background-color: black;
 		width: 100%;
-	}	
-	.admin_link {
+	}
+	.admin_link ul {
+		
 		display: flex;
-		flex-direction: row;
-		width: 100%;
-		flex-wrap: wrap;
-		justify-content: space-evenly;
-    	padding-right: 10px;
-		align-items: center;
+	    
 	}
 	
-	
 	.admin_link a {
-		
+		padding: 0px 20px;
 		text-decoration: none;
 		font-family: 'Press Start 2P', cursive;
 		color: white;
@@ -43,32 +41,19 @@
 		/*font-family: 'Bungee Shade', cursive;*/
 		font-family: 'Press Start 2P', cursive;
 		color: white;
-		width: 130px;
 	}
 	
 	li {
 		list-style-type: none;
 	}
+	/****** include tope    *****/
 	
 	.include_top_title {
 		cursor: pointer;
-		margin-left: 100px;
-	}
-	
-	.admin_id_session {
-		width: 130px;
-		color: white;
-		font-family: 'Creepster', cursive;
-		font-size: 1.3em;
 	}
 	
 	
 	
-	
-	
-	.celeb a:hover {
-		color: gold;
-	}
 	
 </style>
 
@@ -96,69 +81,80 @@
 				<h2>YOUR CELEB</h2>
 			</div>
 			<div class="admin_link">
-				<div class="celeb">
-					<a href="<%=request.getContextPath() %>/admin_celeb_list.do">
-						CELEB
-					</a>
-				</div>
-				<!--<div>
-					<a href="<%=request.getContextPath() %>/admin_celeb_insert.do">
-						INSERT
-					</a>
-				</div>-->
-				<div>
-					<a href="<%=request.getContextPath() %>/admin_group_list.do">
-						GROUP
-					</a>
-				</div>
-				<!-- <div>
-					<a href="<%=request.getContextPath() %>/admin_group_insert.do">
-						INSERT
-					</a> 
-				</div>	-->
-				<div>
-					<a href="<%=request.getContextPath() %>/admin_music_list.do">
-						MUSIC
-					</a>
-				</div>
-				<!--<div>
-					<a href="<%=request.getContextPath() %>/admin_music_insert.do">
-						INSERT
-					</a>
-				</div>	-->			
-				<div>
-					<a href="<%=request.getContextPath() %>/admin_images_list.do">
-						IMAGES
-					</a>
-				</div>
-				<!--<div>
-					<a href="<%=request.getContextPath() %>/admin_image_insert.do">
-						INSERT 
-					</a>
-				</div>-->	
-				<div>
-					<a>NOTICE</a>
-				</div>
-				<div>
-					<a>POP_UP</a>
-				</div>
-				<div>
-					<a>PRODUCTS</a>
-				</div>
-				<div>
-					<a>
+				<ul>
+					<li>
+						<a href="<%=request.getContextPath() %>/admin_celeb_list.do">
+							CELEB
+						</a>
+						<ul>
+							<li>
+								<a href="<%=request.getContextPath() %>/admin_celeb_insert.do">
+									INSERT
+								</a>
+							</li>
+						</ul>		
+					<li>	
+						<a href="<%=request.getContextPath() %>/admin_group_list.do">
+							GROUP
+						</a>
+						<ul>
+							<li>
+								<a href="<%=request.getContextPath() %>/admin_group_insert.do">
+									INSERT
+								</a>
+							</li>
+						</ul>											
+					</li>					
+					<li>
+						<a href="<%=request.getContextPath() %>/admin_music_list.do">
+							MUSIC
+						</a>
+						<ul>
+							<li>
+								<a href="<%=request.getContextPath() %>/admin_music_insert.do">
+									INSERT
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="<%=request.getContextPath() %>/admin_images_list.do">
+							IMAGES
+						</a>
+						<ul>
+							<li>
+								<a href="<%=request.getContextPath() %>/admin_image_insert.do">
+									INSERT 
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a>NOTICE</a>
+					</li>
+					<li>
+						<a>POP_UP</a>
+					</li>
+					<li>
+						<a>PRODUCTS</a>
+						
+					</li>
+					<li>
+						<a>
 						GOODS						
-					</a>
-				</div>
-				<!--<div>
-					<a>INSERT</a>
-				</div>-->	
-				<div class="admin_id_session">
-					WELLCOME ${admin_id } :D
-				</div>
+						</a>	
+						<ul>
+							<li>
+								<a>INSERT</a>
+							</li>	
+						</ul>						
+					</li>
+					<li>
+						WELLCOME ${admin_id } :D
+					</li>
+				</ul>
 				
 			</div> <!-- admin_link -->
-			
 		</div> <!-- admin_navbar end -->
 			
 	

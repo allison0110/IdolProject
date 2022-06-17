@@ -16,15 +16,15 @@
 		margin: 0px;
 		padding: 0px;
 		height: 100%;
-	
+		background-color: black;
+		
 	}
 	
 	.admin_content_wrapper {
 		display: flex;
 		flex-direction: column;
-		height: 100vh;
-		justify-content: center;
-	    align-items: center;
+		/*height: 100%;*/
+		
 	}
 	
 	ul {
@@ -52,8 +52,11 @@
 	}
 	
 	.admin_content_box {
-	
-	
+		color: white;
+		font-family: 'VT323', 'Jua', monospace;
+		font-size: 1.7em;
+		font-family: 
+		
 	}
 	
 	.admin_content_container {
@@ -62,14 +65,31 @@
 		align-items: center;
 	}
 	
+	.content_btns input{
+		font-family: 'Creepster', cursive;
+		color: white;
+		background-color: black;
+		cursor: pointer;
+		font-size: 1.3em;
+	}
 	
+	.content_btns input:hover {
+		color: red;
+	}
 </style>
+
+<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Creepster&family=East+Sea+Dokdo&family=Jua&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kirang+Haerang&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
 	<c:set var="cont" value="${celebContByNo }" />
 	<c:set var="imgs" value="${arrtokened }" />
+	
 	<div class="admin_content_wrapper">
+	
+		<jsp:include page="../include/admin_top_include.jsp" />
+	
 		<div class="admin_content_container">
 		
 			<div class="admin_cont_imageBox">
@@ -83,49 +103,37 @@
 			<div class="admin_content_box">
 				<ul>
 					<li>
-						넘버(임시) : ${cont.celeb_no }
-					</li>
-					<li>
-						가수명 : ${cont.celeb_name }
-					</li>
-					<li>
-						본명 : ${cont.celeb_realname }
-					</li>
-					<li>
-						소속사 : ${cont.celeb_agency }
-					</li>
-					<li>
-						생일 : ${cont.celeb_dateofbirth.substring(0, 10) }
-					</li>
-					<li>
-						데뷔일 : ${cont.celeb_debutdate.substring(0, 10) }
-					</li>
-					<li>
-						<c:if test="${!empty cont.celeb_group}">
-							[그룹] ${cont.celeb_group }
-						</c:if>
-						<c:if test="${empty cont.celeb_group}">
-						
-						</c:if>
-						<br>
 						<c:if test="${cont.celeb_group != 'solo' }">
 							group: ${cont.celeb_group }
 						</c:if>
 						<c:if test="${cont.celeb_group == 'solo' }">
-							solo name: ${cont.celeb_name }
 						</c:if>
 					</li>
+					<li>
+						NAME : ${cont.celeb_name } (${cont.celeb_realname })
+					</li>
+					<li>
+						AGENT : ${cont.celeb_agency }
+					</li>
+					<li>
+						BORN : ${cont.celeb_dateofbirth.substring(0, 10) }
+					</li>
+					<li>
+						YEARS ACTIVE : ${cont.celeb_debutdate.substring(0, 10) }
+					</li>
+					
 				</ul>
-				
-				<input type="button" value="수정"
-				onclick="location.href='admin_celeb_modify.do?no=${cont.celeb_no}'">
-				<input type="button" value="삭제"
-				onclick="if(confirm('삭제 하시겠습니까 ?? :(')){
-					location.href='<%=request.getContextPath()%>/celeb_delete.do?no=${cont.celeb_no }&img=${cont.celeb_pimage }'
-				}else {return}">
-				<input type="button" value="리스트"
-				onclick = "location.href='admin_celeb_list.do'">
-			</div>
+				<div class="content_btns">
+					<input type="button" value="MODIFY"
+					onclick="location.href='admin_celeb_modify.do?no=${cont.celeb_no}'">
+					<input type="button" value="DELETE"
+					onclick="if(confirm('삭제 하시겠습니까 ?? :(')){
+						location.href='<%=request.getContextPath()%>/celeb_delete.do?no=${cont.celeb_no }&img=${cont.celeb_pimage }'
+					}else {return}">
+					<input type="button" value="BACK"
+					onclick = "location.href='admin_celeb_list.do'">
+				</div>
+			</div> <!-- admin_content_box -->
 		</div> <!-- the end of admin_content_container -->
 	</div> <!-- the end of admin_content_wrapper -->
 </body>

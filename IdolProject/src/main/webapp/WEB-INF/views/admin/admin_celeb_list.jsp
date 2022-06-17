@@ -27,9 +27,8 @@
 		padding: 0px;
 		margin: 0px;
 		height: 100%;
-		background-color: #e0e0e0;
-		font-family: 'Kanit', sans-serif;
-		
+		/*font-family: 'Kanit', sans-serif;*/
+		background-color: black;
 	}
 	
 	li {
@@ -67,7 +66,10 @@
 		height: 370px;
 		background-color: white;
 		display: grid;
-    	grid-template-rows: 80% 20%;
+    	grid-template-rows: 75% 25%;
+		border-radius: 25% 10%;
+		font-family: 'Jua', sans-serif;
+		font-size: 1.2em;
 		
 	}
 	
@@ -77,6 +79,7 @@
 		grid-row: 1;
 		background-size: cover;
 		/*border-bottom: 1px solid gray;*/
+		overflow: hidden;
 	}
 	
 	.imgs{
@@ -89,106 +92,174 @@
 		height: 100%;
 		width: 100%;
 		grid-row: 2;
+		display: flex;
+		flex-direction: column;
+	}
+	
+	
+	.celeb_name {
+		padding: 10px 25px;
+		color: black;
+		font-weight: 600;
+	}
+	
+	.group_name {
+		padding: 10px 25px;
+		font-weight: 600;
+		color: black;
+	}
+	
+	.box_bottom {
 	
 	}
 	
-	.admin_celeb_content_box ul {
-		
-		
+	.box_top {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	
+	
+	}	
+	
+	/*********** celeb_link_tag  **************/
+	.celeb_link_tag {
+		color: white;
+		font-family: 'Press Start 2P', cursive;
+		display: flex;
+		flex-direction: row;
+		/*border: 1px solid white;*/
+		justify-content: end;
+    	margin-right: 4.5%;
+   	 	align-items: center;
+   	 	padding-bottom: 20px;
+	}	
+	
+	.search_text {
+		height: 23px;
+    	width: 213px;
+    	background-color: black;
+    	color: white;
+    	font-size: 1.5em;
+    	font-family: 'Creepster','Kirang Haerang', cursive;
+    	
 	}
 	
+	.search_btn {
+		padding: 0px 18px;
+		color: white;
+		background-color: black;
+		font-family: 'Press Start 2P', cursive;
+		font-size: 1em;
+	}
+	
+	.insert_btn a {
+		color: white;
+	}
+	.search_btn:hover {
+		color: red;
+		cursor: pointer;
+	}
+	
+	.insert_btn a:hover {
+		color: red;
+		cursor: pointer;
+	}
+	
+  	/*********** celeb_link_tag **************/
 	
 	
 	
 </style>
 
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-<!-- font-family: 'Kanit', sans-serif; -->
-<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Merriweather&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Source+Code+Pro&family=Titillium+Web:ital,wght@0,400;1,300&display=swap" rel="stylesheet">
-<!-- font-family: 'Inconsolata', monospace;-->
-<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Merriweather&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Source+Code+Pro&family=Titillium+Web:ital,wght@0,400;1,300&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Creepster&family=East+Sea+Dokdo&family=Jua&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kirang+Haerang&family=Nosifer&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
+
+<script type="text/javascript">
+	
+	
+	
+	
+
+</script>
+
 </head>
 <body>
 	
 	
 	<div class="admin_celeb_wrapper">
 	
+	<jsp:include page="../include/admin_top_include.jsp" />
+	<jsp:include page="../include/admin_link_include.jsp" />
+	
+		
+	
 		<div class="admin_celeb_container">
 		
-
 			<c:if test="${!empty cList }">
 				<%
-					List<CelebDTO> list = (List<CelebDTO>)request.getAttribute("celecList");
+				List<CelebDTO> list = (List<CelebDTO>)request.getAttribute("celecList");
 
-					List<GroupDTO> glist = (List<GroupDTO>)request.getAttribute("groupList");	
+				List<GroupDTO> glist = (List<GroupDTO>)request.getAttribute("groupList");
 				
-					for(int i=0; i < list.size(); i++){
+			
+				for(int i=0; i < list.size(); i++){
+					
+					CelebDTO dto = list.get(i);
+					
+					String imgs = dto.getCeleb_pimage();
+					
+					StringTokenizer tokenizer = new StringTokenizer(imgs, "|");
+					
+					String[] arrayToekn = new String[tokenizer.countTokens()];
+					
+					for(int j =0; j < arrayToekn.length; j++ ) {
+						arrayToekn[j] = tokenizer.nextToken();
 						
-						CelebDTO dto = list.get(i);
+					}
+				%>
+			<a href="<%=request.getContextPath()%>/admin_celeb_content.do?no=<%=dto.getCeleb_no() %>">			
+				<div data-aos="fade-in" class="admin_celeb_content">
+				
+					<div class="admin_celeb_img_box" style="background-image: url('./resources/upload/celeb/<%= arrayToekn[0] %>')">
+						<!-- <img class="imgs" alt="" src="./resources/upload/celeb/<%= arrayToekn[0] %>">	
+						 -->
+					</div>
+					
+					<div class="admin_celeb_content_box">
+					
+					
+						<div class="box_top">
+										
+						<%
+						if(dto.getCeleb_group().equals("solo")){
+							%>
+								
+					<%	} else {%>
+						<div class="group_name">
+							 <%=dto.getCeleb_group() %>
+						</div> <!-- group_name -->
+					<% } %>	
+						<div class="celeb_name">
+							 <%=dto.getCeleb_name() %>
+						</div> <!-- celeb_name -->
 						
-						String imgs = dto.getCeleb_pimage();
+						</div><!-- box_top -->
 						
-						StringTokenizer tokenizer = new StringTokenizer(imgs, "|");
-						
-						String[] arrayToekn = new String[tokenizer.countTokens()];
-						
-						for(int j =0; j < arrayToekn.length; j++ ) {
-							arrayToekn[j] = tokenizer.nextToken();
-							
-						}
+						<div class="box_bottom">
 						
 					
+						</div> <!-- box_bottom -->
 						
-						
-					%>
-					<a href="<%=request.getContextPath()%>/admin_celeb_content.do?no=<%=dto.getCeleb_no() %>">			
-						<div data-aos="fade-in" class="admin_celeb_content">
-						
-							<div class="admin_celeb_img_box" style="background-image: url('./resources/upload/celeb/<%= arrayToekn[0] %>')">
-								<!-- <img class="imgs" alt="" src="./resources/upload/celeb/<%= arrayToekn[0] %>">	
-								 -->
-							</div>
-							
-							<div class="admin_celeb_content_box">
-								<ul>						
-								
-									<%
-									if(dto.getCeleb_group().equals("solo")){
-										%>
-									<li>
-									</li>		
-								<%	} else {%>
-									<li>
-										 <%=dto.getCeleb_group() %>
-									</li>
-								<% } %>	
-									<li>
-										 <%=dto.getCeleb_name() %>
-									</li>
-									<!-- 
-									<li>
-										본명 : <%=dto.getCeleb_realname() %>
-									</li>
-									<li>
-										소속사 : <%=dto.getCeleb_agency() %>
-									</li>
-									
-									<li>
-										생일 : <%=dto.getCeleb_dateofbirth().substring(0, 10) %>
-									</li>
-									<li>
-										데뷔일 : <%=dto.getCeleb_debutdate().substring(0, 10) %>
-									</li>
-									 -->
-									
-								</ul>
-							</div> <!-- admin_celeb_content_box -->
-							
-						
-
-						
-					</div> <!-- admin_celeb_content -->		
-					</a>		
+					</div> <!-- admin_celeb_content_box -->
+					
+					
+					
+					
+				</div> <!-- admin_celeb_content -->		
+			</a>		
 								
 					<%} %>
 		</c:if>		

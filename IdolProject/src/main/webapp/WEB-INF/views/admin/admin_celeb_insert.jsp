@@ -13,114 +13,129 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<style type="text/css">
+	
 		html, body {
 			padding: 0px;
 			margin: 0px;
 			height: 100%;
+			padding: 0px;
+			margin: 0px;
+			height: 100%;
+			/*font-family: 'Kanit', sans-serif;*/
+			background-color: black;
 		}
 		
+		li {
+		list-style-type: none;
+		color: black;
+		}
+		
+		a {
+			text-decoration: none;
+		}
 		.admin_celeb_insertForm_wrapper {
 			display: flex;
 			flex-direction: column;
-			height: 100vh;
-			align-items: center;
-			justify-content: center;
+			height: 100%;
 			
 		}
 		
-		.admin_celeb_insertForm_div {
+		.admin_celeb_insertForm_container {
+			display: flex;
+			justify-content: center;
+		
+		}
+		
+		.admin_celeb_insertForm {
+			color: white;
+			font-family: 'VT323', monospace;
+			font-size: 1.9em;
+			line-height: 1.3em;
+		}
+		
+		.celeb_insert_content {
 			display: flex;
 			flex-direction: row;
-			width: 100%;
-			height: 100%;
 		}
 		
-		.celeb_form {
-			max-width: 50%;
-			align-content: center;
-			width: 100%;
-			border: 3px solid red;
-			display: flex;
-		    justify-content: center;
-		    align-items: center;
-		    flex-direction: column;
-		    line-height: 1.8;
-		}
-		.admin_celeb_insertForm_container {
-			width: 400px;
-		    display: grid;
-		    grid-template-columns: 1fr 1fr;
-		    line-height: 1.8;
+		.insert_form_left {
+			margin-right: 20px;
 		}
 		
-		.celeb_insertForm_left {
-			grid-column: 1;
-		}
-		
-		.celeb_insertForm_right {
-			grind-column: 2;
+		.right_content input{
+			height: 19.3px;
 		}
 		
 		.celeb_btn {
 			display: flex;
-    		flex-direction: row;
-    		justify-content: flex-start;
-		}
-		
-		
-		.admin_celeb_groupManager {
-			border: 3px solid blue;
-			max-width: 50%;
-			width: 100%;
-			display: flex;
-		    flex-direction: column;
-		    justify-content: center;
-		    align-items: center;
-		}
-		
-		.selecting {
-			display: none;
-		}
-		
-		.pImagesContainer {
-			width: 100%;
-			display: flex;
 			flex-direction: row;
 			justify-content: center;
 		}
 		
-		.pImagesContainer img {
-			width: 100%;
-			height: 100%;
+		.celeb_btn input {
+			color: white;
+			background-color: black;
 		}
 		
-		.pimageBoxes {
-			width: 200px;
-			height: 200px;
+		.inset_btn {
+			font-family: 'Nosifer', cursive;
+			font-size: 0.7em;
+			cursor: pointer;	
 		}
+		
+		.inset_btn:hover {
+			color: red;
+		}
+		
 	</style>
+	
+	
+<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Creepster&family=East+Sea+Dokdo&family=Jua&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kirang+Haerang&family=Nosifer&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+	
 	
 </head>
 <body>
-	<!-- 가수 전체 리스트 -->
 	<!-- 그룹 이름 리스트 -->
 	<c:set var="gList" value="${groupList }" />
-	<!-- 등록 후 가수 상세 내역 불러오기 -->
-	<!--  
-	<c:set var="pImages" value="${arrtokened }" />
-	-->
+	
 	<div class="admin_celeb_insertForm_wrapper">
 	
-		<div class="admin_celeb_insertForm_div">
-			
-			<form class="celeb_form" enctype="multipart/form-data" method="post"  
-				action="<%=request.getContextPath()%>/admin_celeb_insert_ok.do">
+	<jsp:include page="../include/admin_top_include.jsp" />
+	<jsp:include page="../include/admin_link_include.jsp" />
+	
+		<div class="admin_celeb_insertForm_container">
+		
+			<div class="admin_celeb_insertForm">
+				<form class="celeb_form" enctype="multipart/form-data" method="post"  
+					action="<%=request.getContextPath()%>/admin_celeb_insert_ok.do">
 				
-				<div class="admin_celeb_insertForm_container">
-					
-					<div class="celeb_insertForm_left">그룹 선택</div>
-					<div class="celeb_insertForm_right">
-						
+				<div class="celeb_insert_content">
+				<div class="insert_form_left">
+					<div>
+						SELECT GROUP
+					</div>
+					<div>
+						STAGE NAME
+					</div>
+					<div>
+						 NAME
+					</div>
+					<div>
+						AGENT
+					</div>
+					<div>
+						BORN
+					</div>
+					<div>
+						YEARS ACTIVE
+					</div>
+					<div>
+						IMAGES
+					</div>
+				</div> <!--  -->
+				
+				<div class="insert_form_right">
+					<div class="right_content">
 						<select name=celeb_group>
 							<c:forEach items="${groupList }" var="g">
 								<option value="${g.group_name }">
@@ -129,54 +144,43 @@
 								
 							</c:forEach>
 						</select>
-						
-						
-					</div>
-					
-					<div class="celeb_insertForm_left">가수 이름</div>
-					<div class="celeb_insertForm_right">
+					</div> <!-- celeb_insertForm_right -->
+					<div class="right_content">
 						<input name="celeb_name">
-					</div>
-					
-					<div class="celeb_insertForm_left">본명</div>
-					<div class="celeb_insertForm_right">
-						<input name="celeb_realname">
-					</div>
-					
-					<div class="celeb_insertForm_left">소속사</div>
-					<div class="celeb_insertForm_right">
+					</div>										
+					<div class="right_content">
+						 <input name="celeb_realname">
+					</div>									
+					<div class="right_content">
 						<input name="celeb_agency">
-					</div>
-					
-					<div class="celeb_insertForm_left">생일</div>
-					<div class="celeb_insertForm_right">
+					</div>							
+					<div class="right_content"> 
 						<input type="date" name="celeb_dateofbirth">
 					</div>
-					
-					<div class="celeb_insertForm_left">데뷔</div>
-					<div class="celeb_insertForm_right">
+					<div class="right_content">
 						<input type="date" name="celeb_debutdate">
 					</div>
-					
-					<div class="celeb_insertForm_left">개인 이미지</div>
-					<div class="celeb_insertForm_right">
+					<div>
 						<input multiple="multiple" type="file" name="file1">
 					</div>
-				</div> <!-- admin_celeb_insertForm_container -->
 				
-				<div class="celeb_btn">
-					<div>
-						<input type="submit" value="등록" id="inset_btn">
-					</div>
-					<div>
-						<input type="reset" value="다시작성">
-					</div>
-					<input type="button" value="!" class="switch">
+				
+				</div><!-- insert_right -->
+				</div><!-- celeb_insert_content -->
+				
+				
+					<div class="celeb_btn">
+						<div>
+							<input type="submit" value="INSERT" class="inset_btn">
+						</div>
+						<div>
+							<input type="reset" value="RESET" class="inset_btn">
+						</div>
+					</div> <!-- celeb_btn -->
 					
-				</div>
-			</form>
-			
-		</div> <!-- admin_celeb_insertForm_div -->
+				</form>
+			</div><!-- admin_celeb_insertForm_container -->
+		</div> <!-- admin_celeb_insertForm_container -->
 	</div> <!-- admin_celeb_insertForm_wrapper -->
  
 </body>

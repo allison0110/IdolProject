@@ -76,7 +76,8 @@
 	<c:set var="slist" value="${soloList }" />
 	
 	<div class="admin_group_wrapper">
-	
+		
+		<jsp:include page="../include/admin_top_include.jsp" />
 	
 		<div class="admin_group_whollContainer">
 			
