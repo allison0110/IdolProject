@@ -89,6 +89,9 @@
 						
 					</li>
 					<li>
+						타입 : ${cont.notice_type}
+					</li>
+					<li>
 						조회수 : ${cont.notice_hit}
 					</li>
 					<li>

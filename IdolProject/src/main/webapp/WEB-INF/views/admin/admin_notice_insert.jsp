@@ -19,6 +19,20 @@
 						제목 : <input name="notice_title">
 					</li>
 					<li>
+					 	분류 선택 : 
+						<select name="notice_type">
+							<option>
+								공지 분류 선택
+							</option>
+							<option value="CELEB">
+								celeb
+							</option>
+							<option value="CONCERT">
+								concert
+							</option>
+						</select>
+					</li>
+					<li>
 						내용: <textarea rows="17" cols="25" name="notice_cont"></textarea>
 					</li>
 					<li>

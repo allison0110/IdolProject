@@ -71,6 +71,7 @@ public class AdminNoticeController {
 		System.out.println("title : " + dto.getNotice_title());
 		System.out.println("cont : " + dto.getNotice_cont());
 		System.out.println("imgs : " + dto.getNotice_image());
+		System.out.println("type : " + dto.getNotice_type());
 		
 		int check = this.dao.insertNotice(dto);
 		

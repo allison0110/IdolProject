@@ -100,7 +100,7 @@
 				onclick="location.href='admin_images_modify.do?no=${cont.image_no}'">
 				<input type="button" value="삭제"
 				onclick="if(confirm('삭제 하시겠습니까 ?? :(')){
-					location.href='<%=request.getContextPath()%>/admin_images_delete.do?no=${cont.image_no }'
+					location.href='<%=request.getContextPath()%>/admin_images_delete.do?no=${cont.image_no }&imgs=${cont.image_path }'
 				}else {return}">
 				<input type="button" value="메인으로"
 				onclick = "location.href='admin_main.do'">

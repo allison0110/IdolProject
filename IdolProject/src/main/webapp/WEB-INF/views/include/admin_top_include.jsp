@@ -61,18 +61,19 @@
 						<a href="<%=request.getContextPath() %>/admin_celeb_list.do">
 							가수
 						</a>
-						<div class="admin_navbar_second">
-							<ul>
-								<li>
-									<a href="<%=request.getContextPath() %>/admin_celeb_insert.do">
-										등록
-									</a>
-								</li>
-								<li>
-									<a href="<%=request.getContextPath() %>/admin_group_list.do">
-										그룹
-									</a>
-									<div>
+						<ul>
+							<li>
+								<a href="<%=request.getContextPath() %>/admin_celeb_insert.do">
+									등록
+								</a>
+							</li>
+								
+							<li>
+								<ul>
+									<li>
+										<a href="<%=request.getContextPath() %>/admin_group_list.do">
+											그룹
+										</a>
 										<ul>
 											<li>
 												<a href="<%=request.getContextPath() %>/admin_group_insert.do">
@@ -80,39 +81,36 @@
 												</a>
 											</li>
 										</ul>
-									</div>
-								</li>
-								
-							</ul>
-						</div>
+									</li>
+									
+								</ul>
+							</li>
+						</ul>
 					</li>
+						
 					<li>
 						<a href="<%=request.getContextPath() %>/admin_music_list.do">
 							음원
 						</a>
-						<div>
-							<ul>
-								<li>
-									<a href="<%=request.getContextPath() %>/admin_music_insert.do">
-										등록
-									</a>
-								</li>
-							</ul>
-						</div>
+						<ul>
+							<li>
+								<a href="<%=request.getContextPath() %>/admin_music_insert.do">
+									등록
+								</a>
+							</li>
+						</ul>
 					</li>
 					<li>
 						<a href="<%=request.getContextPath() %>/admin_images_list.do">
 							메인 페이지 이미지 관리
 						</a>
-						<div>
-							<ul>
-								<li>
-									<a href="<%=request.getContextPath() %>/admin_image_insert.do">
-										등록 
-									</a>
-								</li>
-							</ul>
-						</div>
+						<ul>
+							<li>
+								<a href="<%=request.getContextPath() %>/admin_image_insert.do">
+									등록 
+								</a>
+							</li>
+						</ul>
 					</li>
 					<li>
 						공지 관리
@@ -124,14 +122,12 @@
 						판매관리
 					</li>
 					<li>
-						굿즈 관리
-						<div>
+						굿즈 관리						
 							<ul>
 								<li>등록</li>
 								<li>수정</li>
 								<li>리스트</li>
-							</ul>
-						</div>
+							</ul>						
 					</li>
 					<li>
 						${admin_id }님 환영합니다 :D

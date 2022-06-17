@@ -72,13 +72,12 @@
 		
 			
 			<div class="admin_content_box">
-			<form method="post" action="<%=request.getContextPath() %>/admin_images_modify_ok.do">
+			<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath() %>/admin_images_modify_ok.do">
 			
 			<input type="hidden" name="image_no" value="${cont.image_no }">
+			<input type="hidden" name="oldPath" value="${cont.image_path }">
+			
 				<ul>
-					<li>
-						이미지 path: <input name="image_path" value="${cont.image_path }">
-					</li>
 					<li>
 						이미지 링크 : <input name="image_link" value="${cont.image_link }">
 					</li>
@@ -106,9 +105,10 @@
 								off (val=0)
 							</option>	
 						</c:if>
-						
-						
 					</select>
+					</li>
+					<li>
+						이미지 path: <input name="file" type="file" multiple="multiple">
 					</li>
 					
 				</ul>

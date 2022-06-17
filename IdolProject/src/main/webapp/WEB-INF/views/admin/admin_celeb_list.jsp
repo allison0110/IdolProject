@@ -17,6 +17,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+
 <style type="text/css">
 
 	/************ 공통 ***********/
@@ -25,12 +27,14 @@
 		padding: 0px;
 		margin: 0px;
 		height: 100%;
-		background-color: #fafafa;
+		background-color: #e0e0e0;
+		font-family: 'Kanit', sans-serif;
+		
 	}
 	
 	li {
 		list-style-type: none;
-		
+		color: black;
 	}
 	
 	a {
@@ -58,7 +62,7 @@
 	}
 	
 	.admin_celeb_content{
-		border: 1px solid pink;
+		/*border: 1px solid pink;*/
 		width: 320px;
 		height: 370px;
 		background-color: white;
@@ -72,7 +76,7 @@
 		width: 100%;
 		grid-row: 1;
 		background-size: cover;
-		border-bottom: 1px solid gray;
+		/*border-bottom: 1px solid gray;*/
 	}
 	
 	.imgs{
@@ -99,8 +103,10 @@
 </style>
 
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-
-
+<!-- font-family: 'Kanit', sans-serif; -->
+<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Merriweather&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Source+Code+Pro&family=Titillium+Web:ital,wght@0,400;1,300&display=swap" rel="stylesheet">
+<!-- font-family: 'Inconsolata', monospace;-->
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Merriweather&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Source+Code+Pro&family=Titillium+Web:ital,wght@0,400;1,300&display=swap" rel="stylesheet">
 </head>
 <body>
 	
@@ -145,6 +151,7 @@
 							
 							<div class="admin_celeb_content_box">
 								<ul>						
+								
 									<%
 									if(dto.getCeleb_group().equals("solo")){
 										%>

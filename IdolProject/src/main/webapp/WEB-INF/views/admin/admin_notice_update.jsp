@@ -80,6 +80,14 @@
 						<label for="title">제목</label> <input id="title" name="notice_title" value="${nCont.notice_title }" readonly>
 					</div>
 					<div>
+						<select name="notice_type">
+							<option value="CELEB">
+								CELEB
+							</option>
+							<option value="CONCERT">
+								CONCERT
+							</option>
+						</select>
 					</div>
 					<div>
 						<label for="cont">내용</label> <textarea rows="20" cols="50" id="cont" name="notice_cont">${nCont.notice_cont }</textarea>

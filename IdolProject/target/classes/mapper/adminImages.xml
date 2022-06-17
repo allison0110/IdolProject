@@ -6,7 +6,7 @@
 
 
 
-	<mapper namespace="imagesDAO">
+	<mapper namespace="AimagesDAO">
 	
 		<insert id="insertImage" parameterType="imagesDTO">
 			<selectKey resultType="int" keyProperty="image_no" order="BEFORE">
