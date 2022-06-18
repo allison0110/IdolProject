@@ -12,6 +12,17 @@
 		padding: 0px;
 		margin: 0px;
 		height: 100%;
+		background-color: black;
+	}
+	
+	
+	a {
+		text-decoration: none;
+	}
+	
+	li {
+		list-style-type: none;
+		
 	}
 	
 	.admin_notice_wrapper {
@@ -20,10 +31,7 @@
 		height: 100vh;
 	
 	}
-	li {
-		list-style-type: none;
-		
-	}
+	
 	
 	.admin_notice_container {
 		display: flex;
@@ -36,18 +44,23 @@
 		border: 1px solid pink;
 		width: 200px;
 		height: 200px;
+		color: white;
 	}
 	
-	a {
-		text-decoration: none;
-	}
+	
 </style>
 </head>
 <body>
 	<c:set var="list" value="${noticeList }" />
 	
 	<div class="admin_notice_wrapper">
+	
+		<jsp:include page="../include/admin_top_include.jsp" />
+		<jsp:include page="../include/admin_notice_include.jsp" />
+	
+	
 		<div class="admin_notice_container">
+		
 			<c:if test="${!empty list }">
 				<c:forEach items="${list }" var="dto">
 					<a href="<%=request.getContextPath()%>/admin_notice_content.do?no=${dto.notice_no}">
@@ -82,6 +95,7 @@
 					</a>
 				</c:forEach>
 			</c:if>	
+			
 		</div> <!-- admin_notice_container -->
 	</div> <!-- admin_notice_wrapper -->
 	

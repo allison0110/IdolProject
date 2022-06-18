@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.idol.model.AdminNoticeDAO;
+import com.idol.model.CelebDTO;
+import com.idol.model.GroupDTO;
 import com.idol.model.NoticeDTO;
 
 @Controller
@@ -29,7 +31,15 @@ public class AdminNoticeController {
 	
 	// 공지 등록 폼 페이지로 이동
 	@RequestMapping("admin_notice_insert.do")
-	public String insertNotice() {
+	public String insertNotice(Model model) {
+		
+		List<GroupDTO> gList = this.dao.getGroupList();
+		
+		List<CelebDTO> cList = this.dao.getCelebList();
+		
+		model.addAttribute("gList", gList);
+		
+		model.addAttribute("cList", cList);
 		
 		return "admin/admin_notice_insert";
 	}
@@ -197,9 +207,22 @@ public class AdminNoticeController {
 			arrayToken[i] = tokenizer.nextToken();
 		}
 		
+		List<NoticeDTO> nList = this.dao.getNoticeList();
+
+		List<GroupDTO> gList = this.dao.getGroupList();
+		
+		List<CelebDTO> cList = this.dao.getCelebList();
+		
+		model.addAttribute("gList", gList);
+		
+		model.addAttribute("nList", nList);
+		
+		model.addAttribute("cList", cList);
+		
 		model.addAttribute("arrayImgs", arrayToken);
 		
 		model.addAttribute("noticeCont", dto);
+		
 		
 		return "admin/admin_notice_update";
 	}

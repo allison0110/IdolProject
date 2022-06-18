@@ -17,6 +17,9 @@ public interface AdminNoticeDAO {
 	// 공지 수정 완료
 	public int updateNoticeOk(NoticeDTO dto);
 	
-	
+	//그룹 리스트 불러 오기
+	public List<GroupDTO> getGroupList();
+	//셀럽 리스트 불러오기
+	public List<CelebDTO> getCelebList();
 	
 }

@@ -7,6 +7,8 @@ public class NoticeDTO {
 
 	private int notice_no;
 	private String admin_id;
+	private String group_name;
+	private String celeb_name;
 	private String notice_type;
 	private String notice_title;
 	private String notice_image;

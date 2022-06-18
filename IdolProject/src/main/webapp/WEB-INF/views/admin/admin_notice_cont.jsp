@@ -89,6 +89,22 @@
 						
 					</li>
 					<li>
+						<c:if test="${cont.group_name != null }">
+							그룹 : ${cont.group_name }
+						</c:if>
+						<c:if test="${cont.group_name == null }">
+							
+						</c:if>
+					</li>
+					<li>
+						<c:if test="${cont.celeb_name != null }">
+							셀럽 : ${cont.celeb_name }
+						</c:if>
+						<c:if test="${cont.celeb_name == null }">
+							
+						</c:if>
+					</li>
+					<li>
 						타입 : ${cont.notice_type}
 					</li>
 					<li>

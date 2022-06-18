@@ -52,6 +52,9 @@
 </head>
 <body>
 	<c:set var="nCont" value="${noticeCont }" />
+	<c:set var="nlist" value="${nList }" />
+	<c:set var="glist" value="${gList }" />
+	<c:set var="clist" value="${cList }" />
 	<c:set var="imgs" value="${arrayImgs }" />
 	
 	<div class="admin_notice_modify_wrapper">
@@ -80,13 +83,63 @@
 						<label for="title">제목</label> <input id="title" name="notice_title" value="${nCont.notice_title }" readonly>
 					</div>
 					<div>
+						<select name="group_name">
+							<option value="">
+								NONE
+							</option>
+							<c:forEach items="${glist }" var="g">
+								<c:if test="${g.group_name == nCont.group_name }">
+									<option value="${g.group_name }" selected>
+										${g.group_name }
+									</option>
+								</c:if>
+								<c:if test="${g.group_name != nCont.group_name }">
+									<option value="${g.group_name }">
+										${g.group_name }
+									</option>
+								</c:if>
+							</c:forEach>
+						
+						</select>
+					</div>
+					<div>
+						<select name="celeb_name">
+							<option value="">
+								NONE
+							</option>
+							<c:forEach items="${clist }" var="c">
+								<c:if test="${c.celeb_name == nCont.celeb_name }">
+									<option value="${c.celeb_name }" selected>
+										${c.celeb_name }
+									</option>
+								</c:if>
+								<c:if test="${c.celeb_name != nCont.celeb_name }">
+									<option value="${c.celeb_name }">
+										${c.celeb_name }
+									</option>
+								</c:if>
+							</c:forEach>
+						
+						</select>
+					</div>
+					<div>
 						<select name="notice_type">
-							<option value="CELEB">
-								CELEB
-							</option>
-							<option value="CONCERT">
-								CONCERT
-							</option>
+							<c:if test="${nCont.notice_type == 'CELEB' }">
+								<option value="CELEB" selected>
+									CELEB
+								</option>
+								<option value="CONCERT">
+									CONCERT
+								</option>
+							</c:if>
+							<c:if test="${nCont.notice_type != 'CELEB' }">
+								<option value="CONCERT" selected>
+									CONCERT
+								</option>
+								<option value="CELEB">
+									CELEB
+								</option>
+							</c:if>
 						</select>
 					</div>
 					<div>

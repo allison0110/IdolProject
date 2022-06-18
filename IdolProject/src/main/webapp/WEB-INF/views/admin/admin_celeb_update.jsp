@@ -35,21 +35,21 @@
 		flex-direction: column;
 		align-items: center;
 		color: white;
+		font-size: 1.9em;
 	}
 	
 	.celeb_update_form {
 		display: flex;
 		flex-direction: row;
 		font-family: 'VT323', monospace;
-		font-size: 1.9em;
 		line-height: 1.3em;
 	}
 	
 	.celeb_update_left {
 		margin-right: 20px;
 	}
-	.right_form intput{
-		height: 19.3px;
+	.right_form input{
+		height: 20px;
 	
 	}
 	
@@ -66,7 +66,7 @@
 	
 	.inset_btn {
 		font-family: 'Nosifer', cursive;
-		font-size: 1.4em;
+		font-size: 0.7em;
 		cursor: pointer;	
 	}
 	
@@ -78,6 +78,9 @@
 		margin-right: 80px;
 	}
 	
+	.select {
+		height: 27px;
+	}
 	
 </style>
 
@@ -123,7 +126,7 @@
 							<input id="name" value="${cont.celeb_name}" name="celeb_name">
 						</div>
 						<div class="right_form">
-							<select name="celeb_group">
+							<select name="celeb_group" class="select">
 								<c:forEach items="${clist }" var="c">
 									<c:if test="${c.group_name == cont.celeb_group }">
 										<option value="${c.group_name}" selected>
@@ -148,7 +151,7 @@
 							<input type="date" name="celeb_debutdate" value="${cont.celeb_debutdate.substring(0, 10)}">
 						</div>
 						<div class="right_form">
-							<input type="file" multiple="multiple" name="file1">
+							<input type="file" multiple="multiple" name="file1" class="fileUpload">
 						</div>
 					</div> <!-- celeb_update_right -->
 					

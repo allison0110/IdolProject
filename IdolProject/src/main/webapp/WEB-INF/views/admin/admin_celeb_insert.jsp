@@ -63,7 +63,7 @@
 		}
 		
 		.right_content input{
-			height: 19.3px;
+			height: 20px;
 		}
 		
 		.celeb_btn {
@@ -90,6 +90,11 @@
 		.rightBtn {
 			margin-right: 80px;
 		}
+		
+		.select {
+			height: 27px;
+		}
+		
 	</style>
 	
 	
@@ -113,62 +118,62 @@
 					action="<%=request.getContextPath()%>/admin_celeb_insert_ok.do">
 				
 				<div class="celeb_insert_content">
-				<div class="insert_form_left">
-					<div>
-						SELECT GROUP
-					</div>
-					<div>
-						STAGE NAME
-					</div>
-					<div>
-						 NAME
-					</div>
-					<div>
-						AGENT
-					</div>
-					<div>
-						BORN
-					</div>
-					<div>
-						YEARS ACTIVE
-					</div>
-					<div>
-						IMAGES
-					</div>
-				</div> <!--  -->
+					<div class="insert_form_left">
+						<div>
+							SELECT GROUP
+						</div>
+						<div>
+							STAGE NAME
+						</div>
+						<div>
+							 NAME
+						</div>
+						<div>
+							AGENT
+						</div>
+						<div>
+							BORN
+						</div>
+						<div>
+							YEARS ACTIVE
+						</div>
+						<div>
+							IMAGES
+						</div>
+					</div> <!--  -->
 				
-				<div class="insert_form_right">
-					<div class="right_content">
-						<select name=celeb_group>
-							<c:forEach items="${groupList }" var="g">
-								<option value="${g.group_name }">
-									${g.group_name }
-								</option>
-								
-							</c:forEach>
-						</select>
-					</div> <!-- celeb_insertForm_right -->
-					<div class="right_content">
-						<input name="celeb_name">
-					</div>										
-					<div class="right_content">
-						 <input name="celeb_realname">
-					</div>									
-					<div class="right_content">
-						<input name="celeb_agency">
-					</div>							
-					<div class="right_content"> 
-						<input type="date" name="celeb_dateofbirth">
-					</div>
-					<div class="right_content">
-						<input type="date" name="celeb_debutdate">
-					</div>
-					<div>
-						<input multiple="multiple" type="file" name="file1">
-					</div>
-				
-				
-				</div><!-- insert_right -->
+					<div class="insert_form_right">
+						<div class="right_content">
+							<select name=celeb_group class="select">
+								<c:forEach items="${groupList }" var="g">
+									<option value="${g.group_name }">
+										${g.group_name }
+									</option>
+									
+								</c:forEach>
+							</select>
+						</div> <!-- celeb_insertForm_right -->
+						<div class="right_content">
+							<input name="celeb_name">
+						</div>										
+						<div class="right_content">
+							 <input name="celeb_realname">
+						</div>									
+						<div class="right_content">
+							<input name="celeb_agency">
+						</div>							
+						<div class="right_content"> 
+							<input type="date" name="celeb_dateofbirth">
+						</div>
+						<div class="right_content">
+							<input type="date" name="celeb_debutdate">
+						</div>
+						<div>
+							<input multiple="multiple" type="file" name="file1">
+						</div>
+					
+					
+					</div><!-- insert_right -->
 				</div><!-- celeb_insert_content -->
 				
 				

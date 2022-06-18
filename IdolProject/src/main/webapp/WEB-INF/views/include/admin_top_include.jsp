@@ -137,7 +137,9 @@
 					</a>
 				</div>-->	
 				<div>
-					<a>NOTICE</a>
+					<a href="<%=request.getContextPath() %>/admin_notice_list.do">
+						NOTICE
+					</a>
 				</div>
 				<div>
 					<a>POP_UP</a>
