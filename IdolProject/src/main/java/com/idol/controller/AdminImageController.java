@@ -124,6 +124,19 @@ public class AdminImageController {
 		
 		ImagesDTO dto = this.dao.imagesCont(no);
 		
+		String imgs = dto.getImage_path();
+		
+		StringTokenizer tokenizer = new StringTokenizer(imgs, "|");
+		
+		String[] arrayImgs = new String[tokenizer.countTokens()];
+		
+		for(int i =0; i < arrayImgs.length; i++) {
+			
+			arrayImgs[i] = tokenizer.nextToken();
+		}
+		
+		model.addAttribute("arrayImgs", arrayImgs);
+		
 		model.addAttribute("imageCont", dto);
 		
 		return "admin/admin_images_cont";

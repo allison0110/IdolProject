@@ -52,7 +52,23 @@
 			color: red;
 		}
 		
+		.admin_login_form{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		
+		}
+		
+		#text {
+			font-family: 'Nosifer', cursive;
+			font-size: 1.2em;
+			width:250px;
+		}
+		
 	</style>
+	
+	<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Creepster&family=East+Sea+Dokdo&family=Gamja+Flower&family=Jua&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kirang+Haerang&family=Nosifer&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 	
 </head>
 <body>
@@ -61,17 +77,18 @@
 	
 		<jsp:include page="../include/admin_top_include.jsp" />
 			
+
 			<div class="admin_login_form_container">
 				
 			<div class="admin_login_form">
 				<form method="post" action="<%=request.getContextPath() %>/admin_login_ok.do">
 					<div>
 						<div class="admin_id" ></div>
-						<input id="id" name="admin_id"></input>
+						<input id="text" name="admin_id"></input>
 					</div>
 					<div>
 						<div class="admin_pwd" ></div>
-						<input id="pwd" type="password" name="admin_pwd"></input>
+						<input id="text" type="password" name="admin_pwd"></input>
 						
 					</div>
 			

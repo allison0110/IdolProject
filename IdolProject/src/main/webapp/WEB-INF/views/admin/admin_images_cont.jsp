@@ -61,16 +61,54 @@
 		align-items: center;
 	}
 	
+	/************ 이미지 슬라이드 **************/
+	
+	.slide_wrapper {
+		position: relative;
+		width: 660px;
+		margin: 0 auto;
+		height: 200px;
+		overflow: hidden;
+		
+	}
+	
+	.slides {
+		position: absolute;
+		left:0, top: 0;
+		
+	}
+	
+	.slides.animated{
+		transition: 0.5s ease-out;
+		
+	}
+	
+	.slides. li:not(:last-child){
+		margin-right: 30px;
+	}
+	
+	.
+	/*****************************************/
+	
 	
 </style>
+
+<script type="text/javascript">
+
+
+
+</script>
+
 </head>
 <body>
 
 	<c:set var="cont" value="${imageCont }" />
+	<c:set var="imgs" value="${arrayImgs }" />
+	
 	<div class="admin_content_wrapper">
+	
 		<div class="admin_content_container">
 		
-			
 			<div class="admin_content_box">
 				<ul>
 					<li>
@@ -107,5 +145,7 @@
 			</div>
 		</div> <!-- the end of admin_content_container -->
 	</div> <!-- the end of admin_content_wrapper -->
+	
+	
 </body>
 </html>

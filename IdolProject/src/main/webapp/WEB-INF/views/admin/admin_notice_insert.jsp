@@ -132,7 +132,7 @@
 						<div>
 							<select name="group_name">
 								<option value="">
-										:D
+										NONE
 								</option>
 								<c:forEach items="${glist }" var="g">
 									<option value="${g.group_name }">
@@ -144,7 +144,7 @@
 						<div>
 							<select name="celeb_name">
 								<option value="">
-										XD
+										NONE
 								</option>
 								<c:forEach items="${clist }" var="c">
 									
