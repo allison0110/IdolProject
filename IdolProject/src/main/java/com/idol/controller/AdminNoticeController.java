@@ -104,7 +104,7 @@ public class AdminNoticeController {
 		
 	}
 	
-	
+	// 노티스 전체 리스트 불러오기 (ORDER BY NOTICE_ENDDATE, NOTICE_UPDATE, NOTICE_DATE)
 	@RequestMapping("admin_notice_list.do")
 	public String getNoticeList(Model model) {
 		
@@ -115,7 +115,7 @@ public class AdminNoticeController {
 		return "admin/admin_notice_list";
 	}
 	
-	
+	// 노티스 상세 내역 불러오기
 	@RequestMapping("admin_notice_content.do")
 	public String getNoticeCont(Model model, @RequestParam("no") int no) {
 		

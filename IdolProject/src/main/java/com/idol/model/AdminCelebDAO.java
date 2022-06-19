@@ -27,6 +27,7 @@ public interface AdminCelebDAO {
 	public void updateSequen(int no);
 	// 가수 정보 수정 
 	public int updateCeleb(CelebDTO dto);
+	
 	// 그룸에 속한 맴버 리스트 가져오기 by no
 	public List<CelebDTO> getGroupMemberList(String gName);
 	// 그룹 정보 가져오기  by name
@@ -35,6 +36,15 @@ public interface AdminCelebDAO {
 	public List<GroupDTO> getGroupNameList();
 	// 그룹 리스트 가져오기
 	public List<GroupDTO> getGroupList();
+	
+	// 음원 리스트 가져오기
+	public List<MusicDTO> getMusicList();
+	
+	// notice 리스트 가져오기
+	public List<NoticeDTO> getNoticeList();
+	
+	// images 리스트 가져오기
+	public List<ImagesDTO> getImagesList();
 	
 	
 }

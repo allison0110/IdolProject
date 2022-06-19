@@ -233,18 +233,18 @@
 					
 						<div class="box_top">
 										
-						<%
-						if(dto.getCeleb_group().equals("solo")){
-							%>
-								
-					<%	} else {%>
-						<div class="group_name">
-							 <%=dto.getCeleb_group() %>
-						</div> <!-- group_name -->
-					<% } %>	
-						<div class="celeb_name">
-							 <%=dto.getCeleb_name() %>
-						</div> <!-- celeb_name -->
+							<%
+							if(dto.getCeleb_group().equals("solo")){
+								%>
+									
+						<%	} else {%>
+							<div class="group_name">
+								 <%=dto.getCeleb_group() %>
+							</div> <!-- group_name -->
+						<% } %>	
+							<div class="celeb_name">
+								 <%=dto.getCeleb_name() %>
+							</div> <!-- celeb_name -->
 						
 						</div><!-- box_top -->
 						
@@ -261,7 +261,7 @@
 				</div> <!-- admin_celeb_content -->		
 			</a>		
 								
-					<%} %>
+			<%} %>
 		</c:if>		
 		</div> <!-- admin_celeb_container -->
 		

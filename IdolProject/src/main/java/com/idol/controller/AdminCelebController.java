@@ -32,6 +32,9 @@ import com.idol.model.AdminCelebDAO;
 import com.idol.model.AdminDTO;
 import com.idol.model.CelebDTO;
 import com.idol.model.GroupDTO;
+import com.idol.model.ImagesDTO;
+import com.idol.model.MusicDTO;
+import com.idol.model.NoticeDTO;
 
 @Controller
 public class AdminCelebController {
@@ -53,9 +56,23 @@ public class AdminCelebController {
 		
 		List<CelebDTO> cList = this.dao.selectCelebList();
 		
+		List<GroupDTO> gList = this.dao.getGroupList();
+		
+		List<ImagesDTO> iList = this.dao.getImagesList();
+		
+		List<MusicDTO> mList = this.dao.getMusicList();
+		
+		List<NoticeDTO> nList = this.dao.getNoticeList();
+		
+		model.addAttribute("iList", iList);
+		
+		model.addAttribute("mList", mList);
+		
+		model.addAttribute("nList", nList);
 		
 		model.addAttribute("cList", cList);
 		
+		model.addAttribute("gList", gList);
 		
 		return "admin/admin_main";
 	}

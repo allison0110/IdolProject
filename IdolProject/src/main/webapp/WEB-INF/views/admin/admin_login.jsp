@@ -57,6 +57,7 @@
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
+			z-index: 10;
 		
 		}
 		
@@ -75,7 +76,7 @@
 	
 	<div class="admin_main_wrapper">
 	
-		<jsp:include page="../include/admin_top_include.jsp" />
+		<jsp:include page="../include/admin_top_include.jsp" />	
 			
 
 			<div class="admin_login_form_container">

@@ -88,5 +88,9 @@
 		<select id="getGroupAllList" resultType="groupDTO">
 			select * from celeb_group order by group_no
 		</select>
+		
+		
+		
+		
     	
     </mapper>

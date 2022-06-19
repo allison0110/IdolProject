@@ -19,7 +19,7 @@
     	
     	<!-- 음원 리스트 order by 앨범 명-->
     	<select id="musicList" resultType="musicDTO">
-    		select * from music order by music_aname
+    		select * from music order by music_release_date desc, music_aname, music_name
     	</select>
     	
     	<!-- 음원 상세 내용  -->
@@ -36,7 +36,7 @@
     	<update id="musicUpdate" parameterType="musicDTO">
     		update music set celeb_name = #{celeb_name}, group_name = #{group_name}, music_aname = #{music_aname}, music_name = #{music_name}, music_lyrics = #{music_lyrics},
     			music_composer = #{music_composer}, music_lyricst = #{music_lyricst}, music_coverimage = #{music_coverimage},
-    				music_movie_link = #{music_movie_link}, music_release_date = #{music_release_date} where music_name = #{music_name} 
+    				music_movie_link = #{music_movie_link}, music_release_date = #{music_release_date} where music_no = #{music_no} 
     	</update>
     	
     	<!-- 셀럽 리스트 가져오기 --> 

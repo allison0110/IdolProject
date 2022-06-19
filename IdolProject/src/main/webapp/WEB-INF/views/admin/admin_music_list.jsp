@@ -8,10 +8,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+
 	html, body {
 		padding: 0px;
 		margin: 0px;
 		height: 100%;
+		background-color: black;
 	}
 	
 	.admin_celeb_wrapper {
@@ -36,6 +38,7 @@
 		border: 1px solid pink;
 		width: 200px;
 		height: 200px;
+		color: white;
 	}
 	
 	a {
@@ -47,6 +50,10 @@
 	<c:set var="list" value="${musicList }" />
 	
 	<div class="admin_celeb_wrapper">
+	
+	<jsp:include page="../include/admin_top_include.jsp" />
+	<jsp:include page="../include/admin_music_include.jsp" />
+	
 		<div class="admin_celeb_container">
 			<c:if test="${!empty list }">
 				<c:forEach items="${list }" var="dto">
@@ -54,17 +61,12 @@
 						
 						<div class="admin_celeb_content">
 							<ul>
+
 								<li>
-									No. ${dto.music_no }
-								</li>
-								<li>
-									<c:if test="${dto.group_name != null }">
+									<c:if test="${dto.group_name != 'solo' }">
 										그룹명 : ${dto.group_name }
 									</c:if>
-									<c:if test="${dto.celeb_name == null }">
-										
-									</c:if>
-									<c:if test="${dto.celeb_name != null }">
+									<c:if test="${dto.group_name == 'solo' }">
 										가수명 : ${dto.celeb_name }
 									</c:if>
 								</li>
@@ -80,12 +82,12 @@
 								</li>
 								
 							</ul>
-						</div>
+						</div> <!-- admin_celeb_content -->
 					</a>
 				</c:forEach>
 			</c:if>	
-		</div>
-	</div>
+		</div> <!-- admin_celeb_container -->
+	</div> <!-- admin_celeb_wrapper -->
 	
 	
 	

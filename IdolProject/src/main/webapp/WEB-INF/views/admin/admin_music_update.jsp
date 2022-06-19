@@ -48,6 +48,12 @@
 		display: flex;
     	align-items: center;
 	}
+	
+	#link {
+		height: 200px;
+		width: 300px;
+	}
+	
 </style>
 </head>
 <body>
@@ -115,10 +121,10 @@
 						</select>
 					</div>
 					<div>
-						<label for="aname">앨범 이름</label> <input id="aname" name="music_aname" value="${mCont.music_aname }" readonly>
+						<label for="aname">앨범 이름</label> <input id="aname" name="music_aname" value="${mCont.music_aname }" >
 					</div>
 					<div>
-						<label for="name">곡명</label> <input id="name" name="music_name" value="${mCont.music_name }" readonly>
+						<label for="name">곡명</label> <input id="name" name="music_name" value="${mCont.music_name }">
 					</div>
 					<div>
 						<label for="lyrics">가사</label> <textarea rows="20" cols="50" id="lyrics" name="music_lyrics">${mCont.music_lyrics }</textarea>
@@ -131,7 +137,7 @@
 					</div>
 					
 					<div>
-						<label for="link">뮤비 링크</label> <input id="link" name="music_movie_link" value="${mCont.music_movie_link }">
+						<label for="link">뮤비 링크</label> <textarea name="music_movie_link" rows="15" cols="25">${mCont.music_movie_link }</textarea> 
 					</div>
 					<div>
 						<label for="release">발매일</label> <input id="release" type="date" name="music_release_date" value="${mCont.music_release_date.substring(0, 10) }">

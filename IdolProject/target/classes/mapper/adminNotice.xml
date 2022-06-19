@@ -17,7 +17,7 @@
     	</insert>
     
     	<select id="noticeLsit" resultType="noticeDTO">
-    		select * from notice order by notice_no desc
+    		select * from notice order by notice_enddate desc, notice_update, notice_date desc
     	</select>
     	
     	<select id="noticeCont" parameterType="int" resultType="noticeDTO">

@@ -38,6 +38,9 @@
 		display: flex;
     	flex-direction: column;
 	}
+	
+	
+	
 </style>
 </head>
 <body>
@@ -78,7 +81,8 @@
 						작곡가 : <input name="music_composer">
 						작사가 : <input name="music_lyricst">
 						커버 이미지 : <input type="file" multiple="multiple" name='file'>
-						뮤비링크 : <input name="music_movie_link">
+						뮤비링크 : <!-- <input class="link" name="music_movie_link">-->
+						<textarea name="music_movie_link" rows="15" cols="25"></textarea> 
 						발매일 : <input type="date" name="music_release_date">
 					</div>
 					<div>

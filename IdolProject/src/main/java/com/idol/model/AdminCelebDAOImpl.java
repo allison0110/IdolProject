@@ -157,6 +157,31 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 	}
 
 
+	// 음원리스트 가져오기
+	@Override
+	public List<MusicDTO> getMusicList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	// 공지사항 리스트 가져오기
+	@Override
+	public List<NoticeDTO> getNoticeList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	// 이미지스 리스트 가져오기
+	@Override
+	public List<ImagesDTO> getImagesList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
 
 
 	

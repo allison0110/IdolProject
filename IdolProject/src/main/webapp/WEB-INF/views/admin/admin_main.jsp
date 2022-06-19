@@ -1,3 +1,7 @@
+<%@page import="com.idol.model.CelebDTO"%>
+<%@page import="java.util.StringTokenizer"%>
+<%@page import="com.idol.model.GroupDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -15,30 +19,8 @@
 		margin: 0px;
 		padding: 0px;
 		height: 100%;
-	
+		background-color: black;
 	}
-	
-	/****** include tope    *****/
-	.admin_navbar ul {
-		
-		display: flex;
-	    flex-direction: row;
-	    justify-content: space-evenly;
-		
-	}
-	
-	.admin_navbar ul div ul{
-		
-		display: flex;
-	    flex-direction: column;
-		
-	}
-	
-	/****** include tope    *****/
-	
-	
-	
-	
 	
 	
 	a {
@@ -49,7 +31,21 @@
 		list-style-type: none;
 	}
 	
+	.test {
+		color: white;
+	}
+	
+	.box_image {
+		width: 300px;
+		height: 350px;
+	}
+	.box_image img {
+		width: 100%;
+		height: 100%;
+	}
 </style>
+
+
 </head>
 <body>
 	
@@ -59,12 +55,35 @@
 		<!-- include  -->
 		
 			
-	<c:set var="cdto" value="${cList }" />	
-	<c:set var="gdto" value="${gList }" />			
+	<c:set var="clist" value="${cList }" />
+		
+	<c:set var="glist" value="${gList }" />	
+			
+	<c:set var="ilist" value="${iList }" />	
+			
+	<c:set var="nlist" value="${nList }" />		
+		
+	<c:set var="mlist" value="${mList }" />			
 
 		<div class="admin_main_container">	
 			
+			<div class="group_list">
+			<c:if test="${!empty glist }">
 			
+				
+			
+				
+				
+				
+				
+			
+			</c:if>
+			<c:if test="${empty glist }">
+				<h4> :(</h4>
+			</c:if>
+			
+			
+			</div> <!-- group_list -->
 		
 			
 			
