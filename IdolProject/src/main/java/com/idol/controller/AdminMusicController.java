@@ -380,6 +380,28 @@ public class AdminMusicController {
 		}
 	}
 	
+	@RequestMapping("admin_album_list.do")
+	public String albumList(Model model) {
+		
+		
+		return "admin/admin_music_album";
+	}
+	
+	
+	
+	
+	@RequestMapping("admin_music_search.do")
+	public String miscSearch(@RequestParam("music_search") String keyword, Model model) {
+		
+		System.out.println("keyword : " + keyword);
+		
+		List<MusicDTO> list = this.dao.getMusicSearchList(keyword);
+		
+		model.addAttribute("musicList", list);
+		
+		return "admin/admin_music_list";
+	}
+	
 	
 	
 	

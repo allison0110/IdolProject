@@ -41,7 +41,8 @@
     			update celeb_group set group_no = group_no - 1 where group_no > #{no}
     		]]>
     	</update>
-    
+    	
+    	<!-- 솔로 리스트 가져오기 -->
     	<select id="getSoloList" resultType="celebDTO">
     		select * from celeb where celeb_group = 'solo'
     	</select>

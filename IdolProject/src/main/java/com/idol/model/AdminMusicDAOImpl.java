@@ -56,6 +56,11 @@ public class AdminMusicDAOImpl implements AdminMusicDAO{
 		this.sqlSession.update("updateMusicSequen", no);
 		
 	}
+
+	@Override
+	public List<MusicDTO> getMusicSearchList(String keyword) {
+		return this.sqlSession.selectList("searchMusic", keyword);
+	}
 	
 	
 

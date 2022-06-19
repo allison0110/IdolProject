@@ -49,10 +49,15 @@
     		select * from celeb_group order by group_no
     	</select>
     	
+    	<!-- 삭제 후 넘버링 재정의 -->
     	<update id="updateMusicSequen" parameterType="int">
     		update music set music_no = music_no - 1 where music_no > #{no}
     	</update>
     	
+    	<!-- 음원 검색 (앨범X) -->
+    	<select id="searchMusic" parameterType="String" resultType="musicDTO">
+    		select * from music where lower(music_name) like '%' || #{keyword} || '%'
+    	</select>
     	
     	
     	

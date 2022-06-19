@@ -59,14 +59,20 @@
 <body>
 
 	<div class="celeb_link_tag">
+	
+		
 		<div class="insert_btn">
+		
+			<a href="<%=request.getContextPath()%>/admin_album_list.do">
+				ALBUM
+			</a>
 			<a href="<%=request.getContextPath()%>/admin_music_insert.do">
 				INSERT
 			</a>
 		</div>
 		<form method="post" action="<%=request.getContextPath()%>/admin_music_search.do">
 			<input type="submit" class="search_btn" value="SEARCH">
-			<input name="celeb_search" class="search_text" minlength="2">
+			<input name="music_search" class="search_text" minlength="1">
 		</form>
 	</div>
 

@@ -23,4 +23,11 @@ public interface AdminMusicDAO {
 	//셀럽 리스트 가져오기
 	public List<CelebDTO> getCelebList();
 	
+	// 뮤직 검색 
+	public List<MusicDTO> getMusicSearchList(String keyword);
+	
+	
+	
+	
+	
 }

@@ -66,7 +66,7 @@
 		</div>
 		<form method="post" action="<%=request.getContextPath()%>/admin_notice_search.do">
 			<input type="submit" class="search_btn" value="SEARCH">
-			<input name="celeb_search" class="search_text" minlength="2">
+			<input name="notice_search" class="search_text" minlength="2">
 		</form>
 	</div>
 
