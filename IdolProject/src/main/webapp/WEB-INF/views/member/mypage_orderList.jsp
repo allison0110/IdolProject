@@ -1,3 +1,6 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="com.idol.model.OrderDTO"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="com.idol.model.ProductDTO"%>
 <%@page import="com.idol.model.InquiryDTO"%>
 <%@page import="java.util.List"%>
@@ -10,7 +13,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마이페이지> 문의내역</title>
+<title>마이페이지> 주문내역</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./resources/js/member.js"></script>
@@ -52,13 +55,33 @@
 		height:100vh;
 	}
 	
-	.qna_table{
-		padding: 0 10px;
-		
+	.order_list{
+	   margin: 30px 0;
+       border: 1px solid gray;
+       border-radius: 10px;
+       padding: 10px;
 	}
 	
-	.qna_table table{
-		width: 100%;
+		.order_item{
+		display: flex;
+		margin:20px 10px;
+	}
+	
+	.order_item .order_photo {
+		width:100px;
+		height:100px;
+		border-radius: 10px;
+		margin-right:20px;
+	}
+	
+	.order_photo img{
+		width:100%;
+		height:100%;
+		border: 1px solid #8b8989;
+	}
+	
+	.order_item .order_info{
+		line-height: 1.5;
 	}
 	
 
@@ -74,8 +97,7 @@
 </head>
 <body>
 	<c:set var="dto" value="${loginInfo }"/> <!--로그인회원 정보 저장 -->
-	<c:set var="list" value="${List }"/>
-	<c:set var="paging" value="${paging }"/>
+	<c:set var="list" value="${dateMap }"/>
 	
 	<script type="text/javascript">
 	
@@ -92,11 +114,7 @@
 		<h2>고객문의 내역</h2>
 		</div>
 		<hr style="border: 2px solid black;">
-		<div class="qna_notice">
-			<div class="notice_1">* 현재 답변 대기 중인 문의는 
-				<span>${waiting }</span>건입니다.</div>
-			<div class="notice_2"><input type="button" value="문의하기" onclick="location.href='inquiry_write.do'"></div>
-		</div>	
+
 		<form method="post" action="<%=request.getContextPath() %>/inquiry_date.do">
 		<div class="qna_month">
 			<table>
@@ -162,107 +180,96 @@
 		
 		</script>
 		
-		<div class="qna_table">
-		<table border="1" >
-			<tr>
-				<th>번호</th>
-				<th>구분</th>
-				<th>상품정보</th>
-				<th>제목</th>
-				<th>등록일</th>
-				<th>상태</th>
-			</tr>
-			<c:if test="${!empty List }">
-				<%
-					List<InquiryDTO> list = (List<InquiryDTO>)request.getAttribute("List");
-					List<ProductDTO> pCont = (List<ProductDTO>)request.getAttribute("pCont");
-					
-					for(int i=0; i<list.size(); i++){
-						
-						InquiryDTO idto = list.get(i); //문의게시글
-						ProductDTO product = pCont.get(i); //제품정보
-						
-						//카테고리
-						String category ="";
-						switch(idto.getCategory_inofk()){
-						case 1:
-							category ="취소/환불";
-							break;
-						case 2:
-							category ="상품문의";
-							break;
-						case 3:
-							category ="배송";
-							break;
-						case 4:
-							category ="교환";
-							break;
-						case 5:
-							category ="기타";
-							break;
-						}
-						
-						//답변상태
-						String status ="";
-						
-						if(idto.getInquiry_status() == 0){
-							status ="답변대기";
-						}else{
-							status ="답변완료";
-						}
-				%>		
-					<!-- 테이블 행 시작  -->
-					<tr>
-						<td><%=idto.getInquiry_no() %></td>				
-						<td><%=category %></td>
-					
-					<!-- 상품 정보  -->
-					<% if(idto.getProduct_no() == 0){ //상품정보가 없으면 %> 
-						<td> </td>	
-					<% }else{ //상품정보가 있으면 %>
-						<td>
-						<a href="<%=request.getContextPath()%>/product_detail.do?pno=<%=product.getProduct_no()%>">
-						<%=product.getProduct_name() %></a>
-						</td>
-					<%}%>
-						<td>
-							<a href="<%=request.getContextPath()%>/inquiry_cont.do?no=<%=idto.getInquiry_no() %>&page=${paging.getPage()}"><%=idto.getInquiry_title() %></a>
-						</td>
-						<td><%=idto.getInquiry_date().substring(0,10) %></td>
-						<td><%=status %></td>
-					</tr>
-				<%	}%>
-			</c:if>
-		</table>
-		
-		<!-- 페이징 처리 -->
-		<div class="table_page">
-		<c:if test="${paging.getPage() > paging.getBlock() }"> <!-- 현재 페이지가 4인데 block사이즈는 3이라면 -->
-			<a href="inquiry_list.do?page=1">[맨 처음]</a>
-			<a href="inquiry_list.do?page=${paging.getStartBlock()-1 }">◀</a>
-		</c:if>
+		<form id="frm">
+		<input type="hidden" name="viewCount" id="viewCount" value="0">
+		<input type="hidden" name="startCount" id="startCount" value="0">
+		<div class="order_main">
 
-		<c:forEach begin="${paging.getStartBlock() }" end="${paging.getEndBlock() }" var="i">
+			<c:if test="${!empty dateMap }">
+		<%
+			HashMap<String, List> map = (HashMap<String, List>)request.getAttribute("dateMap");
+			List<String> dates = (List<String>)request.getAttribute("dates");
 			
-			<c:if test="${i == paging.getPage() }">
-			<b><a href="inquiry_list.do?page=${i }">[${i }]</a></b>
-			</c:if>	
-			
-			<c:if test="${i != paging.getPage() }">
-			<a href="inquiry_list.do?page=${i }">[${i }]</a>
-			</c:if>
+			for(int i=0; i<dates.size(); i++){//map과 date 사이즈 같음
 				
-		</c:forEach>
+				String date = dates.get(i);//날짜
+				List list = map.get(i);//날짜에 해당하는 구매리스트를 담은 리스트 (ex. 0916구매 총 6건 )
+		%>		
+			<div class="order_list">
+				<h2>구매날짜 : <%=date %></h2>
+				
+				<% 		//구매리스트 for문
+						int group =1;//구매 group 구분지을 변수
+						
+				for(int j=0; j< list.size(); j++){
+					
+					OrderDTO dto = (OrderDTO)list.get(j);
+					
+					DecimalFormat format = new DecimalFormat("###,###");
+					String price = format.format(dto.getOrder_total());
+					
+					if(dto.getOrder_group() == group ){ %>
+				<div class="order_item">
+
+					<div class="order_photo">
+						<img
+							src="./resources/upload/product/<%=dto.getOrder_pimage()%>">
+					</div>
+					<div class="order_info">
+						<span style="font-size: 15px; color: gray;"> <%=dto.getOrder_date().substring(0, 10)%>
+						</span> <br> <span style="font-size: 1.2em; font-weight: bold;">
+							<%=dto.getOrder_pname()%></span><br> <span
+							style="font-size: 0.9em;"><%=dto.getOrder_qty()%>개 </span>| <span
+							style="font-size: 0.9em;"> <%=price%>원
+						</span>
+					</div>
+					
+							</div>
+						<!-- class="order_item" -->
 
 
-		<c:if test="${paging.getEndBlock() < paging.getAllPage() }"> <!-- endBlock이 6인데 allPage가 7이라면 -->
-			<a href="inquiry_list.do?page=${paging.getEndBlock()+1 }">▶</a>
-			<a href="inquiry_list.do?page=${paging.getAllPage()}">[마지막으로]</a>
-		</c:if>
+				<% 			}else{
+				%>
+						<hr>	
+						<div class="order_item">
+
+							<div class="order_photo">
+								<img
+									src="./resources/upload/product/<%=dto.getOrder_pimage()%>">
+							</div>
+							<div class="order_info">
+								<span style="font-size: 15px; color: gray;"> <%=dto.getOrder_date().substring(0, 10)%>
+								</span> <br> <span style="font-size: 1.2em; font-weight: bold;">
+									<%=dto.getOrder_pname()%></span><br> <span
+									style="font-size: 0.9em;"><%=dto.getOrder_qty()%>개 </span>| <span
+									style="font-size: 0.9em;"> <%=price%>원
+								</span>
+							</div>
+
+						</div>
+						<!-- class="order_item" -->
+
+				<%
+						group++;
+				}//if - else%>
+							
+							
+				<%		}//날짜별 구매리스트 for문
+				%>		
+				</div> <!-- class=" "order_list" -->
+			<% 		}//바깥 map.size  for문%>
+					
+			</c:if>
+		</div>	<!-- class="order_main"  -->
+		<br><br>
 		
+		<div id="more_btn" align="center">
+			<a id="more_btn_a" href="javascript:moreContent('order_item', 6)"> 더보기(more)</a>
 		</div>
+		</form>
 		
-		</div>	<!-- class="qna_table"  -->
+		
+	
 		
 		
 		</div><!-- class="mypage_main" end -->

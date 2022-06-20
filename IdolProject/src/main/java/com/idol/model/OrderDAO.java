@@ -1,5 +1,6 @@
 package com.idol.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface OrderDAO {
@@ -7,7 +8,7 @@ public interface OrderDAO {
 
 	List<OrderDTO> getOrderList(String member_id);
 
-	String[] getOrderDate(String login_id);
-
 	List<String> getOrderDates(String login_id);
+
+	List getOrderDateList(HashMap<String, String> params);
 }
