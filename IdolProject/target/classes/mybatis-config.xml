@@ -37,12 +37,9 @@
     <configuration>
     	<typeAliases>
     		<typeAlias type="com.idol.model.MemberDTO" alias="memberDTO"/>
-			
 			<typeAlias type="com.idol.model.MileageDTO" alias="mileDTO"/>
 			<typeAlias type="com.idol.model.MileageDAO" alias="mileDAO"/>
-			
 			<typeAlias type="com.idol.model.EventDTO" alias="eventDTO"/>
-			
 			<typeAlias type="com.idol.model.PageDTO" alias="pageDTO"/>
 			
     	</typeAliases>
