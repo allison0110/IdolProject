@@ -548,6 +548,7 @@ public class ProductController {
 			  String phone3 = request.getParameter("phone3").trim();
 			  
 			  orderdto.setOrder_receiverphone(phone1+phone2+phone3);		
+			  orderdto.setOrder_pprice(cartlist.get(j).getCart_price());
 			  
 			  int result1 = Orderdao.addOrder(orderdto);
 			  

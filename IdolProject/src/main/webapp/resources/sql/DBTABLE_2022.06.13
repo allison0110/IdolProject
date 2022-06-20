@@ -98,7 +98,7 @@ CREATE TABLE CART
     CART_MILEAGE    NUMBER                        -- 마일리지
 );
 
--- 결재테이블(수정: 기존 유저이름,주소,연락처 삭제 후 수취인 이름,주소,연락처 컬럼 추가, 제품이름길이 수정, 주문그룹 컬럼 추가, 카트번호 삭제)
+-- 결재테이블(수정:제품의 개당가격컬럼 추가)
 CREATE TABLE ORDER_PRODUCT
 (
     ORDER_NO          NUMBER           PRIMARY KEY, -- 주문번호
@@ -114,9 +114,9 @@ CREATE TABLE ORDER_PRODUCT
     ORDER_DATE        DATE             NOT NULL, -- 주문날짜
     ORDER_RECEIVERNAME       VARCHAR2(30)         NOT NULL, -- 수취인
     ORDER_RECEIVERADDRESS    VARCHAR2(500)         NOT NULL, -- 수취인 주소
-    ORDER_RECEIVERPHONE      VARCHAR2(30)                   -- 수취인 연락처
+    ORDER_RECEIVERPHONE      VARCHAR2(30),                   -- 수취인 연락처
+    ORDER_PPRICE     NUMBER  NOT NULL           -- 제품의 개당가격(ProductPrice)
 );
-
 
 
 --팔로우/ 팔로워 테이블(수정: 팔로우 팔로워 번호컬럼 추가)
@@ -138,13 +138,13 @@ CREATE TABLE COMMUNITY_CATEGORY
     CATEGORY_CNAME    VARCHAR2(30)    NOT NULL     -- 카테고리 이름
 );
 
--- 커뮤니티게시판 테이블
+-- 커뮤니티게시판 테이블(수정: 게시판제목, 게시판 내용 길이변경)
 CREATE TABLE COMMUNITY_BOARD
 (
     COMMUNITY_NO           NUMBER           PRIMARY KEY,        -- 게시판 글번호
     COMMUNITY_USERID       VARCHAR2(20)     NOT NULL,           -- 회원아이디
-    COMMUNITY_TITLE        VARCHAR2(20)     NOT NULL,           -- 게시판 제목
-    COMMUNITY_CONT         VARCHAR2(200)    ,                   -- 게시판 내용
+    COMMUNITY_TITLE        VARCHAR2(100)     NOT NULL,           -- 게시판 제목
+    COMMUNITY_CONT         VARCHAR2(2000)    ,                   -- 게시판 내용
     COMMUNITY_HIT          NUMBER           DEFAULT 0 NOT NULL, -- 게시판 조회수
     COMMUNITY_DATE         DATE             NOT NULL,           -- 게시판 작성일
     COMMUNITY_UPDATE       DATE             ,                   -- 게시판 수정일

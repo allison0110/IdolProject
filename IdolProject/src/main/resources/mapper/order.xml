@@ -17,7 +17,8 @@
   	
 		<![CDATA[insert into ORDER_PRODUCT values(#{order_no}+1, #{order_userid}, #{order_pimage},
 		 		#{order_pname}, #{order_qty}, #{order_total}, #{order_tcost},
-		 		#{order_mileage}, #{order_type},#{order_group}, sysdate, #{order_receivername}, #{order_receiveraddress}, #{order_receiverphone} )
+		 		#{order_mileage}, #{order_type},#{order_group}, sysdate, #{order_receivername}, #{order_receiveraddress},
+		 		#{order_receiverphone},#{order_pprice}  )
 		 		]]>  	
   </insert>
   
