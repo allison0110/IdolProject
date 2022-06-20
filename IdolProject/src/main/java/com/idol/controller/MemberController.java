@@ -52,6 +52,7 @@ import com.idol.model.ProductDTO;
 //회원과 관련된 지시를 처리하는 컨트롤러 
 //회원가입, 로그인, 마이페이지, 마이피드
 
+//변경점수정
 @Controller
 public class MemberController {
 
