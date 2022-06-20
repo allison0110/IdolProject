@@ -45,8 +45,18 @@
 		width: 200px;
 		height: 200px;
 		color: white;
+		display: flex;
+		flex-direction: row;
 	}
 	
+	.left_side {
+		flex: 50%:
+		
+	}
+	
+	.left_right {
+		flex: 50%;
+	}
 	
 </style>
 </head>
@@ -66,29 +76,38 @@
 					<a href="<%=request.getContextPath()%>/admin_notice_content.do?no=${dto.notice_no}">
 						
 						<div class="admin_notice_content">
-							<ul>
-								
-								<li>
-									관리자 아이디 : ${dto.admin_id }
-								</li>
-								<li>
-									제목 : ${dto.notice_title }
-								</li>
-								
-								<li>
+							
+						<c:if test="${(dto.notice_no % 2) != '0' }">
+							<div class="left_side">
+								<div>관리자 아이디 : ${dto.admin_id }</div>
+								<div>제목 : ${dto.notice_title }</div>
+								<div>
 									<c:if test="${dto.notice_update == null }">
 										등록 일 : ${dto.notice_date.substring(0, 10) }
 									</c:if>
 									<c:if test="${dto.notice_update != null }">
 										수정 날짜 : ${dto.notice_update.substring(0, 10) }
 									</c:if>
-								</li>
-								
-								<li>
-									종료일 : ${dto.notice_enddate.substring(0, 10) }
-								</li>
-								
-							</ul>
+								</div>
+								<div>종료일 : ${dto.notice_enddate.substring(0, 10) }</div>
+							</div>	<!-- left_side -->
+						</c:if>		
+						<c:if test="${(dto.notice_no % 2) == '0' }">	
+							<div class="right_side">
+								<div>관리자 아이디 : ${dto.admin_id }</div>
+								<div>제목 : ${dto.notice_title }</div>
+								<div>
+									<c:if test="${dto.notice_update == null }">
+										등록 일 : ${dto.notice_date.substring(0, 10) }
+									</c:if>
+									<c:if test="${dto.notice_update != null }">
+										수정 날짜 : ${dto.notice_update.substring(0, 10) }
+									</c:if>
+								</div>
+								<div>종료일 : ${dto.notice_enddate.substring(0, 10) }</div>
+							</div> <!-- right_side -->
+						</c:if>		
+							
 						</div> <!-- admin_notice_content -->
 					</a>
 				</c:forEach>

@@ -29,7 +29,12 @@
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
-		align-items: center;
+	
+	}
+	
+	.wrapper {
+		display: flex;
+		justify-content: center;
 	}
 	
 	.admin_music_container {
@@ -139,6 +144,10 @@
 	
 	.admin_music_box_right {
 	}
+	
+	.box-wrapper {
+	
+	}
 </style>
 
 <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Creepster&family=East+Sea+Dokdo&family=Gamja+Flower&family=Gugi&family=Jua&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kirang+Haerang&family=Nosifer&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -151,9 +160,10 @@
 	<div class="admin_music_wrapper">
 	
 	<jsp:include page="../include/admin_top_include.jsp" />
+	<jsp:include page="../include/admin_music_include.jsp" />
 	
+	<div class="wrapper">
 		<div class="admin_music_container">
-		
 			<div class=admin_music_box_left>
 				
 				<div class="music_movie">
@@ -227,15 +237,12 @@
 					
 				</div>
 				
-				
-				
-				
-				
+
 			</div> <!-- admin_music_box_right -->
 				
 			
-			
 		</div> <!-- the end of admin_music_container -->
+	</div>
 	</div> <!-- the end of admin_music_wrapper -->
 </body>
 </html>
