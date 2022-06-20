@@ -77,7 +77,7 @@
             <%} %>
           </div>
         </div>
-              <div class="menu" id="menu">
+        <div class="menu" id="menu">
         <div class="menu-wrap">
           <!-- artist sub menu -->
           <div id="artist-box">
@@ -101,7 +101,7 @@
                 <a href="#">BLACK PINK</a>
               </li>
               <li>
-                <a href="#">BEAST</a>
+                <a href="#">RED VELVET</a>
               </li>
               <li>
                 <a href="#">박재범</a>
@@ -110,7 +110,7 @@
                 <a href="#">STAYC</a>
               </li>
               <li>
-                <a href="#">RED VELVET</a>
+                <a href="#">BEAST</a>
               </li>
               <li>
                 <a href="#">IVE</a>

@@ -14,7 +14,7 @@
 	display: flex;
 }
 .sidenav {
-  height: 300px;
+  height: 100%;
   width: 200px;
   position: flex;
   z-index: 1;
@@ -53,16 +53,14 @@
 	<%@include file="../include/user_top.jsp" %>	
 	<div class="rankWrapper">
 		<div class="sidenav">
-			<a href="#">About</a>
-  			<a href="#">Services</a>
-  			<a href="#">Clients</a>
-  			<a href="#">Contact</a>
+			<a href="#">Most Points</a>
+  			<a href="#">Most Message</a>
 		</div>
 	<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
 		<div class="rank">
 			<ul>
 				<li>
-					<a href="#">holly</a>
+					<a href="#"></a>
 				</li>
 			</ul>
 		</div>

@@ -107,6 +107,18 @@
 							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link"><img src=""><!-- ${i.notice_image} --></a>
 							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link">${dto.notice_title }</a>
 						</li>					
+						<li>
+							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link"><img src=""><!-- ${i.notice_image} --></a>
+							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link">${dto.notice_title }</a>
+						</li>					
+						<li>
+							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link"><img src=""><!-- ${i.notice_image} --></a>
+							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link">${dto.notice_title }</a>
+						</li>					
+						<li>
+							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link"><img src=""><!-- ${i.notice_image} --></a>
+							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link">${dto.notice_title }</a>
+						</li>					
 					</ul>
 				</div>
 				</c:forEach>
