@@ -16,6 +16,8 @@ public interface AdminMusicDAO {
 	public void updateMusicSequen(int no);
 	// 음원 수정하기 
 	public int musicUpdate(MusicDTO dto);
+	// 음원 앨범만 가져오기
+	public List<MusicDTO> getAlbumList();
 	
 	
 	//그룹 리스트 가져오기
@@ -25,7 +27,8 @@ public interface AdminMusicDAO {
 	
 	// 뮤직 검색 
 	public List<MusicDTO> getMusicSearchList(String keyword);
-	
+	// 음원 리스트 in Album
+	public List<MusicDTO> getMusicInAlbum();
 	
 	
 	

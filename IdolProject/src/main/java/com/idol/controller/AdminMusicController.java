@@ -383,6 +383,9 @@ public class AdminMusicController {
 	@RequestMapping("admin_album_list.do")
 	public String albumList(Model model) {
 		
+		List<MusicDTO> aList = this.dao.getAlbumList();
+		
+		model.addAttribute("aList", aList);
 		
 		return "admin/admin_music_album";
 	}
@@ -402,6 +405,16 @@ public class AdminMusicController {
 		return "admin/admin_music_list";
 	}
 	
+	
+	@RequestMapping("admin_musicList_intAlbum.do")
+	public String musicListInAlbum(Model model) {
+		
+		List<MusicDTO> mlist = this.dao.getMusicInAlbum();
+		
+		model.addAttribute("mList", mlist);
+		
+		return "admin/admin_music_inAlbum";
+	}
 	
 	
 	

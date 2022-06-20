@@ -61,6 +61,16 @@ public class AdminMusicDAOImpl implements AdminMusicDAO{
 	public List<MusicDTO> getMusicSearchList(String keyword) {
 		return this.sqlSession.selectList("searchMusic", keyword);
 	}
+
+	@Override
+	public List<MusicDTO> getAlbumList() {
+		return this.sqlSession.selectList("getAlbumList");
+	}
+
+	@Override
+	public List<MusicDTO> getMusicInAlbum() {
+		return this.sqlSession.selectList("mList");
+	}
 	
 	
 

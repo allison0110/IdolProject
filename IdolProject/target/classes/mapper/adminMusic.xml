@@ -60,5 +60,9 @@
     	</select>
     	
     	
+    	<select id="getAlbumList" resultType="musicDTO">
+    		select * from music where music_no in (select min(music_no) from music group by music_aname) order by music_release_date desc 
+    	</select>
+    	
     	
     </mapper>

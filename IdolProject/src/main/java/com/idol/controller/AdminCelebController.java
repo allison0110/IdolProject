@@ -93,10 +93,11 @@ public class AdminCelebController {
 		
 		HttpSession session = request.getSession();
 		
-		if(dto.getAdmin_id().equals(id)) {   // id가 존재한 경우
+		
+		if(dto.getAdmin_id() != null) {
 			
-			if(dto.getAdmin_pwd().equals(pwd)) {
-					
+				if(dto.getAdmin_pwd().equals(pwd)) {
+				
 				session.setAttribute("admin_id", dto.getAdmin_id());
 				session.setAttribute("admin_pwd", dto.getAdmin_pwd());
 				session.setAttribute("admin_name", dto.getAdmin_name());
@@ -116,16 +117,17 @@ public class AdminCelebController {
 				out.println("</script>");
 				
 			}
-						
-		}else {                               // id가 존재하지 않는 경우 (불일치)
+		}else {
 			
 			out.println("<script>");
 			out.println("alert('아이디가 존재하지 않거나 일치 하지 않습니다 :(')");
 			out.println("history.back()");
 			out.println("</script>");
 			
+			
 		}
 		
+	
 		
 		
 	} //adminLoginOk() end 
