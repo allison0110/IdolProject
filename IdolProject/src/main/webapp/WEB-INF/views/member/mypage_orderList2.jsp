@@ -178,11 +178,8 @@
 			
 		
 		</script>
-		<form id="frm">
-		<input type="hidden" name="viewCount" id="viewCount" value="0">
-		<input type="hidden" name="startCount" id="startCount" value="0">
+		
 		<div class="order_main">
-			
 			<c:if test="${!empty dateMap }">
 				<%
 					HashMap<String, List> map = (HashMap<String, List>)request.getAttribute("dateMap");
@@ -263,27 +260,33 @@
 		</div>	<!-- class="order_main"  -->
 		<br><br>
 		
-		<div id="more_btn" align="center">
-			<a id="more_btn_a" href="javascript:moreContent('order_item', 6)"> 더보기(more)</a>
+		
+		<!-- 페이징 처리 -->
+		<div class="table_page">
+		<c:if test="${paging.getPage() > paging.getBlock() }"> <!-- 현재 페이지가 4인데 block사이즈는 3이라면 -->
+			<a href="inquiry_list.do?page=1">[맨 처음]</a>
+			<a href="inquiry_list.do?page=${paging.getStartBlock()-1 }">◀</a>
+		</c:if>
+
+		<c:forEach begin="${paging.getStartBlock() }" end="${paging.getEndBlock() }" var="i">
+			
+			<c:if test="${i == paging.getPage() }">
+			<b><a href="inquiry_list.do?page=${i }">[${i }]</a></b>
+			</c:if>	
+			
+			<c:if test="${i != paging.getPage() }">
+			<a href="inquiry_list.do?page=${i }">[${i }]</a>
+			</c:if>
+				
+		</c:forEach>
+
+
+		<c:if test="${paging.getEndBlock() < paging.getAllPage() }"> <!-- endBlock이 6인데 allPage가 7이라면 -->
+			<a href="inquiry_list.do?page=${paging.getEndBlock()+1 }">▶</a>
+			<a href="inquiry_list.do?page=${paging.getAllPage()}">[마지막으로]</a>
+		</c:if>
+		
 		</div>
-		</form>
-		
-		
-		<script type="text/javascript">
-		
-			function moreContent(id, cnt){
-				
-				var list_length =$(".order_item").length;
-				var aname = id +"_btn";
-				
-				$("#startCount").val(list_length);
-				$("#viewCount").val(cnt);
-				
-				
-			}
-		
-		</script>
-	
 		
 		
 		

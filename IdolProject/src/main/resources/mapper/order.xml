@@ -10,7 +10,7 @@
   		<![CDATA[select nvl(max(ORDER_NO),0) from ORDER_PRODUCT]]>
   	</selectKey>
   	
-		<![CDATA[insert into ORDER_PRODUCT values(#{order_no}+1, #{order_cno}, #{order_userid}, #{order_pimage},
+		<![CDATA[insert into ORDER_PRODUCT values(#{order_no}+1, #{order_userid}, #{order_pimage},
 		 		#{order_pname}, #{order_qty}, #{order_total}, #{order_tcost},
 		 		#{order_mileage}, #{order_type}, sysdate, #{order_receivername}, #{order_receiveraddress}, #{order_receiverphone} )
 		 		]]>  	
@@ -21,7 +21,18 @@
   
   </select>
   
+  <select id="orderDates" parameterType="String" resultType="String">
+  	select TO_CHAR(order_date,'YY/MM/DD') from order_product where order_userid=#{id} group by TO_CHAR(order_date,'YY/MM/DD')
+  </select>
   
+  <select id="orderListDate" parameterType="map" resultType="OrderDTO">
+  	<!-- <![CDATA[ select * from order_product 
+  		where order_userid =#{id} and order_date >= TO_CHAR(TO_DATE(#{date},'YY/MM/DD')) and 
+  		order_date <TO_CHAR(TO_DATE(#{date}+1,'YY/MM/DD')) order by order_group desc, order_no  ]]> -->
+  	<![CDATA[ select * from order_product 
+  		where order_userid = #{id} and order_date >= to_date(#{date}, 'yy-mm-dd') and 
+  		order_date < to_date(#{date} ,'yy-mm-dd')+1 order by order_group, order_no  ]]> 
+  </select>
   
   
   </mapper>

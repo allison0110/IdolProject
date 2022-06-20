@@ -672,17 +672,146 @@ public class MemberController {
 	
 	//마이페이지 - 구매내역페이지 이동
 	@RequestMapping("order_list.do")
-	public String order_list(HttpSession session) {
+	public String order_list(HttpSession session, Model model) {
 		
 		String login_id = (String)session.getAttribute("login_id");
 		
-		String [] order_dates = this.odao.getOrderDate(login_id);
-		  
+		//구매내역 날짜들 뽑기
+		List<String> orderDates = this.odao.getOrderDates(login_id);	
 		
+		HashMap<Integer, List> maps = new HashMap<Integer, List>();//날짜별 구매내역 리스트담을 map
 		
+		HashMap<String, String> params = new HashMap<String, String>();//mybatis 다중파라미터로 사용
+		
+		params.put("id", login_id);
+		
+		//날짜에 해당하는 구매리스트 가져오기
+		for(int i =0; i<orderDates.size(); i++) {
+			params.put("date", orderDates.get(i));
+			maps.put(i, this.odao.getOrderDateList(params)); //아이디와 날짜 넘김
+			
+		}
+		
+		model.addAttribute("dateMap", maps);
+		model.addAttribute("dates", orderDates);
 		
 		return"member/mypage_orderList" ;
 	}
+	
+	//마이페이지 - 주문내역 날짜 검색
+		@RequestMapping("order_date.do")
+		public String order_date(HttpServletRequest request, Model model,
+				HttpSession session) throws ParseException {
+			
+			String login_id = (String)session.getAttribute("login_id");
+
+			int page; //현재 페이지 변수
+
+			if(request.getParameter("page") != null) {
+				page= Integer.parseInt(request.getParameter("page"));
+			}else {
+				page =1; //넘겨받은 page 변수가 없다면 1페이지로 설정 
+			}
+			
+			//날짜 조회 
+			int search_date = Integer.parseInt(request.getParameter("search_date"));
+			
+			//오늘날짜 기준 
+			Calendar cal = Calendar.getInstance();
+			
+			int year = cal.get(Calendar.YEAR);
+			int month =cal.get(Calendar.MONTH)+1;
+			int day =cal.get(Calendar.DAY_OF_MONTH);
+			
+			String endDate = year+"-"+month+"-"+day;
+			String startDate = "";
+			
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = format.parse(endDate);
+			
+			cal.setTime(date);
+			
+			switch (search_date) {
+			case 0: //오늘
+				startDate = endDate;
+				break;
+			case 7: //일주일
+				cal.add(Calendar.DATE, -7);
+				startDate = format.format(cal.getTime());
+				break;
+			case 1: //한달
+				cal.add(Calendar.DATE, -30);
+				startDate = format.format(cal.getTime());
+				break;
+			case 3: //3달
+				cal.add(Calendar.DATE, -90);
+				startDate = format.format(cal.getTime());
+				break;
+			case 6: //6달
+				cal.add(Calendar.DATE, -180);
+				startDate = format.format(cal.getTime());
+				break;
+			case 12: //1년
+				cal.add(Calendar.DATE, -365);
+				startDate = format.format(cal.getTime());
+				break;
+			}
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+		
+			map.put("order_userid", login_id);
+			map.put("startDate", startDate);
+			map.put("endDate", endDate);
+			
+
+			//DB상 리스트 전체 게시물 수 확인하기
+			totalRecord = this.idao.getBoardCount(map);
+
+			PageDTO pdto = new PageDTO(page, rowsize, totalRecord);
+
+			//mybatis 다중 파라미터용 
+			map.put("page", pdto);
+
+			//페이지에 해당하는 게시물 가져오기
+			List<InquiryDTO> list = this.idao.getInquiryList(map);
+			
+			
+			//문의게시글 상품정보를 불러오기
+			//문의게시글에 대응하는 상품정보리스트
+			List<ProductDTO> pList = new ArrayList<ProductDTO>();
+
+			for(int i =0; i<list.size(); i++) {
+
+				InquiryDTO idto = list.get(i);
+
+				if(idto.getProduct_no() == 0) {//문의게시글에 상품정보가 없으면 null값 넣어주기 
+
+					pList.add(null);
+
+				}else {//문의게시글에 상품정보가 있으면 정보를 불러와 넣어주기 
+
+					ProductDTO product = this.pdao.getProductDetail(idto.getProduct_no());
+					pList.add(product);
+				}
+			}
+
+			//답변 대기 중인 문의 수
+			int waiting = this.idao.watingReply(login_id);
+			
+
+
+			model.addAttribute("List", list);
+			model.addAttribute("pCont", pList); //문의게시글 리스트에 대응하는 제품정보리스트
+			model.addAttribute("paging", pdto);
+			model.addAttribute("search_date", search_date);
+			model.addAttribute("waiting", waiting);
+
+			return "member/mypage_qnaListDate";
+			
+		}
+	
+	
+	
 	
 	
 	//마이페이지 - 문의내역페이지 이동
