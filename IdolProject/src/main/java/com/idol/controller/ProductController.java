@@ -3,17 +3,14 @@ package com.idol.controller;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,7 +29,6 @@ import com.idol.model.OrderDTO;
 import com.idol.model.ProductDAO;
 import com.idol.model.ProductDTO;
 
-import lombok.Getter;
 
 @Controller
 public class ProductController {
@@ -180,6 +176,31 @@ public class ProductController {
 				
 		return "product/product_cartlist";
 	}
+	
+	
+	
+	// ajax 제품번호에 유저번호를 받아 유저가 동일한 제품을 장바구니에 존재하는지 여부를 확인
+	@RequestMapping(value="/product_checkbasket.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String product_checkbasket(HttpServletRequest request) {
+		int memno = Integer.parseInt(request.getParameter("memno").trim());
+		int pno = Integer.parseInt(request.getParameter("pno").trim());
+		
+		String result = "0";
+		int cehck = Cartdao.checkCart(memno,pno);
+		
+		if(cehck > 0) {
+			result = "1";
+		}
+		
+		return result;
+		
+	}
+
+	
+	
+	
+	
 	// ajax 카트리스트에서 체크박스로 선택된 항목의 카트삭제
 	@RequestMapping(value="/product_cartSelectedDelete.do", method=RequestMethod.POST)
 	@ResponseBody
@@ -192,7 +213,7 @@ public class ProductController {
 		
 	}
 	
-	// ajax 카트리스트에서 체크박스로 선택된 항목의 카트삭제
+	// ajax 카트리스트에서 개별항목의 카트삭제
 	@RequestMapping(value="/product_cartDelete.do", method=RequestMethod.POST)
 	@ResponseBody
 	public void product_cartSelectedDelete(HttpServletRequest request,Model model) {
@@ -213,11 +234,9 @@ public class ProductController {
 		
 	}
 	
-	// 장바구니 페이지에서 전체구매 또는 선택구매버튼을 클릭하였을 경우 이동하는 주문페이지
-	@RequestMapping(value="/product_orderFromCart.do", method=RequestMethod.POST)
-	@ResponseBody
-	public void orderFromCart(@RequestParam(value="cartno[]") List<Integer> cartno,
-								Model model, HttpServletRequest request) {
+	@RequestMapping("product_orderFromCart.do")
+	public String orderFromCart2(HttpServletRequest request,Model model) {
+		
 		// 임시세션값을 가져온다.
 		HttpSession session = request.getSession();
 		MemberDTO loginInfo = (MemberDTO)session.getAttribute("loginInfo");
@@ -226,54 +245,66 @@ public class ProductController {
 		// 장바구니페이지에서 전달받은 카트번호에 해당하는 DTO값이 cartList에 저장된다.
 		List<CartDTO> cartlist = new ArrayList<CartDTO>();
 		
-		for(int i=0;i<cartno.size();i++) {
-			CartDTO cartdto = Cartdao.getcartDetail(cartno.get(i));
+		String strcartno = request.getParameter("cartNoArr");
+		
+		StringTokenizer st = new StringTokenizer(strcartno, ",");
+
+		int [] cartno = new int[st.countTokens()];
+		int index=0;
+		while(st.hasMoreTokens()) {
+			cartno[index] = Integer.parseInt(st.nextToken());
+			index +=1;
+			
+		}	
+		
+		for(int i=0; i<cartno.length;i++) {
+			CartDTO cartdto = Cartdao.getcartDetail(cartno[i]);
 			cartlist.add(cartdto);
 		}
 		
-		// 카트리스트에 셀럽그룹명이 보여지기 위해서는 카트에 저장되 있는 제품번호로 제품리스트를 조회 -> 제품리스트 안에 있는 셀럽번호를 조회 -> 셀럽번호를 통해 셀럽그룹명을 찾는다. 
-		// 2-2 카트리스트에 저장되 있는 제품의 그룹명을 가져오기 위한 셀럽리스트
+//		// 카트리스트에 셀럽그룹명이 보여지기 위해서는 카트에 저장되 있는 제품번호로 제품리스트를 조회 -> 제품리스트 안에 있는 셀럽번호를 조회 -> 셀럽번호를 통해 셀럽그룹명을 찾는다. 
+//		// 2-2 카트리스트에 저장되 있는 제품의 그룹명을 가져오기 위한 셀럽리스트
 		List<CelebDTO> celeblist = Celebdao.getCelebList();
-		
-		// 2-3 카트리스트에 저장되 있는 제품의 셀럽번호을 가져오기 위한 제품리스트
+//		
+//		// 2-3 카트리스트에 저장되 있는 제품의 셀럽번호을 가져오기 위한 제품리스트
 		List<ProductDTO> prdlist = Productdao.getProductListAll();
-		
-		// 3. order 페이지에 들어가야할 hidden type input
-		// 3-1. 회원번호, 회원이름 loginInfo에서 가져옴
-		
-		// 3-2. 이메일 Front
+//		
+//		// 3. order 페이지에 들어가야할 hidden type input
+//		// 3-1. 회원번호, 회원이름 loginInfo에서 가져옴
+//		
+//		// 3-2. 이메일 Front
 		StringTokenizer st1 = new StringTokenizer(loginInfo.getMember_email(), "@");
 		String email1 = st1.nextToken();
-		
-		// 3-3. 이메일 Domain
+//		
+//		// 3-3. 이메일 Domain
 		String email2 = st1.nextToken();
-		
-		// 3-4. 우편번호(주소1)
+//		
+//		// 3-4. 우편번호(주소1)
 		StringTokenizer st2 = new StringTokenizer(loginInfo.getMember_address(), "|");
 		String addr1 = st2.nextToken();
-		// 3-5. 도로명주소(주소2)
+//		// 3-5. 도로명주소(주소2)
 		String addr2 = st2.nextToken();
-		// 3-6. 상세주소(주소3)
+//		// 3-6. 상세주소(주소3)
 		String addr3 = st2.nextToken();
-		// 3-7. 참고항목(주소4)
+//		// 3-7. 참고항목(주소4)
 		String addr4 = st2.nextToken();
-		
+//		
 		String phone = loginInfo.getMember_phone();
-		// 3-8. 핸드폰번호1 010(3873)2870
-		String phone1 = phone.substring(4, 7);
-		// 3-9. 핸드폰번호2 0103873(2870)
-		String phone2 = phone.substring(8, 11);
-		
-		// 3-11. 회원의 사용가능한 마일리지
+//		// 3-8. 핸드폰번호1 010(3873)2870
+		String phone1 = phone.substring(3, 7);
+//		// 3-9. 핸드폰번호2 0103873(2870)
+		String phone2 = phone.substring(7, 11);
+//		
+//		// 3-11. 회원의 사용가능한 마일리지
 		int memMileage = Mileagedao.getreamining(loginInfo.getMember_no()); 
-		
-		// 3-12. 카트에 저장되있는 제품갯수와 마일리지를 고려한 총 마일리지
+//		
+//		// 3-12. 카트에 저장되있는 제품갯수와 마일리지를 고려한 총 마일리지
 		int prdmileagetotal = 0;
 		for(int i=0;i<cartlist.size();i++) {
 			prdmileagetotal += (cartlist.get(i).getCart_pqty()) * (cartlist.get(i).getCart_mileage());
 		}
 		
-		// 3-13. 카트에 저장되있는 제품갯수와 가격을 고려한 총금액
+//		// 3-13. 카트에 저장되있는 제품갯수와 가격을 고려한 총금액
 		int prdtotal = 0;
 		for(int i=0;i<cartlist.size();i++) {
 			prdtotal += (cartlist.get(i).getCart_pqty()) * (cartlist.get(i).getCart_price());
@@ -296,8 +327,8 @@ public class ProductController {
 		model.addAttribute("prdmileagetotal", prdmileagetotal);
 		model.addAttribute("prdtotal", prdtotal);
 		
+		return "product/product_order";
 	}
-	
 	
 	
 	
@@ -353,9 +384,9 @@ public class ProductController {
 		
 		String phone = loginInfo.getMember_phone();
 		// 3-8. 핸드폰번호1 010(3873)2870
-		String phone1 = phone.substring(4, 7);
+		String phone1 = phone.substring(3, 7);
 		// 3-9. 핸드폰번호2 0103873(2870)
-		String phone2 = phone.substring(8, 11);
+		String phone2 = phone.substring(7, 11);
 		// 3-11. 회원의 사용가능한 마일리지
 		int memMileage = Mileagedao.getreamining(loginInfo.getMember_no()); 
 		
@@ -386,7 +417,7 @@ public class ProductController {
 		model.addAttribute("memMileage", memMileage);
 		model.addAttribute("prdmileagetotal", prdmileagetotal);
 		model.addAttribute("prdtotal", prdtotal);
-		
+
 		return "product/product_order";
 	}
 	
@@ -452,8 +483,6 @@ public class ProductController {
 		}
 			
 			
-			
-			
 		// 카트리스트 번호를 배열로 가져온다 가져올 때에는 Str타입이기 때문에 변환이 필요하다
 		String[] strcartno = request.getParameterValues("cartNo");
 		int[] cartno = new int[strcartno.length];
@@ -469,30 +498,19 @@ public class ProductController {
 		
 		
 		// 결제시 카트리스트에 담겨있는 정보가 order테이블의 각 행으로 들어간다 이때 배송비는 카트리스트의 첫번째 항목만 결제테이블에 운송비에 추가된다.
+		int prdtotal = 0;
 		int totalorder = 0;
 		int index = 0;
 		int deliberyFee = 3000;
+		
+		int orderGroupno = Orderdao.newGroupNo();
 		  for(int j=0; j<cartlist.size();j++) {
 			  OrderDTO orderdto = new OrderDTO();
-			  orderdto.setOrder_cno(cartlist.get(j).getCart_no());
 			  orderdto.setOrder_userid(loginInfo.getMember_id());
 			  orderdto.setOrder_pimage(cartlist.get(j).getCart_pimage());
 			  orderdto.setOrder_pname(cartlist.get(j).getCart_pname());
 			  orderdto.setOrder_qty(cartlist.get(j).getCart_pqty());
-			  
-			  // 그룹으로 구매를 진행할 경우에는 첫번째 항목에 대해서만  운송비가 추가된다.
-//			  if(j==0) {  
-//				  orderdto.setOrder_total(((cartlist.get(j).getCart_pqty()) * (cartlist.get(j).getCart_price())));
-//				  orderdto.setOrder_tcost(3000);  
-//				  totalorder += (((cartlist.get(j).getCart_pqty()) * (cartlist.get(j).getCart_price())));
-//			  }else {
-//				  orderdto.setOrder_total((cartlist.get(j).getCart_pqty()) * (cartlist.get(j).getCart_price()));
-//				  orderdto.setOrder_tcost(0); 
-//				  totalorder += (cartlist.get(j).getCart_pqty()) * (cartlist.get(j).getCart_price());
-//			  }
-			  
-			  // 그룹으로 구매를 진행할 경우에는 첫번째 항목에 대해서만 운송비가 추가된다. 첫번째 항목보다 마일리지 금액이 많을 경우에는 다음시퀀스를 실행한다.
-			  // 상품리스트의 총 금액보다 많을수는 없음 이전 order 페이지에서 막아놓음		  
+			  prdtotal+= (cartlist.get(j).getCart_pqty() * (cartlist.get(j).getCart_price()));
 			  if(j==index) {  
 				  if(((cartlist.get(j).getCart_pqty()) * (cartlist.get(j).getCart_price()))+deliberyFee >= usemileage) {
 				  orderdto.setOrder_total(((cartlist.get(j).getCart_pqty()) * (cartlist.get(j).getCart_price()))+deliberyFee-usemileage);
@@ -515,6 +533,7 @@ public class ProductController {
 			  
 			  orderdto.setOrder_mileage((cartlist.get(j).getCart_pqty()) * (cartlist.get(j).getCart_mileage()));
 			  orderdto.setOrder_type(inputorderdto.getOrder_type());
+			  orderdto.setOrder_group(orderGroupno);
 			  orderdto.setOrder_receivername(inputorderdto.getOrder_receivername());
 			  // 배송지 우편코드, 도로명주소, 상세주소, 참고항목
 			  String addr1 = request.getParameter("addr1").trim();
@@ -546,8 +565,80 @@ public class ProductController {
 			   }
 			  
 		  }
+		  
+		  List<OrderDTO> orderlist = Orderdao.getLastOrderList(loginInfo.getMember_id());
+		  // 제품구매날짜 : 그룹의 첫행의 날짜를 가져온다.
+		  String orderdate = orderlist.get(0).getOrder_date();
+		  
+		  // 제품구매번호: 첫행의 날짜 + 그룹번호
+		  String orderNo = orderdate.substring(0, 4)+orderdate.substring(5, 7)+orderdate.substring(8, 10)+"-"+orderlist.get(0).getOrder_group();
+		  
+		  // 결제타입
+		  String payMethod = request.getParameter("payMethod").trim();
+		  
+		  // 배송지 정보
+		  
+		  // 수취인
+		  String receivername = orderlist.get(0).getOrder_receivername();
+		  
+		// 수취인 연락처
+		// 핸드폰번호1 010(3873)2870
+		String phone1 = (String) orderlist.get(0).getOrder_receiverphone().subSequence(3, 7);
+		// 핸드폰번호2 0103873(2870)
+		String phone2 = (String) orderlist.get(0).getOrder_receiverphone().subSequence(7, 11);
 		
-		System.out.println(totalorder);
+		String receiverphone = "010-"+phone1+"-"+phone2;
+	 
+		
+		//주문리스트
+		// 주문완료 페이지의 리스트는 삭제 이전의 장바구니 리스트가 표출된다.
+		// 주문테이블에 적용된 제품의 금액은 첫번째행부터 운송비와 마일리지가 적용된 금액이 표시되기 때문에 주문총금액 및 날짜 확인용으로 사용한다.
+		
+		// 배송지정보
+		StringTokenizer st = new StringTokenizer(orderlist.get(0).getOrder_receiveraddress(), "|");
+		// 우편번호
+		String addr1 = st.nextToken();
+		// 도로명주소
+		String addr2 = st.nextToken();
+		// 상세주소
+		String addr3 = st.nextToken();
+		// 참고항목
+		String addr4 = st.nextToken();
+		
+		// 수취인 우편번호
+		String receiverzipcode = addr1;
+		// 수취인 주소
+		String receiveraddr = addr2+" "+addr3+" "+addr4;
+		
+		// 배송메시지
+		String message = request.getParameter("omessage").trim();
+		
+		// 카트리스트에 셀럽그룹명이 보여지기 위해서는 카트에 저장되 있는 제품번호로 제품리스트를 조회 -> 제품리스트 안에 있는 셀럽번호를 조회 -> 셀럽번호를 통해 셀럽그룹명을 찾는다. 
+		// 카트리스트에 저장되 있는 제품의 그룹명을 가져오기 위한 셀럽리스트
+		List<CelebDTO> celeblist = Celebdao.getCelebList();
+		
+		// 카트리스트에 저장되 있는 제품의 셀럽번호을 가져오기 위한 제품리스트
+		List<ProductDTO> prdlist = Productdao.getProductListAll();
+		
+	
+		
+		
+		model.addAttribute("celebList",celeblist);
+		model.addAttribute("prdList",prdlist);
+		
+		model.addAttribute("orderNo",orderNo);
+		model.addAttribute("orderdate",orderdate);
+		model.addAttribute("prdtotal",prdtotal);
+		model.addAttribute("totalorder",totalorder);
+		model.addAttribute("payMethod",payMethod);
+		model.addAttribute("prdmileagetotal",prdmileagetotal);
+		model.addAttribute("usemileage",usemileage);
+		model.addAttribute("receivername",receivername);
+		model.addAttribute("receiverphone",receiverphone);
+		model.addAttribute("receiverzipcode",receiverzipcode);
+		model.addAttribute("receiveraddr",receiveraddr);
+		model.addAttribute("message",message);
+		
 		
 		return "product/product_order_ok";
 	}

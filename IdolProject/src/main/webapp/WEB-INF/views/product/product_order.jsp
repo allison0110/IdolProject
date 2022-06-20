@@ -74,7 +74,7 @@
                                 <c:if test="${celdto.celeb_group ne 'solo'}">
                                 	${celdto.celeb_group }
                                 </c:if>
-                                <c:if test="${empty celdto.celeb_group eq 'solo'}">
+                                <c:if test="${celdto.celeb_group eq 'solo'}">
                                 	${celdto.celeb_name }
                                 </c:if>
 
@@ -130,8 +130,8 @@
             </div>
             <div class="back-button">
                 <span class="gLeft">
-                    <button type="button" onclick="history.back()">
-                        이전페이지
+                    <button type="button" onclick="location.href='product_cartList.do?memno=${loginInfo.member_no }'">
+                        	장바구니페이지
                     </button>
                 </span>
                 <span class="gRight"><i class="fa-solid fa-circle-exclamation"></i>&nbsp;
@@ -266,7 +266,7 @@
                             <tr>
                                 <th><em class="ico_required"></em>배송메시지</th>
                                 <td>
-                                    <textarea id="omessage" maxlength="255" cols="70"></textarea>
+                                    <textarea id="omessage" name="omessage" maxlength="255" cols="70"></textarea>
                                 </td>
                             </tr>
                         </table>
@@ -311,7 +311,8 @@
                 결제수단
             </div>
             <div class="payArea">
-            <input type="hidden" id="order_type" name="order_type" value="1">
+            <input type="hidden" id="order_type" name = "order_type" value="1">
+            <input type="hidden" id="payMethod" name = "payMethod" value="">
                 <div class="method">
                     <span>카드결제</span>
                     <span>에스크로(실시간 계좌이체)</span>

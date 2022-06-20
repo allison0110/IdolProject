@@ -35,6 +35,8 @@ CREATE TABLE CELEB
     CELEB_PIMAGE         VARCHAR2(1000)   ,            -- 가수(Personal)이미지
 );
 
+
+
 -- 가수 그룹테이블
 CREATE TABLE GROUP
 (
@@ -44,17 +46,20 @@ CREATE TABLE GROUP
     GROUP_INFO     VARCHAR2(2000)                      -- 그룹 정보
 );
 
---뮤직테이블(수정: 뮤직번호컬럼 추가)
+
+--뮤직테이블(수정: 그룹명, 셀럽명 컬럼 추가,가사 작곡가 앨범 노래명 길이수정)
 CREATE TABLE MUSIC
 (
     MUSIC_NO            NUMBER           PRIMARY KEY,   -- 뮤직번호
-    MUSIC_ANAME      VARCHAR2(20)     NOT NULL,     -- 앨범명
-    MUSIC_NAME      VARCHAR2(20)     NOT NULL,         -- 곡명
-    MUSIC_LYRICS          VARCHAR2(200)    NOT NULL,   -- 가사
-    MUSIC_COMPOSER        VARCHAR2(20)     NOT NULL,   -- 작곡가
-    MUSIC_LYRICST         VARCHAR2(20)     NOT NULL,   -- 작사가
+    GROUP_NAME      VARCHAR2(20)      NOT NULL,    -- 그룹명
+    CELEB_NAME         VARCHAR2(20),                      -- 셀럽명
+    MUSIC_ANAME      VARCHAR2(200)     NOT NULL,     -- 앨범명
+    MUSIC_NAME      VARCHAR2(200)     NOT NULL,         -- 곡명
+    MUSIC_LYRICS          VARCHAR2(4000)    NOT NULL,   -- 가사
+    MUSIC_COMPOSER        VARCHAR2(200)     NOT NULL,   -- 작곡가
+    MUSIC_LYRICST         VARCHAR2(200)     NOT NULL,   -- 작사가
     MUSIC_COVERIMAGE      VARCHAR2(1000)    NOT NULL,   -- 앨범커버 이미지
-    MUSIC_MOVIE_LINK      VARCHAR2(100)    NOT NULL,   -- 뮤비링크
+    MUSIC_MOVIE_LINK      VARCHAR2(1000)    NOT NULL,   -- 뮤비링크
     MUSIC_RELEASE_DATE    DATE             NOT NULL    -- 발매일
 );
 
@@ -93,11 +98,10 @@ CREATE TABLE CART
     CART_MILEAGE    NUMBER                        -- 마일리지
 );
 
--- 결재테이블(수정: 기존 유저이름,주소,연락처 삭제 후 수취인 이름,주소,연락처 컬럼 추가, 제품이름길이 수정)
+-- 결재테이블(수정: 기존 유저이름,주소,연락처 삭제 후 수취인 이름,주소,연락처 컬럼 추가, 제품이름길이 수정, 주문그룹 컬럼 추가, 카트번호 삭제)
 CREATE TABLE ORDER_PRODUCT
 (
     ORDER_NO          NUMBER           PRIMARY KEY, -- 주문번호
-    ORDER_CNO         NUMBER           NOT NULL, -- 카트번호
     ORDER_USERID      VARCHAR2(30)     NOT NULL, -- 주문자 아이디
     ORDER_PIMAGE      VARCHAR2(1000)    ,        -- 제품 이미지
     ORDER_PNAME       VARCHAR2(100)     NOT NULL, -- 제품이름
@@ -106,11 +110,14 @@ CREATE TABLE ORDER_PRODUCT
     ORDER_TCOST       NUMBER           ,         -- 운송비
     ORDER_MILEAGE     NUMBER           ,         -- 마일리지
     ORDER_TYPE        NUMBER           NOT NULL CHECK(ORDER_TYPE in(0,1)),  -- 결재타입(계좌이체 0, 카드결제1)
+    ORDER_GROUP       NUMBER           NOT NULL, -- 주문그룹
     ORDER_DATE        DATE             NOT NULL, -- 주문날짜
     ORDER_RECEIVERNAME       VARCHAR2(30)         NOT NULL, -- 수취인
-    ORDER_RECEIVERADDRESS    VARCHAR2(50)         NOT NULL, -- 수취인 주소
+    ORDER_RECEIVERADDRESS    VARCHAR2(500)         NOT NULL, -- 수취인 주소
     ORDER_RECEIVERPHONE      VARCHAR2(30)                   -- 수취인 연락처
 );
+
+
 
 --팔로우/ 팔로워 테이블(수정: 팔로우 팔로워 번호컬럼 추가)
 CREATE TABLE FOLLOW_FOLLOWER
@@ -268,12 +275,14 @@ CREATE TABLE MILEAGE_MASTER
     MILEAGE_DATE           DATE      NOT NULL            -- 기준일자
 );
 
--- 이벤트테이블
+-- 이벤트테이블 (수정: 그룹명, 셀럽명 컬럼 추가)
 CREATE TABLE NOTICE
 (
     NOTICE_NO        NUMBER           PRIMARY KEY,         -- 공지사항번호
     ADMIN_ID         VARCHAR2(30)     NOT NULL,            -- 관리자 아이디
     NOTICE_TYPE VARCHAR2(30) NOT NULL,                  --event type(celeb, concert)
+    GROUP_NAME      VARCHAR2(20)      NOT NULL,    -- 그룹명
+    CELEB_NAME      VARCHAR2(20),                      -- 셀럽명
     NOTICE_TITLE     VARCHAR2(200)     NOT NULL,            -- 제목
     NOTICE_IMAGE     VARCHAR2(1000)    NOT NULL,            -- 이미지
     NOTICE_CONT      VARCHAR2(1000)    NOT NULL,            -- 내용

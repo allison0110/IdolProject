@@ -275,8 +275,36 @@ let pimage = document.getElementById('pimage');
 
 // 장바구니 버튼
 let cartButton = document.getElementById('cart-button');
+let memno = document.getElementById('memno');
+
+// 장바구니 버튼 클릭시 장바구니에 동일한 제품이 있는지 여부 확인
+  function checkCart(){
+  	let result = 0;
+  	// Ajax 를 통해 값을 리턴받는경우 기본적으로 비동기 방식이때문에  값이 Undefined 가 return 이됩니다.
+ 	$.ajax({
+		type: "POST",
+		url: "product_checkbasket.do",
+		async: false,     //값을 리턴시 해당코드를 추가하여 동기로 변경
+		data:{
+				memno: memno.value,
+				pno : pno.value
+				},
+		datatype: "text",
+		success: function(data){
+			if(Number(data) == 1){
+				result = Number(data);
+			}
+		},
+		error: function(data){
+			alert("통신오류다.");
+		}
+		});
+		return result;
+ }
+ 
+ 
 // 장바구니 버튼 클릭시 Ajax 기능을 통하여 장바구니에 항목 추가
-cartButton.addEventListener('click',function(){
+function addCart(){
 	$.ajax({
 		type: "POST",
 		url: "product_addbasket.do",
@@ -298,6 +326,17 @@ cartButton.addEventListener('click',function(){
 			alert("통신오류다.");
 		}
 		});
+}
+
+// 장바구니 버튼 클릭이벤트
+cartButton.addEventListener('click',function(){
+	if(checkCart() == 1){
+ 			if(confirm('장바구니에 동일한 상품이 존재합니다. 정말로 추가하시겠습니까?')){
+ 				addCart();
+ 			}
+ 		}else{
+ 			addCart();
+ 		}
  });
 
 

@@ -314,6 +314,7 @@
     let payingEscrow = document.querySelector('.payingEscrow');
     let payingKakao = document.querySelector('.payingKakao');
     let payingPayco = document.querySelector('.payingPayco');
+    let payMethod = document.querySelector('#payMethod');
     
     //결제수단 타입값
     let order_type = document.getElementById("order_type");
@@ -337,6 +338,7 @@
                 for(let i=0;i<agreecheck.length;i++){
 					agreecheck[i].required = true;
 				}
+				payMethod.value="카드결제";
             }else if(i==1){
                 payingCardArea.style.display = 'none';
                 payingEscrow.style.display = 'block';
@@ -347,6 +349,7 @@
                 for(let i=0;i<agreecheck.length;i++){
 					agreecheck[i].required = false;
 				}
+				payMethod.value="에스크로(실시간 계좌이체)";
             }else if(i==2){
                 payingCardArea.style.display = 'none';
                 payingEscrow.style.display = 'none';
@@ -357,6 +360,7 @@
                 for(let i=0;i<agreecheck.length;i++){
 					agreecheck[i].required = false;
 				}
+				payMethod.value="카카오페이(간편결제)";
             }else if(i==3){
                 payingCardArea.style.display = 'none';
                 payingEscrow.style.display = 'none';
@@ -367,6 +371,7 @@
                 for(let i=0;i<agreecheck.length;i++){
 					agreecheck[i].required = false;
 				}
+				payMethod.value="페이코(간편결제)";
             }
         }
     }

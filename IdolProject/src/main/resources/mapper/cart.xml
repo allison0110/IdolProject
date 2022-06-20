@@ -35,5 +35,9 @@
 		<![CDATA[update cart set cart_pqty = #{cart_pqty} where cart_no = #{cart_no}]]>
 	</update>
 	
+	<select id="cartCheck" parameterType="java.util.HashMap" resultType="int">
+		<![CDATA[select count(cart_no) from cart where cart_pno = #{cart_pno} and cart_userno = #{cart_userno}]]>
+	</select>
+	
 	
 </mapper>

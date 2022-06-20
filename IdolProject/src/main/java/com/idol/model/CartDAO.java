@@ -9,5 +9,6 @@ public interface CartDAO {
 	List<CartDTO> getCartList(int userno);
 	CartDTO getcartDetail(int cno);
 	int UpdateCart(int cno, int cqty);
+	int checkCart(int memno,int pno);
 	
 }

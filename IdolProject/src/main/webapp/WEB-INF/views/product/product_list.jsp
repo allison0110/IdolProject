@@ -216,6 +216,7 @@
 		                            <!-- 장바구니 추가시 ajax컨트롤러에 할달될 파라미터 값 -->
 		                            <input type="hidden" class="pno" value="${dto.product_no}">
 		                        	<input type="hidden" class="pimage" value="${dto.product_image}">
+		                        	<input type="hidden" id="memno" value="${loginInfo.member_no}">
 		                            
 		                            </span>
 		                            </div>

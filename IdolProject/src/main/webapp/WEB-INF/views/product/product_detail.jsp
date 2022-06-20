@@ -158,7 +158,7 @@
                 <!-- submit시(구매버튼클릭) cart에 우선으로 담은 후에 order페이지로 이동한다  -->
                 <!-- ajax에 들어갈 pno파라메터값을 위한 id부여 -->
                 <input type="hidden" id="pno" name="cart_pno" value="${pdto.product_no }">
-                <input type="hidden" name="cart_userno" value="${user.member_no}">
+                <input type="hidden" id="memno" name="cart_userno" value="${user.member_no}">
                 <input type="hidden" name="cart_pname" value="${pdto.product_name }">   
                 <!-- cart_pqty는 아래 input number에 있음 -->
                 <input type="hidden" name="cart_price" value="${pdto.product_price }">

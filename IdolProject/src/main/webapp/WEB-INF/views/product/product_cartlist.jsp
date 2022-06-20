@@ -24,8 +24,9 @@
             <div class="cart-title">
                 <h2>Cart</h2>
             </div>
-            
+            	
                 <c:if test="${!empty clist}">
+                <form method ="post"  id="frm" action="<%=request.getContextPath()%>/product_orderFromCart.do">
 	                <div class="cart-table">
 	                    <table cellspacing="0">
 	                        <tr>
@@ -68,7 +69,7 @@
 	                                	${celdto.celeb_group }
 	                                </c:if>
 	                                <c:if test="${celdto.celeb_group eq 'solo'}">
-	                                	${celdto.celeb_name }
+	                                	${celdto.celeb_name } 
 	                                </c:if>
 	
 	                                </c:if>
@@ -97,14 +98,13 @@
 		                                    <span class="medium-total"> <fmt:formatNumber value="${(cdto.cart_price)*(cdto.cart_pqty)}"/> </span>
 		                                </strong> 
 		                                <div>
-		                                    <input type="text" class="medium-prdPrice" value="${cdto.cart_price}">
-		                                    <input type="text"
-		                                    class="medium-prdtotal" value="${(cdto.cart_price)*(cdto.cart_pqty)}">
-		                                    <input type="text" class="medium-cartno" value="${cdto.cart_no}">
+		                                    <input type="hidden" class="medium-prdPrice" value="${cdto.cart_price}">
+		                                    <input type="hidden" class="medium-prdtotal" value="${(cdto.cart_price)*(cdto.cart_pqty)}">
+		                                    <input type="hidden" class="medium-cartno" value="${cdto.cart_no}">
 		                                </div>
 		                            </td>
 		                            <td class="cart-button">
-		                                <button type="button">주문하기</button>
+		                                <button type="button" class="orderBtn">주문하기</button>
 		                                <button type="button" class="deleteBtn">삭제</button>
 		                            </td>
 		                        </tr>
@@ -174,7 +174,10 @@
 	                <div id="total-select">
 	                    <button id="totalOrderBtn" type="button">전체상품 주문</button>
 	                    <button id="selectOrderBtn" type="button">선택상품주문</button>
+	                    <!-- 선택된 카트번호를 담을 input -->
+	                    <input type="hidden" id="cartNoArr" name="cartNoArr" value="">
 	                </div>
+	                </form>
 				</c:if>
 				
 				<c:if test="${empty clist }">
@@ -191,6 +194,9 @@
         </div>
 
         </div>
+        
+        <a id="back-to-top" href="#">Top</a>
+    	<a id="back-to-bottom" href="#">Bot</a>
         
     </div>  
     

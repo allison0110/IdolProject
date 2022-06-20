@@ -47,6 +47,16 @@ public class CartDAOImpl implements CartDAO {
 		map.put("cart_pqty", cqty);
 		return sqlSession.update("updateCart", map);
 	}
+	
+	// 유저번호와 제품번호를 인자로 받아 카트에 제품이 존재하는지 여부를 확인
+	@Override
+	public int checkCart(int memno,int pno) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("cart_userno", memno);
+		map.put("cart_pno", pno);
+		
+		return sqlSession.selectOne("cartCheck", map);
+	}
 
 	
 }

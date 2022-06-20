@@ -283,6 +283,8 @@ window.scrollTo({ left: 0, top: doHeight2, behavior: "smooth" });
  let pimage =  document.getElementsByClassName('pimage');
  
  
+ 
+ 
   // 장바구니 actionScreen 제어
   // 상단 닫기버튼 클릭
  $('#bclose').click(function(event){
@@ -298,19 +300,42 @@ window.scrollTo({ left: 0, top: doHeight2, behavior: "smooth" });
  
   //장바구니 이동 버튼 클릭은 페이지에서 제어
  
-
  
  
-  // 장바구니 Ajax
- for(let i = 0; i<cartImg.length;i++){
- 	cartImg[i].addEventListener('click',function(){
- 		$.ajax({
+ 
+  function checkCart(index){
+  	let result = 0;
+  	// Ajax 를 통해 값을 리턴받는경우 기본적으로 비동기 방식이때문에  값이 Undefined 가 return 이됩니다.
+ 	$.ajax({
+		type: "POST",
+		url: "product_checkbasket.do",
+		async: false,     //값을 리턴시 해당코드를 추가하여 동기로 변경
+		data:{
+				memno: $('#memno').val(),
+				pno : pno[index].value
+				},
+		datatype: "text",
+		success: function(data){
+			if(Number(data) == 1){
+				result = Number(data);
+			}
+		},
+		error: function(data){
+			alert("통신오류다.");
+		}
+		});
+		return result;
+ }
+ 
+ 
+ function addCart(index){
+ 	$.ajax({
 		type: "POST",
 		url: "product_addbasket.do",
 		data:{
-				pno : pno[i].value,
+				pno : pno[index].value,
 				pqty: 1,
-				pimage : pimage[i].value
+				pimage : pimage[index].value
 				},
 		datatype: "text",
 		success: function(data){
@@ -325,6 +350,19 @@ window.scrollTo({ left: 0, top: doHeight2, behavior: "smooth" });
 			alert("통신오류다.");
 		}
 		});
+ }
+ 
+  // 장바구니 Ajax
+ for(let i = 0; i<cartImg.length;i++){
+ 	cartImg[i].addEventListener('click',function(){
+ 		if(checkCart(i) == 1){
+ 			if(confirm('장바구니에 동일한 상품이 존재합니다. 정말로 추가하시겠습니까?')){
+ 				addCart(i);
+ 			}
+ 		}else{
+ 			addCart(i);
+ 		}
+ 		
  	});
  }
  
