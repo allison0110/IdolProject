@@ -671,18 +671,35 @@ public class MemberController {
 	
 	
 	//마이페이지 - 구매내역페이지 이동
-	@RequestMapping("order_list.do")
-	public String order_list(HttpSession session) {
-		
-		String login_id = (String)session.getAttribute("login_id");
-		
-		String [] orderDates = this.odao.getOrderDates(login_id);	
-		  
-		
-		
-		
-		return"member/mypage_orderList" ;
-	}
+		@RequestMapping("order_list.do")
+		public String order_list(HttpSession session) {
+		public String order_list(HttpSession session, Model model) {
+
+			String login_id = (String)session.getAttribute("login_id");
+
+			String [] order_dates = this.odao.getOrderDate(login_id);
+			  
+			//구매내역 날짜들 뽑기
+			List<String> orderDates = this.odao.getOrderDates(login_id);	
+
+			HashMap<Integer, List> maps = new HashMap<Integer, List>();//날짜별 구매내역 리스트담을 map
+
+			HashMap<String, String> params = new HashMap<String, String>();//mybatis 다중파라미터로 사용
+
+			params.put("id", login_id);
+
+			//날짜에 해당하는 구매리스트 가져오기
+			for(int i =0; i<orderDates.size(); i++) {
+				params.put("date", orderDates.get(i));
+				maps.put(i, this.odao.getOrderDateList(params)); //아이디와 날짜 넘김
+
+			}
+
+			model.addAttribute("dateMap", maps);
+			model.addAttribute("dates", orderDates);
+
+			return"member/mypage_orderList" ;
+		}
 	
 	
 	//마이페이지 - 문의내역페이지 이동
