@@ -65,7 +65,8 @@
 </head>
 <body>
 	<c:set var="dto" value="${loginInfo }"/> <!--로그인회원 정보 저장 -->
-	<c:set var="category" value="${cList }"/>
+	<c:set var="category" value="${cList }"/> <!-- 문의게시글 카테고리 리스트 -->
+	<c:set var="pCont" value="${pCont }"/> <!-- 제품정보 -->
 	<script type="text/javascript">
 	
 
@@ -92,10 +93,17 @@
 				<tr>
 					<th>상품 정보</th>
 					<td>
-					<input name="product_name"> <!-- 상품정보 있는 경우 상품 이름이 들어가기 -->
 					
+					<c:if test="${!empty pCont }">
+					<input name="product_name" value="${pCont.getProduct_name() }"> <!-- 상품정보 있는 경우 상품 이름이 들어가기 -->
+					<input type="hidden" name="product_no" value="${pCont.getProduct_no() }">
+					</c:if>
+					
+					<c:if test="${empty pCont }">
+					<input name="product_name"> <!-- 상품정보 있는 경우 상품 이름이 들어가기 -->
+					</c:if>
 					<button type="button" class="product_search" 
-					onclick="window.open( '<%=request.getContextPath()%>/m_qna_product.do', '', 'width=500,height=400, scrollbars=yes,directories=no') ">
+					onclick="window.open( '<%=request.getContextPath()%>/inquiry_product.do', '', 'width=500,height=400, scrollbars=yes,directories=no') ">
 					상품 검색
 					</button></td>
 				</tr>

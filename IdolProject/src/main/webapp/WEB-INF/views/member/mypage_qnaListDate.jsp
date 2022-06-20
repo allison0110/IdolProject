@@ -1,3 +1,6 @@
+<%@page import="com.idol.model.ProductDTO"%>
+<%@page import="com.idol.model.InquiryDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="com.idol.model.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -171,37 +174,65 @@
 				<th>상태</th>
 			</tr>
 			<c:if test="${!empty List }">
-				<c:forEach items="${list }" var="idto">
-				<tr>
-					<td>${idto.getInquiry_no() }</td>				
-					<td>
-						<c:choose>
-							<c:when test="${idto.getCategory_inofk() == 1 }">취소/환불</c:when>						
-							<c:when test="${idto.getCategory_inofk() == 2 }">상품문의</c:when>						
-							<c:when test="${idto.getCategory_inofk() == 3 }">배송</c:when>						
-							<c:when test="${idto.getCategory_inofk() == 4 }">교환</c:when>						
-							<c:when test="${idto.getCategory_inofk() == 5 }">기타</c:when>						
-						</c:choose>
-					</td>				
-					<td>
-						<c:if test="${!empty idto.getProduct_no() }">
-							상품사진? or 상품이름
-						</c:if>
-					</td>
-					<td>
-						<a href="<%=request.getContextPath()%>/inquiry_cont.do?no=${idto.getInquiry_no()}&page=${paging.getPage()}">${idto.getInquiry_title() }</a>
-					</td>				
-					<td>${idto.getInquiry_date().substring(0,10) }</td>				
-					<td>
-						<c:if test="${idto.getInquiry_status() == 0 }">
-						답변대기
-						</c:if>
-						<c:if test="${idto.getInquiry_status() == 1 }">
-						답변완료
-						</c:if>
-					</td>				
-				</tr>
-				</c:forEach>
+				<%
+					List<InquiryDTO> list = (List<InquiryDTO>)request.getAttribute("List");
+					List<ProductDTO> pCont = (List<ProductDTO>)request.getAttribute("pCont");
+					
+					for(int i=0; i<list.size(); i++){
+						
+						InquiryDTO idto = list.get(i); //문의게시글
+						ProductDTO product = pCont.get(i); //제품정보
+						
+						//카테고리
+						String category ="";
+						switch(idto.getCategory_inofk()){
+						case 1:
+							category ="취소/환불";
+							break;
+						case 2:
+							category ="상품문의";
+							break;
+						case 3:
+							category ="배송";
+							break;
+						case 4:
+							category ="교환";
+							break;
+						case 5:
+							category ="기타";
+							break;
+						}
+						
+						//답변상태
+						String status ="";
+						
+						if(idto.getInquiry_status() == 0){
+							status ="답변대기";
+						}else{
+							status ="답변완료";
+						}
+				%>		
+					<!-- 테이블 행 시작  -->
+					<tr>
+						<td><%=idto.getInquiry_no() %></td>				
+						<td><%=category %></td>
+					
+					<!-- 상품 정보  -->
+					<% if(idto.getProduct_no() == 0){ //상품정보가 없으면 %> 
+						<td> </td>	
+					<% }else{ //상품정보가 있으면 %>
+						<td>
+						<a href="<%=request.getContextPath()%>/product_detail.do?pno=<%=product.getProduct_no()%>">
+						<%=product.getProduct_name() %></a>
+						</td>
+					<%}%>
+						<td>
+							<a href="<%=request.getContextPath()%>/inquiry_cont.do?no=<%=idto.getInquiry_no() %>&page=${paging.getPage()}"><%=idto.getInquiry_title() %></a>
+						</td>
+						<td><%=idto.getInquiry_date().substring(0,10) %></td>
+						<td><%=status %></td>
+					</tr>
+				<%	}%>
 			</c:if>
 			<tr>
 				<td colspan="6" align="right">
@@ -236,7 +267,7 @@
 			<a href="inquiry_date.do?page=${paging.getAllPage()}&search_date=${search_date}">[마지막으로]</a>
 		</c:if>
 		
-		</div>
+		</div><!-- class="table_page" -->
 		
 		</div>	<!-- class="qna_table"  -->
 		

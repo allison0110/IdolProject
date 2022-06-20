@@ -20,6 +20,11 @@
 		<typeAlias type="com.idol.model.FollowDAO" alias="followDAO"/>
 		<typeAlias type="com.idol.model.InquiryDTO" alias="inquiryDTO"/>
 		<typeAlias type="com.idol.model.InquiryDAO" alias="inquiryDAO"/>
+		<typeAlias type="com.idol.model.ProductDAO" alias="ProductDAO"/>
+	    <typeAlias type="com.idol.model.ProductDTO" alias="ProductDTO"/>
+	    <typeAlias type="com.idol.model.OrderDAO" alias="OrderDAO"/>
+ 		<typeAlias type="com.idol.model.OrderDTO" alias="OrderDTO"/>
+		
 	</typeAliases>  	
 	
 </configuration>

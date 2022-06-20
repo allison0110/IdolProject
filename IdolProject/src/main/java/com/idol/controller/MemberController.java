@@ -21,7 +21,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,7 +43,11 @@ import com.idol.model.MemberDAO;
 import com.idol.model.MemberDTO;
 import com.idol.model.MileageDAO;
 import com.idol.model.MileageDTO;
+import com.idol.model.OrderDAO;
+import com.idol.model.OrderDTO;
 import com.idol.model.PageDTO;
+import com.idol.model.ProductDAO;
+import com.idol.model.ProductDTO;
 
 //회원과 관련된 지시를 처리하는 컨트롤러 
 //회원가입, 로그인, 마이페이지, 마이피드
@@ -80,6 +83,13 @@ public class MemberController {
 	@Autowired
 	private FollowDAO followDao;
 	
+	//제품테이블
+	@Autowired
+	private ProductDAO pdao;
+	
+	//구매테이블
+	@Autowired
+	private OrderDAO odao;
 	
 	//게시판 페이지 관련 
 	//페이지 처리용 변수
@@ -165,6 +175,17 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		
 		if(check>0) {
+			
+			//신규회원 마일리지 레코드 생성
+			MileageDTO mdto = new MileageDTO();
+			mdto.setMileage_memno(dto.getMember_no());
+			mdto.setMileage_remaining(1000);
+			mdto.setMileage_earn(1000);
+			mdto.setMileage_deduction(0);
+			mdto.setMileage_accumulated(1000);
+			mdto.setMileage_type("회원가입 적립");
+			
+			int mile = this.mdao.insertMileageInfo(mdto);
 			
 			MemberDTO login = this.dao.getMemInfo(dto.getMember_id());
 			//회원가입 완료 후, 자동 로그인  (회원정보 저장)
@@ -316,23 +337,26 @@ public class MemberController {
 		
 		//로그인한 회원정보
 		MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
-		session.setAttribute("memInfo", dto);//회원정보 세션저장
+//		session.setAttribute("memInfo", dto);//회원정보 세션저장
 		
 		//마일리지 정보
-		MileageDTO mdto = this.mdao.memMileage(dto);
+		int mileage = this.mdao.getreamining(dto.getMember_no());
+		
+		//주문내역
+		List<OrderDTO> oList = this.odao.getOrderList(dto.getMember_id());
 		
 		//문의내역
 		List<InquiryDTO> iList = this.idao.getInquiryList(dto.getMember_id());
-		
 		
 		//문의내역 - 답변대기중인 게시글 수
 		int waiting = this.idao.watingReply(dto.getMember_id());
 		
 		
 		//값전달
-		model.addAttribute("mileage", mdto); //회원에 대한 마일리지 정보
+		model.addAttribute("mileage", mileage); //회원에 대한 마일리지 정보
 		model.addAttribute("waiting", waiting);//답변대기 문의글
 		model.addAttribute("iList",iList); //문의내역
+		model.addAttribute("oList", oList);
 		
 		
 		return "member/mypage";
@@ -648,7 +672,14 @@ public class MemberController {
 	
 	//마이페이지 - 구매내역페이지 이동
 	@RequestMapping("order_list.do")
-	public String order_list() {
+	public String order_list(HttpSession session) {
+		
+		String login_id = (String)session.getAttribute("login_id");
+		
+		String [] order_dates = this.odao.getOrderDate(login_id);
+		  
+		
+		
 		
 		return"member/mypage_orderList" ;
 	}
@@ -683,11 +714,32 @@ public class MemberController {
 		//페이지에 해당하는 게시물 가져오기
 		List<InquiryDTO> list = this.idao.getInquiryList(map);
 		
+		//문의게시글 상품정보를 불러오기
+		//문의게시글에 대응하는 상품정보리스트
+		List<ProductDTO> pList = new ArrayList<ProductDTO>();
+		
+		for(int i =0; i<list.size(); i++) {
+			
+			InquiryDTO idto = list.get(i);
+			
+			if(idto.getProduct_no() == 0) {//문의게시글에 상품정보가 없으면 null값 넣어주기 
+				
+				pList.add(null);
+				
+			}else {//문의게시글에 상품정보가 있으면 정보를 불러와 넣어주기 
+				
+			ProductDTO product = this.pdao.getProductDetail(idto.getProduct_no());
+				pList.add(product);
+			}
+		}
+		
+		
 		//답변 대기 중인 문의 수
 		int waiting = this.idao.watingReply(login_id);
 		
 		
 		model.addAttribute("List", list);
+		model.addAttribute("pCont", pList); //문의게시글 리스트에 대응하는 제품정보리스트
 		model.addAttribute("paging", pdto);
 		model.addAttribute("waiting", waiting);
 		
@@ -770,12 +822,34 @@ public class MemberController {
 
 		//페이지에 해당하는 게시물 가져오기
 		List<InquiryDTO> list = this.idao.getInquiryList(map);
+		
+		
+		//문의게시글 상품정보를 불러오기
+		//문의게시글에 대응하는 상품정보리스트
+		List<ProductDTO> pList = new ArrayList<ProductDTO>();
+
+		for(int i =0; i<list.size(); i++) {
+
+			InquiryDTO idto = list.get(i);
+
+			if(idto.getProduct_no() == 0) {//문의게시글에 상품정보가 없으면 null값 넣어주기 
+
+				pList.add(null);
+
+			}else {//문의게시글에 상품정보가 있으면 정보를 불러와 넣어주기 
+
+				ProductDTO product = this.pdao.getProductDetail(idto.getProduct_no());
+				pList.add(product);
+			}
+		}
 
 		//답변 대기 중인 문의 수
 		int waiting = this.idao.watingReply(login_id);
+		
 
 
 		model.addAttribute("List", list);
+		model.addAttribute("pCont", pList); //문의게시글 리스트에 대응하는 제품정보리스트
 		model.addAttribute("paging", pdto);
 		model.addAttribute("search_date", search_date);
 		model.addAttribute("waiting", waiting);
@@ -787,18 +861,20 @@ public class MemberController {
 	
 	//마이페이지 - 문의게시글 작성하기 
 	@RequestMapping("inquiry_write.do")
-	public String inquiry_write(@RequestParam("id")String id, HttpServletRequest request, Model model) {
+	public String inquiry_write(HttpServletRequest request, Model model) {
 		
 		//문의게시판 카테고리 리스트
 		List<Inquiry_CategoryDTO> cList = this.idao.getInquiryCategory();
 		
-		//넘겨받은 제품번호가 있다면
+		//구매한 후 문의하기를 눌러 넘겨받은 제품번호가 있다면
 		try {
 			
 			int pno = Integer.parseInt(request.getParameter("pno"));
 			
 			//상품정보 가져와 저장하기 
+			ProductDTO product = this.pdao.getProductDetail(pno);
 			
+			model.addAttribute("pCont", product);
 			
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -810,8 +886,56 @@ public class MemberController {
 		model.addAttribute("cList", cList);
 		
 		
-		return "member/mypage_qna_write";
+		return "member/mypage_qnaWrite";
 	}
+	
+	//문의글 작성 시 제품 검색창으로 이동
+	@RequestMapping("inquiry_product.do")
+	public String inquiry_product(HttpServletRequest request) {
+		
+		
+		return "member/mypage_qnaProduct";
+	}
+	
+	//문의글 제품검색창 검색 했을 경우
+	@RequestMapping("inquiry_productSearch.do")
+	public String inquiry_productSearch(HttpServletRequest request, Model model) {
+		
+		int page; //현재 페이지 변수
+		
+		if(request.getParameter("page") != null) {
+			page= Integer.parseInt(request.getParameter("page"));
+		}else {
+			page =1; //넘겨받은 page 변수가 없다면 1페이지로 설정 
+		}
+		
+		HashMap<String, Object> maps = new HashMap<String, Object>();
+		
+		//검색 필드 및 단어
+		String search_field = request.getParameter("search_field").trim(); //상품명(product_name), 가수명(celeb_name)
+		String search_word = request.getParameter("search_word").trim();
+		
+		maps.put("field", search_field);
+		maps.put("word", search_word);
+		
+		//DB상 검색한 제품 리스트 전체 게시물 수 확인하기
+		totalRecord = this.pdao.productTotalRecord(maps);
+		
+		PageDTO pagedto = new PageDTO(page, rowsize, totalRecord);
+		
+		maps.put("page", pagedto);
+		
+		//페이지에 해당하는 제품리스트 가져오기
+		List<InquiryDTO> list = this.pdao.productListPage(maps);
+		
+		
+		model.addAttribute("pList", list);
+		model.addAttribute("map", maps);
+		
+		
+		return "member/mypage_qnaProduct";
+	}
+	
 	
 	//문의게시글 등록 완료
 	@RequestMapping("inquiry_write_ok.do")
@@ -907,6 +1031,14 @@ public class MemberController {
 				img[i]=st.nextToken();	
 			}
 		}
+		
+		//상품 정보가 있는 경우 
+		if(dto.getProduct_no() != 0) {
+			
+			ProductDTO pdto = this.pdao.getProductDetail(dto.getProduct_no());
+			model.addAttribute("pCont", pdto);
+		}
+		
 		
 		//원글에 답변글 있는경우 
 		InquiryDTO reply = this.idao.getReplyCont(no);
@@ -1037,12 +1169,7 @@ public class MemberController {
 	
 	
 	
-	//상품 검색
-	@RequestMapping("m_qna_product.do")
-	public String qna_product() {
-		
-		return "member/m_qna_product";
-	}
+	
 	
 	
 	//********************************************* 마이피드 *************************************************
@@ -1276,8 +1403,6 @@ public class MemberController {
 		}else {
 			redirect = id;
 		}
-		
-		
 		
 		if(check>0) {
 			out.println("<script>");

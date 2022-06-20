@@ -59,6 +59,7 @@
 	<c:set var="Img" value="${Img }"/> <!-- 문의글 첨부파일 배열 -->
 	<c:set var="page" value="${page }"/>
 	<c:set var="reply" value="${Reply }"/> <!-- 답변글 -->
+	<c:set var="pCont" value="${pCont }"/> <!-- 제품 정보 -->
 	<script type="text/javascript">
 	
 
@@ -99,8 +100,8 @@
 				<tr>
 					<th>상품 정보</th>
 					<td>
-					<c:if test="${!empty cont.getProduct_no() }">
-							상품사진? or 상품이름
+					<c:if test="${cont.getProduct_no() != 0 }"> <!-- 제품 정보가 있는경우 -->
+							${pCont.getProduct_name() }
 					</c:if>
 					</td>
 				</tr>

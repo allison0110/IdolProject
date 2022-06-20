@@ -65,6 +65,11 @@
 		color:gray;
 	}
 	
+	.feed_nickname a{
+		text-decoration: none;
+		color:black;
+	}
+	
 	.feed_sum {
 		line-height: 1.6;
 	}
@@ -142,17 +147,35 @@
 		
 		width:600px;
 		height:170px;
-		border:3px solid #000;
-		box-shadow: 1 1 20px rgb(0,0,0,0.5);
-		background-color:#fff;
-		
+		border: 2px solid #cdc7c7;
+        box-shadow: 2px 0px 12px #888888;
+		background-color:#efefef;
+		border-radius: 6px;
 		box-sizing:border-box;
 		text-align: center;
-		padding:30px;
+		padding:20px;
 		z-index:100;
 	}
 	
-	.editImg .popup_close {
+	.editImg p {
+		text-align: left;
+		font-weight: bold;
+	}
+	
+	.editImg .editFile{
+		border: 1px solid #8b8989;
+   	    padding: 5px;
+        border-radius: 5px;
+        background-color: white;
+        box-shadow: 1px 1px 3px #8b8989;
+        margin-bottom: 15px;
+	}
+	
+	.editFile{
+		font-size: 0.9em;
+	}
+	
+/* 	.editImg .popup_close {
 		
 		position: absolute;
 		right: 0 ; top:0;
@@ -161,7 +184,7 @@
 		background: url(..image/close.png) no-repeat;
 		/* color:transparent; */
 	
-	}
+	} */
 	
 	.edit_dim {
 		display:none;
@@ -176,24 +199,34 @@
 	
 	.edit_btn{
 		
-			width: 110px;
-	    	height: 35px;
-	  	  border-radius: 0px;
-	 	   background-color: black;
-	  	  color: white;
-	 	   font-size: 0.8em;
+		width: 110px;
+	    height: 35px;
+	  	border-radius: 6px;
+        background-color: #2a3a52;
+        border: 1px solid #2a3a52;
+        box-shadow: 1px 1px 2px #2a3a52;
+	  	color: white;
+	 	font-size: 0.8em;
 		}
-		
+	
+	.edit_btn:hover{
+	
+		 background-color: #15233a;
+	}
 	.cancel_btn{
 		
-			width: 110px;
-	    	height: 35px;
-	  	  border-radius: 0px;
-	 	   background-color: white;
-	  	  color: black;
-	 	   font-size: 0.8em;
+		width: 110px;
+	    height: 35px;
+	  	border-radius: 6px;
+	 	background-color: white;
+	 	border: 1px solid #ece7e7;
+        box-shadow: 1px 1px 3px #d7d7d7;
+	  	color: black;
+	 	font-size: 0.8em;
 		}
-
+	.cancel_btn:hover{
+		background-color:#f7f5f5;
+	}
 </style>
 <script type="text/javascript">
 
@@ -237,8 +270,11 @@
 						</td>
 						<td colspan="3">
 							<div class="feed_nickId">
-							<span class="feed_nickname">${dto.getMember_nickname() }</span> 
+							<span class="feed_nickname">
+							<a href="<%=request.getContextPath()%>/myfeed.do?id=${dto.getMember_id()}">${dto.getMember_nickname() }</a>
+							</span> 
 							&nbsp;&nbsp;&nbsp;
+							<!-- ----------------팔로우 버튼 -------------------- -->
 							<c:if test="${dto.getMember_id() != login && login != null }">
 								<%
 									HashMap map= (HashMap)session.getAttribute("feedInfo");
@@ -304,10 +340,11 @@
 								<input type="hidden" name="member_id" value="${dto.getMember_id() }">
 								<input type="hidden" name="old_img" value="${dto.getMember_image() }">
 								<input type="hidden" name="uri" value="<%=request.getRequestURI()%>">
-								<p>Upload Profile</p>
-								<br>
-								<input type="file" name="file1"><br>
-								<input type="submit" class="edit_btn" value="적용">
+								<p><i class="bi bi-check-circle"></i> Upload Profile</p>
+								<div class="editFile" align="left">
+								<input type="file" name="file1">
+								</div>
+								<input type="submit" class="edit_btn" value="확인">
 								<input type="button" class="cancel_btn" value="취소" >
 								</form>
 							</div><!-- class="editProfile" -->
@@ -320,10 +357,11 @@
 								<input type="hidden" name="member_no" value="${dto.getMember_no() }">
 								<input type="hidden" name="member_id" value="${dto.getMember_id() }">
 								<input type="hidden" name="old_img" value="${dto.getMember_cover() }">
-								<p>Upload Cover</p>
-								<br>
-								<input type="file" name="file2"><br>
-								<input type="submit" class="edit_btn" value="적용">
+								<p><i class="bi bi-check-circle"></i>Upload Cover</p>
+								<div class="editFile" align="left">
+								<input type="file" name="file2">
+								</div>
+								<input type="submit" class="edit_btn" value="확인">
 								<input type="button" class="cancel_btn" value="취소" >
 								</form>
 							</div><!-- class="editProfile" -->

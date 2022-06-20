@@ -1,7 +1,7 @@
 package com.idol.model;
 
-
 public interface MileageDAO {
-
-	MileageDTO memMileage(MemberDTO dto);
+	int getreamining(int mno);
+	MileageDTO getMileageDetail(int mno);
+	int insertMileageInfo(MileageDTO mdto);
 }
