@@ -1,5 +1,6 @@
 package com.idol.controller;
 
+<<<<<<< HEAD
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -51,10 +52,14 @@ import com.idol.model.ProductDTO;
 
 //회원과 관련된 지시를 처리하는 컨트롤러 
 //회원가입, 로그인, 마이페이지, 마이피드
+=======
+import org.springframework.stereotype.Controller;
+>>>>>>> 00b8ab7eb6df08154ca6a7505ea0f255452312d8
 
 @Controller
 public class MemberController {
 
+<<<<<<< HEAD
 	//회원
 	@Autowired
 	private MemberDAO dao;
@@ -1546,5 +1551,9 @@ public class MemberController {
 			out.println("</script>");
 		}
 	}
+=======
+
+
+>>>>>>> 00b8ab7eb6df08154ca6a7505ea0f255452312d8
 	
 }

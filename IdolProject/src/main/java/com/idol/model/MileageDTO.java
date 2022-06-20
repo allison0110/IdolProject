@@ -13,5 +13,8 @@ public class MileageDTO {
 	private int mileage_accumulated;
 	private String mileage_type;
 	private String mielage_date;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 00b8ab7eb6df08154ca6a7505ea0f255452312d8
 }

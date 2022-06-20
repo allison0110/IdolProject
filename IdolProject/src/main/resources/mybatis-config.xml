@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<<<<<<< HEAD
 <!-- 환경설정하는 곳 -->
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
@@ -28,3 +29,19 @@
 	</typeAliases>  	
 	
 </configuration>
+=======
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+    
+    <configuration>
+    	<typeAliases>
+    		<typeAlias type="com.idol.model.MemberDTO" alias="memberDTO"/>
+			<typeAlias type="com.idol.model.MileageDTO" alias="mileDTO"/>
+			<typeAlias type="com.idol.model.MileageDAO" alias="mileDAO"/>
+			<typeAlias type="com.idol.model.EventDTO" alias="eventDTO"/>
+			<typeAlias type="com.idol.model.PageDTO" alias="pageDTO"/>
+			
+    	</typeAliases>
+    </configuration>
+>>>>>>> 00b8ab7eb6df08154ca6a7505ea0f255452312d8

@@ -1,10 +1,16 @@
 package com.idol.model;
 
+<<<<<<< HEAD
+=======
+import java.util.List;
+
+>>>>>>> 00b8ab7eb6df08154ca6a7505ea0f255452312d8
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
+<<<<<<< HEAD
 public class MileageDAOImpl implements MileageDAO {
 	
 	@Autowired
@@ -28,11 +34,32 @@ public class MileageDAOImpl implements MileageDAO {
 	@Override
 	public int insertMileageInfo(MileageDTO mdto) {
 		return sqlSession.insert("inserMInfo", mdto);
+=======
+public class MileageDAOImpl implements MileageDAO{
+
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+
+	@Override
+	public List<MileageDTO> mostMessages() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<MileageDTO> mostMileage() {
+		// TODO Auto-generated method stub
+		return null;
+>>>>>>> 00b8ab7eb6df08154ca6a7505ea0f255452312d8
 	}
 
 	
 	
+<<<<<<< HEAD
 
 	
 
+=======
+	
+>>>>>>> 00b8ab7eb6df08154ca6a7505ea0f255452312d8
 }
