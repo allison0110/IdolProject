@@ -32,6 +32,8 @@ public class EventController {
 		}else {
 			page = 1;	//처음으로 게시물 전체 목록 태그를 선택한 경우
 		}
+		
+		
 		totalRecord = this.userEventDao.getListCount();
 				
 		PageDTO pageDto = new PageDTO(page, rowsize, totalRecord);

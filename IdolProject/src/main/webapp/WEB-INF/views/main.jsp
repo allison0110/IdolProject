@@ -394,10 +394,7 @@
   		changeBackground(this.activeIndex);
   	});
   	
-  	
-  	/* var win = window.open("/","PopupWin",
-  			"toolbar=yes,scrollbars=yes,resizable=no,top=500,left=500,width=300,height=400");
-  	win.document.querySelector("#popUp") */
   </script>
 
   <%@include file="./include/user_bottom.jsp" %>
+
