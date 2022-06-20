@@ -15,6 +15,8 @@ import com.idol.model.EventDTO;
 import com.idol.model.PageDTO;
 import com.idol.model.UserEventDAO;
 
+
+//수정
 @Controller
 public class EventController {
 
