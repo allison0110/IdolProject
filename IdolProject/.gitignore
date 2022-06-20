@@ -98,3 +98,4 @@ replay_pid*
 .classpath
 .settings/
 classes/
+scr/main/webaap/Meta-INF/MANIFEST.MF
