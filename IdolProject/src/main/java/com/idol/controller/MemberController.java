@@ -697,7 +697,7 @@ public class MemberController {
 
 		return"member/mypage_orderList" ;
 	}
-
+ 
 	
 	//마이페이지 - 문의내역페이지 이동
 	@RequestMapping("inquiry_list.do")
