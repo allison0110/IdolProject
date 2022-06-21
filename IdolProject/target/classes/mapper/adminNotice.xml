@@ -6,7 +6,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
     
-    <mapper namespace="noticeDAO">
+    <mapper namespace="AnoticeDAO">
     	
     	<!-- 공지 작성 -->
     	<insert id="insertNotice" parameterType="noticeDTO">
