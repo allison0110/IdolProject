@@ -19,7 +19,7 @@
 		
 		<!-- 이미지스 리스트 불러오기 by no -->
 		<select id="imageList" resultType="imagesDTO">
-			select * from images order by image_no
+			select * from images order by image_priority
 		</select>
 		
 		<!-- 이미지스 상세 정보 가져오기 -->

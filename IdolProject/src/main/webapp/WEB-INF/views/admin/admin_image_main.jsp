@@ -12,6 +12,7 @@
 		padding: 0px;
 		margin: 0px;
 		height: 100%;
+		background-color: black;
 	}
 	
 	.admin_images_wrapper {
@@ -24,7 +25,9 @@
 		list-style-type: none;
 		
 	}
-	
+	a {
+		text-decoration: none;
+	}
 	.admin_images_container {
 		display: flex;
 	    flex-direction: row;
@@ -34,19 +37,22 @@
 	
 	.admin_images_content{
 		border: 1px solid pink;
-		width: 200px;
+		width: 500px;
 		height: 200px;
+		color: white;
 	}
 	
-	a {
-		text-decoration: none;
-	}
+	
 </style>
 </head>
 <body>
 	<c:set var="ilist" value="${imagesList }" />
 	
 	<div class="admin_images_wrapper">
+	
+	<jsp:include page="../include/admin_top_include.jsp" />
+	<jsp:include page="../include/admin_images_include.jsp" />
+	
 		<div class="admin_images_container">
 		
 			<c:if test="${!empty ilist }">
@@ -54,10 +60,7 @@
 					<a href="<%=request.getContextPath()%>/admin_images_content.do?no=${dto.image_no}">
 						
 						<div class="admin_images_content">
-							<ul>
-								<li>
-									${dto.image_no }
-								</li>
+							<ul>				
 								<li>
 									${dto.image_path }
 								</li>
@@ -65,10 +68,15 @@
 									${dto.image_link }
 								</li>
 								<li>
-									${dto.image_priority }
+									PRIORITY : ${dto.image_priority }
 								</li>
 								<li>
-									${dto.image_visible }
+									<c:if test="${dto.image_visible == '1' }">
+										ON
+									</c:if>
+									<c:if test="${dto.image_visible == '0' }">
+										OFF
+									</c:if>
 								</li>
 							</ul>
 						</div>

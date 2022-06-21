@@ -25,4 +25,7 @@ public interface AdminGroupDAO {
 	// 솔로 가수 리스트 가져오기 
 	public List<CelebDTO> getSoloList();
 	
+	
+	
+	
 }

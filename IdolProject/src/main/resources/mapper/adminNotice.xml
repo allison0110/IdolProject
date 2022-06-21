@@ -45,5 +45,8 @@
     			notice_update = sysdate, notice_enddate = #{notice_enddate} where notice_no = #{notice_no} 
     	</update>
     	
+    	<select id="getGroupNotice" parameterType="String" resultType="noticeDTO">
+    		select * from notice where group_name = #{name}
+    	</select>
     	
     </mapper>

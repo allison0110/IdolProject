@@ -514,16 +514,23 @@ public class AdminCelebController {
 	}
 	
 	 
-	// 그룹 맴버 리스트 페이지로 가기 !
+	// 그룹 맴버 리스트 페이지로 가기 !(그룹 상세 정보 , 그룸 맴버리스트, 그룹에 관한 notice테이블 정보)
 	@RequestMapping("admin_groupMember_list.do")
 	public String GroupContent(Model model, @RequestParam("gName") String gName) {
 			
 		System.out.println("gName : " + gName);
 		
+		// 그룹에 속한 맴버 리스트 가져오기 
 		List<CelebDTO> gList = this.dao.getGroupMemberList(gName);
 		
-		GroupDTO dto = this.dao.getGroupCont(gName);
+		// 그룹에 관한 노티스 정보 가져오기
+		List<NoticeDTO> nlist = this.dao.getGroupNotice(gName);
 		
+		GroupDTO gdto = this.dao.getGroupCont(gName);
+		
+		// 그룹 이미지 잘라서 담기 
+		GroupDTO dto = this.dao.getGroupCont(gName);
+
 		String str = dto.getGroup_image();
 		
 		System.out.println("dto img :" + str);
@@ -542,7 +549,9 @@ public class AdminCelebController {
 		
 		model.addAttribute("gmList", gList);
 		
-		model.addAttribute("gCont", dto);
+		model.addAttribute("nList", nlist);
+		
+		model.addAttribute("gCont", gdto);
 		
 		return "admin/admin_group_memberList";
 		

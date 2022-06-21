@@ -60,11 +60,6 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 	
 	
 	
-	
-	
-	
-	
-	
 	// 이름으로 가수 상세 내역 불러오괴 by name
 	@Override
 	public CelebDTO getCelebContByName(String celeb_name) {
@@ -181,7 +176,10 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 	}
 
 
-
+	@Override
+	public List<NoticeDTO> getGroupNotice(String name) {
+		return this.sqlSession.selectList("getGroupNotice", name);
+	}
 
 
 	
