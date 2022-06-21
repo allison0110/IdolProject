@@ -64,8 +64,6 @@
 	
 	.event_menu ul li{
 		float:left;
-
-				
 	}
 </style>
 </head>
@@ -96,29 +94,17 @@
 			</div>
 			
 			<c:set var="list" value="${noticeList }"/>
-			<%-- <c:set var="paging" value="${Paging }"/> --%>
-			
+			<c:set var="paging" value="${Paging }"></c:set>
 			
 			<c:if test="${list.size() > 0}">
 				<c:forEach items="${list}" var="dto">
-				<div>
+				<div class="event_list_wrap">
 					<ul>
 						<li>
-							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link"><img src=""><!-- ${i.notice_image} --></a>
-							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link">${dto.notice_title }</a>
+							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}&page=${paging.getPage()}" class="img_link"><img src=""><!-- ${i.notice_image} --></a>
+							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}&page=${paging.getPage()}" class="img_link">${dto.notice_title }</a>
 						</li>					
-						<li>
-							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link"><img src=""><!-- ${i.notice_image} --></a>
-							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link">${dto.notice_title }</a>
-						</li>					
-						<li>
-							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link"><img src=""><!-- ${i.notice_image} --></a>
-							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link">${dto.notice_title }</a>
-						</li>					
-						<li>
-							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link"><img src=""><!-- ${i.notice_image} --></a>
-							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link">${dto.notice_title }</a>
-						</li>					
+											
 					</ul>
 				</div>
 				</c:forEach>
@@ -136,7 +122,30 @@
 			
 			
 			<div class="event_page_section">
-				
+			
+			<c:if test="${paging.getPage() > paging.getBlock() }">
+			<a href="event_list.do?page=1">[처음으로]</a>
+			<a href="event_list.do?page=${paging.getStartBlock()-1 }">◀</a>
+		</c:if>	
+
+		<c:forEach begin="${paging.getStartBlock() }"
+							end="${paging.getEndBlock() }" var="i">
+			<c:if test="${i == paging.getPage() }">
+				<b><a href="event_list.do?page=${i }">[${i }]</a></b>
+			</c:if>
+			
+			<c:if test="${i != paging.getPage() }">
+				<a href="event_list.do?page=${i }">[${i }]</a>
+			</c:if>
+		
+		</c:forEach>
+
+	
+		<c:if test="${paging.getEndBlock() < paging.getAllPage() }">
+			<a href="board_list.do?page=${paging.getEndBlock()+1 }">▶</a>
+			<a href="board_list.do?page=${paging.getAllPage() }">[마지막으로]</a>
+		</c:if>	
+		
 			</div>
 		</div>
 	</div>

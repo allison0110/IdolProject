@@ -16,5 +16,13 @@
 		<if test="category_type==1">and notice_enddate is null</if>
 		<if test="category_type==2">and notice_enddate is not null</if>
 	</select>
+	
+	<update id="read" parameterType="int">
+		update notice set notice_hit = notice_hit +1 where notice_no=#{no}
+	</update>
+	
+	<select id="cont" parameterType="int" resultType="eventDTO">
+		select * from notice where notice_no=#{no}
+	</select>
 </mapper>
 

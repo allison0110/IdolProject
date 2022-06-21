@@ -32,14 +32,13 @@ public class UserEventDAOImpl implements UserEventDAO{
 
 	@Override
 	public void readCount(int no) {
-		// TODO Auto-generated method stub
+		this.sqlSession.update("read", no);
 		
 	}
 
 	@Override
 	public EventDTO eventCont(int no) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.sqlSession.selectOne("cont", no);
 	}
 
 	

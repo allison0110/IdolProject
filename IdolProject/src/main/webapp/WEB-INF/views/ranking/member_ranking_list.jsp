@@ -44,7 +44,7 @@
 
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+  .sidenav a {font-size: 16px;}
 }
 </style>
 </head>
@@ -55,6 +55,18 @@
 		<div class="sidenav">
 			<a href="#">Most Points</a>
   			<a href="#">Most Message</a>
+  			
+  			<form method="post" action="<%=request.getContextPath()%>/board_search.do">
+				<div class="sidenav-container">
+					<h3 class="container-header">
+						Find member
+					</h3>
+					<div class="members-search-board">
+						<input type="text" class="input"name="keyword" placeholder="Name..">&nbsp;&nbsp;
+						<input type="submit" value="검색">
+					</div>
+				</div>
+			</form>
 		</div>
 	<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
 		<div class="rank">
