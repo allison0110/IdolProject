@@ -37,6 +37,19 @@ public class OrderDAOImpl implements OrderDAO{
 	}
 
 	
+	//원석
+	// 새로운 주문그룹을 반환하는 메서드
+	@Override
+	public int newGroupNo() {
+		return sqlSession.selectOne("newGroupno");
+	}
+
+	@Override
+	public List<OrderDTO> getLastOrderList(String memid) {
+		return sqlSession.selectList("lastorder", memid);
+	}
+
+	
 	
 	
 }

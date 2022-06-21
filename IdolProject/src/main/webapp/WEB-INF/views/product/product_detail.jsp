@@ -14,6 +14,7 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </head>
 <body>
+<%@include file="../include/user_top.jsp" %>
 	<c:set var="pdto" value="${PDetail}"/>
 	<c:set var="cdto" value="${CDetail}"/>
 	<c:set var="plist" value="${PList}"/>
@@ -345,7 +346,7 @@
     </div>
         <a id="bclose"><i class="fa-solid fa-xmark fa-2x"></i></a>
     </div>
-	
+<%@include file="../include/user_bottom.jsp" %>
 <script src="js/product_detail.js"></script>
 </body>
 </html>

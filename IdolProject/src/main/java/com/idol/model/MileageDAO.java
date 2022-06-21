@@ -13,4 +13,5 @@ public interface MileageDAO {
 	public List<MileageDTO> mostMessages();
 
 	public List<MileageDTO> mostMileage();
+	
 }

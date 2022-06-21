@@ -172,6 +172,10 @@
     text-align: right;
 }
 
+.cart-qty button{
+	width:15px;
+}
+
 .cart-deliberyFee{
     font-weight: 400;
 }

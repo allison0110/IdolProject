@@ -11,4 +11,10 @@ public interface OrderDAO {
 	List<String> getOrderDates(String login_id);
 
 	List getOrderDateList(HashMap<String, String> params);
+	
+	
+	
+	// 원석
+	int newGroupNo();
+	List<OrderDTO> getLastOrderList(String memid);
 }
