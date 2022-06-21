@@ -1,10 +1,5 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!DOCTYPE configuration
-    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-config.dtd">
-    
- 
 <!-- 환경설정하는 곳 -->
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
@@ -32,23 +27,23 @@
  		<typeAlias type="com.idol.model.CartDAO" alias="CartDAO"/>
  		<typeAlias type="com.idol.model.CartDTO" alias="CartDTO"/>
  		<typeAlias type="com.idol.model.PopupDTO" alias="popupDTO"/>
- 		<typeAlias type="com.idol.model.CelebDTO" alias="celebDTO"/>
  		<typeAlias type="com.idol.model.MusicDTO" alias="musicDTO"/>
  		<typeAlias type="com.idol.model.ImagesDTO" alias="imagesDTO"/>
  		<typeAlias type="com.idol.model.GroupDTO" alias="groupDTO"/>
  		<typeAlias type="com.idol.model.NoticeDTO" alias="noticeDTO"/>
+ 		
  		<typeAlias type="com.idol.model.EventDTO" alias="eventDTO"/>
 		<typeAlias type="com.idol.model.PageDTO" alias="pageDTO"/>
 		
-
+		
 		<typeAlias type="com.idol.model.AdminDTO" alias="adminDTO"/>
- 	 	
  		<typeAlias type="com.idol.model.AdminCelebDAO" alias="AcelebDAO"/>
  		<typeAlias type="com.idol.model.AdminMusicDAO" alias="AmusicDAO"/>
  		<typeAlias type="com.idol.model.AdminImagesDAO" alias="AimagesDAO"/>
  		<typeAlias type="com.idol.model.AdminGroupDAO" alias="AgroupDAO"/>
  		<typeAlias type="com.idol.model.AdminNoticeDAO" alias="AnoticeDAO"/>
  		<typeAlias type="com.idol.model.AdminProductDAO" alias="AProductDAO"/>
+		
 	</typeAliases>  	
 	
 </configuration>
