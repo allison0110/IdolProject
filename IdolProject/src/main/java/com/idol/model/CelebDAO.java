@@ -7,4 +7,8 @@ public interface CelebDAO {
 	List<CelebDTO> soloList();
 	List<CelebDTO> representList();
 	CelebDTO getCelebInfo(int no);
+	
+	// 원석
+	List<CelebDTO> getCelebList();
+	CelebDTO getCelebDetail(int cno);
 }

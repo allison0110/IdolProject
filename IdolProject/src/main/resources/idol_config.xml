@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ <configuration>
+ <typeAliases>
+ 	<typeAlias type="com.idol.model.CartDAO" alias="CartDAO"/>
+ 	<typeAlias type="com.idol.model.CartDTO" alias="CartDTO"/>
+ 	<typeAlias type="com.idol.model.ProductDAO" alias="ProductDAO"/>
+ 	<typeAlias type="com.idol.model.ProductDTO" alias="ProductDTO"/>
+ 	<typeAlias type="com.idol.model.OrderDAO" alias="OrderDAO"/>
+ 	<typeAlias type="com.idol.model.OrderDTO" alias="OrderDTO"/>
+ 	<typeAlias type="com.idol.model.CelebDTO" alias="celebDTO"/>
+	<typeAlias type="com.idol.model.CelebDAO" alias="celebDAO"/>
+	<typeAlias type="com.idol.model.MemberDTO" alias="memberDTO"/>
+	<typeAlias type="com.idol.model.MemberDAO" alias="memberDAO"/>
+	<typeAlias type="com.idol.model.MileageDTO" alias="mileDTO"/>
+	<typeAlias type="com.idol.model.MileageDAO" alias="mileDAO"/>
+	
+ </typeAliases>
+ </configuration>

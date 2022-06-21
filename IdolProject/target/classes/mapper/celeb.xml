@@ -22,5 +22,17 @@
 	<select id="celebInfo" resultType="celebDTO" parameterType="int">
 		select * from celeb where celeb_no = #{no}
 	</select>
+	
+	
+	<!-- 원석 -->
+	<!-- // 셀럽 전체리스트 가져옴 -->
+	<select id="CelList" resultType="celebDTO">
+		<![CDATA[select *from CELEB order by CELEB_NO asc]]>
+	  </select>
+	  
+	<!-- // 셀럽 정보를 가져옴 -->
+	<select id="Cdetail" resultType="celebDTO">
+		<![CDATA[select *from CELEB where CELEB_NO = #{cno}]]>
+	</select>
 
 </mapper>    
