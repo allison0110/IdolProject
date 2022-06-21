@@ -54,7 +54,7 @@ public class AdminNoticeController {
 		
 		List<MultipartFile> fileList = mRequest.getFiles(uploadFileName);
 		
-		String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\notice\\";
+		String path = "C:\\Users\\JUNGHWAN\\Documents\\Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\notice\\";
 		
 		String dbFileName ="";
 		
@@ -155,7 +155,7 @@ public class AdminNoticeController {
 			
 			this.dao.updateNoticeSeque(no);
 			
-			String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\notice\\";
+			String path = "C:\\Users\\JUNGHWAN\\Documents\\Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\notice\\";
 			
 			System.out.println("imgs" + imgs);
 			
@@ -232,7 +232,7 @@ public class AdminNoticeController {
 	public void updateNotice(MultipartHttpServletRequest mRequest, NoticeDTO dto, 
 			@RequestParam("oldimgs") String oldimgs, HttpServletResponse response) throws IOException {
 		
-		String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\notice\\";
+		String path = "C:\\Users\\JUNGHWAN\\Documents\\Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\notice\\";
 		
 		Iterator<String> iterator = mRequest.getFileNames();
 		

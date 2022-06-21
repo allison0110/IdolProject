@@ -159,7 +159,7 @@ public class AdminCelebController {
 		
         List<MultipartFile> fileList = mRequest.getFiles(uploadFileName);
 
-        String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb\\";
+        String path = "C:\\Users\\JUNGHWAN\\Documents\\Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb\\";
 
         String dbFileName = "";
         
@@ -319,7 +319,7 @@ public class AdminCelebController {
 		
 		if(check > 0) {
 
-			String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb\\";
+			String path = "C:\\Users\\JUNGHWAN\\Documents\\Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb\\";
 		
 			System.out.println("img : " + img);
 			
@@ -379,7 +379,7 @@ public class AdminCelebController {
 			HttpServletResponse response) throws IOException {
 		
 	
-		String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb\\";
+		String path = "C:\\Users\\JUNGHWAN\\Documents\\Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb\\";
 		  
         System.out.println("===========================");
 		System.out.println("paramFiles 0 : " + paramFiles);

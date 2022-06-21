@@ -50,7 +50,7 @@ public class AdminGroupController {
 		
         List<MultipartFile> fileList = mRequest.getFiles(uploadFileName);
 
-        String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\group\\";
+        String path = "C:\\Users\\JUNGHWAN\\Documents\\Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\group\\";
 
         String dbFileName = "";
         
@@ -169,7 +169,7 @@ public class AdminGroupController {
 		
 		System.out.println("==== group update =====");
 		
-		String path ="C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\group\\";
+		String path ="C:\\Users\\JUNGHWAN\\Documents\\Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\group\\";
 		
 		System.out.println("oldImgs :" + oldeImgs);
 		System.out.println("dtoImgs : " + dto.getGroup_image());
@@ -305,7 +305,7 @@ public class AdminGroupController {
 		if(check > 0) {
 			
 			// 파일도 같이 삭제하기 
-			String path = "C:\\Users\\JUNGHWAN\\Documents\\SourceTree_Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\group\\";
+			String path = "C:\\Users\\JUNGHWAN\\Documents\\Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\group\\";
 			
 			System.out.println("imgs : " + imgs);
 			

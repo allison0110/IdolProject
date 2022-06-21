@@ -91,7 +91,7 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 	@Override
 	public int insertCeleb(CelebDTO dto) {
 		
-		return this.sqlSession.insert("celeb", dto);
+		return this.sqlSession.insert("insertCeleb", dto);
 		
 	}
 	

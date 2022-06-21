@@ -31,12 +31,13 @@
  		<typeAlias type="com.idol.model.ImagesDTO" alias="imagesDTO"/>
  		<typeAlias type="com.idol.model.GroupDTO" alias="groupDTO"/>
  		<typeAlias type="com.idol.model.NoticeDTO" alias="noticeDTO"/>
- 		
+ 		<typeAlias type="com.idol.model.AdminDTO" alias="adminDTO"/>
  		<typeAlias type="com.idol.model.EventDTO" alias="eventDTO"/>
 		<typeAlias type="com.idol.model.PageDTO" alias="pageDTO"/>
 		
 		
-		<typeAlias type="com.idol.model.AdminDTO" alias="adminDTO"/>
+		
+		
  		<typeAlias type="com.idol.model.AdminCelebDAO" alias="AcelebDAO"/>
  		<typeAlias type="com.idol.model.AdminMusicDAO" alias="AmusicDAO"/>
  		<typeAlias type="com.idol.model.AdminImagesDAO" alias="AimagesDAO"/>

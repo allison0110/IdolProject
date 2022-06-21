@@ -6,6 +6,7 @@
 
     <mapper namespace="AcelebDAO">
     	
+    	
     	<!-- 관리자 정보 불러오기 -->
     	<select id="admin_check" parameterType="String" resultType="adminDTO">
     		select * from admin where admin_id = #{id}
@@ -16,7 +17,7 @@
  		</select>
  		
     	<!-- 가수 등록 -->
-    	<insert id="celeb" parameterType="celebDTO">
+    	<insert id="insertCeleb" parameterType="celebDTO">
     		<selectKey resultType="int" keyProperty="celeb_no" order="BEFORE"> 
     			select max(celeb_no) from celeb
     		</selectKey>

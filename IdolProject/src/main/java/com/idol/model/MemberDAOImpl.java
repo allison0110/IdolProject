@@ -46,6 +46,9 @@ public class MemberDAOImpl implements MemberDAO{
 			}else {
 				result = -1;
 			}
+		}else {
+			
+			
 		}
 		
 		return result;

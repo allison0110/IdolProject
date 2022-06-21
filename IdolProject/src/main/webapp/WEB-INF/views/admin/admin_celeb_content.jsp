@@ -99,7 +99,7 @@
 			<div class="admin_cont_imageBox">
 				<c:forEach items="${arrtokened }" var="imgs">
 					<div class="testImage">
-						<img alt="" src="./celeb/${imgs }">
+						<img alt="" src="./resources/upload/celeb/${imgs }">
 					</div>
 				
 				</c:forEach>
