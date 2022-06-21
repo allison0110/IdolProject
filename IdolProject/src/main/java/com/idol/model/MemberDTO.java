@@ -2,8 +2,11 @@ package com.idol.model;
 
 import lombok.Data;
 
+//회원테이블 DTO
 @Data
 public class MemberDTO {
+	
+	
 	private int member_no;
 	private String member_id;
 	private String member_nickname;
@@ -19,4 +22,8 @@ public class MemberDTO {
 	private String member_image;
 	private String member_favorite_celeb;
 	private String member_introduction;
+	private String member_cover;
+	
+	
+	
 }

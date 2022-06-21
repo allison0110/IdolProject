@@ -10,19 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.idol.model.EventDTO;
 import com.idol.model.PageDTO;
 import com.idol.model.UserEventDAO;
 
+//희원님
 @Controller
 public class EventController {
 
 	@Autowired
 	private UserEventDAO userEventDao;
-	private final int rowsize = 4;
+	private final int rowsize = 6;
 	private int totalRecord = 0;
+	
+	/* **********************************희원님************************************ */
 	
 	@RequestMapping("event_list.do")
 	public String list(HttpServletRequest request, Model model) {
@@ -63,16 +65,5 @@ public class EventController {
 		
 		return "event/user_event_list";
 	}
-	@RequestMapping("event_cont.do")
-	public String cont(@RequestParam("no") int no, @RequestParam("page") int nowPage, Model model) {
-		
-		this.userEventDao.readCount(no);
-		
-		EventDTO dto = this.userEventDao.eventCont(no);
-
-		model.addAttribute("Cont", dto);
-		model.addAttribute("Page", nowPage);
-		
-		return "event/user_event_cont";
-	}
+	
 }

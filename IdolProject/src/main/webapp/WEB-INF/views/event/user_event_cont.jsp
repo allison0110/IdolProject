@@ -157,26 +157,19 @@
 <script type="text/javascript">
 var search=window.location.search
 var schema=new URLSearchParams(search)
-
 console.log(schema.get("board_id"))
-
 var tablis = document.querySelectorAll(".tab_li")
 var categories = document.querySelectorAll(".event_category_li a")
-
-
 if(schema.get("board_id") === "1"){
 	tablis[0].classList.add("active")
 }else if(schema.get("board_id")==="1001"){
 	tablis[1].classList.add("active")
 }
-
 if(schema.get("category_id")==="1"){
 	categories[0].classList.add("active")
 }else if(schema.get("category_id")==="2"){
 	categories[1].classList.add("active")
 }
-
-
 categories.forEach(function(anchor, i){
 	anchor.addEventListener("click",function(ev){
 		ev.preventDefault()

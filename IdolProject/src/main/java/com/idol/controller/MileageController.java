@@ -18,7 +18,7 @@ public class MileageController {
 	@Autowired
 	private MileageDAO mileageDao;
 	
-	
+	/* **********************************희원님************************************ */
 	@RequestMapping("member_ranking_list.do")
 	public String list(HttpServletRequest request, Model model) {
 		

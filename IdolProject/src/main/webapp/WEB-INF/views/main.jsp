@@ -50,7 +50,6 @@
         height: 575px;
         margin: 0 auto;
       }
-
       .swiper-slide-img-wrap img {
         object-fit: cover;
         height: 100%;
@@ -312,19 +311,16 @@
       autoplay: {
         delay: 3000,
       },
-
       // If we need pagination
       pagination: {
         el: ".swiper-pagination",
       },
-
       // Navigation arrows
       navigation: {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
       },
     });
-
   	var itemSwiper = new Swiper(".productSwiper", {
         slidesPerView: 3,
         spaceBetween: 30,
@@ -353,7 +349,6 @@
             clickable: true,
           },
     });
-
   	var albumSwiper = new Swiper(".albumSwiper", {
         slidesPerView: 3,
         spaceBetween: 30,
@@ -397,4 +392,3 @@
   </script>
 
   <%@include file="./include/user_bottom.jsp" %>
-
