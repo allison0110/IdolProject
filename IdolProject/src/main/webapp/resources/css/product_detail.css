@@ -177,6 +177,7 @@
 
 .info-count button{
     border-radius: 50%;
+    width: 16px;
     font-weight: 600;
     opacity: 0.8;
     vertical-align: middle;
@@ -344,7 +345,7 @@
 #back-to-top {
     position: fixed;
     bottom: 15em;
-    right: 3em;
+    right: 5em;
     background-color: rgba(255, 255, 255, .9);
     color: #313943;
     border: none;
@@ -364,7 +365,7 @@
 #back-to-bottom {
     position: fixed;
     bottom: 10em;
-    right: 3em;
+    right: 5em;
     background-color: rgba(255, 255, 255, .9);
     color: #313943;
     border: none;

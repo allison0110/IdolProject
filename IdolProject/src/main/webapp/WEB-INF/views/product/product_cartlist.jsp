@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="css/product_cartlist.css">
 </head>
 <body>
-
+<%@include file="../include/user_top.jsp" %>
 	<div id="wrap">
         <div id="container">
         <div id="content">
@@ -200,7 +200,7 @@
         
     </div>  
     
-    
+    <%@include file="../include/user_bottom.jsp" %>
 	<script src="js/product_cartlist.js"></script>
 </body>
 </html>
