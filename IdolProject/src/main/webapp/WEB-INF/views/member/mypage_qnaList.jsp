@@ -15,84 +15,6 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./resources/js/member.js"></script>
 <link rel="stylesheet" href="./resources/css/member.css">
-<style type="text/css">
-	
-	/* ***********마이페이지 회원정보관리************* */
-	
-	.qna_notice{
-		display:grid;
-		grid-template-columns: 1fr 1fr;
-		font-size:0.88em;
-	}
-	.notice_1 span{
-		color:#ff5722;
-		font-weight: bold;
-	}
-	
-	.notice_2{
-		margin-right:30px;
-	}
-	
-	.notice_2 input{
-		background-color: white;
-    border: 1px solid #233044;
-    padding: 5px 10px;
-    border-radius: 21px;
-    	cursor: pointer;
-	}
-	
-	.notice_2 input:hover{
-		background-color:#2a3a52;
-		color:white;
-	}
-	
-	.month_area ul{
-		display:flex;
-		list-style: none;
-		font-size: 0.88em;
-	}
-	
-	.quick_search{
-	
-		width:75px;
-		height:30px;
-		text-align:center;
-		padding:1px;
-		border:1px solid black;
-		
-	}
-	
-	
-	.quick_search input{
-		display:none;
-	}
-	.quick_search label{
-		width:100vw;
-		height:100vh;
-	}
-	
-	.qna_month input{
-		margin-left: 20px;
-    padding: 4px 10px;
-    border-radius: 8px;
-    background-color: white;
-    border: 1px solid #2a3a52;
-    cursor: pointer;
-	}
-	
-	.qna_table{
-		margin:50px 0;
-		
-	}
-	
-	.qna_table table{
-		width: 100%;
-	}
-	
-
-
-</style>
-
 
 <script type="text/javascript">
 
@@ -121,7 +43,7 @@
 			<div class="notice_2" align="right"><input type="button" value="문의하기" onclick="location.href='inquiry_write.do'"></div>
 		</div>	
 		<form method="post" action="<%=request.getContextPath() %>/inquiry_date.do">
-		<div class="qna_month">
+		<div class="qna_month" align="center">
 			<table>
 				<tr>
 					<td>
@@ -175,20 +97,11 @@
 				
 			});
 		
-		
-			/* if($(":radio[name='search_date']:checked")){
-				var check = $(this).val();
-				console.log(check);	
-				
-			} */
-			
-		
 		</script>
 		
 		<div class="qna_table">
-		<table border="1" >
-			<tr>
-				<th>번호</th>
+		<table>
+			<tr class="firstRow">
 				<th>구분</th>
 				<th>상품정보</th>
 				<th>제목</th>
@@ -236,30 +149,31 @@
 				%>		
 					<!-- 테이블 행 시작  -->
 					<tr>
-						<td><%=idto.getInquiry_no() %></td>				
-						<td><%=category %></td>
+						<%-- <td><%=idto.getInquiry_no() %></td>	 --%>			
+						<td class="qna_td"><%=category %></td>
 					
 					<!-- 상품 정보  -->
 					<% if(idto.getProduct_no() == 0){ //상품정보가 없으면 %> 
-						<td> </td>	
+						<td class="qna_product"> </td>	
 					<% }else{ //상품정보가 있으면 %>
-						<td>
+						<td class="qna_product">
 						<a href="<%=request.getContextPath()%>/product_detail.do?pno=<%=product.getProduct_no()%>">
 						<%=product.getProduct_name() %></a>
 						</td>
 					<%}%>
-						<td>
+						<td class="qnaboard_title">
 							<a href="<%=request.getContextPath()%>/inquiry_cont.do?no=<%=idto.getInquiry_no() %>&page=${paging.getPage()}"><%=idto.getInquiry_title() %></a>
 						</td>
-						<td><%=idto.getInquiry_date().substring(0,10) %></td>
-						<td><%=status %></td>
+						<td class="qna_td"><%=idto.getInquiry_date().substring(0,10) %></td>
+						<td class="qna_td">
+						<%=status %></td>
 					</tr>
 				<%	}%>
 			</c:if>
 		</table>
 		
 		<!-- 페이징 처리 -->
-		<div class="table_page">
+		<div class="table_page" align="center">
 		<c:if test="${paging.getPage() > paging.getBlock() }"> <!-- 현재 페이지가 4인데 block사이즈는 3이라면 -->
 			<a href="inquiry_list.do?page=1">[맨 처음]</a>
 			<a href="inquiry_list.do?page=${paging.getStartBlock()-1 }">◀</a>
