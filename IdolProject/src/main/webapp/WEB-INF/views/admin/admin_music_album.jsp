@@ -87,7 +87,7 @@
 		%>
 			
 			<div class="album_box">
-				<a href="<%=request.getContextPath()%>/admin_musicList_intAlbum.do?name=<%=mdto.getMusic_aname()%>">
+				<a href="<%=request.getContextPath()%>/admin_musicList_intAlbum.do?aname=<%=mdto.getMusic_aname()%>">
 					<div class="album_img">
 						<img alt="" src="./resources/upload/music/<%=tokenList[0]%>">
 					</div> <!-- album_img -->

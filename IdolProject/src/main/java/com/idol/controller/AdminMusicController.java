@@ -407,11 +407,27 @@ public class AdminMusicController {
 	
 	
 	@RequestMapping("admin_musicList_intAlbum.do")
-	public String musicListInAlbum(Model model) {
+	public String musicListInAlbum(Model model, @RequestParam("aname") String aname) {
 		
-		List<MusicDTO> mlist = this.dao.getMusicInAlbum();
+		List<MusicDTO> mlist = this.dao.getMusicInAlbum(aname);
+		
+		MusicDTO dto = mlist.get(0);
+		
+		String img = dto.getMusic_coverimage();
+		
+		System.out.println("img :" + img);
+		
+		StringTokenizer tokenizer = new StringTokenizer(img, "|");
+		
+		System.out.println("tokenizer :" + tokenizer);
+		
+		String timg = tokenizer.nextToken();
+		
+		System.out.println("timg : " + timg);
 		
 		model.addAttribute("mList", mlist);
+		
+		model.addAttribute("timg", timg);
 		
 		return "admin/admin_music_inAlbum";
 	}

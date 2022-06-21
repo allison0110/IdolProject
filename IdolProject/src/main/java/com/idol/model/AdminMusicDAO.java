@@ -28,7 +28,7 @@ public interface AdminMusicDAO {
 	// 뮤직 검색 
 	public List<MusicDTO> getMusicSearchList(String keyword);
 	// 음원 리스트 in Album
-	public List<MusicDTO> getMusicInAlbum();
+	public List<MusicDTO> getMusicInAlbum(String aname);
 	
 	
 	

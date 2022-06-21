@@ -59,10 +59,16 @@
     		select * from music where lower(music_name) like '%' || #{keyword} || '%'
     	</select>
     	
-    	
+    	<!-- 앨범 리스트 -->
     	<select id="getAlbumList" resultType="musicDTO">
     		select * from music where music_no in (select min(music_no) from music group by music_aname) order by music_release_date desc 
     	</select>
+    	
+    	<select id="mList" resultType="musicDTO">
+    		select * from music where music_aname = #{music_aname}
+    	</select>
+    	
+    	
     	
     	
     </mapper>
