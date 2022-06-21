@@ -37,7 +37,7 @@
                 <a href="#" class="active-link" id="artist">ARTIST</a>
               </li>
               <li>
-                <a href="#" class="active-link" id="product">PRODUCT</a>
+                <a href="<%=request.getContextPath()%>/product_list.do?cno=${100}" class="active-link" id="product">PRODUCT</a>
               </li>
               <li><a href="#">FORUM</a></li>
               <li><a href="<%=request.getContextPath()%>/event_list.do?board_id=1&category_id=1">EVENT</a></li>
@@ -137,100 +137,100 @@
           <div id="product-box">
             <div class="product-wrap-vertical">
               <div class="product-wrap">
-                <div class="tit"><a href="#">MUSIC</a></div>
+                <div class="tit"><a href="<%=request.getContextPath()%>/product_list.do?cno=${100}">MUSIC</a></div>
                 <ul class="product-menu">
                   <li>
-                    <a href="#">CD</a>
+                    <a href="<%=request.getContextPath()%>/product_list.do?cno=${110}">CD</a>
                   </li>
                   <li>
-                    <a href="#">DVD</a>
+                    <a href="<%=request.getContextPath()%>/product_list.do?cno=${120}">DVD</a>
                   </li>
                   <li>
-                    <a href="#">etc.</a>
+                    <a href="<%=request.getContextPath()%>/product_list.do?cno=${130}">etc.</a>
                   </li>
                 </ul>
               </div>
 
               <div class="product-wrap">
-                <div class="tit"><a href="#">PHOTO</a></div>
+                <div class="tit"><a href="<%=request.getContextPath()%>/product_list.do?cno=${200}">PHOTO</a></div>
                 <ul class="product-menu">
                   <li>
-                    <a href="#">Printed</a>
+                    <a href="<%=request.getContextPath()%>/product_list.do?cno=${210}">Printed</a>
                   </li>
                   <li>
-                    <a href="#">Photo Book</a>
+                    <a href="<%=request.getContextPath()%>/product_list.do?cno=${220}">Photo Book</a>
                   </li>
                 </ul>
               </div>
 
               <div class="product-wrap">
-                <div class="tit"><a href="#">CONCERT</a></div>
+                <div class="tit"><a href="<%=request.getContextPath()%>/product_list.do?cno=${300}">CONCERT</a></div>
                 <ul class="product-menu">
                   <li>
-                    <a href="#Official Fanlight">Official Fanlight</a>
+                    <a href="<%=request.getContextPath()%>/product_list.do?cno=${310}">Official Fanlight</a>
                   </li>
                   <li>
-                    <a href="#Concert Goods">Concert Goods</a>
+                    <a href="<%=request.getContextPath()%>/product_list.do?cno=${320}">Concert Goods</a>
                   </li>
                 </ul>
               </div>
             </div>
             <div class="product-wrap">
-              <div class="tit"><a href="#">LIVING</a></div>
+              <div class="tit"><a href="<%=request.getContextPath()%>/product_list.do?cno=${400}">LIVING</a></div>
               <ul class="product-menu">
                 
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Kitchen</a></li>
-                <li><a href="#">F&B</a></li>
-                <li><a href="#">Tech</a></li>
-                <li><a href="#">Book</a></li>
-                <li><a href="#">Pet</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${410}">Home</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${420}">Kitchen</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${430}">F&B</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${440}">Tech</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${450}">Book</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${460}">Pet</a></li>
               </ul>
             </div>
             <div class="product-wrap">
-              <div class="tit"><a href="#">BEAUTY</a></div>
+              <div class="tit"><a href="<%=request.getContextPath()%>/product_list.do?cno=${500}">BEAUTY</a></div>
               <ul class="product-menu">
                 
-                <li><a href="#">Skin Care</a></li>
-                <li><a href="#">Make Up</a></li>
-                <li><a href="#">Cleansing</a></li>
-                <li><a href="#">Body & Hair</a></li>
-                <li><a href="#">Pack & Masks</a></li>
-                <li><a href="#">Perfume</a></li>
-	   			<li><a href="#">Tool</a></li>
-	   			<li><a href="#">Men's</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${510}">Skin Care</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${520}">Make Up</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${530}">Cleansing</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${540}">Body & Hair</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${550}">Pack & Masks</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${560}">Perfume</a></li>
+	   			<li><a href="<%=request.getContextPath()%>/product_list.do?cno=${570}">Tool</a></li>
+	   			<li><a href="<%=request.getContextPath()%>/product_list.do?cno=${580}">Men's</a></li>
               </ul>
         </div>
           <div class="product-wrap">
-              <div class="tit"><a href="#">STATIONERY</a></div>
+              <div class="tit"><a href="<%=request.getContextPath()%>/product_list.do?cno=${600}">STATIONERY</a></div>
               <ul class="product-menu">
                 
-                <li><a href="#">Note</a></li>
-                <li><a href="#">Office</a></li>
-                <li><a href="#">Pen</a></li>
-                <li><a href="#">Deco</a></li>
-                <li><a href="#">Binder</a></li>
-                <li><a href="#">Toy</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${610}">Note</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${620}">Office</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${630}">Pen</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${640}">Deco</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${650}">Binder</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${660}">Toy</a></li>
               </ul>
         </div>
         <div class="product-wrap-vertical">
         <div class="product-wrap">
-              <div class="tit"><a href="#">FASHION</a></div>
+              <div class="tit"><a href="<%=request.getContextPath()%>/product_list.do?cno=${700}">FASHION</a></div>
               <ul class="product-menu">
                 
-                <li><a href="#">Clothing</a></li>
-                <li><a href="#">Acc</a></li>
-                <li><a href="#">Jewelry</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${710}">Clothing</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${720}">Acc</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${730}">Jewelry</a></li>
               </ul>
          </div>
             
         <div class="product-wrap">
-              <div class="tit"><a href="#">CUSTOMIZING</a></div>
+              <div class="tit"><a href="<%=request.getContextPath()%>/product_list.do?cno=${800}">CUSTOMIZING</a></div>
               <ul class="product-menu">
                 
-                <li><a href="#">Phone Case</a></li>
-                <li><a href="#">Fashion</a></li>
-                <li><a href="#">Acc</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${810}">Phone Case</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${820}">Fashion</a></li>
+                <li><a href="<%=request.getContextPath()%>/product_list.do?cno=${830}">Acc</a></li>
               </ul>
         </div>
         
