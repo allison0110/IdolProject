@@ -32,5 +32,20 @@ public class CelebDAOImpl implements CelebDAO{
 	}
 	
 	
+	//--------------------원석--------------------------
+	@Override
+	public List<CelebDTO> getCelebList() {
+		return sqlSession.selectList("CelList");
+	}
+
+	@Override
+	public CelebDTO getCelebDetail(int cno) {
+		
+		return sqlSession.selectOne("Cdetail", cno);
+		
+	}
+	
+	
+	
 
 }

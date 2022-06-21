@@ -1,6 +1,7 @@
 package com.idol.model;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -14,5 +15,8 @@ public interface MemberDAO {
 	MemberDTO getMemInfo(String id);
 	int profileUpload(MemberDTO dto);
 	int coverUpload(MemberDTO dto);
+	
+	//원석
+	MemberDTO getMemberCont(int mno);
 	
 }

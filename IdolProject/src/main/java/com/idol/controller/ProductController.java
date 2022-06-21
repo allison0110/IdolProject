@@ -56,16 +56,10 @@ public class ProductController {
 	@RequestMapping("product_list.do")
 	public String product_list(@RequestParam("cno") int cno,Model model, HttpServletRequest request) {
 		
-		
-		//임시세션 생성
-		MemberDTO loginInfo = Memberdao.getMemberCont(1);
 		HttpSession session = request.getSession();
-		
+		MemberDTO loginInfo = (MemberDTO)session.getAttribute("loginInfo");
 		session.setAttribute("loginInfo", loginInfo);
-		if(loginInfo != null) {
-			System.out.println("세션 생성 완료");
-		}
-	
+
 		
 		String kind = request.getParameter("list_kind");
 		
@@ -104,7 +98,7 @@ public class ProductController {
 		//제품 디테일 정보
 		ProductDTO pdto = Productdao.getProductDetail(pno);
 		// 셀럽 그룹명
-		CelebDTO cdto = Celebdao.getCelebDetail(pdto.getCeleb_no());
+		CelebDTO cdto = Celebdao.getCelebInfo(pdto.getCeleb_no());
 		
 		StringTokenizer st = new StringTokenizer(pdto.getProduct_image(),"|");
 		

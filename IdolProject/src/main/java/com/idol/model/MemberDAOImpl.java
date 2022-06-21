@@ -2,6 +2,7 @@ package com.idol.model;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +83,13 @@ public class MemberDAOImpl implements MemberDAO{
 	public int coverUpload(MemberDTO dto) {
 		return this.sqlSession.update("coverUpload",dto);
 	}
-
+	
+	
+	//원석
+	@Override
+	public MemberDTO getMemberCont(int mno) {
+		return sqlSession.selectOne("mCont", mno);
+	}
 
 	
 

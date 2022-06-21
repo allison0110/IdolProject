@@ -83,4 +83,11 @@
 		update member set member_cover = #{member_cover} where member_no = #{member_no}
 	</update>
 	
+	
+	
+	<!-- 원석 -->
+	<select id="mCont" parameterType="int" resultType="memberDTO">
+	<![CDATA[select *from member where member_no = #{mno}]]>
+	</select>
+	
 </mapper>
