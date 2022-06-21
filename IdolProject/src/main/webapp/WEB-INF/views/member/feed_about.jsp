@@ -9,10 +9,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" ></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <style type="text/css">
-
-	body{
-		
-	}
 	
 	.myfeed_container{
 		background-color: #d8e0e3;
@@ -80,6 +76,8 @@
 <body>
 	<c:set var="dto" value="${feedInfo.get('mInfo') }"/> <!-- 회원정보 -->
 	<c:set var="fav" value="${favList }"/> <!-- 좋아하는 가수 정보가 들은 리스트  -->
+	
+	<%@include file="../include/user_top.jsp" %>
 	
 	<div class="myfeed_container" align="center">
 		<!-- myfeed_top include 추가  -->
@@ -171,5 +169,7 @@
 		</div><!-- class="feed_main" end -->
 	
 	</div><!-- class="myfeed_container" end -->
+	
+	<%@include file="../include/user_bottom.jsp" %>
 </body>
 </html>

@@ -7,6 +7,7 @@
 <title>로그인 폼</title>
 </head>
 <body>
+	<%@include file="../include/user_top.jsp" %>
 	<div class="login_wrapper">
 		
 		<div class="login_title">
@@ -33,6 +34,6 @@
 			<a href="<%=request.getContextPath() %>/join.do">회원가입</a>
 		</div>
 	</div>
-
+<%@include file="../include/user_bottom.jsp" %>
 </body>
 </html>

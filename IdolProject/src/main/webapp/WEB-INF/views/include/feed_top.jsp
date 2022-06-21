@@ -267,6 +267,9 @@
 						<c:if test="${empty dto.getMember_image() }">
 						<i class="bi bi-card-image" style="font-size: 5em;text-align: center;margin-left: 25px;"></i>
 						</c:if>
+						<div>
+							<a href="<%=request.getContextPath()%>/mypage.do">마이페이지</a>
+						</div>
 						</td>
 						<td colspan="3">
 							<div class="feed_nickId">

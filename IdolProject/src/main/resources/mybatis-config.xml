@@ -24,6 +24,9 @@
 	    <typeAlias type="com.idol.model.ProductDTO" alias="ProductDTO"/>
 	    <typeAlias type="com.idol.model.OrderDAO" alias="OrderDAO"/>
  		<typeAlias type="com.idol.model.OrderDTO" alias="OrderDTO"/>
+ 		
+ 		<typeAlias type="com.idol.model.EventDTO" alias="eventDTO"/>
+		<typeAlias type="com.idol.model.PageDTO" alias="pageDTO"/>
 		
 	</typeAliases>  	
 	

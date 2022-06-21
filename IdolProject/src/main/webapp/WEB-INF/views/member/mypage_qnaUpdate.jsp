@@ -57,11 +57,9 @@
 	<c:set var="dto" value="${loginInfo }"/> <!--로그인회원 정보 저장 -->
 	<c:set var="cont" value="${Cont }"/>
 	<c:set var="page" value="${page }"/>
-	<script type="text/javascript">
 	
-
-		
-	</script>
+	
+	<%@include file="../include/user_top.jsp" %>
 	<div class="mypage_container">
 		
 		<!-- aisde inlcude 추가  -->
@@ -138,6 +136,6 @@
 		</div><!-- class="mypage_main" end  -->
 	
 	</div><!-- class="mypage_container" end -->
-
+	<%@include file="../include/user_bottom.jsp" %>
 </body>
 </html>

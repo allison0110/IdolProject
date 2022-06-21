@@ -8,6 +8,7 @@
 <title>아이디, 비밀번호 찾기 결과</title>
 </head>
 <body>
+
 	<%
 		String find = (String)request.getAttribute("find");
 		String result = (String)request.getAttribute("result");
@@ -26,6 +27,7 @@
 		<c:set var="word" value="비밀번호"/>
 	</c:if>
 	
+<%@include file="../include/user_top.jsp" %>	
 	<div class="result_container" align="center">
 		<div class="result_title">
 			
@@ -49,6 +51,6 @@
 		</div> <!-- class=" result_bottom" end  -->
 		
 	</div><!-- class="result_container" end -->
-
+<%@include file="../include/user_bottom.jsp" %>
 </body>
 </html>
