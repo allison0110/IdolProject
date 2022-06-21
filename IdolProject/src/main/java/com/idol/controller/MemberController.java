@@ -124,12 +124,12 @@ public class MemberController {
 	
 	//회원가입폼페이지 아이디중복체크 메서드
 	@ResponseBody
-	@RequestMapping(value="/idCheck.do", method=RequestMethod.POST)
+	@RequestMapping(value="/idCheck.do", method=RequestMethod.POST, produces="application/json")
 	public int idCheck(HttpServletRequest request){
 		
 
 		String id = request.getParameter("member_id");
-		
+		System.out.println("중복확인 id:"+id);
 		
 		int result = this.dao.idcheck(id);
 		
