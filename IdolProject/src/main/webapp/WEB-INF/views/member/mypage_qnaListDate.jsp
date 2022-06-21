@@ -85,8 +85,8 @@
 		<jsp:include page="../include/mypage_aside.jsp"/>
 		
 		<div class="mypage_main" style="margin-left: 20px; margin-top: 50px;">
-		<div class="qna_top">
-		<h2>고객문의 내역</h2>
+		<div class="manage_top">
+		고객문의 내역
 		</div>
 		<hr style="border: 2px solid black;">
 		<div class="qna_notice">

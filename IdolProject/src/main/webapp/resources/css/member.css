@@ -29,7 +29,7 @@
         padding: 40px 20px;
  	}
  	
- 	.lojo_body .login_table{
+ 	.lojo_body .login_table {
  		width:90%;
  		font-size:1.3em;
  		margin-bottom:40px;
@@ -232,7 +232,7 @@
 		padding:5px 10px;
 	}
 	
-	.join_btn input{
+	.join_btn input, .manage_bottom input{
 		width: 90%;
   	    margin: 0 5px;
         padding: 10px 5px;
@@ -243,37 +243,37 @@
         cursor: pointer;
 	}
 	
-	.join_submit{
+	.join_submit, .manage_submit{
 	    background-color: #2a3a52;
         border: 1px solid #233044;
         color: white;
 	}
 	
-	.join_submit:hover {
+	.join_submit:hover , .manage_submit:hover{
 	
 		background-color:#1e293b;
 	}
 	
-	.join_cancel{
+	.join_cancel, .manage_cancel{
 		
 		background-color: white;
         border: 1px solid #233044;
 		
 	}
-	.join_cancel:hover{
+	.join_cancel:hover, .manage_cancel:hover{
 		background-color:#e0dfdf;
 	}
 
     
     
     
-    /* ********** mypage 마이페이지 공통************ */
+    /* ********** mypage aside************ */
 
 	.mypage_container{
 		display:flex;	
 		width:80%;
-		
-		border:1px solid lightgray;
+		margin-left:10%;
+		border:1px solid #ececec;
 		
 	}
 	
@@ -293,10 +293,10 @@
 		display:block;
 		overflow:hidden;
 		border-radius: 50%;
-		width:175px;
-		height:175px;
+		width:140px;
+		height:140px;
 		margin-top:7%;
-		margin-left: 15%;
+		margin-left: 10%;
 	}
 
 	.profile_image >img{
@@ -321,14 +321,19 @@
 	
 	.info_cont .nickname{
 		display:inline-block;
-		font-size:1.2em;
+		font-size:1.1em;
 		margin-bottom:5px;
+	}
+	
+	.mypage_menu{
+		margin-top:20px;
+		margin-left: 20px;
 	}
 	
 	.mypage_menu ul{
 		list-style: none;
 		line-height: 3;
-		font-size: 1.2em;
+		
 	}
 	
 	.mypage_menu ul a{
@@ -338,12 +343,27 @@
 	
 	.mypage_menu ul a:hover {
 	
-		color:green;
+		color:#485b78;
 	}
 	
 	
-	
-	.mypage_main{
+	/* ************* 마이페이지 ******************  */
+	.mypage, .mypage_main{
 		width:90%;
+		margin-bottom:100px;
 	}
+	.mypage_main{
+		margin-left:30px;
+		margin-right: 20px; 
+		margin-top: 50px;
+	}
+	
+	.manage_top {
+		text-align: left;
+ 		font-size:1.8em;
+ 		font-weight:bold;
+        padding: 10px 0;
+        margin-bottom:20px;
+	}
+	
 	

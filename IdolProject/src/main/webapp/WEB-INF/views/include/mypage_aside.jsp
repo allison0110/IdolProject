@@ -28,8 +28,8 @@
 	
 	.image_setting{
 	    position: absolute;
-   		 top: 120px;
-   		 left: 160px;
+   		 top: 90px;
+   		 left: 120px;
 	
 	}
 	
@@ -195,7 +195,7 @@
 				<div class="info">
 					<div class="info_cont">
 					<span class="nickname">${dto.getMember_nickname() }님</span><br> <!-- 닉네임 -->
-					<span>	<!-- 아이디 -->
+					<span style="font-size:0.9em;">	<!-- 아이디 -->
 						<c:if test="${dto.getMember_id().length() <= 4 }">
 							${dto.getMember_id().substring(0,2) }
 							<c:forEach begin="1" end="${dto.getMember_id().substring(2).length() }">

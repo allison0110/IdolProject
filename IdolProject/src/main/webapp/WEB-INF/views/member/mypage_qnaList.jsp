@@ -22,21 +22,40 @@
 	.qna_notice{
 		display:grid;
 		grid-template-columns: 1fr 1fr;
+		font-size:0.88em;
 	}
 	.notice_1 span{
 		color:#ff5722;
 		font-weight: bold;
 	}
 	
+	.notice_2{
+		margin-right:30px;
+	}
+	
+	.notice_2 input{
+		background-color: white;
+    border: 1px solid #233044;
+    padding: 5px 10px;
+    border-radius: 21px;
+    	cursor: pointer;
+	}
+	
+	.notice_2 input:hover{
+		background-color:#2a3a52;
+		color:white;
+	}
+	
 	.month_area ul{
 		display:flex;
 		list-style: none;
+		font-size: 0.88em;
 	}
 	
 	.quick_search{
 	
-		width:60px;
-		height:25px;
+		width:75px;
+		height:30px;
 		text-align:center;
 		padding:1px;
 		border:1px solid black;
@@ -52,8 +71,17 @@
 		height:100vh;
 	}
 	
+	.qna_month input{
+		margin-left: 20px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    background-color: white;
+    border: 1px solid #2a3a52;
+    cursor: pointer;
+	}
+	
 	.qna_table{
-		padding: 0 10px;
+		margin:50px 0;
 		
 	}
 	
@@ -83,15 +111,14 @@
 		<!-- aisde inlcude 추가  -->
 		<jsp:include page="../include/mypage_aside.jsp"/>
 		
-		<div class="mypage_main" style="margin-left: 20px; margin-top: 50px;">
-		<div class="qna_top">
-		<h2>고객문의 내역</h2>
+		<div class="mypage_main">
+		<div class="manage_top">
+		고객문의 내역
 		</div>
-		<hr style="border: 2px solid black;">
 		<div class="qna_notice">
 			<div class="notice_1">* 현재 답변 대기 중인 문의는 
 				<span>${waiting }</span>건입니다.</div>
-			<div class="notice_2"><input type="button" value="문의하기" onclick="location.href='inquiry_write.do'"></div>
+			<div class="notice_2" align="right"><input type="button" value="문의하기" onclick="location.href='inquiry_write.do'"></div>
 		</div>	
 		<form method="post" action="<%=request.getContextPath() %>/inquiry_date.do">
 		<div class="qna_month">
@@ -129,7 +156,7 @@
 				$("input[name='search_date']").click(function(){
 					
 					if(count >=1){
-						$("#"+check).css('background-color','#e9e3e1');
+						$("#"+check).css('background-color','#ececec');
 						$("#"+preValue).css('background-color', 'white');
 						preValue = String($(this).val());
 					}
