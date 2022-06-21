@@ -96,47 +96,7 @@ replay_pid*
 # End of https://www.toptal.com/developers/gitignore/api/java,eclipse
 .project
 .classpath
-<<<<<<< HEAD:IdolProject/.gitignore
-<<<<<<< HEAD:IdolProject/ignore.txt
-
-### Windows ###
-# Windows thumbnail cache files
-Thumbs.db
-Thumbs.db:encryptable
-ehthumbs.db
-ehthumbs_vista.db
-
-# Dump file
-*.stackdump
-
-# Folder config file
-[Dd]esktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msix
-*.msm
-*.msp
-
-# Windows shortcuts
-*.lnk
-
-*.MF
-*.properties
-
-# End of https://www.toptal.com/developers/gitignore/api/maven,java,git,eclipse,windows
- 
-.classpath
-.project
-=======
 .settings/
 classes/
->>>>>>> 26769822bbc758bd619b24e20718362ee7f9f566:IdolProject/.gitignore
-=======
-.settings/
-classes/
->>>>>>> 9f69f6e99749ba706690b7d4b689ddd8d4dfd385:IdolProject/ignore.txt
+src/main/webapp/META-INF/
+/target/

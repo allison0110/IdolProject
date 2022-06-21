@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 환경설정하는 곳 -->
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+	<!-- 타입별칭을 주는 태그 -->
+	<typeAliases>
+		<typeAlias type="com.idol.model.MemberDTO" alias="memberDTO"/>
+		<typeAlias type="com.idol.model.MemberDAO" alias="memberDAO"/>
+		<typeAlias type="com.idol.model.CelebDTO" alias="celebDTO"/>
+		<typeAlias type="com.idol.model.CelebDAO" alias="celebDAO"/>
+		<typeAlias type="com.idol.model.MileageDTO" alias="mileDTO"/>
+		<typeAlias type="com.idol.model.MileageDAO" alias="mileDAO"/>
+		<typeAlias type="com.idol.model.CommunityDTO" alias="communityDTO"/>
+		<typeAlias type="com.idol.model.CommunityDAO" alias="communityDAO"/>
+		<typeAlias type="com.idol.model.FollowDTO" alias="followDTO"/>
+		<typeAlias type="com.idol.model.FollowDAO" alias="followDAO"/>
+		<typeAlias type="com.idol.model.InquiryDTO" alias="inquiryDTO"/>
+		<typeAlias type="com.idol.model.InquiryDAO" alias="inquiryDAO"/>
+		<typeAlias type="com.idol.model.ProductDAO" alias="ProductDAO"/>
+	    <typeAlias type="com.idol.model.ProductDTO" alias="ProductDTO"/>
+	    <typeAlias type="com.idol.model.OrderDAO" alias="OrderDAO"/>
+ 		<typeAlias type="com.idol.model.OrderDTO" alias="OrderDTO"/>
+ 		
+ 		<typeAlias type="com.idol.model.EventDTO" alias="eventDTO"/>
+		<typeAlias type="com.idol.model.PageDTO" alias="pageDTO"/>
+		
+	</typeAliases>  	
+	
+</configuration>
