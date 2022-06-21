@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class ProductDTO {
-
+	
 	private int product_no;
 	private String product_name;
 	private int celeb_no;
@@ -17,7 +17,5 @@ public class ProductDTO {
 	private int product_mileage;
 	private String product_input;
 	private int category_pnofk;
-	
-	
-	
+
 }
