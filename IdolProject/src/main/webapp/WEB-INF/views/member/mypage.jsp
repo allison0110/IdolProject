@@ -219,8 +219,11 @@
 </head>
 <body>
 	
-	
 	<c:set var="mileage" value="${mileage }"/>	
+
+
+	<%@include file="../include/user_top.jsp" %>
+
 	<div class="mypage_container" algin="center">
 		
 		<!-- aisde inlcude 추가  -->
@@ -379,6 +382,6 @@
 		</div><!-- class="mypage_main" end -->
 	
 	</div><!-- class="mypage_container" end -->
-
+	<%@include file="../include/user_bottom.jsp" %>
 </body>
 </html>

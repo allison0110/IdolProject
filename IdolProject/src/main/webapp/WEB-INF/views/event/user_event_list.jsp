@@ -64,7 +64,6 @@
 	
 	.event_menu ul li{
 		float:left;
-
 				
 	}
 </style>

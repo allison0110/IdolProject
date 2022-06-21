@@ -85,7 +85,7 @@
 
 </head>
 <body>
-
+<%@include file="../include/user_top.jsp" %>
 	<div class="find_container" align="center">
 		<div class="find_form">
 			<div id="findId">
@@ -179,7 +179,9 @@
 			
 		</div><!-- class="find_form" end  -->
 	
-	</div>
+	</div><!-- class="find_container" -->
+
+<%@include file="../include/user_bottom.jsp" %>
 
 </body> 
 </html>

@@ -20,10 +20,10 @@
                  <ul class="main_login_section">
 				<% if(session.getAttribute("login_id") == null){ 
 				 %>
-           			<li><a href="#">Login</a></li>
-          			<li><a href="#">Join</a></li>
-				<%} else{ %>          			
-                    <li><a href="#">Logout</a></li>
+           			<li><a href="<%=request.getContextPath()%>/login.do">Login</a></li>
+          			<li><a href="<%=request.getContextPath()%>/join.do">Join</a></li>
+				<%} else{ %>
+                    <li><a href="<%=request.getContextPath()%>/logout.do">Logout</a></li>
                 <%} %>	
                  </ul>
               </div>
@@ -67,7 +67,7 @@
             <ul>
               <li>
               <!-- MYPAGE -->
-                <a href="#"><i class="fa-solid fa-user"></i></a>
+                <a href="<%=request.getContextPath()%>/myfeed.do?id=<%=(String)session.getAttribute("login_id")%>"><i class="fa-solid fa-user"></i></a>
               </li>
               <!-- SEARCH -->
               <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>

@@ -148,6 +148,7 @@
 </style>
 </head>
 <body>
+	<%@include file="../include/user_top.jsp" %>
 	<div class="join_wrapper" align="center">
 	<form id="frm" name="frm" method="post" action="<%=request.getContextPath() %>/join_ok.do" onsubmit="return emptyCheck()">
 		<input type="hidden" name="checked_celeb" id="hidden_chcked" value="">
@@ -517,7 +518,7 @@
 		<input type="button" value="취소" onclick="location.href='/controller/'"> 
 	</form>
 	</div><!-- class="join_wrapper" -->
-
+<%@include file="../include/user_bottom.jsp" %>
 </body>
 </html>
 

@@ -63,6 +63,23 @@
 		    <version>${org.springframework-version}</version>
 		   <!--  <version>5.3.18</version> -->
 		</dependency>		
+		
+		<!-- websocket (1:1채팅) -->
+		<dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-websocket</artifactId>
+	        <version>4.3.22.RELEASE</version>
+        </dependency>
+        
+          <!-- jacson (1:1채팅) -->
+        <dependency>
+	        <groupId>com.fasterxml.jackson.core</groupId>
+	        <artifactId>jackson-databind</artifactId>
+	        <version>2.9.6</version>
+        </dependency>
+		
+		
+		
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>

@@ -1,5 +1,7 @@
 package com.idol.model;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,6 +11,9 @@ public class MileageDAOImpl implements MileageDAO {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	
+	/* **********************원석님 *************************/
 	
 	// 멤버번호를 파라메터 값으로 받아 현제 마일리지 정보를 조회하는 메서드
 	@Override
@@ -30,8 +35,23 @@ public class MileageDAOImpl implements MileageDAO {
 		return sqlSession.insert("inserMInfo", mdto);
 	}
 
+
 	
+
+	/* **********************희원님 *************************/
 	
+	@Override
+	public List<MileageDTO> mostMessages() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<MileageDTO> mostMileage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	
 

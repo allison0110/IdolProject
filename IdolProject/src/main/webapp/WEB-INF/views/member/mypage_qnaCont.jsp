@@ -60,11 +60,8 @@
 	<c:set var="page" value="${page }"/>
 	<c:set var="reply" value="${Reply }"/> <!-- 답변글 -->
 	<c:set var="pCont" value="${pCont }"/> <!-- 제품 정보 -->
-	<script type="text/javascript">
 	
-
-		
-	</script>
+	<%@include file="../include/user_top.jsp" %>
 	<div class="mypage_container">
 		
 		<!-- aisde inlcude 추가  -->
@@ -204,6 +201,6 @@
 		</div><!-- class="mypage_main" end  -->
 	
 	</div><!-- class="mypage_container" end -->
-
+	<%@include file="../include/user_bottom.jsp" %>
 </body>
 </html>

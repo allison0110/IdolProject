@@ -72,6 +72,7 @@
 	<c:set var="cont" value="${followerCont }" /> <!-- 팔로워들 회원정보 -->
 	<c:set var="login_f" value="${feedInfo.get('login_follow') }"/> <!-- 팔로워 -->
 	
+	<%@include file="../include/user_top.jsp" %>
 	<div class="myfeed_container" align="center">
 		<!-- myfeed_top include 추가  -->
 		<jsp:include page="../include/feed_top.jsp"/>
@@ -149,5 +150,6 @@
 		</div><!-- class="feed_main" end -->
 	
 	</div><!-- class="myfeed_container" end -->
+	<%@include file="../include/user_bottom.jsp" %>
 </body>
 </html>

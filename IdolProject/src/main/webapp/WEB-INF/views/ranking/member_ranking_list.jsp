@@ -25,7 +25,6 @@
   padding-top: 20px;
   
 }
-
 .sidenav a {
   padding: 6px 6px 6px 32px;
   text-decoration: none;
@@ -33,15 +32,12 @@
   color: navy;
   display: block;
 }
-
 .sidenav a:hover {
   color: red;
 }
-
 .main {
   margin-left: 200px; /* Same as the width of the sidenav */
 }
-
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
@@ -70,6 +66,5 @@
 </body>
 
 <script type="text/javascript">
-
 </script>
 </html>
