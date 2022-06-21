@@ -54,12 +54,15 @@
 	//중복체크버튼 눌렀을 때 아이디중복확인 메서드
 	function idCheck(){
 		
+		
+		console.log($("#member_id").val());
+		
 		$.ajax({
 				
 				type:"post",
 				url:"idCheck.do",
 				data:  {"member_id":$("#member_id").val()},
-				/* contentType:"application/json", */
+				contentType:"application/json",
 				datatype:"json" ,
 				success:function(data){
 					if(data == 1){//아이디가 중복이라면
