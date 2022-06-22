@@ -145,11 +145,13 @@
 					<a>POP_UP</a>
 				</div>
 				<div>
-					<a>PRODUCTS</a>
+					<a href="<%=request.getContextPath() %>/admin_products_list.do">
+						PRODUCTS
+					</a>
 				</div>
 				<div>
-					<a>
-						GOODS						
+					<a href="<%=request.getContextPath() %>/admin_member_list.do">
+						MEMBER						
 					</a>
 				</div>
 				<!--<div>

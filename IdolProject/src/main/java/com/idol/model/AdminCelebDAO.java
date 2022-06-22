@@ -47,10 +47,10 @@ public interface AdminCelebDAO {
 	public List<ImagesDTO> getImagesList();
 	
 	
-	// 그룹 공지 또는 이벤트 가죠오기 from notice table
+	// 그룹 공지 또는 이벤트 가져오기 from notice table
 	public List<NoticeDTO> getGroupNotice(String name);
-	
-	
+	// 셀럽 개인 공지 또는 이벤트 가져오기 from notice table
+	public List<NoticeDTO> getCelebNotice(String name);
 	
 }
 

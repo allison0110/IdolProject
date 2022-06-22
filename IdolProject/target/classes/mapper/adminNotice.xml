@@ -45,8 +45,16 @@
     			notice_update = sysdate, notice_enddate = #{notice_enddate} where notice_no = #{notice_no} 
     	</update>
     	
+    	<!-- 그룹에 관련된 공지 & 이벤트 가져오기 -->
     	<select id="getGroupNotice" parameterType="String" resultType="noticeDTO">
     		select * from notice where group_name = #{name}
     	</select>
+    	
+    	<!-- 셀럽에 관련된 공지& 이벤트 가져오기 -->
+    	<select id="getCelebNotice" parameterType="String" resultType="noticeDTO">
+    		select * from notice where celeb_name = #{name}
+    	</select>
+    	
+    	
     	
     </mapper>

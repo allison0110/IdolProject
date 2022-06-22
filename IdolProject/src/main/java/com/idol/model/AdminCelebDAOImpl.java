@@ -24,9 +24,6 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 		return this.sqlSession.selectOne("admin_check", id);		
 	}
 
-	
-	
-	/////////////// select 영역 /////////////////////
 
 	// 가수 전체 리스트 불러오기
 	@Override
@@ -76,12 +73,6 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 	}
 	
 	
-
-	
-	
-	
-	/////////////// insert & update 영역  //////////////
-	
 	// 가수 등록
 	@Override
 	public int insertCeleb(CelebDTO dto) {
@@ -105,11 +96,6 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 		return this.sqlSession.update("celebUpdate", dto);
 		
 	}
-	
-
-	
-
-	///////////////////삭제 영역////////////////
 
 	// 가수 삭제 하는 로직
 	@Override
@@ -175,10 +161,20 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 		return null;
 	}
 
-
+	// 그룹에 관련된 공지 가져오기
 	@Override
 	public List<NoticeDTO> getGroupNotice(String name) {
 		return this.sqlSession.selectList("getGroupNotice", name);
+	}
+
+
+	// 셀럽 개인에 관련된 공지 가져오기
+	@Override
+	public List<NoticeDTO> getCelebNotice(String name) {
+		
+		System.out.println("impl-name : " + name);
+		
+		return this.sqlSession.selectList("getCelebNotice", name);
 	}
 
 

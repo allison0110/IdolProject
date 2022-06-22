@@ -189,20 +189,6 @@
 							</div><!-- celeb_notice_boexs -->
 						</a>
 					</c:if>
-					<c:if test="${!empty ndto.celeb_name }">
-						<a href="<%=request.getContextPath()%>/admin_notice_content.do?no=${ndto.notice_no}">
-							<div class="celeb_notice_boexs">
-								<div>
-									TITLE : [${ndto.notice_title }]
-								</div>
-								
-								<div>
-									${ndto.notice_cnot }
-								</div> 
-							</div><!-- celeb_notice_boexs -->
-						</a>
-					</c:if>
-					
 				</c:forEach>
 			</div> <!-- celeb_noticeNevent -->
 			

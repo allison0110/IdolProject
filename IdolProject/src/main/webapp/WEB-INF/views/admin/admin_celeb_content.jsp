@@ -79,15 +79,30 @@
 	.content_btns input:hover {
 		color: red;
 	}
+	
+	.celeb_noticeNevent_box {
+		width: 600px;
+		height: 400px;
+	
+	}
+	
+	.celeb_noticeNevent_box {
+		color: white;
+	
+	}
 </style>
 
 <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Creepster&family=East+Sea+Dokdo&family=Jua&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kirang+Haerang&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 
 </head>
 <body>
-
+	
+	<!-- 셀럽 개인 정보 불러고익 by no -->
 	<c:set var="cont" value="${celebContByNo }" />
+	<!-- 개인 이미지 배열 불러오기 -->
 	<c:set var="imgs" value="${arrtokened }" />
+	<!-- 셀럽에 관련된 공지 & 이벤트 정보 리스트 -->
+	<c:set var="clist" value="${cList }" />
 	
 	<div class="admin_content_wrapper">
 	
@@ -138,6 +153,25 @@
 					onclick = "location.href='admin_celeb_list.do'">
 				</div>
 			</div> <!-- admin_content_box -->
+			
+			<c:forEach items="${clist }" var="cNdto">
+				<c:if test="${!empty cNdto.celeb_name }">
+					<div class="celeb_noticeNevent_box">
+						<div>
+							TITLE [${cNdto.notice_title }]
+						</div>
+						<div>
+							${cNdto.notice_cont }
+						</div>
+						
+			
+					</div>
+				</c:if>
+			</c:forEach>
+			
+			
+			
+			
 		</div> <!-- the end of admin_content_container -->
 	</div> <!-- the end of admin_content_wrapper -->
 </body>

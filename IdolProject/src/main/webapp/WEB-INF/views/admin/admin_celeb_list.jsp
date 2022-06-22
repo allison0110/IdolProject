@@ -76,10 +76,11 @@
 	.admin_celeb_img_box {
 		height: 100%;
 		width: 100%;
+		overflow: hidden;
 		grid-row: 1;
 		background-size: cover;
 		/*border-bottom: 1px solid gray;*/
-		overflow: hidden;
+		
 	}
 	
 	.imgs{
@@ -237,14 +238,14 @@
 							if(dto.getCeleb_group().equals("solo")){
 								%>
 									
-						<%	} else {%>
-							<div class="group_name">
-								 <%=dto.getCeleb_group() %>
-							</div> <!-- group_name -->
-						<% } %>	
-							<div class="celeb_name">
-								 <%=dto.getCeleb_name() %>
-							</div> <!-- celeb_name -->
+							<%	} else {%>
+								<div class="group_name">
+									 <%=dto.getCeleb_group() %>
+								</div> <!-- group_name -->
+							<% } %>	
+								<div class="celeb_name">
+									 <%=dto.getCeleb_name() %>
+								</div> <!-- celeb_name -->
 						
 						</div><!-- box_top -->
 						

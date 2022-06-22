@@ -173,13 +173,13 @@ public class AdminCelebController {
             
             System.out.println("fileSize : " + fileSize);
 
-            String safeFile = path + System.currentTimeMillis() + originFileName;
+            String saveFile = path + System.currentTimeMillis() + originFileName;
             
             dbFileName += System.currentTimeMillis() + originFileName + "|";
             
             try {
             	
-            	mFile.transferTo(new File(safeFile));
+            	mFile.transferTo(new File(saveFile));
             	
             	
             	
@@ -296,6 +296,14 @@ public class AdminCelebController {
 		}
 		
 		System.out.println("dtoPimages : " + dto.getCeleb_pimage());
+		
+		String cname = dto.getCeleb_name();
+		
+		System.out.println("cname : " + cname);
+		
+		List<NoticeDTO> cList = this.dao.getCelebNotice(cname);
+		
+		model.addAttribute("cList", cList);
 		
 		model.addAttribute("arrtokened", arrtokened);
 		
