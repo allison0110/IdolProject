@@ -205,7 +205,7 @@ CREATE TABLE USED_CATEGORY
     CATEGORY_UNAME    VARCHAR2(30)    NOT NULL 
 );
 
--- 중고게시판 테이블
+-- 중고게시판 테이블(수정: 중고제품 이름컬럼 추가, 카테고리번호컬럼 삭제)
 CREATE TABLE USED_BOARD
 (
     USED_NO           NUMBER           PRIMARY KEY, -- 중고거래글번호
@@ -220,7 +220,8 @@ CREATE TABLE USED_BOARD
     USED_SIZE         VARCHAR2(20)     ,         -- 사이즈
     USED_PRICE        NUMBER(10)       ,         -- 중고거래가
     USED_STATUS       NUMBER           CHECK(USED_STATUS in(0,1)),         -- 중고제품상태(중고:0, 새상품 1)
-    USED_SALTATUS     NUMBER           CHECK(USED_SALTATUS in(0,1))       -- 판매상태(판매중: 0, 판매완료: 1)
+    USED_SALTATUS     NUMBER           CHECK(USED_SALTATUS in(0,1)),       -- 판매상태(판매중: 0, 판매완료: 1)
+    USED_PRODUCT      VARCHAR2(100)              -- 중고제품 이름   
 );
 
 -- 중고게시판 댓글테이블

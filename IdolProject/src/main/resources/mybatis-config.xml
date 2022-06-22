@@ -30,6 +30,9 @@
  		<typeAlias type="com.idol.model.EventDTO" alias="eventDTO"/>
 		<typeAlias type="com.idol.model.PageDTO" alias="pageDTO"/>
 		
+		<typeAlias type="com.idol.model.BoardDAO" alias="BoardDAO"/>
+		<typeAlias type="com.idol.model.BoardDTO" alias="BoardDTO"/>
+		
 	</typeAliases>  	
 	
 </configuration>
