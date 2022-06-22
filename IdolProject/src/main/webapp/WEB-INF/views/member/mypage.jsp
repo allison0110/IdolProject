@@ -17,84 +17,6 @@
 <style type="text/css">
 	
 	
-
-	/* .mypage_container{
-		display:flex;	
-		width:80%;
-		
-		border:1px solid lightgray;
-		
-	}
-	
-	.mypage_aside{
-		width:18%;
-		border: 1px solid lightgray;
-	}
-	
-	.profile_box{
-		
-		padding:20px;
-		background-color:#dadbdb;
-		
-	}
-	
-	.profile_image{
-		display:block;
-		overflow:hidden;
-		border-radius: 50%;
-		width:175px;
-		height:175px;
-		margin-top:7%;
-		margin-left: 15%;
-	}
-
-	.profile_image >img{
-		display:block;
-		width:auto;
-		height:100%
-	}
-	
-	.info{
-		margin-top:5%;
-		margin-bottom:30px;
-		text-align: center;
-	}
-	
-	.info_cont{
-		padding:10px;
-		font-weight: bold;
-		color:white;
-		
-		
-	}
-	
-	.info_cont .nickname{
-		display:inline-block;
-		font-size:1.2em;
-		margin-bottom:5px;
-	}
-	
-	.mypage_menu ul{
-		list-style: none;
-		line-height: 3;
-		font-size: 1.2em;
-	}
-	
-	.mypage_menu ul a{
-		text-decoration: none;
-		color:black;
-	}
-	
-	.mypage_menu ul a:hover {
-	
-		color:green;
-	}
-	
-	
-	
-	.mypage_main{
-		width:90%;
-	} */
 	
 	.mypage_main_top {
 	
@@ -112,7 +34,7 @@
 	}
 	
 	.mypage_main_top span{
-		font-size:3em;
+		font-size:2em;
 		font-weight: 400;	
 		
 	}
@@ -137,9 +59,9 @@
 	
 	.top_item {
 		padding:20px;
-		width:30%;
+		width:34%;
 		
-		border:1px solid lightgray;
+		border:1px solid #ececec;
 	
 	}
 	.icon_point{
@@ -223,13 +145,12 @@
 
 
 	<%@include file="../include/user_top.jsp" %>
-
-	<div class="mypage_container" algin="center">
+	<div class="mypage_container" >
 		
 		<!-- aisde inlcude 추가  -->
 		<jsp:include page="../include/mypage_aside.jsp"/>
 		
-		<div class="mypage_main">
+		<div class="mypage">
 			<div class="mypage_main_top" algin="center">
 			
 				<div class="top_item" align="center">

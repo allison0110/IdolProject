@@ -76,9 +76,9 @@
 <body>
 	<c:set var="dto" value="${feedInfo.get('mInfo') }"/> <!-- 회원정보 -->
 	<c:set var="fav" value="${favList }"/> <!-- 좋아하는 가수 정보가 들은 리스트  -->
-	
 	<%@include file="../include/user_top.jsp" %>
 	
+	<div class="feed_wrapper">
 	<div class="myfeed_container" align="center">
 		<!-- myfeed_top include 추가  -->
 		<jsp:include page="../include/feed_top.jsp"/>
@@ -169,7 +169,7 @@
 		</div><!-- class="feed_main" end -->
 	
 	</div><!-- class="myfeed_container" end -->
-	
+	</div>
 	<%@include file="../include/user_bottom.jsp" %>
 </body>
 </html>

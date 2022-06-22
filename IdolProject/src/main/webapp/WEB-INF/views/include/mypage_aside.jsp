@@ -28,8 +28,8 @@
 	
 	.image_setting{
 	    position: absolute;
-   		 top: 120px;
-   		 left: 160px;
+   		 top: 90px;
+   		 left: 120px;
 	
 	}
 	
@@ -68,11 +68,11 @@
 	
 	.editProfile .editFile{
 		border: 1px solid #8b8989;
-   	    padding: 5px;
+   	    padding: 8px;
         border-radius: 5px;
         background-color: white;
         box-shadow: 1px 1px 3px #8b8989;
-        margin-bottom: 15px;
+        margin: 15px;
 	}
 	
 	.editFile{
@@ -160,8 +160,9 @@
 					<input type="hidden" name="member_id" value="${dto.getMember_id() }">
 					<input type="hidden" name="old_img" value="${dto.getMember_image() }">
 					<input type="hidden" name="uri" value="<%=request.getRequestURI()%>">
-					<p><i class="bi bi-check-circle"></i>Upload Profile</p>	
-					<div class="editFile">
+					
+					<p><i class="bi bi-check-circle"></i> Upload Profile</p>	
+					<div class="editFile" align="left">
 					<input type="file" name="file1">
 					</div>
 					<input type="submit" class="edit_btn" value="확인">
@@ -195,7 +196,7 @@
 				<div class="info">
 					<div class="info_cont">
 					<span class="nickname">${dto.getMember_nickname() }님</span><br> <!-- 닉네임 -->
-					<span>	<!-- 아이디 -->
+					<span style="font-size:0.9em;">	<!-- 아이디 -->
 						<c:if test="${dto.getMember_id().length() <= 4 }">
 							${dto.getMember_id().substring(0,2) }
 							<c:forEach begin="1" end="${dto.getMember_id().substring(2).length() }">

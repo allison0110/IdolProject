@@ -15,8 +15,73 @@
 <style type="text/css">
 	
 	/* ***********마이페이지 회원정보관리************* */
+	.manage_top {
+		text-align: left;
+ 		font-size:1.8em;
+ 		font-weight:bold;
+        padding: 10px 0;
+        margin-bottom:20px;
+	}
 	
+	.setting_title{
+		text-align: left;
+ 		font-size:1.1em;
+ 		border-bottom: 2px solid #c2c0c0;
+        padding: 10px 0;
+        margin-bottom:20px;
 	
+	}
+	
+	 .manage_cont{
+		width: 80%;
+	} 
+	
+	.manage_basic, .manage_extr {
+		margin:40px 0;
+	}
+	
+	.manage_basic table{
+		width:90%;
+ 		margin-bottom:40px;
+ 		font-weight: normal;
+ 		font-size: 1em;
+	}
+	
+	.manage_basic table th{
+		width: 25%;
+		text-align: left;
+		padding: 8px 10px;
+	}
+	.manage_basic table td{
+		padding: 8px 5px;
+		line-height: 2;
+	}
+	
+	.manage_basic table input {
+		padding: 5px 0;
+		border:none;
+		border-bottom: 1px solid #e0dfdf;
+	}
+	
+	.manage_bottom{
+		display:flex;
+		margin-top:100px;
+		margin-bottom:50px;
+		
+	}
+	
+	 #addr_btn{
+ 		font-size: 0.8em;
+       	
+        border-radius: 30px ;
+       	border:1px solid #c2c0c0;
+       	background-color:white;
+       	padding: 8px 10px;
+       	margin-left: 10px;
+       	cursor: pointer;
+        
+ 	
+ 	}
 
 </style>
 
@@ -89,19 +154,19 @@
 		<!-- aisde inlcude 추가  -->
 		<jsp:include page="../include/mypage_aside.jsp"/>
 		
-		<div class="mypage_main" style="margin-left: 20px; margin-top: 50px;">
+		<div class="mypage_main">
 		<div class="manage_top">
-		<h2>기본 정보 수정</h2>
+		회원정보 수정
 		</div>
-		<hr style="border: 2px solid black;">
-			<form method="post" action="<%=request.getContextPath() %>/member_update.do" onsubmit="return checkUpdate()">
+		<div class="manage_cont">
+		<form method="post" action="<%=request.getContextPath() %>/member_update.do" onsubmit="return checkUpdate()">
 				<input type="hidden" name="checked_celeb" id="hidden_chcked" value="">
 				<input type="hidden" name="member_no"  value="${dto.getMember_no() }">
 			
 			<div class="manage_basic">
-			<h3>기본 정보 수정</h3>
-			<hr align="left" color="lightgray" width="30%">
-			<table border="1" cellspacing="0">
+			<div class="setting_title">기본 정보 수정</div>
+			
+			<table>
 				<tr>
 					<th>이름</th>
 					<td><input name="member_name" value="${dto.getMember_name() }" readonly></td>
@@ -120,13 +185,13 @@
 				</tr>
 				<tr>
 					<th>자기소개</th>
-					<td><textarea rows="7" cols="20"  name="member_introduction">${dto.getMember_introduction() }</textarea> </td>
+					<td><textarea rows="7" cols="50"  name="member_introduction">${dto.getMember_introduction() }</textarea> </td>
 				</tr>
 				<tr>
 					<th>연락처</th>
-					<td><input name="phone1" value="${dto.getMember_phone().substring(0,3)}" id="phone1">
-						-<input name="phone2" value="${dto.getMember_phone().substring(3,7) }" id="phone2">
-						-<input name="phone3" value="${dto.getMember_phone().substring(7) }" id="phone3"></td>
+					<td><input name="phone1" value="${dto.getMember_phone().substring(0,3)}" id="phone1" maxlength="4" size="7">
+						-<input name="phone2" value="${dto.getMember_phone().substring(3,7) }" id="phone2" maxlength="4" size="7">
+						-<input name="phone3" value="${dto.getMember_phone().substring(7) }" id="phone3" maxlength="4" size="7"></td>
 				</tr>
 				<tr>
 					<th>이메일</th>
@@ -137,7 +202,7 @@
 				<td>
 				<!-- 다음 api 사용  -->
 				<input class="addr" type="text" name="postnum" id="sample6_postcode" placeholder="우편번호" value="${mem_addr[0] }">
-				<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+				<input id="addr_btn" type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 				<input type="text" name="addr1" class="addr1" id="sample6_address" placeholder="주소" value="${mem_addr[1] }"><br>
 				<input type="text" name="addr2" class="addr2" id="sample6_detailAddress" placeholder="상세주소" value="${mem_addr[2] }">
 				<input type="text" name="addr3" class="addr3" id="sample6_extraAddress" placeholder="참고항목" value="${mem_addr[3] }">
@@ -197,8 +262,7 @@
 			</table>
 			</div><!-- class="manage_basic" end  -->
 			<div class="manage_extr">
-			<span>좋아하는 가수 변경</span>
-			<hr align="left" color="lightgray" width="30%">
+			<div class="setting_title">좋아하는 가수 변경</div>
 			
 			<c:if test="${empty totalList  }">
 			<h2>셀럽 정보가 없습니다.</h2>
@@ -206,7 +270,7 @@
 			
 			<c:if test="${!empty totalList }">
 			
-			<div class="celeb_container" > 
+			<div class="celeb_container" style="width:80%;"> 
 			<c:set var="list" value="${totalList }"/>
 			<c:forEach items="${list }" var="dto">
 			<c:if test="${dto.getCeleb_group() != 'solo' }"> <!-- totalList 그룹가수인 경우 -->
@@ -309,11 +373,12 @@
 		</script>
 			
 			</div>
-			<div class="manage_bottom">
-				<input type="submit" value="회원정보 수정">
-				<input type="button" value="취소" onclick="location.href='mypage.do'">
+			<div class="manage_bottom" align="center">
+				<input class="manage_submit" type="submit" value="수정">
+				<input class="manage_cancel" type="button" value="취소" onclick="location.href='mypage.do'">
 			</div>
 			</form>	
+			</div> <!-- class="manage_cont" -->
 		</div><!-- class="mypage_main" end -->
 	
 	</div><!-- class="mypage_container" end -->

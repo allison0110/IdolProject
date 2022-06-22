@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./resources/js/member.js"></script>
-<link rel="stylesheet" href="./resources/css/member.css">
+<link rel="stylesheet" href="./resources/css/member.css?v=2022062118">
 <style type="text/css">
 	
 	/* ***********마이페이지 회원정보관리************* */
@@ -24,9 +24,12 @@
 		width: 100%;
 	}
 	
-	.qna_cont table th{
-		width: 20%;
+	.qnaCont_table input , .qnaCont_table textarea{
+	
+		padding: 5px;
+		font-size:1em;
 	}
+	
 	
 	.inquiry_img {
 		display: flex;
@@ -42,6 +45,22 @@
 		width:100%;
 		height:100%;
 	}
+	
+	.btn{
+	background-color: white;
+    border: 1px solid #233044;
+    padding: 8px 20px;
+    border-radius: 21px;
+    cursor: pointer;
+    margin: 30px 2px;
+	
+	}
+	
+	.btn:hover {
+		background-color: #2a3a52;
+		color:white;
+	}
+	
 
 
 </style>
@@ -65,11 +84,10 @@
 		<!-- aisde inlcude 추가  -->
 		<jsp:include page="../include/mypage_aside.jsp"/>
 		
-		<div class="mypage_main" style="margin-left: 20px; margin-top: 50px;">
-		<div class="qna_top">
-		<h2>고객문의 내용 수정</h2>
+		<div class="mypage_main">
+		<div class="manage_top">
+		고객문의 내용 수정
 		</div>
-		<hr style="border: 2px solid black;">
 		<br>
 			<div class="qna_cont">
 			<form method="post" action="<%=request.getContextPath() %>/inquiry_updateOk.do"
@@ -78,7 +96,8 @@
 			  <input type="hidden" name="inquiry_image" value="${cont.getInquiry_image() }"> 
 			  <input type="hidden" name="inquiry_userid" value="${cont.getInquiry_userid() }"> 
 			  <input type="hidden" name="page" value="${page}"> 
-			<table border="1">
+			
+			<table class="qnaCont_table">
 				<tr>
 					<th>작성자</th>
 					<td>${cont.getInquiry_userid()}</td>
@@ -86,7 +105,7 @@
 				<tr>
 					<th>상품 정보</th>
 					<td>
-					<c:if test="${!empty cont.getProduct_no() }">
+					<c:if test="${cont.getProduct_no() != 0 }">
 							상품사진? or 상품이름
 					</c:if>
 					</td>
@@ -105,28 +124,28 @@
 				</tr>
 				<tr>
 					<th>제목</th>
-					<td><input name="inquiry_title" value="${cont.getInquiry_title() }"></td>
+					<td><input name="inquiry_title" value="${cont.getInquiry_title() }" autofocus="autofocus"></td>
 				</tr>
 				<tr>
 					<th>내용</th>
 					<td>
-						<textarea name="inquiry_cont" rows="10" cols=""> ${cont.getInquiry_cont() }</textarea>
+						<textarea name="inquiry_cont" rows="10" cols="50"> ${cont.getInquiry_cont() }</textarea>
 					</td>
 				</tr>
 				<tr>
 					<th>파일</th>
 					<td>
-						<input type="file" name="file2" multiple="multiple">
+						<input type="file" name="file2" multiple="multiple" style="padding:0; font-size:0.9em;margin-top:5px;"><br>
+						<span style="font-size:0.9em;"> 업로드된 파일 : ${cont.getInquiry_image() }</span> 
+						
 					</td>
 				</tr>
-				<tr>
-					<td colspan="2" align="right">
-					<input  type="submit" value="수정" onclick="location.href='inquiry_update.do?no=${cont.getInquiry_no()}&page=${page}">
-					<input  type="button" value="뒤로가기" onclick="location.href='inquiry_cont.do?no=${cont.getInquiry_no()}&page=${page}'">
-					</td>
-				</tr>
-			
 			</table>
+			<div class="qna_table_bottom" align="right">
+				<input class="btn"  type="submit" value="수정" onclick="location.href='inquiry_update.do?no=${cont.getInquiry_no()}&page=${page}">
+					<input  class="btn" type="button" value="뒤로가기" onclick="location.href='inquiry_cont.do?no=${cont.getInquiry_no()}&page=${page}'">
+			</div>
+			
 			</form>
 		</div><!-- class="qna_cont" -->
 		

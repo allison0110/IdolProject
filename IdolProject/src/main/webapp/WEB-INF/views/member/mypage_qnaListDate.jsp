@@ -14,54 +14,21 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./resources/js/member.js"></script>
-<link rel="stylesheet" href="./resources/css/member.css">
+<link rel="stylesheet" href="./resources/css/member.css?v=2022062118">
 <style type="text/css">
+	.btn{
+		    background-color: white;
+    border: 1px solid #233044;
+    padding: 5px 10px;
+    border-radius: 21px;
+    cursor: pointer;
 	
-	/* ***********마이페이지 회원정보관리************* */
-	
-	.qna_notice{
-		display:grid;
-		grid-template-columns: 1fr 1fr;
-	}
-	.notice_1 span{
-		color:#ff5722;
-		font-weight: bold;
 	}
 	
-	.month_area ul{
-		display:flex;
-		list-style: none;
-	}
-	
-	.quick_search{
-	
-		width:60px;
-		height:25px;
-		text-align:center;
-		padding:1px;
-		border:1px solid black;
-		
-	}
-	
-	
-	.quick_search input{
-		display:none;
-	}
-	.quick_search label{
-		width:100vw;
-		height:100vh;
-	}
-	
-	.qna_table{
-		padding: 0 10px;
-		
-	}
-	
-	.qna_table table{
-		width: 100%;
-	}
-	
-
+	.btn:hover {
+		background-color: #2a3a52;
+		color:white;
+}
 
 </style>
 
@@ -85,17 +52,16 @@
 		<jsp:include page="../include/mypage_aside.jsp"/>
 		
 		<div class="mypage_main" style="margin-left: 20px; margin-top: 50px;">
-		<div class="qna_top">
-		<h2>고객문의 내역</h2>
+		<div class="manage_top">
+		고객문의 내역
 		</div>
-		<hr style="border: 2px solid black;">
 		<div class="qna_notice">
 			<div class="notice_1">* 현재 답변 대기 중인 문의는 
 				<span>${waiting }</span>건입니다.</div>
-			<div class="notice_2"><input type="button" value="문의하기" onclick="location.href='inquiry_write.do?id=${dto.getMember_id()}'"></div>
+			<div class="notice_2" align="right"><input type="button" value="문의하기" onclick="location.href='inquiry_write.do?id=${dto.getMember_id()}'"></div>
 		</div>	
 		<form method="post" action="<%=request.getContextPath() %>/inquiry_date.do">
-		<div class="qna_month">
+		<div class="qna_month" align="center">
 			<table>
 				<tr>
 					<td>
@@ -160,9 +126,8 @@
 		</script>
 		
 		<div class="qna_table">
-		<table border="1" >
-			<tr>
-				<th>번호</th>
+		<table >
+			<tr class="firstRow">
 				<th>구분</th>
 				<th>상품정보</th>
 				<th>제목</th>
@@ -210,36 +175,36 @@
 				%>		
 					<!-- 테이블 행 시작  -->
 					<tr>
-						<td><%=idto.getInquiry_no() %></td>				
-						<td><%=category %></td>
+						<%-- <td><%=idto.getInquiry_no() %></td>	 --%>			
+						<td class="qna_td"><%=category %></td>
 					
 					<!-- 상품 정보  -->
 					<% if(idto.getProduct_no() == 0){ //상품정보가 없으면 %> 
-						<td> </td>	
+						<td  class="qna_product"> </td>	
 					<% }else{ //상품정보가 있으면 %>
-						<td>
+						<td  class="qna_product">
 						<a href="<%=request.getContextPath()%>/product_detail.do?pno=<%=product.getProduct_no()%>">
 						<%=product.getProduct_name() %></a>
 						</td>
 					<%}%>
-						<td>
+						<td class="qnaboard_title">
 							<a href="<%=request.getContextPath()%>/inquiry_cont.do?no=<%=idto.getInquiry_no() %>&page=${paging.getPage()}"><%=idto.getInquiry_title() %></a>
 						</td>
-						<td><%=idto.getInquiry_date().substring(0,10) %></td>
-						<td><%=status %></td>
+						<td class="qna_td"><%=idto.getInquiry_date().substring(0,10) %></td>
+						<td class="qna_td"><%=status %></td>
 					</tr>
 				<%	}%>
 			</c:if>
 			<tr>
 				<td colspan="6" align="right">
-					<input type="button" value="전체목록" onclick="location.href='inquiry_list.do'">
+					<input class="btn" type="button" value="전체목록" onclick="location.href='inquiry_list.do'">
 				</td>
 			</tr>
 		</table>
-		<!-- 검색기능..할까말까... -->
+	
 		
 		<!-- 페이징 처리 -->
-		<div class="table_page">
+		<div class="table_page" align="center">
 		<c:if test="${paging.getPage() > paging.getBlock() }"> <!-- 현재 페이지가 4인데 block사이즈는 3이라면 -->
 			<a href="inquiry_date.do?page=1&search_date=${search_date }">[맨 처음]</a>
 			<a href="inquiry_date.do?page=${paging.getStartBlock()-1 }&search_date=${search_date}">◀</a>
