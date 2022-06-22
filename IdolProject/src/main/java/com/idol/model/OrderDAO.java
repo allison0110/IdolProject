@@ -17,4 +17,6 @@ public interface OrderDAO {
 	// 원석
 	int newGroupNo();
 	List<OrderDTO> getLastOrderList(String memid);
+
+	OrderDTO getOrderCont(int parseInt);
 }

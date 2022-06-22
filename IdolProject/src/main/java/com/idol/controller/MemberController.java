@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -121,19 +123,40 @@ public class MemberController {
 		return "member/join";
 	}
 	
+//	//회원가입폼페이지 아이디중복체크 메서드
+//		@ResponseBody
+//		@RequestMapping(value="/idCheck.do", method=RequestMethod.POST, produces="application/json")
+//		public int idCheck(HttpServletRequest request){
+//			
+//
+//			String id = request.getParameter("member_id");
+//			System.out.println("중복확인 id:"+id);
+//			
+//			int result = this.dao.idcheck(id);
+//			
+//			return result;
+//		}
+	
 	
 	//회원가입폼페이지 아이디중복체크 메서드
 	@ResponseBody
-	@RequestMapping(value="/idCheck.do", method=RequestMethod.POST, produces="application/json")
-	public int idCheck(HttpServletRequest request){
+	@RequestMapping(value="/idCheck.do", method=RequestMethod.POST)
+	public String idCheck(HttpServletRequest request){
 		
 
 		String id = request.getParameter("member_id");
 		System.out.println("중복확인 id:"+id);
 		
-		int result = this.dao.idcheck(id);
+		String result1 = "";
 		
-		return result;
+		if(this.dao.idcheck(id) == 1) {
+			
+			result1 ="1";
+		}else {
+			result1 ="0";
+		}
+		
+		return result1;
 	}
 	
 	
@@ -881,20 +904,46 @@ public class MemberController {
 		//문의게시판 카테고리 리스트
 		List<Inquiry_CategoryDTO> cList = this.idao.getInquiryCategory();
 		
-		//구매한 후 문의하기를 눌러 넘겨받은 제품번호가 있다면
-		try {
+		int pno = 0; 
+		
+		if(request.getParameter("pno") == null && request.getParameter("ono") == null) {
 			
-			int pno = Integer.parseInt(request.getParameter("pno"));
+			System.out.println("제품정보 및 주문정보 없음");
 			
-			//상품정보 가져와 저장하기 
-			ProductDTO product = this.pdao.getProductDetail(pno);
+		}else if( request.getParameter("ono") != null && request.getParameter("pno") == null){
+			//주문정보가 있는 경우 
 			
+			//주문 정보
+			OrderDTO odto = this.odao.getOrderCont(Integer.parseInt(request.getParameter("ono")));
+			
+			//주문한 제품정보 가져오기 (이름으로 찾기)
+			ProductDTO product = this.pdao.getProductDetail(odto.getOrder_pname());
+			
+			//제품정보 넘기기
 			model.addAttribute("pCont", product);
+			model.addAttribute("ono", odto.getOrder_no());
 			
-		}catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("문의글 작성하기 - 상품정보 없음");
+		}else if(request.getParameter("pno") != null) {
+			
+			pno = Integer.parseInt(request.getParameter("pno"));
+			ProductDTO product = this.pdao.getProductDetail(pno);
+			model.addAttribute("pCont", product);
 		}
+		
+		
+//		try {
+//			
+//			int pno = Integer.parseInt(request.getParameter("pno"));
+//			
+//			//상품정보 가져와 저장하기 
+//			ProductDTO product = this.pdao.getProductDetail(pno);
+//			
+//			model.addAttribute("pCont", product);
+//			
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//			System.out.println("문의글 작성하기 - 상품정보 없음");
+//		}
 		
 		
 		

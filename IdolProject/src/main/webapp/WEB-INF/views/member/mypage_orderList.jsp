@@ -17,49 +17,17 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./resources/js/member.js"></script>
-<link rel="stylesheet" href="./resources/css/member.css">
+<link rel="stylesheet" href="./resources/css/member.css?v=2022062209">
 <style type="text/css">
 	
-	/* ***********마이페이지 회원정보관리************* */
 	
-	.qna_notice{
-		display:grid;
-		grid-template-columns: 1fr 1fr;
-	}
-	.notice_1 span{
-		color:#ff5722;
-		font-weight: bold;
-	}
-	
-	.month_area ul{
-		display:flex;
-		list-style: none;
-	}
-	
-	.quick_search{
-	
-		width:60px;
-		height:25px;
-		text-align:center;
-		padding:1px;
-		border:1px solid black;
-		
-	}
-	
-	
-	.quick_search input{
-		display:none;
-	}
-	.quick_search label{
-		width:100vw;
-		height:100vh;
-	}
 	
 	.order_list{
-	   margin: 30px 0;
-       border: 1px solid gray;
+	   margin-top:50px;
+	   margin-bottom:10px;
+       border: 1px solid #e0dfdf;
        border-radius: 10px;
-       padding: 10px;
+       padding: 20px;
 	}
 	
 		.order_item{
@@ -82,8 +50,18 @@
 	
 	.order_item .order_info{
 		line-height: 1.5;
+		width: 70%;
 	}
 	
+	.order_btns input{
+		margin: 2px;
+    width: 100px;
+    height: 33px;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid #2a3a52;
+    cursor: pointer;
+	}
 
 
 </style>
@@ -105,14 +83,13 @@
 		<!-- aisde inlcude 추가  -->
 		<jsp:include page="../include/mypage_aside.jsp"/>
 		
-		<div class="mypage_main" style="margin-left: 20px; margin-top: 50px;">
-		<div class="qna_top">
-		<h2>고객문의 내역</h2>
+		<div class="mypage_main" >
+		<div class="manage_top">
+		 주문내역
 		</div>
-		<hr style="border: 2px solid black;">
 
 		<form method="post" action="<%=request.getContextPath() %>/inquiry_date.do">
-		<div class="qna_month">
+		<div class="qna_month" align="center">
 			<table>
 				<tr>
 					<td>
@@ -192,7 +169,7 @@
 				List list = map.get(i);//날짜에 해당하는 구매리스트를 담은 리스트 (ex. 0916구매 총 6건 )
 		%>		
 			<div class="order_list">
-				<h2>구매날짜 : <%=date %></h2>
+				<h3><%=date %></h3>
 				
 				<% 		//구매리스트 for문
 						int group =1;//구매 group 구분지을 변수
@@ -202,7 +179,8 @@
 					OrderDTO dto = (OrderDTO)list.get(j);
 					
 					DecimalFormat format = new DecimalFormat("###,###");
-					String price = format.format(dto.getOrder_total());
+					int order_price = dto.getOrder_qty()*dto.getOrder_pprice();
+					String price = format.format(order_price);//실제 구매한 가격 (제품가격*구매수량)
 					
 					if(dto.getOrder_group() == group ){ %>
 				<div class="order_item">
@@ -212,21 +190,27 @@
 							src="./resources/upload/product/<%=dto.getOrder_pimage()%>">
 					</div>
 					<div class="order_info">
-						<span style="font-size: 15px; color: gray;"> <%=dto.getOrder_date().substring(0, 10)%>
-						</span> <br> <span style="font-size: 1.2em; font-weight: bold;">
-							<%=dto.getOrder_pname()%></span><br> <span
-							style="font-size: 0.9em;"><%=dto.getOrder_qty()%>개 </span>| <span
-							style="font-size: 0.9em;"> <%=price%>원
-						</span>
+						<!-- 주문 날짜 -->
+						<span style="font-size: 13px; color: gray;"> <%=dto.getOrder_date().substring(0, 10)%>
+						</span> <br> 
+						<!-- 주문 제품 <br> 주문수량 | 주문가격 -->
+						<span style="font-weight: bold;">
+							<%=dto.getOrder_pname()%></span><br> 
+						
+						<span style="font-size: 0.9em;"><%=dto.getOrder_qty()%>개 </span>| 
+						<span style="font-size: 0.9em;"> <%=price%>원 </span>
 					</div>
 					
-							</div>
-						<!-- class="order_item" -->
+					<div class="order_btns">
+					   <input type="button" value="문의하기" onclick="location.href='inquiry_write.do?ono=<%=dto.getOrder_no()%>'"><br>
+					   <input type="button" value="리뷰쓰기">
+					</div>
+				</div> <!-- class="order_item" -->
 
 
 				<% 			}else{
 				%>
-						<hr>	
+						<hr color="#e0dfdf">	
 						<div class="order_item">
 
 							<div class="order_photo">
@@ -234,16 +218,18 @@
 									src="./resources/upload/product/<%=dto.getOrder_pimage()%>">
 							</div>
 							<div class="order_info">
-								<span style="font-size: 15px; color: gray;"> <%=dto.getOrder_date().substring(0, 10)%>
-								</span> <br> <span style="font-size: 1.2em; font-weight: bold;">
+								<span style="font-size: 13px; color: gray;"> <%=dto.getOrder_date().substring(0, 10)%>
+								</span> <br> <span style="font-weight: bold;">
 									<%=dto.getOrder_pname()%></span><br> <span
 									style="font-size: 0.9em;"><%=dto.getOrder_qty()%>개 </span>| <span
 									style="font-size: 0.9em;"> <%=price%>원
 								</span>
 							</div>
-
-						</div>
-						<!-- class="order_item" -->
+							<div class="order_btns">
+								<input type="button" value="문의하기" onclick="location.href='inquiry_write.do?ono=<%=dto.getOrder_no()%>'"><br>
+								<input type="button" value="리뷰쓰기">
+							</div>
+							</div> <!-- class="order_item" -->
 
 				<%
 						group++;

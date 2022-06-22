@@ -49,6 +49,12 @@ public class OrderDAOImpl implements OrderDAO{
 		return sqlSession.selectList("lastorder", memid);
 	}
 
+	//주무정보 불러오기
+	@Override
+	public OrderDTO getOrderCont(int ono) {
+		return this.sqlSession.selectOne("orderCont", ono);
+	}
+
 	
 	
 	

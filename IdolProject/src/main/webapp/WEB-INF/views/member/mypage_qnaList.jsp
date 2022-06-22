@@ -138,14 +138,6 @@
 							break;
 						}
 						
-						//답변상태
-						String status ="";
-						
-						if(idto.getInquiry_status() == 0){
-							status ="답변대기";
-						}else{
-							status ="답변완료";
-						}
 				%>		
 					<!-- 테이블 행 시작  -->
 					<tr>
@@ -165,8 +157,22 @@
 							<a href="<%=request.getContextPath()%>/inquiry_cont.do?no=<%=idto.getInquiry_no() %>&page=${paging.getPage()}"><%=idto.getInquiry_title() %></a>
 						</td>
 						<td class="qna_td"><%=idto.getInquiry_date().substring(0,10) %></td>
-						<td class="qna_td">
-						<%=status %></td>
+						
+					<% 
+						//답변상태
+						String status ="";
+						
+						if(idto.getInquiry_status() == 0){
+							status ="답변대기";
+					%>
+						<td class="qna_td">	<span style="color:#ff5722;"><%=status %></span></td>
+					<% 	}else{
+							status ="답변완료";
+					%>
+						<td class="qna_td">	<%=status %></td>
+					<% } %>	
+						
+						
 					</tr>
 				<%	}%>
 			</c:if>

@@ -82,6 +82,12 @@ public class ProductDAOImpl implements ProductDAO{
 	public List<InquiryDTO> productListPage(HashMap<String, Object> maps) {
 		return this.sqlSession.selectList("productListPage", maps);
 	}
+
+	//제품명으로 제품정보 찾기
+	@Override
+	public ProductDTO getProductDetail(String order_pname) {
+		return this.sqlSession.selectOne("PdetailbyName", order_pname);
+	}
 	
 
 	
