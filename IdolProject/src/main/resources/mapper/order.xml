@@ -26,6 +26,7 @@
   	<!-- 회원이 주문한 날짜들 리스트 -->
    <select id="orderDates" parameterType="String" resultType="String">
   	select TO_CHAR(order_date,'YY/MM/DD') from order_product where order_userid=#{id} group by TO_CHAR(order_date,'YY/MM/DD')
+  			order by TO_CHAR(order_date,'YY/MM/DD') desc
   </select>
   	<!-- 회원이 주문한 날짜에 해당하는 내역리스트  -->
    <select id="orderListDate" parameterType="map" resultType="OrderDTO">

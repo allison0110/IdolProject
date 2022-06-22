@@ -15,30 +15,34 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <style type="text/css">
+	a{
+		text-decoration: none;
+		color:inherit;
+	}
 
 	.feed_top {
+		position:relative;
 		background-color:white;
-		width:1000px;
+		width:100%;
 		height:360px;
-		box-shadow: 1px 1px 8px grey;
 		margin-bottom:80px
 		
 	}
 	
 	.feed_top .feed_headImg{
 		height:60%;
-		position:relative;
 	}
 	
 	.feed_headImg img{
-		width:1000px;
+		width:100%;
 		height:250px;
 		
 	}
 	
+	
 	.feed_headOverlay {
 		position: absolute;
-		top:135px;
+		top:100px;
 	}
 	
 	.feed_headOverlay table{
@@ -53,7 +57,7 @@
 	}
 
 	
-	.feed_headOverlay .feed_nickname{
+ 	.feed_headOverlay .feed_nickname{
 		font-size: 1.5em;
 		font-weight:bold;
 		color:black	;
@@ -63,9 +67,9 @@
 	.feed_headOverlay .feed_id{
 		font-weight:bold;
 		color:gray;
-	}
+	} */
 	
-	.feed_nickname a{
+ 	.feed_nickname a{
 		text-decoration: none;
 		color:black;
 	}
@@ -83,13 +87,13 @@
 	.feed_sum a:hover {
 	
 		text-decoration: underline;
-	}
+	}  
 	
 	/* ******드롭다운 css*********** */
 	.dropbtn {
 	  position : relative;
-	  top:-13px;
-	  left:700px;
+	  top:3px;
+	  left:670px;
 	  background-color: #a6b0a6;
 	  color: white;
 	  padding: 7px 12px;
@@ -109,8 +113,8 @@
 	  font-size: 0.8em;
 	  display: none;
 	  position: absolute;
-	  left:700px;
-	  top:22px;
+	  left: 670px;
+      top: 38px;
 	  background-color: #f9f9f9;
 	  min-width: 150px;
 	  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -175,16 +179,7 @@
 		font-size: 0.9em;
 	}
 	
-/* 	.editImg .popup_close {
-		
-		position: absolute;
-		right: 0 ; top:0;
-		width: 20px;
-		height: 20px;
-		background: url(..image/close.png) no-repeat;
-		/* color:transparent; */
-	
-	} */
+
 	
 	.edit_dim {
 		display:none;
@@ -254,7 +249,6 @@
 				<c:if test="${empty dto.getMember_cover() }">
 					<i class="bi bi-card-image" style="font-size: 5em;text-align: center;margin-left: 25px;"></i>
 				</c:if>
-				
 			</div>
 			<div class="feed_headOverlay">
 			
@@ -267,9 +261,7 @@
 						<c:if test="${empty dto.getMember_image() }">
 						<i class="bi bi-card-image" style="font-size: 5em;text-align: center;margin-left: 25px;"></i>
 						</c:if>
-						<div>
-							<a href="<%=request.getContextPath()%>/mypage.do">마이페이지</a>
-						</div>
+						
 						</td>
 						<td colspan="3">
 							<div class="feed_nickId">
@@ -326,10 +318,11 @@
 							
 							<c:if test="${dto.getMember_id() == login }">
 							<div class="dropdown">
-							  <button class="dropbtn">edit</button>
+							  <button class="dropbtn"><i class="bi bi-list" style="font-size:1.1em;"></i></button>
 							  <div class="dropdown-content">
 							  <a href="#editCover" class="cover_setting">커버이미지 수정</a>
 							  <a href="#editProfile" class="profile_setting">프로필 수정</a>
+							  <a href="<%=request.getContextPath() %>/mypage.do" class="mypage_btn">마이페이지</a>
 							  </div>
 							</div>
 							</c:if>
@@ -360,7 +353,7 @@
 								<input type="hidden" name="member_no" value="${dto.getMember_no() }">
 								<input type="hidden" name="member_id" value="${dto.getMember_id() }">
 								<input type="hidden" name="old_img" value="${dto.getMember_cover() }">
-								<p><i class="bi bi-check-circle"></i>Upload Cover</p>
+								<p><i class="bi bi-check-circle"></i> Upload Cover</p>
 								<div class="editFile" align="left">
 								<input type="file" name="file2">
 								</div>

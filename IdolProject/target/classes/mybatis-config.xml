@@ -30,6 +30,7 @@
  		<typeAlias type="com.idol.model.EventDTO" alias="eventDTO"/>
 		<typeAlias type="com.idol.model.PageDTO" alias="pageDTO"/>
 		
+		 <typeAlias type="com.idol.model.MusicDTO" alias="musicDTO"/>
 	</typeAliases>  	
 	
 </configuration>

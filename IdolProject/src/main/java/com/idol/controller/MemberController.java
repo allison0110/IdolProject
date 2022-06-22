@@ -45,6 +45,8 @@ import com.idol.model.MemberDAO;
 import com.idol.model.MemberDTO;
 import com.idol.model.MileageDAO;
 import com.idol.model.MileageDTO;
+import com.idol.model.MusicDAO;
+import com.idol.model.MusicDTO;
 import com.idol.model.OrderDAO;
 import com.idol.model.OrderDTO;
 import com.idol.model.PageDTO;
@@ -92,6 +94,12 @@ public class MemberController {
 	//구매테이블
 	@Autowired
 	private OrderDAO odao;
+	
+	//MUSIC테이블
+	@Autowired
+	private MusicDAO musicDao;
+	
+	
 	
 	//게시판 페이지 관련 
 	//페이지 처리용 변수
@@ -1412,13 +1420,19 @@ public class MemberController {
 		return "member/feed_following";
 		}
 	
-	//언팔 기능
+	//회원 언팔 기능
 	@RequestMapping("unfollow.do")
 	public void unfollow(@RequestParam("id")String id, HttpServletResponse response, HttpSession session) throws IOException {
 		
 		String login = (String)session.getAttribute("login_id");
 		
-		int check = this.followDao.deleteFollow(login, id);
+		HashMap<String, String> param = new HashMap<String, String>();
+		param.put("login",login);
+		param.put("id", id);
+		
+		
+		
+		int check = this.followDao.deleteFollow(param);
 		response.setContentType("text/html; charset=UTF-8");
 		
 		String redirect ="";
@@ -1445,7 +1459,7 @@ public class MemberController {
 		
 	}
 	
-	//팔로우기능
+	//회원 팔로우기능
 	@RequestMapping("follow.do")
 	public void follow(@RequestParam("id")String id, HttpServletResponse response, HttpSession session) throws IOException {
 		
@@ -1482,4 +1496,66 @@ public class MemberController {
 		}
 	}
 	
+	//마이피드 - LIKE
+	@RequestMapping("feed_like.do")
+	public String feed_like(@RequestParam("id")String id, Model model) {
+		
+		//좋아요 누른 MUSIC 리스트 
+		List<FollowDTO> musicLike = this.followDao.getMusicLike(id);
+		
+		//좋아요한 곡에 대한 정보 리스트
+		List<MusicDTO> musicCont = new ArrayList<MusicDTO>();
+		
+		
+		for(int i=0; i<musicLike.size(); i++) {
+			
+			FollowDTO fdto = musicLike.get(i);
+			
+			//좋아요한 곡 정보를 담아 리스트에 저장하기 
+			MusicDTO mdto = this.musicDao.getMusicCont(fdto.getFollow_no());
+			
+			musicCont.add(mdto);
+			
+		}
+		
+		model.addAttribute("mLike", musicLike);
+		model.addAttribute("mCont", musicCont);
+		model.addAttribute("id", id);
+		
+		return "member/feed_like";
+	}
+	
+	//
+	@RequestMapping("delLike.do")
+	public void delLike(@RequestParam("fno") int fno, @RequestParam("type") String type, HttpSession session,
+					HttpServletResponse response) throws IOException {
+		
+		String login = (String)session.getAttribute("login_id");
+		
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		
+		param.put("login", login);
+		param.put("fno", fno);
+		param.put("type", type);
+		
+		int check = this.followDao.deleteLike(param);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		if(check>0) {
+			out.println("<script>");
+			out.println("alert('좋아요 삭제 성공')");
+			out.println("location.href='feed_like.do?id="+login+"'");
+			out.println("</script>");
+			
+		}else {
+			out.println("<script>");
+			out.println("alert('좋아요 삭제 실패')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+		
+	}
 }

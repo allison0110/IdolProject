@@ -88,7 +88,7 @@
 		 주문내역
 		</div>
 
-		<form method="post" action="<%=request.getContextPath() %>/inquiry_date.do">
+<%-- 		<form method="post" action="<%=request.getContextPath() %>/inquiry_date.do">
 		<div class="qna_month" align="center">
 			<table>
 				<tr>
@@ -143,15 +143,7 @@
 				
 			});
 		
-		
-			/* if($(":radio[name='search_date']:checked")){
-				var check = $(this).val();
-				console.log(check);	
-				
-			} */
-			
-		
-		</script>
+		</script> --%>
 		
 		<form id="frm">
 		<input type="hidden" name="viewCount" id="viewCount" value="0">
@@ -250,6 +242,29 @@
 		</div>
 		</form>
 		
+		<script type="text/javascript">
+			
+			function moreContent(id, cnt){
+				var list_length = $("#"+id).length;
+				
+				console.log(list_length);
+				
+				$("#startCount").val(list_length);
+				$("#viewCount").val(cnt);
+				
+				$.ajax({
+					
+					type:"post",
+					url:"moreOrderList.do",
+					
+					
+					
+				});
+				
+			}
+		
+		
+		</script>
 		
 	
 		
