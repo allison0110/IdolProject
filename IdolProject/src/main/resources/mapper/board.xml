@@ -4,8 +4,24 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="BoardDAO">
   
+  <!-- 전체 게시물 출력 -->
   <select id="allBoardList" resultType="BoardDTO">
   	<![CDATA[select *from community_board order by community_no desc]]>
+  </select>
+  
+  <insert id="boardWrite" parameterType="BoardDTO">
+  <selectKey resultType="int" keyProperty="community_no" order="BEFORE">
+  	<![CDATA[select nvl(max(community_no),0) from community_board]]>
+  </selectKey>
+  
+  <![CDATA[insert into community_board values(#{community_no} + 1, #{community_userid}, #{community_title},
+		   #{community_cont}, default, sysdate,
+		   '', default, #{category_cnofk}, #{community_image})]]>
+  </insert>
+  
+  <!-- 게시물 추천수가 10개 이상인 게시물 출력 -->
+  <select id="BestList" resultType="BoardDTO">
+  	<![CDATA[select *from community_board where COMMUNITY_RECOMMEND > 10 order by COMMUNITY_DATE desc]]>
   </select>
   
   

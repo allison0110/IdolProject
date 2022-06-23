@@ -19,4 +19,16 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.selectList("allBoardList");
 	}
 
+	// 게시물 작성
+	@Override
+	public int boardWrite(BoardDTO boarddto) {
+		return sqlSession.insert("boardWrite", boarddto);
+	}
+
+	// 베스트게시물 리스트 출력
+	@Override
+	public List<BoardDTO> getBestList() {
+		return sqlSession.selectList("BestList");
+	}
+
 }
