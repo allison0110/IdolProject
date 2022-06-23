@@ -129,7 +129,7 @@
 		line-height: 1.5
 	}
 	.qna_item:hover, .order_item:hover {
-		background-color:#eae6e6;
+		background-color:#ececec;
 		opaciy: 50%
 	}
 	
@@ -142,7 +142,7 @@
 <body>
 	
 	<c:set var="mileage" value="${mileage }"/>	
-
+	
 
 	<%@include file="../include/user_top.jsp" %>
 	<div class="mypage_container" >
@@ -218,7 +218,7 @@
 					String price = format.format(odto.getOrder_total());
 			%>		
 				
-					<a href="<%=request.getContextPath()%>/order_cont?no=<%=odto.getOrder_no()%>&page=1">
+					<a href="<%=request.getContextPath()%>/orderlist_cont.do?ogno=<%=odto.getOrder_group() %>">
 					<div class="order_item">
 					
 					<div class="order_photo">

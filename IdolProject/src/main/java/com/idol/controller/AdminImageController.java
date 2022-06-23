@@ -49,7 +49,7 @@ public class AdminImageController {
 		
         List<MultipartFile> fileList = mRequest.getFiles(uploadFileName);
 
-        String path = "C:\\Users\\JUNGHWAN\\Documents\\Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\images\\";
+        String path = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\images\\";
 
         String dbFileName = "";
         
@@ -158,7 +158,7 @@ public class AdminImageController {
 			
 			
 			// 이미지 파일 삭제 시키기
-			String path ="C:\\Users\\JUNGHWAN\\Documents\\Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\images\\";
+			String path ="C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\images\\";
 			
 			StringTokenizer tokenizer = new StringTokenizer(imgs, "|");
 			
@@ -210,7 +210,7 @@ public class AdminImageController {
 		System.out.println("==== updateImage & no ====:" + dto.getImage_no());
 
 		
-		String path = "C:\\Users\\JUNGHWAN\\Documents\\Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\images\\";
+		String path = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\images\\";
 		
 		System.out.println("oldPath : " + oldPath );
 		

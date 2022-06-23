@@ -46,6 +46,12 @@
  		<typeAlias type="com.idol.model.AdminNoticeDAO" alias="AnoticeDAO"/>
  		<typeAlias type="com.idol.model.AdminProductDAO" alias="AProductDAO"/>
 		
+		 <typeAlias type="com.idol.model.MusicDTO" alias="musicDTO"/>
+		 
+		 <typeAlias type="com.idol.model.AdminCelebDAO" alias="AcelebDAO"/>
+		 <typeAlias type="com.idol.model.AdminDTO" alias="adminDTO"/>
+		 <typeAlias type="com.idol.model.GroupDTO" alias="groupDTO"/>
+		 
 	</typeAliases>  	
 	
 </configuration>

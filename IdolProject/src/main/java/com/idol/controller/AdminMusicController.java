@@ -58,7 +58,7 @@ public class AdminMusicController {
         
         //System.out.println("src value : " + src);
 
-        String path = "C:\\Users\\JUNGHWAN\\Documents\\Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\music\\";
+        String path = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\music\\";
 
         String dbFilesName = "";
         
@@ -173,7 +173,7 @@ public class AdminMusicController {
 		if(check > 0) {
 			
 			// 이미지도 함께 삭제 하자!
-			String path = "C:\\Users\\JUNGHWAN\\Documents\\Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\music\\";
+			String path = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\music\\";
 			
 			System.out.println("imgs : " + imgs);
 			
@@ -256,7 +256,7 @@ public class AdminMusicController {
 			MusicDTO dto, @RequestParam("oldimgs") String oldOne) throws IOException {
 		
 		// 파일을 받아서 경로를 정하고 저장하자 !
-		String path ="C:\\Users\\JUNGHWAN\\Documents\\Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\music\\";
+		String path ="C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\music\\";
 		
 		System.out.println("======= music update info ==========");
 		System.out.println("oldOne : " + oldOne);

@@ -1,5 +1,4 @@
-package com.idol.model;
-
+﻿package com.idol.model;
 
 
 import java.util.List;
@@ -176,6 +175,9 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 		
 		return this.sqlSession.selectList("getCelebNotice", name);
 	}
+	
+	
+	
 
 
 	

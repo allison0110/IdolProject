@@ -94,7 +94,7 @@ public class AdminProductController {
 		
         List<MultipartFile> fileList = mRequest.getFiles(uploadFileName);
 
-        String path = "C:\\Users\\JUNGHWAN\\Documents\\Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\product\\";
+        String path = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\product\\";
 
         String dbFileName = "";
         
@@ -222,7 +222,7 @@ public class AdminProductController {
 		
 		if(check > 0) {
 
-			String path = "C:\\Users\\JUNGHWAN\\Documents\\Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\product\\";
+			String path = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\product\\";
 		
 			System.out.println("img : " + imgs);
 			
@@ -264,7 +264,7 @@ public class AdminProductController {
 	public void productUpdateOk(MultipartHttpServletRequest mRequest, ProductDTO dto, 
 			HttpServletResponse response, @RequestParam("oldImgs") String oldImgs) throws IOException {
 		
-		String path = "C:\\Users\\JUNGHWAN\\Documents\\Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\product\\";
+		String path = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\product\\";
 		  
         System.out.println("===========================");
 		System.out.println("paramFiles 0 : " + oldImgs);

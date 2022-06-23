@@ -1,4 +1,4 @@
-package com.idol.model;
+﻿package com.idol.model;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -46,9 +46,8 @@ public class MemberDAOImpl implements MemberDAO{
 			}else {
 				result = -1;
 			}
-		}else {
-			
-			// 정환 추가 및 수정 [관리자 접속]
+		
+		}else {//정환님코드 추가
 			System.out.println("admin_start");
 			
 			String adminId = this.sqlSession.selectOne("adminIdCheck", dto);
