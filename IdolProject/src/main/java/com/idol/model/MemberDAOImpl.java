@@ -47,7 +47,29 @@ public class MemberDAOImpl implements MemberDAO{
 				result = -1;
 			}
 		}else {
+			System.out.println("admin_start");
 			
+			String adminId = this.sqlSession.selectOne("adminIdCheck", dto);
+			
+			System.out.println("adminId >>>>> " + adminId);
+			
+			
+			if(adminId != null) {
+				
+				String adminPwd = this.sqlSession.selectOne("adminPwdCheck", dto);
+				
+				System.out.println("adminPwd >>>>> " + adminPwd);
+				
+				if(dto.getMember_pwd().equals(adminPwd)) {
+					result = 99;
+				}else {
+					result = 88;
+				}
+				
+				
+			}else {
+				
+			}
 			
 		}
 		

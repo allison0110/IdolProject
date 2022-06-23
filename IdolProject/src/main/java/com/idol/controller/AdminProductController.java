@@ -258,7 +258,7 @@ public class AdminProductController {
 		
 	}
 	
-	
+	// 상품 수정 
 	@RequestMapping("admin_product_update_ok.do")
 	public void productUpdateOk(MultipartHttpServletRequest mRequest, ProductDTO dto, 
 			HttpServletResponse response, @RequestParam("oldImgs") String oldImgs) throws IOException {
@@ -391,9 +391,18 @@ public class AdminProductController {
 	    } // else end
         
 		
-		
-		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

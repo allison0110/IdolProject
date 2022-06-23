@@ -11,7 +11,15 @@
     	<select id="admin_check" parameterType="String" resultType="adminDTO">
     		select * from admin where admin_id = #{id}
     	</select>
-    	
+
+		<select id="adminIdCheck" parameterType="memberDTO" resultType="String">
+			select * from admin where admin_id = #{member_id}
+		</select>
+		
+		<select id="adminPwdCheck" parameterType="memberDTO" resultType="String">
+			select admin_pwd from admin where admin_id = #{member_id}
+		</select>
+		
  		<select id="test3" resultType="adminDTO">
  			select * from admin 
  		</select>
