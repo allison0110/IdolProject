@@ -50,7 +50,7 @@
  	.lojo_body .login_table input {
  		width: 100%;
  		border:none;
- 		font-size:1.1em;
+ 		padding: 8px 5px;
  	}
  	
  	.login_btn {
@@ -367,3 +367,157 @@
 	}
 	
 	
+	/* ************************문의게시판************************* */
+	.qna_notice{
+		display:grid;
+		grid-template-columns: 1fr 1fr;
+		font-size:0.88em;
+	}
+	.notice_1 span{
+		color:#ff5722;
+		font-weight: bold;
+	}
+	
+	.notice_2{
+		margin-right:30px;
+	}
+	
+	.notice_2 input{
+		background-color: white;
+    border: 1px solid #233044;
+    padding: 5px 10px;
+    border-radius: 21px;
+    	cursor: pointer;
+	}
+	
+	.notice_2 input:hover{
+		background-color:#2a3a52;
+		color:white;
+	}
+	
+	.month_area ul{
+		display:flex;
+		list-style: none;
+		font-size: 0.88em;
+	}
+	
+	.quick_search{
+	
+		width:75px;
+		height:30px;
+		text-align:center;
+		padding:1px;
+		border:1px solid black;
+		
+	}
+	
+	
+	.quick_search input{
+		display:none;
+	}
+	.quick_search label{
+		width:100vw;
+		height:100vh;
+	}
+	.qna_month{
+	
+		margin-top:30px;
+	}
+	.qna_month input{
+		margin-left: 20px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    background-color: white;
+    border: 1px solid #2a3a52;
+    cursor: pointer;
+	}
+	
+	.qna_table{
+		margin:50px 0;
+		
+	}
+	
+	.qna_table table{
+		width: 100%;
+		border-collapse: collapse;
+	}
+	
+	.firstRow{
+		background-color : #ececec;
+	}
+
+	.qna_table table tr{
+		height: 50px;
+		border-bottom: 1px solid #ececec;
+		
+	}
+	
+	.qna_table table td{
+		padding: 7px 10px;
+	}
+	
+	.qna_table table .qna_product{
+		width:20%;
+		text-align:center;
+		font-size:0.85em;
+	}
+	
+	.qna_table table .qna_td{
+		width: 10%;
+		text-align: center;
+		font-size: 0.9em;
+	}
+	.qnaboard_title:hover {
+		text-decoration: underline;
+	}
+	
+	.table_page{
+	
+		margin-top: 50px;
+	}
+	
+	
+	
+	.qnaCont_table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+	
+	.qnaCont_table tr{
+		height:50px;
+		border-bottom: 1px solid #ececec;
+		border-top: 1px solid #ececec;
+	}
+	
+	 .qnaCont_table th{
+		width: 15%;
+		padding: 8px;
+	}
+	
+	.qnaCont_table td{
+		padding: 8px;
+	}
+	
+	/* *********************피드****************************  */
+	.myfeed_container{
+		width:65%;
+		border: 1px solid #ececec;
+		padding:10px 10px 100px 10px;
+		background-color:#ececec;
+	}
+
+	.feed_title table{
+		width:100%;
+		text-align: center;
+		border-bottom: 1px solid #ececec;
+		font-weight: bold;
+	}
+	
+	.feed_title table td{
+		padding: 10px;
+	}
+	
+	.feed_title a{
+		text-decoration: none;
+		
+	}

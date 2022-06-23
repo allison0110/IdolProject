@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인 폼</title>
-<link rel="stylesheet" href="./resources/css/member.css?v=2022062113">
+<link rel="stylesheet" href="./resources/css/member.css?v=2022062117">
 <style type="text/css">
  	body{
  		background-color: #f2f2f2;

@@ -8,28 +8,20 @@
 <title>${id }님의 피드 - about</title>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" ></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
+<link rel="stylesheet" href="./resources/css/member.css?v=2022062212">
 <style type="text/css">
 	
-	.myfeed_container{
-		background-color: #d8e0e3;
-	}
-
-	.feed_title table{
-		width:1000px;
-		text-align: center;
-		border-bottom: 1px solid gray;
-		font-weight: bold;
-	}
 	
-	.feed_title a{
-		text-decoration: none;
-		
-	}
 	
 	.feed_introduction{
 		background-color:white;
-		
-		padding:10px;
+		padding:20px;
+		font-size:0.95em;
+	}
+	
+	
+	.feed_introduction table td{
+		padding : 6px
 	}
 	
 	.feed_introduction table tr{
@@ -78,7 +70,7 @@
 	<c:set var="fav" value="${favList }"/> <!-- 좋아하는 가수 정보가 들은 리스트  -->
 	<%@include file="../include/user_top.jsp" %>
 	
-	<div class="feed_wrapper">
+	<div class="feed_wrapper" align="center">
 	<div class="myfeed_container" align="center">
 		<!-- myfeed_top include 추가  -->
 		<jsp:include page="../include/feed_top.jsp"/>
@@ -87,22 +79,25 @@
 			<div class="feed_title">
 				<table>
 					<tr>
-						<td>
-							<a href="<%=request.getContextPath() %>/myfeed.do?id=${dto.getMember_id()}" style="color: black;">ABOUT</a>
+						<td style="border-bottom:1px solid #2a3a52">
+							<a href="<%=request.getContextPath() %>/myfeed.do?id=${dto.getMember_id()}" style="color: black; ">
+							ABOUT
+							</a>
 						</td>
 						<td >
 							<a href="#" style="color: gray;">POSTING</a>
 						</td >
 						<td >
-							<a href="#" style="color: gray;">LIKE♥</a>
+							<a href="<%=request.getContextPath() %>/feed_like.do?id=${dto.getMember_id()}" style="color: gray;">LIKE♥</a>
 						</td>
 					</tr>
 				</table>
 			</div><!-- class="feed_title"  end -->
-			<div class="feed_introduction">
+			<div class="feed_introduction" align="left">
+				<div class="introduction_cont">
 				<p>${dto.getMember_introduction() }</p>
-				
-				<hr width="50%" align="center">
+				</div>
+				<hr>
 				<table>
 					<tr>
 						<td>
@@ -110,10 +105,10 @@
 						</td>
 						<td colspan="4">
 						 <c:if test="${dto.getMember_gender() == 'M' }">
-						 MALE
+						  &nbsp;MALE
 						 </c:if>
 						 <c:if test="${dto.getMember_gender() == 'F' }">
-						 FEMALE
+						   &nbsp; FEMALE
 						 </c:if>
 						</td>
 					</tr>
@@ -123,13 +118,13 @@
 						</td>
 						<td colspan="4">
 						<c:if test="${!empty fav }">
-						<div class="fav_list">
+						<div class="fav_list" >
 						<c:forEach items="${fav }" var="list">
 						<c:if test="${list[3] == 'solo' }"> <!-- 솔로 가수인 경우 -->
 						
-							<div class="fav_item">
+							<div class="fav_item" >
 							<a href="#">
-							<div class="fav_img">
+							<div class="fav_img" >
 								<img src="./resources/upload/celeb/${list[2] }" alt="celeb_image">
 							</div>
 							<div class="fav_name">
@@ -154,12 +149,16 @@
 						</c:forEach>
 						</div><!-- class="fav_list" -->
 						</c:if>
+						<c:if test="${empty fav }">
+						<div class="fav_list" >
+							<p>선택한 가수가 없습니다.</p>
+						</div>
+						</c:if>
 						
 						</td>
 					</tr>
 				</table>
-				<hr width="50%" align="center">
-			
+				<hr>
 			</div><!-- class="feed_introduction" -->
 			<div class="feed_posting">
 			
