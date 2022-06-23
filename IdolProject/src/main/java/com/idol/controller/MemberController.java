@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,7 +13,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +22,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -700,8 +699,6 @@ public class MemberController {
 	}
 	
 	
-	
-	
 	//마이페이지 - 구매내역페이지 이동
 	@RequestMapping("order_list.do")
 	public String order_list(HttpSession session, Model model) {
@@ -728,6 +725,190 @@ public class MemberController {
 		model.addAttribute("dates", orderDates);
 
 		return"member/mypage_orderList" ;
+	}
+	
+	//마이페이지 - 문의게시글 날짜검색
+		@RequestMapping("order_date.do")
+		public String order_date(HttpServletRequest request, Model model,
+				HttpSession session) throws ParseException {
+			
+			String login_id = (String)session.getAttribute("login_id");
+			
+			//날짜 조회 
+			int search_date = Integer.parseInt(request.getParameter("search_date"));
+			
+			//오늘날짜 기준 
+			Calendar cal = Calendar.getInstance();
+			
+			int year = cal.get(Calendar.YEAR);
+			int month =cal.get(Calendar.MONTH)+1;
+			int day =cal.get(Calendar.DAY_OF_MONTH);
+			
+			String endDate = year+"-"+month+"-"+day;
+			String startDate = "";
+			
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = format.parse(endDate);
+			
+			cal.setTime(date);
+			
+			switch (search_date) {
+			case 0: //오늘
+				startDate = endDate;
+				break;
+			case 7: //일주일
+				cal.add(Calendar.DATE, -7);
+				startDate = format.format(cal.getTime());
+				break;
+			case 1: //한달
+				cal.add(Calendar.DATE, -30);
+				startDate = format.format(cal.getTime());
+				break;
+			case 3: //3달
+				cal.add(Calendar.DATE, -90);
+				startDate = format.format(cal.getTime());
+				break;
+			case 6: //6달
+				cal.add(Calendar.DATE, -180);
+				startDate = format.format(cal.getTime());
+				break;
+			case 12: //1년
+				cal.add(Calendar.DATE, -365);
+				startDate = format.format(cal.getTime());
+				break;
+			}
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();//날짜조회 sql 파라미터들
+			
+			System.out.println("startdate"+startDate);
+			System.out.println("enddate"+endDate);
+			
+			map.put("order_userid", login_id);
+			map.put("startDate", startDate);
+			map.put("endDate", endDate);
+			
+
+			//날짜검색한 구매내역 날짜들 뽑기
+			List<String> orderDates = this.odao.getOrderDates(map);	
+			
+			System.out.println("orderDates.size"+orderDates.size());
+
+			HashMap<Integer, List> maps = new HashMap<Integer, List>();//날짜별 구매내역 리스트담을 map
+
+			HashMap<String, String> params = new HashMap<String, String>();//mybatis 다중파라미터로 사용
+
+			params.put("id", login_id);
+
+			//날짜에 해당하는 구매리스트 가져오기
+			for(int i =0; i<orderDates.size(); i++) {
+				params.put("date", orderDates.get(i));
+				maps.put(i, this.odao.getOrderDateList(params)); //아이디와 날짜 넘김
+
+			}
+			
+			model.addAttribute("dateMap", maps);
+			model.addAttribute("dates", orderDates);
+			model.addAttribute("search_date", search_date);
+
+			return "member/mypage_orderDate";
+			
+		}
+	
+	
+	
+	//마이페이지 - 구매내역 상세페이지 
+	@RequestMapping("orderlist_cont")
+	public String orderCont(@RequestParam("ogno")int ogno, Model model) {
+		
+		
+		//주문그룹 내역 리스트
+		List<OrderDTO> orderCont = this.odao.getOrderGroup(ogno);
+		
+		//제품 정보리스트
+		List<ProductDTO> pList = new ArrayList<ProductDTO>();
+		
+		int pay = 0; //실제 결제금액
+		int totalPrice =0; //구매가격 total
+		int trans =0; //배송비
+		String payDate =""; //구매날짜
+		
+		String receiveName = "";
+		String receiveAddr = "";
+		String receivePhone = "";
+		
+		
+		
+		for(int i=0; i<orderCont.size(); i++) {
+			
+			OrderDTO dto = orderCont.get(i);
+			
+			ProductDTO pdto = this.pdao.getProductDetail(dto.getOrder_pname());
+			
+			
+			totalPrice += dto.getOrder_qty()*dto.getOrder_pprice();
+			pay += dto.getOrder_total();
+			trans += dto.getOrder_tcost();
+			
+			if(payDate == "" || receiveName == "" || receiveAddr == "" || receivePhone == "") {
+				System.out.println("if문진입");
+				payDate = dto.getOrder_date().substring(0, 10);
+				
+				receiveName = dto.getOrder_receivername();
+				receiveAddr = dto.getOrder_receiveraddress();
+				receivePhone = dto.getOrder_receiverphone();
+			}
+			
+			if(receiveAddr != null) {
+				
+				StringTokenizer st= new StringTokenizer(receiveAddr, "|");
+				
+				String [] mem_addr = new String[st.countTokens()];
+				
+				for(int j =0; j<mem_addr.length; j++){
+					mem_addr[j]=st.nextToken();
+				}
+				
+				model.addAttribute("Addr", mem_addr);
+			}
+			
+			pList.add(pdto);
+		}
+		
+		
+		model.addAttribute("orderGroup", orderCont);
+		model.addAttribute("pList", pList);
+		model.addAttribute("pay", pay);
+		model.addAttribute("totalPrice", totalPrice);
+		model.addAttribute("trans", trans);
+		model.addAttribute("payDate", payDate);
+		model.addAttribute("name", receiveName);
+		model.addAttribute("phone", receivePhone);
+		
+		return "member/mypage_orderCont";
+	}
+	
+	//구매내역(그룹별) 삭제 
+	@RequestMapping("order_delete")
+	public void orderDelete (@RequestParam("ogno")int ogno, HttpServletResponse response) throws IOException {
+		
+		int  check = this.odao.deleteOgno(ogno);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		if(check>0) {
+			
+			out.println("<script>");
+			out.println("alert('구매내역 삭제 완료')");
+			out.println("location.href='order_list.do'");
+			out.println("</script>");
+			
+		}else {
+			out.println("<script>");
+			out.println("alert('구매내역 삭제 실패')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
 	}
  
 	
@@ -937,22 +1118,6 @@ public class MemberController {
 			ProductDTO product = this.pdao.getProductDetail(pno);
 			model.addAttribute("pCont", product);
 		}
-		
-		
-//		try {
-//			
-//			int pno = Integer.parseInt(request.getParameter("pno"));
-//			
-//			//상품정보 가져와 저장하기 
-//			ProductDTO product = this.pdao.getProductDetail(pno);
-//			
-//			model.addAttribute("pCont", product);
-//			
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//			System.out.println("문의글 작성하기 - 상품정보 없음");
-//		}
-		
 		
 		
 		model.addAttribute("cList", cList);

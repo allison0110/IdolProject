@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마이페이지> 주문내역</title>
+<title>마이페이지> 주문내역 날짜조회 결과</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./resources/js/member.js"></script>
@@ -67,15 +67,15 @@
 		display:none;
 		
 		margin: 30px auto 0;
-	    width: 100%;
-	    text-align: center;
-	    cursor: pointer;
-	    height: 60px;
-	    line-height: 60px;
-	    text-align: center;
-	    color: #2f2d43;
-	    font-size: 16px;
-	    border-top: 1.5px solid #d9d8de;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    color: #2f2d43;
+    font-size: 16px;
+    border-top: 1.5px solid #d9d8de;
 	}
 
 
@@ -100,7 +100,7 @@
 		
 		<div class="mypage_main" >
 		<div class="manage_top">
-		 주문내역
+		 주문내역 날짜조회
 		</div>
 
  		<form method="post" action="<%=request.getContextPath() %>/order_date.do">
@@ -126,37 +126,37 @@
 		</form>
 		<script type="text/javascript">
 			
-			$(document).ready(function(){
+		$(document).ready(function(){
+			
+			
+			
+			var preValue='<c:out value='${search_date}'/>';
+			var count =0;
+			
+			console.log(preValue);
+			console.log(typeof preValue);
+			
+			if(preValue != null){
 				
-				var preValue=0;
-				var count =0;
-				/* 
-				if($("input[name='search_date']:checked")){
-					
-					preValue =$(this).val();
-				} */
+				$("#"+preValue).css('background-color','#e9e3e1');
+				count = 1;
+			}
+			
+			$("input[name='search_date']").click(function(){
 				
-				$("input[name='search_date']").click(function(){
-					
-					if(count >=1){
-						$("#"+check).css('background-color','#e9e3e1');
-						$("#"+preValue).css('background-color', 'white');
-						preValue = String($(this).val());
-					}
-					
-					var check = String($(this).val());
-					preValue = String($(this).val());
-					
-					console.log("preValue:"+preValue);
-					
+				var check = String($(this).val());
+				
+				
 					$("#"+check).css('background-color','#e9e3e1');
-					
-					count ++;
-				
-				});
+					$("#"+preValue).css('background-color', 'white');
+					preValue = String($(this).val());
 				
 				
+			
 			});
+			
+			
+		});
 		
 		</script>
 		
@@ -328,8 +328,7 @@
 		
 		
 		</div><!-- class="mypage_main" end -->
-		
-		
+	
 	</div><!-- class="mypage_container" end -->
 	<%@include file="../include/user_bottom.jsp" %>
 </body>

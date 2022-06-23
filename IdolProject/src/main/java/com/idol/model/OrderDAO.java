@@ -9,7 +9,7 @@ public interface OrderDAO {
 	List<OrderDTO> getOrderList(String member_id);
 
 	List<String> getOrderDates(String login_id);
-
+	List<String> getOrderDates(HashMap<String, Object> map);
 	List getOrderDateList(HashMap<String, String> params);
 	
 	
@@ -19,4 +19,9 @@ public interface OrderDAO {
 	List<OrderDTO> getLastOrderList(String memid);
 
 	OrderDTO getOrderCont(int parseInt);
+	List<OrderDTO> getOrderGroup(int ogno);
+
+	int deleteOgno(int ogno);
+
+	
 }

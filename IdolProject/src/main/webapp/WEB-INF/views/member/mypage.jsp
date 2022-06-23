@@ -218,7 +218,7 @@
 					String price = format.format(odto.getOrder_total());
 			%>		
 				
-					<a href="<%=request.getContextPath()%>/order_cont?no=<%=odto.getOrder_no()%>&page=1">
+					<a href="<%=request.getContextPath()%>/orderlist_cont.do?ogno=<%=odto.getOrder_group() %>">
 					<div class="order_item">
 					
 					<div class="order_photo">

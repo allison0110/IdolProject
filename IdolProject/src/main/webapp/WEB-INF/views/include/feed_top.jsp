@@ -31,6 +31,7 @@
 	
 	.feed_top .feed_headImg{
 		height:60%;
+		opacity: 85%;
 	}
 	
 	.feed_headImg img{

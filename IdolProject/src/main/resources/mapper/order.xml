@@ -55,4 +55,28 @@
   	select * from order_product where order_no = #{ono}
   </select>
   
+  <!-- 구매그룹 정보 리스트 -->
+  <select id="orderGroup" parameterType="int" resultType="OrderDTO">
+  	select * from order_product where order_group = #{ogno}
+  </select>
+  
+  <!--  구매그룹내역 삭제하기 -->
+  <select id="deleteOgno" parameterType="int">
+	delete from order_product where order_group = #{ogno}  
+  </select>
+  
+  <!-- 날짜검색한 구매내역 날짜들 -->
+  <select id="orderListDateSearch" parameterType="HashMap" resultType="String">
+  	select TO_CHAR(order_date,'YY/MM/DD') from order_product where order_userid=#{order_userid} group by TO_CHAR(order_date,'YY/MM/DD')
+  			
+  	<if test="startDate == endDate"> <!-- 시작날짜와 끝날짜가 같은경우 -->
+				having TO_CHAR(order_date,'YY/MM/DD') = TO_DATE(#{startDate}, 'YY/MM/DD')
+			</if>
+			<if test="startDate != endDate"> <!-- 시작날짜와 끝날짜가 다른경우 -->
+				having TO_CHAR(order_date,'YY/MM/DD') between TO_DATE(#{startDate}, 'YY/MM/DD') and TO_DATE(#{endDate}, 'YY/MM/DD')
+			</if>
+			order by TO_CHAR(order_date,'YY/MM/DD') desc
+  
+  </select>
+  
   </mapper>
