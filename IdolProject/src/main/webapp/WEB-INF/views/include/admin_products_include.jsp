@@ -52,6 +52,10 @@
 		cursor: pointer;
 	}
 	
+	.insert {
+		padding-left: 18px;
+	}
+	
   	/*********** celeb_link_tag **************/
 
 </style>
@@ -60,6 +64,11 @@
 
 	<div class="celeb_link_tag">
 		<div class="insert_btn">
+			<a href="<%=request.getContextPath()%>/admin_products_management.do">
+				SALES
+			</a>
+		</div>
+		<div class="insert_btn insert">
 			<a href="<%=request.getContextPath()%>/admin_products_insert.do">
 				INSERT
 			</a>

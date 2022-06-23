@@ -56,5 +56,12 @@
     				product_detail = #{product_detail}, product_mileage = #{product_mileage}, product_input = #{product_input}, category_pnofk = #{category_pnofk} where product_no = #{product_no}
     	</update>
     	
+    	<!-- 주문 리스트 불러오기 -->
+    	<select id="getOrderList" resultType="OrderDTO">
+    		select * from order_product order by order_date desc
+    	</select>
+    
+    
+    
     
     </mapper>

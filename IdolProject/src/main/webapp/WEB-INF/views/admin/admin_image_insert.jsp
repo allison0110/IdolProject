@@ -36,7 +36,7 @@
 			<form method="post" enctype="multipart/form-data"  
 				action="<%=request.getContextPath()%>/admin_insert_image_ok.do">
 				<div> 
-					이미지 링크<input name="image_link"> 
+					이미지 링크<input name="image_link" value="<%=request.getContextPath()%>/"> 
 				</div>
 				<div> 
 					순번 정하기<input type="number" name="image_priority" min="1" max="10"> 

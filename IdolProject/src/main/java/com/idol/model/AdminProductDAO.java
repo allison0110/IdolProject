@@ -22,6 +22,8 @@ public interface AdminProductDAO {
 	public void updateProductSequen(int no);
 	// 상품 업데이트 하기 
 	public int updateProduct(ProductDTO dto);
+	// 주문리스트 불러오기
+	public List<OrderDTO> getOrderList();
 	
 	
 }

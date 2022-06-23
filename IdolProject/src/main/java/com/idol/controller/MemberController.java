@@ -258,6 +258,7 @@ public class MemberController {
 			out.println("alert('비밀번호가 틀렸습니다. 다시 확인해주세요')");
 			out.println("history.back()");
 			out.println("</script>");
+		//정환 추가 [관리자 모드 접속]	
 		}else if(check == 99) {
 			
 			AdminDTO adto = this.acdao.getAdminCont(dto.getMember_id());

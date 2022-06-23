@@ -57,6 +57,11 @@ public class AdminProductDAOImpl implements AdminProductDAO{
 	public int updateProduct(ProductDTO dto) {
 		return this.sqlSession.update("updateProduct", dto);
 	}
+
+	@Override
+	public List<OrderDTO> getOrderList() {
+		return this.sqlSession.selectList("getOrderList");
+	}
 	
 	
 	

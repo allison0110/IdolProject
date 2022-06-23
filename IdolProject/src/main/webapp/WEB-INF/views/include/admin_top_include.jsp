@@ -11,13 +11,17 @@
 
 <style type="text/css">
 
-	
-	
+		
 	.admin_navbar {
 		display: flex;
 		flex-direction: row;
 		background-color: black;
 		width: 100%;
+		/* 스크롤 다운 시 메뉴바 적용 후 사용
+		position: sticky;
+		top:0px;
+		z-index: 99;
+		*/
 	}	
 	.admin_link {
 		display: flex;
@@ -141,9 +145,7 @@
 						NOTICE
 					</a>
 				</div>
-				<div>
-					<a>POP_UP</a>
-				</div>
+				
 				<div>
 					<a href="<%=request.getContextPath() %>/admin_products_list.do">
 						PRODUCTS

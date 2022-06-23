@@ -47,6 +47,8 @@ public class MemberDAOImpl implements MemberDAO{
 				result = -1;
 			}
 		}else {
+			
+			// 정환 추가 및 수정 [관리자 접속]
 			System.out.println("admin_start");
 			
 			String adminId = this.sqlSession.selectOne("adminIdCheck", dto);
