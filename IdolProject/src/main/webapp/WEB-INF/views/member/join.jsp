@@ -15,8 +15,48 @@
 <script type="text/javascript" src="./resources/js/member.js?v=2022062113"></script>
 <link rel="stylesheet" href="./resources/css/member.css?v=2022062113">
 <script type="text/javascript">
-	
 
+//중복체크버튼 눌렀을 때 아이디중복확인 메서드
+function idCheck(){
+	
+	var id = $("#member_id").val();
+	console.log(id);
+	
+	$.ajax({
+			
+			type:"post",
+			url:"idCheck.do",
+			data:  {member_id : id },
+		    /*contentType:"application/json",*/
+			datatype:"text" ,
+			success:function(data){
+				if(Number(data) == 1){//아이디가 중복이라면
+					let warningTxt = '<font color="red">아이디 중복입니다.</font>'
+						
+						$("#id_check").text('');//span영역 빈칸 초기화
+						$("#id_check").show();
+						$("#id_check").append(warningTxt);
+						$("#member_id").val('').focus();
+						idcheckCount = "false";
+						
+				
+				}else{ //중복이 아닌 경우
+					let warningTxt = '<font color="blue">사용 가능한 아이디입니다.</font>'
+						
+						$("#id_check").text('');//span영역 빈칸 초기화
+						$("#id_check").show();
+						$("#id_check").append(warningTxt);
+						idcheckCount="true";
+				}
+			},
+			error : function(e){
+				alert('데이터 통신 오류가 발생했습니다.');
+				console.log("Error");
+				console.log(e.responseText);
+
+			}
+		});
+}
 </script>
 <style type="text/css">
 

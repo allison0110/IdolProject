@@ -1,4 +1,4 @@
-package com.idol.model;
+﻿package com.idol.model;
 
 import java.util.List;
 
@@ -51,6 +51,17 @@ public interface AdminCelebDAO {
 	public List<NoticeDTO> getGroupNotice(String name);
 	// 셀럽 개인 공지 또는 이벤트 가져오기 from notice table
 	public List<NoticeDTO> getCelebNotice(String name);
+//	// notice 리스트 가져오기
+//	public List<NoticeDTO> getNoticeList();
+//	
+//	// images 리스트 가져오기
+//	public List<ImagesDTO> getImagesList();
+//	
+//	
+//	// 그룹 공지 또는 이벤트 가져오기 from notice table
+//	public List<NoticeDTO> getGroupNotice(String name);
+//	// 셀럽 개인 공지 또는 이벤트 가져오기 from notice table
+//	public List<NoticeDTO> getCelebNotice(String name);
 	
 }
 

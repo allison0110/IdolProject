@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.idol.model.AdminProductDAO;
 import com.idol.model.CelebDTO;
+import com.idol.model.OrderDTO;
 import com.idol.model.ProductCategoryDTO;
 import com.idol.model.ProductDTO;
 
@@ -393,8 +394,16 @@ public class AdminProductController {
 		
 	}
 	
-	
-	
+	// 판매 관리 페이지로 가기
+	@RequestMapping("admin_products_management.do")
+	public String productManagement(Model model) {
+		
+		List<OrderDTO> oList = this.dao.getOrderList();
+		
+		model.addAttribute("oList", oList);
+		
+		return "admin/admin_products_management";
+	}
 	
 	
 	

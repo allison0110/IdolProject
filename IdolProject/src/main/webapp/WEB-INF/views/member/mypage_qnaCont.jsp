@@ -20,12 +20,9 @@
 		padding: 20px 30px;
 	}
 	
-	.qna_cont table, .qna_reply table{
-		width: 100%;
-	}
-	
-	.qna_cont table th{
-		width: 20%;
+	.qnaCont_table .qnaCont_contTD{
+		padding: 15px 20px;
+		height:130px
 	}
 	
 	.inquiry_img {
@@ -36,6 +33,7 @@
 	
 		width:100px;
 		height:100px;
+		margin: 5px;
 	}
 	
 	.img_item img{
@@ -43,6 +41,27 @@
 		height:100%;
 	}
 
+	.btn{
+	background-color: white;
+    border: 1px solid #233044;
+    padding: 8px 20px;
+    border-radius: 21px;
+    cursor: pointer;
+    margin: 30px 2px;
+	
+	}
+	
+	.btn:hover {
+		background-color: #2a3a52;
+		color:white;
+	}
+	
+	.qna_reply_title{
+	
+		padding:20px;
+		font-size: 2em;
+		font-weight: bold;
+	}
 
 </style>
 
@@ -67,14 +86,13 @@
 		<!-- aisde inlcude 추가  -->
 		<jsp:include page="../include/mypage_aside.jsp"/>
 		
-		<div class="mypage_main" style="margin-left: 20px; margin-top: 50px;">
-		<div class="qna_top">
-		<h2>고객문의 내용</h2>
+		<div class="mypage_main">
+		<div class="manage_top">
+		고객문의 내용
 		</div>
-		<hr style="border: 2px solid black;">
 		<br>
 			<div class="qna_cont">
-			<table border="1">
+			<table class="qnaCont_table">
 				<tr>
 					<th>작성자</th>
 					<td>${cont.getInquiry_userid()}</td>
@@ -92,6 +110,7 @@
 						${cont.getInquiry_date().substring(0,10)}<br>
 						${cont.getInquiry_update().substring(0,10)}
 					</td>
+					
 					</c:if>
 				</tr>
 				<tr>
@@ -116,22 +135,22 @@
 				</tr>
 				<tr>
 					<th>답변상태</th> <!-- 관리자 답변 달으면 답변대기 수정 필요!!! -->
-					<td>
+					
 					<c:if test="${cont.getInquiry_status() == 0 }">
-						답변대기
+						<td><span style="color:#ff5722;">답변대기</span></td>
 						</c:if>
 						<c:if test="${cont.getInquiry_status() == 1 }">
-						답변완료
+						<td>답변완료</td>
 						</c:if>
-					</td>
+					
 				</tr>
 				<tr>
 					<th>제목</th>
 					<td>${cont.getInquiry_title() }</td>
 				</tr>
-				<tr>
-					<th>내용</th>
-					<td>
+				<tr class="qnaCont_contTR">
+					<!-- <th>내용</th> -->
+					<td colspan="2" class="qnaCont_contTD">
 						<p>${cont.getInquiry_cont() }</p>
 					</td>
 				</tr>
@@ -152,31 +171,31 @@
 					</div>
 					</td>
 				</tr>
-				<tr>
-					<td colspan="2" align="right">
-					<input type="button" value="목록" onclick="location.href='inquiry_list.do?page=${page}'">
-					<input id="reviseBtn" type="button" value="수정" onclick="location.href='inquiry_update.do?no=${cont.getInquiry_no()}&page=${page}'">
-					<input type="button" value="삭제" onclick="if(confirm('정말로 삭제하시겠습니까?')){
+			</table>
+			<div class="qna_table_bottom" align="right">
+				<input class="btn" type="button" value="목록" onclick="location.href='inquiry_list.do?page=${page}'">
+					<input class="btn" id="reviseBtn" type="button" value="수정" onclick="location.href='inquiry_update.do?no=${cont.getInquiry_no()}&page=${page}'">
+					<input class="btn" type="button" value="삭제" onclick="if(confirm('정말로 삭제하시겠습니까?')){
 							location.href='inquiry_delete.do?no=${cont.getInquiry_no()}';
 					}else{ return; }">
-					</td>
-				</tr>
-			
-			</table>
+			</div>
 		</div><!-- class="qna_cont" -->
 		
 		<!-- 답변이 있는 경우 -->
+		
 		<c:if test="${!empty reply }">
 		<div class="qna_reply">
-			<table border="1">
-				<tr>
-					<td>답변: ${reply.getInquiry_title() }</td>
-				</tr>
-				<tr>
-					<td>${reply.getInquiry_date().substring(0,10) }</td>
-				</tr>
+		<div class="qna_reply_title">
+		A.
+		</div>
+			<table class="qnaCont_table">
 				<tr>
 					<td>
+						답변 날짜 : ${reply.getInquiry_date().substring(0,10) }
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="qnaCont_contTD">
 						<p>${reply.getInquiry_cont() }</p>
 					</td>
 				</tr>
