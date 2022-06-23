@@ -1,0 +1,33 @@
+package com.idol.model;
+
+import java.util.List;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class UsedCommentDAOImpl implements UsedCommentDAO{
+
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+	
+	@Override
+	public int insertUsedComment(UsedCommentDTO dto) {
+	
+		return this.sqlSession.insert("used_comment_add", dto);
+	}
+
+	@Override
+	public List<UsedCommentDTO> getUsedCommentList(int no) {
+		
+		return this.sqlSession.selectList("used_comment_list", no);
+	}
+
+	@Override
+	public int usedCommentDelete(int no) {
+		
+		return this.sqlSession.update("used_comment_delete", no);
+	}
+
+}

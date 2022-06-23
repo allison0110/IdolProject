@@ -8,7 +8,11 @@
  <configuration>
  
  	<typeAliases>
- 		<typeAlias type="com.idol.model.AdminDAO" alias="aDAO"/>
+ 		<typeAlias type="com.idol.model.UsedDAO" alias="usedDAO"/>
+ 		<typeAlias type="com.idol.model.UsedDTO" alias="usedDTO"/>
+ 		<typeAlias type="com.idol.model.PageDTO" alias="pageDTO"/>
+ 		<typeAlias type="com.idol.model.UsedCommentDTO" alias="usedCommentDTO"/>
+ 		<typeAlias type="com.idol.model.UsedCommentDAO" alias="usedCommentDAO"/>
  	</typeAliases>
  
  </configuration>
