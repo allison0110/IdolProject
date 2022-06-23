@@ -31,6 +31,11 @@
 		<typeAlias type="com.idol.model.PageDTO" alias="pageDTO"/>
 		
 		 <typeAlias type="com.idol.model.MusicDTO" alias="musicDTO"/>
+		 
+		 <typeAlias type="com.idol.model.AdminCelebDAO" alias="AcelebDAO"/>
+		 <typeAlias type="com.idol.model.AdminDTO" alias="adminDTO"/>
+		 <typeAlias type="com.idol.model.GroupDTO" alias="groupDTO"/>
+		 
 	</typeAliases>  	
 	
 </configuration>

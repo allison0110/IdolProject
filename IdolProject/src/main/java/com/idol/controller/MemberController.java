@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,6 +28,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.idol.model.AdminCelebDAO;
+import com.idol.model.AdminDTO;
 import com.idol.model.CelebDAO;
 import com.idol.model.CelebDTO;
 import com.idol.model.CommunityDAO;
@@ -98,6 +99,8 @@ public class MemberController {
 	@Autowired
 	private MusicDAO musicDao;
 	
+	@Autowired
+	private AdminCelebDAO acdao;
 	
 	
 	//게시판 페이지 관련 
@@ -260,7 +263,7 @@ public class MemberController {
 		
 		HttpSession session = request.getSession();
 		
-		if(check > 0 ) {
+		if(check == 1 ) {
 			
 			MemberDTO login = this.dao.getMemInfo(dto.getMember_id());
 			
@@ -279,6 +282,26 @@ public class MemberController {
 			out.println("</script>");
 			
 		}else if(check == -1) {
+			out.println("<script>");
+			out.println("alert('비밀번호가 틀렸습니다. 다시 확인해주세요')");
+			out.println("history.back()");
+			out.println("</script>");
+		}else if(check == 99) {//정환님코드 추가
+			
+			AdminDTO adto = this.acdao.getAdminCont(dto.getMember_id());
+			
+			session.setAttribute("admin_id", adto.getAdmin_id());
+			session.setAttribute("admin_pwd", adto.getAdmin_pwd());
+			session.setAttribute("admin_name", adto.getAdmin_name());
+			session.setAttribute("admin_email", adto.getAdmin_email());
+			session.setAttribute("admin_date", adto.getAdmin_date());
+			
+			out.println("<script>");
+			out.println("alert('관리자 모드 로그인 성공 :)')");
+			out.println("location.href='admin_main.do'");
+			out.println("</script>");
+			
+		}else if(check == 88) {
 			out.println("<script>");
 			out.println("alert('비밀번호가 틀렸습니다. 다시 확인해주세요')");
 			out.println("history.back()");
