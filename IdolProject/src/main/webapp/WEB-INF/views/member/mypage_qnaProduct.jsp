@@ -12,6 +12,33 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<style type="text/css">
+
+	#top{
+	
+		margin: 30px 10px;
+    padding: 20px 10px;
+    border: 5px solid #2a3a52;
+	}
+	
+	#search_btn{
+	
+    padding: 5px 15px;
+    border-radius: 20px;
+    background-color: white;
+    border: 1px solid #2a3a52;
+    color: #2a3a52;
+    cursor: pointer;
+	font-size: 0.89em;
+	
+	}
+	
+	#popup_img{
+		height:130px;
+	
+	}
+	
+</style>
 </head>
 <body>
 	<c:set var="search_field" value="${map.get('field') }"/>

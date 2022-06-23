@@ -1,5 +1,4 @@
-package com.idol.model;
-
+﻿package com.idol.model;
 
 
 import java.util.List;
@@ -176,6 +175,36 @@ public class AdminCelebDAOImpl implements AdminCelebDAO{
 		
 		return this.sqlSession.selectList("getCelebNotice", name);
 	}
+//	// 공지사항 리스트 가져오기
+//	@Override
+//	public List<NoticeDTO> getNoticeList() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//
+//	// 이미지스 리스트 가져오기
+//	@Override
+//	public List<ImagesDTO> getImagesList() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	// 그룹에 관련된 공지 가져오기
+//	@Override
+//	public List<NoticeDTO> getGroupNotice(String name) {
+//		return this.sqlSession.selectList("getGroupNotice", name);
+//	}
+//
+//
+//	// 셀럽 개인에 관련된 공지 가져오기
+//	@Override
+//	public List<NoticeDTO> getCelebNotice(String name) {
+//		
+//		System.out.println("impl-name : " + name);
+//		
+//		return this.sqlSession.selectList("getCelebNotice", name);
+//	}
 
 
 	

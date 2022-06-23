@@ -79,7 +79,10 @@
 		
   </select>
   
-  
+  <!-- 제품명으로 제품정보 찾기 -->
+  <select id="PdetailbyName" parameterType="String" resultType="ProductDTO">
+  	<![CDATA[select *from PRODUCT where PRODUCT_NAME = #{order_pname}]]>
+  </select>
   
   
   
