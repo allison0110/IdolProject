@@ -405,13 +405,16 @@ public class MemberController {
 		//문의내역 - 답변대기중인 게시글 수
 		int waiting = this.idao.watingReply(dto.getMember_id());
 		
+		//최근 3일간 구매한 건수 
+		int ThreeDaysOrder = this.odao.get3daysOrder(dto.getMember_id());
+		
 		
 		//값전달
 		model.addAttribute("mileage", mileage); //회원에 대한 마일리지 정보
 		model.addAttribute("waiting", waiting);//답변대기 문의글
 		model.addAttribute("iList",iList); //문의내역
 		model.addAttribute("oList", oList);
-		
+		model.addAttribute("threedays", ThreeDaysOrder);
 		
 		return "member/mypage";
 	}
@@ -1448,6 +1451,9 @@ public class MemberController {
 		//누른 feed의 회원 게시글 리스트
 		List<CommunityDTO> commList = this.comDao.getCommunityList(id);
 		feedInfo.put("commList", commList);
+		if(commList != null) {
+			model.addAttribute("community", commList);
+		}
 		
 		//누른 feed의 회원의 팔로우,팔로워 정보
 		//내가 팔로우 하는 사람들 팔로잉 follow
@@ -1746,4 +1752,20 @@ public class MemberController {
 		}
 		
 	}
+	
+	
+	//마이피드 - 포스팅 
+	@RequestMapping("feed_posting.do")
+	public String feed_posting(@RequestParam("id")String id, Model model) {
+		
+		//내가 쓴 커뮤니티게시판 글 리스트 가져오기  - myfeed.do에서 세션 저장해둠 
+//		List<CommunityDTO> commList = this.comDao.getCommunityList(id);
+//		feedInfo.put("commList", commList);
+		
+		
+		
+		return "member/feed_posting";
+	}
+	
+	
 }

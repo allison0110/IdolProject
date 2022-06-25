@@ -117,19 +117,19 @@
 	.order_photo img{
 		width:100%;
 		height:100%;
-		border: 1px solid #8b8989;
-	}
+		}
 	
 	.order_item .order_info{
 		line-height: 1.5;
 	}
 	
 	.qna_item{
-		margin: 20px 0;
-		line-height: 1.5
+		margin: 10px;
+		padding: 10px 0;
+		line-height: 1.5;
 	}
 	.qna_item:hover, .order_item:hover {
-		background-color:#ececec;
+		background-color:rgba(236,236,236,0.5);
 		opaciy: 50%
 	}
 	
@@ -168,11 +168,15 @@
 				</div>
 				
 				<div class="top_item" align="center">
-				<a href="#">
+				<a href="<%=request.getContextPath()%>/order_list.do">
 					<div class="main_top_icon icon_delivery">
 						<label for="icon_delivery" class="bi bi-truck"></label>
 					</div>
 				주문/배송
+				<br>
+				<span>
+					<fmt:formatNumber value="${threedays}" /> 
+				</span>
 				</a>
 				</div>
 				

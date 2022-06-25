@@ -73,6 +73,12 @@ public class OrderDAOImpl implements OrderDAO{
 		return this.sqlSession.selectList("orderListDateSearch", map);
 	}
 
+	//최근 3일간 구매한 건수 
+	@Override
+	public int get3daysOrder(String member_id) {
+		return this.sqlSession.selectOne("3daysOrder", member_id);
+	}
+
 	
 	
 	

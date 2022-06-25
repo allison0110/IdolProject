@@ -47,6 +47,9 @@
 		height:100%;
 		border: 1px solid #8b8989;
 	}
+	.order_item a:hover{
+		text-decoration: underline;
+	}
 	
 	.order_item .order_info{
 		line-height: 1.5;
@@ -265,11 +268,6 @@
 		</div>	<!-- class="order_main"  -->
 		<br><br>
 		<div id="load">더 보기 +</div>
- 	 		<!-- <a href="#" id="load">더 보기 +</a>  -->
-		<!-- <div id="more_btn_div" align="center">
-			
-			<a id="more_btn_a" href="javascript:moreContent('order_item', 6)"> 더보기(more)</a>
-		</div> -->
 		</form>
 	
 		

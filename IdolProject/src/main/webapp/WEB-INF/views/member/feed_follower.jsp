@@ -8,7 +8,7 @@
 <title>${id }님의 피드 - 팔로워</title>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" ></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
-<link rel="stylesheet" href="./resources/css/member.css?v=2022062212">
+<link rel="stylesheet" href="./resources/css/member.css?v=2022062314">
 <script type="text/javascript">
 
 
@@ -50,38 +50,6 @@
 		text-align:left;
 	}
 	
-	.f_btn1{
-		background-color: #2a3a52;
-		color:white;
-	    border: 1px solid #2a3a52;
-	    padding: 3px 15px;
-	    border-radius: 10px;
-	    cursor: pointer;
-	    margin: 30px 2px;
-	    font-size: 0.9em;
-	}
-	
-	.f_btn1:hover {
-		background-color:#17202d;
-	    border: 1px solid #2a3a52;
-	}
-	
-	
-	
-	.f_btn2{
-		background-color: white;
-	    border: 1px solid #2a3a52;
-	    padding: 3px 15px;
-	    border-radius: 10px;
-	    cursor: pointer;
-	    margin: 30px 2px;
-	    font-size: 0.9em;
-	}
-	
-	.f_btn2:hover {
-		background-color: #ececec;
-		
-	}
 
 </style>
 </head>

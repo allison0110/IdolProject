@@ -69,6 +69,7 @@
 		display:flex;
 		width:85%;
 		margin-bottom:20px;
+		cursor: pointer;
 	}
 	
 	.find_tab .tab_title{
