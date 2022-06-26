@@ -24,6 +24,14 @@ public interface AdminProductDAO {
 	public int updateProduct(ProductDTO dto);
 	// 주문리스트 불러오기
 	public List<OrderDTO> getOrderList();
+	// 주문 상세 정보 불러오기 
+	public OrderDTO getOrderCont(int no);
+	// 주문 그룹 리스트 불러오기 by order_group (그룹 번호 = 주문번호)
+	public List<OrderDTO> getOrderContList(int no);
+	// 맴버별 구매내역 불러오기 
+	public List<OrderDTO> getMemberPurchaseInfo(String name);
+	
+	
 	
 	
 }

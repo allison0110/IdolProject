@@ -32,7 +32,7 @@
     	  		#{product_color}, #{product_detail}, #{product_mileage}, #{product_input}, #{category_pnofk} )
     	</insert>
     	
-    	<!-- 상품 상세 정보 가져오기 -->
+    	<!-- 상품 상세 정보 가져오기  by product_no-->
     	<select id="getProductCont" parameterType="int" resultType="ProductDTO">
     		select * from product where product_no = #{no}
     	</select>
@@ -58,10 +58,25 @@
     	
     	<!-- 주문 리스트 불러오기 -->
     	<select id="getOrderList" resultType="OrderDTO">
-    		select * from order_product order by order_date desc
+    		select * from order_product order by order_date desc, order_group desc
     	</select>
     
+    	<!-- 주문 상세 정보 불러오기  by order_no -->
+    	<select id="getOrderCont" parameterType="int" resultType="OrderDTO">
+    		select * from order_product where order_no = #{no}
+    	</select>
     
-    
-    
+    	<!-- 주문 상세 정보 불러오기 by order_goup -->
+    	<select id="getOrderContList" parameterType="int" resultType="OrderDTO">
+    		select * from order_product where order_group = #{no} 
+    	</select>
+    	
+    	<!-- 맴버별 구매내역 불러오기 -->
+    	<select id="getMemberPurchase" parameterType="String" resultType="OrderDTO">
+    		select * from order_product where order_userid = #{name}
+    	</select>
+    	
+    	
+    	
+    	
     </mapper>

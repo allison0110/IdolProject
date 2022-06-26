@@ -262,11 +262,33 @@ public class AdminCelebController {
 		
 		List<CelebDTO> list = this.dao.celebList();
 		
+		
+		//************ test  ***************
+		String[] imgList = null;
+		
+		for(int i = 0; i < list.size(); i++) {
+			
+			CelebDTO dto = list.get(i);
+			
+			String img = dto.getCeleb_pimage();
+			
+			StringTokenizer tokenizer = new StringTokenizer(img, "|");
+			
+			imgList = new String[tokenizer.countTokens()];
+			
+			for(int j = 0; j < imgList.length; j++) {
+				imgList[j] = tokenizer.nextToken();
+			}
+		}
+		
+		
 		List<GroupDTO> glist = this.dao.getGroupList();
 		
 		model.addAttribute("celecList", list);
 		
 		model.addAttribute("groupList", glist);
+		
+		model.addAttribute("imgList", imgList);
 		
 		return "admin/admin_celeb_list";
 	}
@@ -569,8 +591,41 @@ public class AdminCelebController {
 	
 
 	
-	
-	
+	@RequestMapping("test.do")
+	public String test(Model model) {
+		
+		List<CelebDTO> list = this.dao.celebList();
+		
+		String[] imgList = null;
+		
+		for(int i = 0; i < list.size(); i++) {
+			CelebDTO dto = list.get(i);
+			
+			String img = dto.getCeleb_pimage();
+			System.out.println("img >>>> " + img);
+			StringTokenizer tokenizer = new StringTokenizer(img, "|");
+			
+			imgList = new String[tokenizer.countTokens()];
+			
+			while(tokenizer.hasMoreElements()) {
+				imgList[i] =tokenizer.nextToken();
+			}
+			
+			
+		}
+		
+		System.out.println("imgList >>> " + imgList);
+		System.out.println("imgList.length >>> " + imgList.length);
+		List<GroupDTO> glist = this.dao.getGroupList();
+		
+		model.addAttribute("celecList", list);
+		
+		model.addAttribute("groupList", glist);
+		model.addAttribute("imgList", imgList);
+		
+		
+		return "admin/test";
+	}
 	
 
 	

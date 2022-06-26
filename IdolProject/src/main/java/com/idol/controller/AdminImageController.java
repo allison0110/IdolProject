@@ -65,7 +65,7 @@ public class AdminImageController {
 
             String saveFile = path + System.currentTimeMillis() + originFileName;
             
-            dbFileName += System.currentTimeMillis() + originFileName + "|";
+            dbFileName += System.currentTimeMillis() + originFileName;
             
             try {
             	
@@ -124,18 +124,18 @@ public class AdminImageController {
 		
 		ImagesDTO dto = this.dao.imagesCont(no);
 		
-		String imgs = dto.getImage_path();
+//		String imgs = dto.getImage_path();
 		
-		StringTokenizer tokenizer = new StringTokenizer(imgs, "|");
+//		StringTokenizer tokenizer = new StringTokenizer(imgs, "|");
 		
-		String[] arrayImgs = new String[tokenizer.countTokens()];
+//		String[] arrayImgs = new String[tokenizer.countTokens()];
 		
-		for(int i =0; i < arrayImgs.length; i++) {
+//		for(int i =0; i < arrayImgs.length; i++) {
 			
-			arrayImgs[i] = tokenizer.nextToken();
-		}
+//			arrayImgs[i] = tokenizer.nextToken();
+//		}
 		
-		model.addAttribute("arrayImgs", arrayImgs);
+//		model.addAttribute("arrayImgs", arrayImgs);
 		
 		model.addAttribute("imageCont", dto);
 		
@@ -160,18 +160,24 @@ public class AdminImageController {
 			// 이미지 파일 삭제 시키기
 			String path ="C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\images\\";
 			
-			StringTokenizer tokenizer = new StringTokenizer(imgs, "|");
+//			StringTokenizer tokenizer = new StringTokenizer(imgs, "|");
 			
-			String[] tokenList = new String[tokenizer.countTokens()];
+//			String[] tokenList = new String[tokenizer.countTokens()];
 			
-			for(int i = 0; i < tokenList.length; i++) {
+//			for(int i = 0; i < tokenList.length; i++) {
 				
-				tokenList[i] = tokenizer.nextToken();
+//				tokenList[i] = tokenizer.nextToken();
 				
-				File file = new File(path + tokenList[i]);
+//				File file = new File(path + tokenList[i]);
 				
-				file.delete();
-			}
+//				file.delete();
+//			}
+			
+			System.out.println("imgs >>> " + imgs);
+			
+			File file = new File(path + imgs);
+			
+			file.delete();
 			
 			this.dao.imageNoSequen(no);
 			
@@ -237,7 +243,7 @@ public class AdminImageController {
 			
 			System.out.println("saveFile :" + saveFile);
 			
-			dbFileName += System.currentTimeMillis() + originFileName + "|";
+			dbFileName += System.currentTimeMillis() + originFileName ;
 			
 			try {
             	
@@ -286,20 +292,23 @@ public class AdminImageController {
 		// 파일 첨부 오케이
 		}else {
 			
-			StringTokenizer tokenizer = new StringTokenizer(oldPath, "|");
+//			StringTokenizer tokenizer = new StringTokenizer(oldPath, "|");
 			
-			String[] tokenList = new String[tokenizer.countTokens()];
+//			String[] tokenList = new String[tokenizer.countTokens()];
 			
-			for(int i = 0; i < tokenList.length; i++) {
+//			for(int i = 0; i < tokenList.length; i++) {
 				
-				tokenList[i] = tokenizer.nextToken();
+//				tokenList[i] = tokenizer.nextToken();
 				
-				File file = new File(path + tokenList[i]);
+//				File file = new File(path + tokenList[i]);
 				
-				file.delete();
+//				file.delete();
 				
-			}
+//			}
 			
+			File file = new File(path + oldPath);
+			
+			file.delete();
 			
 			dto.setImage_path(dbFileName);
 			

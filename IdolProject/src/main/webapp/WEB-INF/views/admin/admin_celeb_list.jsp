@@ -189,7 +189,6 @@
 </head>
 <body>
 	
-	
 	<div class="admin_celeb_wrapper">
 	
 	<jsp:include page="../include/admin_top_include.jsp" />
@@ -243,9 +242,9 @@
 									 <%=dto.getCeleb_group() %>
 								</div> <!-- group_name -->
 							<% } %>	
-								<div class="celeb_name">
-									 <%=dto.getCeleb_name() %>
-								</div> <!-- celeb_name -->
+							<div class="celeb_name">
+								 <%=dto.getCeleb_name() %>
+							</div> <!-- celeb_name -->
 						
 						</div><!-- box_top -->
 						

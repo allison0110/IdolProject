@@ -38,7 +38,7 @@
 	
 	.album_box {
 		width: 300px;
-		height: 350px;
+		height: auto;
 	
 	}
 	

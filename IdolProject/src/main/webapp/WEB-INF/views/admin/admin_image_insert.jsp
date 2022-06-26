@@ -55,7 +55,7 @@
 					</select>
 				</div>
 				<div>
-					<input type="file" multiple="multiple" name="file">
+					<input type="file" name="file">
 				</div>
 				<input type="submit" value="등록">
 				<input type="reset" value="다시작성">

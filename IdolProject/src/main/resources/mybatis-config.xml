@@ -35,6 +35,7 @@
  		<typeAlias type="com.idol.model.EventDTO" alias="eventDTO"/>
 		<typeAlias type="com.idol.model.PageDTO" alias="pageDTO"/>
 		<typeAlias type="com.idol.model.ProductCategoryDTO" alias="pCategoryDTO"/>
+		<typeAlias type="com.idol.model.Inquiry_CategoryDTO" alias="iCategoryDTO"/>
 		
 		
 		
@@ -45,6 +46,7 @@
  		<typeAlias type="com.idol.model.AdminGroupDAO" alias="AgroupDAO"/>
  		<typeAlias type="com.idol.model.AdminNoticeDAO" alias="AnoticeDAO"/>
  		<typeAlias type="com.idol.model.AdminProductDAO" alias="AProductDAO"/>
+ 		<typeAlias type="com.idol.model.AdminMemberDAO" alias="AmemberDAO"/>
 				 
 		 
 	</typeAliases>  	

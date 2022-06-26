@@ -402,12 +402,89 @@ public class AdminProductController {
 		
 		model.addAttribute("oList", oList);
 		
-		return "admin/admin_products_management";
+		return "admin/admin_order_management";
+	}
+	
+	// 주문 제품 하나 상세 내역
+	@RequestMapping("admin_order_productCont.do")
+	public String orderCont(Model model, @RequestParam("no") int no) {
+		
+		OrderDTO dto = this.dao.getOrderCont(no);
+		
+		String imgs = dto.getOrder_pimage();
+		
+		StringTokenizer tokenizer = new StringTokenizer(imgs, "|");
+		
+		String[] imgsList = new String[tokenizer.countTokens()];
+		
+		for(int i =0; i < imgsList.length; i ++) {
+			
+			imgsList[i] = tokenizer.nextToken();
+			
+		}
+		
+		model.addAttribute("orderCont", dto);
+		
+		model.addAttribute("imgsList", imgsList);
+		
+		return "admin/admin_order_cont";
+		
+		
 	}
 	
 	
+	// 그룹 번호로 판매 내역 조회 (그룹 번호 = 주문번호)
+	@RequestMapping("admin_order_groupCont.do")
+	public String getOrderGroupList(Model model, @RequestParam("no") int no) {
+		
+		List<OrderDTO> oList = this.dao.getOrderContList(no);
+		
+		System.out.println("=== product cont img list ===");
+		
+		String[] imgsList2 = null;
+
+		for(int i = 0; i < oList.size(); i++) {
+		
+			OrderDTO odto = oList.get(i);
+			
+			String imgs2 = odto.getOrder_pimage();
+			
+			System.out.println("imgs2 : " + imgs2);
+			
+			StringTokenizer tokenizer2 = new StringTokenizer(imgs2, "|");
+			
+			imgsList2 = new String[tokenizer2.countTokens()];
+			
+			for(int j = 0; j < imgsList2.length; j++) {
+				
+				imgsList2[j] = tokenizer2.nextToken();
+				
+				System.out.println("imgsList2 :" + imgsList2[j]);
+			}
+		}
+		
+		model.addAttribute("oimgsList", imgsList2);
+		
+		model.addAttribute("oList", oList);
+		
+		System.out.println("imgsList2_length : " + imgsList2.length);
+		System.out.println("imgsList2 : " + imgsList2);
+		
+		
+		
+		return "admin/admin_order_group";
+	}
 	
-	
+	// 맴버 클릭시 구매내역 불러오기
+	@RequestMapping("admin_memeber_purchaseInfo.do")
+	public String getMemberPurchaseInfo(@RequestParam("name") String name, Model model) {
+		
+		List<OrderDTO> list = this.dao.getMemberPurchaseInfo(name);	
+		
+		model.addAttribute("mList", list);
+		
+		return "admin/admin_product_memberInfo";
+	}
 	
 	
 	

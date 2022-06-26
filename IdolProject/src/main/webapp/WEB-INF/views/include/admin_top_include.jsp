@@ -152,7 +152,7 @@
 					</a>
 				</div>
 				<div>
-					<a href="<%=request.getContextPath() %>/admin_member_list.do">
+					<a href="<%=request.getContextPath() %>/admin_member_main.do">
 						MEMBER						
 					</a>
 				</div>

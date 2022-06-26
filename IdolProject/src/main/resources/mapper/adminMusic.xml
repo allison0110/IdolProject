@@ -22,11 +22,11 @@
     		select * from music order by music_release_date desc, music_aname, music_name
     	</select>
     	
-    	<!-- 음원 상세 내용  -->
+    	<!-- 음원 상세 내용 
  	   	<select id="musicCont" parameterType="int" resultType="musicDTO">
     		select * from music where music_no = #{no}
     	</select>
-    	
+    	 -->
     	<!-- 음원 삭제 -->
     	<delete id="deleteMusic" parameterType="int">
     		delete from music where music_no = #{music_no} 

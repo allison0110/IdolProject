@@ -93,9 +93,10 @@
 		<div class="admin_main_container">	
 			
 			<div class="underTheconts">
-				<span>
+				<a href="test.do"><span>
 					공사중
-				</span>
+				</span></a>
+				
 				<span>
 					공사중
 				</span>
