@@ -296,7 +296,8 @@ let memno = document.getElementById('memno');
 			}
 		},
 		error: function(data){
-			alert("통신오류다.");
+			alert('다시 로그인해 주세요');
+ 			location.href = 'login.do';
 		}
 		});
 		return result;
@@ -330,6 +331,7 @@ function addCart(){
 
 // 장바구니 버튼 클릭이벤트
 cartButton.addEventListener('click',function(){
+	if(memno.value != ""){
 	if(checkCart() == 1){
  			if(confirm('장바구니에 동일한 상품이 존재합니다. 정말로 추가하시겠습니까?')){
  				addCart();
@@ -337,7 +339,23 @@ cartButton.addEventListener('click',function(){
  		}else{
  			addCart();
  		}
+ 	}else{
+		alert('로그인을 먼저 진행해 주세요');
+		location.href = 'login.do';
+ 	
+ 	}
  });
+ 
+ 
+ function submitCheck(){
+ 	if(memno.value == ""){
+ 		alert('로그인을 먼저 진행해 주세요');
+ 		location.href = 'login.do';
+		return false;
+ 	}
+ 	
+ }
+
 
 
 
