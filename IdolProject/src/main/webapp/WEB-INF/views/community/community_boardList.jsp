@@ -19,7 +19,7 @@
         <div id="container">
             <div id="topic-container">
                 <div id="search-container">
-                    <form method="post" action="<%=request.getContextPath()%>/admin_user_search.do">          
+                    <form method="post" action="<%=request.getContextPath()%>/community_searchList.do">          
                         <div class="input-group mb-3">
                             <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
                                 <i class="fa-solid fa-magnifying-glass fa-2x"></i>
@@ -38,7 +38,7 @@
                         <i class="fa-solid fa-crown fa-2x"></i>
                         <h2>베스트 게시글</h2>
                         <div class="view-more">
-                            <a href="#">더보기></a>
+                            <a href="<%=request.getContextPath()%>/community_topicList.do?cno=${0}">더보기></a>
                         </div>
                     </div>
                     <div class="topic-list">
@@ -48,10 +48,14 @@
                             <div class="topicAndtitle">
                             <c:forEach items="${categorylist }" var="cdto">
                             <c:if test="${cdto.category_cno == bestdto.category_cnofk }">
-                            <span class="topic"><a href="#" class="">${cdto.category_cname}</a></span>
+                            <span class="topic"><a href="<%=request.getContextPath()%>/community_topicList.do?cno=${cdto.category_cno}" class="">
+                            ${cdto.category_cname}</a>
+                            </span>
                             </c:if>
                             </c:forEach> 
-                            <a href="#" class="article-title">${bestdto.community_title }</a> 
+                            <a href="<%=request.getContextPath()%>/community_boardContent.do?bno=${bestdto.community_no}" class="article-title">
+                            ${bestdto.community_title }
+                            </a> 
                             </div>
                             <div class="likeAndComment">
                                 <a href="#"><i class="fa-solid fa-thumbs-up"></i>${bestdto.community_recommend }</a> 
@@ -73,17 +77,22 @@
                         <i class="${cdto.category_icname}"></i>
                         <h2>${cdto.category_cname}</h2>
                         <div class="view-more">
-                            <a href="#">더보기></a>
+                            <a href="<%=request.getContextPath()%>/community_topicList.do?cno=${cdto.category_cno}">더보기></a>
                         </div>
                     </div>
                     <c:if test="${!empty baordlist}">
-                    <c:forEach items="${baordlist}" var="boarddto" varStatus="status" step="1" >
+                    <!-- 일반게시글을 5개의 리스트만 출력하기위해 사용하는 인덱스와 조건문을 위한 변수처리 -->
+					<c:set var="i" value="${0 }"/>
+					<c:set var="doneLoop" value="false"/>
+                    <c:forEach items="${baordlist}" var="boarddto" varStatus="status" >
+                    <c:if test="${not doneLoop}">
                     <c:if test="${boarddto.category_cnofk == cdto.category_cno }">
+                    <c:set var="i" value="${i+1 }"/>
                     <div class="topic-list">
                         <div class="article">
                             <div class="topicAndtitle">
                             <!-- <span class="topic"><a href="#" class="">TV·연예</a></span>  -->
-                            <a href="#" class="article-title">${boarddto.community_title }</a> 
+                            <a href="<%=request.getContextPath()%>/community_boardContent.do?bno=${boarddto.community_no}" class="article-title">${boarddto.community_title }</a> 
                             </div>
                             <div class="likeAndComment">
                                 <a href="#"><i class="fa-solid fa-thumbs-up 0.5x"></i>${boarddto.community_recommend }</a> 
@@ -92,15 +101,17 @@
                         </div>
                     </div>
                     </c:if>
+                    <c:if test="${i == 5 }">
+						<c:set var="doneLoop" value="true"/>
+  					</c:if>
+  					</c:if>
                     </c:forEach>
                     </c:if>
                 </div>
                 </c:forEach>
                 </c:if>
                 <!-- 일반 게시글 end -->
-                
-                
-            </div>
+            </div>  <!-- 베스트, 일반 게시글 end -->
 
 
 

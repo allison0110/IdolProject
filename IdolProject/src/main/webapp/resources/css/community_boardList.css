@@ -64,6 +64,7 @@
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
+    margin-bottom: 100px;
 }
 
 #topic-container a{
@@ -177,7 +178,7 @@
     width: 360px;
     height: 320px;
     margin: 40px 18px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 }
 
 .topit-list-topic .topic-title{

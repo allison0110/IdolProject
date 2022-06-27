@@ -30,5 +30,48 @@ public class BoardDAOImpl implements BoardDAO {
 	public List<BoardDTO> getBestList() {
 		return sqlSession.selectList("BestList");
 	}
+	
+	// 일반주제 리스트 출력
+	@Override
+	public List<BoardDTO> getTopicList(int cno) {
+		return sqlSession.selectList("TopicList", cno);
+	}
+	
+	// 검색 게시물 리스트 출력
+	@Override
+	public List<BoardDTO> getSearchList(String keyword) {
+		return sqlSession.selectList("searchList", keyword);
+	}
+	
+	// 마지막 게시물 번호를 획득
+	@Override
+	public int getMaxBoardNo() {
+		return sqlSession.selectOne("maxNo");
+	}
+	
+	// 게시물 상세정보
+	@Override
+	public BoardDTO getboardDetail(int bno) {
+		return sqlSession.selectOne("boardDetail", bno);
+	}
+
+	// 게시물 조회수 업데이트
+	@Override
+	public void boardHitUp(int bno) {
+		sqlSession.update("hitUp", bno);
+		
+	}
+
+	// 게시물 삭제
+	@Override
+	public int deleteBoard(int bno) {
+		return sqlSession.delete("deleteBoard", bno);
+	}
+
+	// 게시물 업데이트
+	@Override
+	public int boardUpdate(BoardDTO boarddto) {
+		return sqlSession.update("boardUpdate", boarddto);
+	}
 
 }

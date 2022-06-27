@@ -91,6 +91,12 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.selectOne("mCont", mno);
 	}
 
+	// 전체 회원 리스트 출력 메서드
+	@Override
+	public List<MemberDTO> getMemeberList() {
+		return sqlSession.selectList("MemAllList");
+	}
+
 	
 
 

@@ -8,12 +8,12 @@ imageView = function imageView(att_zone, btn){
   
   // 이미지와 체크 박스를 감싸고 있는 div 속성
   var div_style = 'display:inline-block;position:relative;'
-                + 'width:145px;height:120px;margin:5px;z-index:1';
+                + 'width:145px;height:120px;margin:5px;z-index:1; border: 1px solid red';
   // 미리보기 이미지 속성
   var img_style = 'width:100%;height:100%;z-index:none';
   // 이미지안에 표시되는 체크박스의 속성
   var chk_style = 'width:30px;height:30px;position:absolute;font-size:24px;'
-                + 'right:0px;bottom:0px;z-index:999;color:#f00';
+                + 'right:0px;bottom:0px;z-index:999;color:#f00'; 
 
   btnAtt.onchange = function(e){
     var files = e.target.files;
@@ -124,14 +124,29 @@ function submitCheck(){
 		$('#boardCategory').focus();
 		return false;
 	}else{
-		  if(confirm('게시물을 등록하시겠습니까? 게시물 등록시 마일리지 20P 획득 ')){
+		  if(confirm('게시물을 수정하시겠습니까?')){
 		  	return true;
 		  }else{
 		  	return false;
 		  }
-		
 	}
 }
+
+// 기존파일삭제버튼 클릭 이벤트
+let images = [];
+for(let i=0;i<$(".delBtn").length;i++){
+	$(".delBtn").eq(i).click(function(){
+		images.push($(".oldfileName").eq(i).val());
+		$('#delImages').val(images);
+		$('.oldFile').eq(i).css("display","none");
+
+
+		
+	});
+}
+
+
+
 
 
 
