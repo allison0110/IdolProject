@@ -80,13 +80,55 @@
 	}
 	
 	
-	
-	
+	.product_name {
+		opacity: 0;
+    	left: -275px;
+    	position: absolute;
+    	display: block;
+    	z-index: 1;
+    	bottom:0;
+    	background: rgba(0, 0, 0, 0.5);
+    	text-align: left;
+    	
+    	
+	}
+	.product_box span{
+		position: absolute;
+    	display: block;
+    	z-index: 0;
+    	top: 0;
+    	width: 275px;
+    	height: 310px;
+    	box-shadow: inset 0 0 50px rgba(50, 30, 0, 0.6),
+    				inset 0 0 100px rgba(50, 30, 0, 0.3);
+    	background: rgba(255, 155, 0, 0.2);
+    	opacity: 0;
+    	
+	}
+	.product_link {
+		position: relative;
+	}
 </style>
 
  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
  
  <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Creepster&family=East+Sea+Dokdo&family=Gamja+Flower&family=Gugi&family=Jua&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kirang+Haerang&family=Nosifer&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+ 
+ <script type="text/javascript">
+ 	$(function(){
+ 		var duration = 300,
+ 			$image = $('.product_box');
+ 		$image.mouseover(function(){
+ 			$(this).find('span').stop().animate({opacity:1},$duration);
+ 			$(this).find('strong').stop().animate({opacity:1, left:'275px'},$duration);
+ 		}).
+ 		$image.mouseout(function(){
+ 			$(this).find('span').animate({opacity:0},$duration);
+ 			$(this).find('strong').stop().animate({opacity:1, left:'-275px'},$duration);
+ 		});
+ 	});
+ 
+ </script>
  
 </head>
 <body>
@@ -121,20 +163,14 @@
 					
 				}
 				%>
+				<a class="product_link" href="<%=request.getContextPath()%>/admin_product_content.do?no=<%=dto.getProduct_no()%>">
 				<div data-aos="fade-in" class="product_box">
-					<a href="<%=request.getContextPath()%>/admin_product_content.do?no=<%=dto.getProduct_no()%>">
-						<div class="product_img">
-							<img alt="" src="./resources/upload/product/<%=arrayToekn[0]%>"> 
-						</div>
-					<!--  	
-					<div class="product_info">
-							<div class="product_name">
-								<%=dto.getProduct_name() %>
-							</div>
-						</div>
-						-->
-					</a>
+							<img class="product_img" alt="" src="./resources/upload/product/<%=arrayToekn[0]%>"> 
+						<strong class="product_name">
+							<%=dto.getProduct_name() %>
+						</strong><span></span>
 				</div> <!-- product_box -->
+				</a>
 			<%}%>	
 				
 			</div> <!-- products_list_boxes -->

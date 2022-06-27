@@ -36,30 +36,34 @@
 
 </head>
 <body>
-<!-- inquiry content -->
+<!-- 게시물 상세 정보 불러오기 -->
 <c:set var="idto" value="${iCont }" />
-<!-- product List -->
-<c:set var="pcont" value="${pdto }" />
-<!-- orderList -->
-<c:set var="ocont" value="${odto }" />
-<!-- product image list -->
-<c:set var="plist" value="${pimgsList }" />
-<!-- product order list -->
-<c:set var="olist" value="${oimgsList }" />
-<!-- inquiry group list [reply_list] -->	
-<c:set var="glist" value="${gList }" />
+<!-- 게시물 상세 정보 (이미지 불러오기) -->
 <c:set var="imgslit" value="${imgsList }" />
+<!-- 상품 번호 정보 불러오기-->
+<c:set var="pcont" value="${pdto }" />
+<!-- 주문번호 정보 불러오기 -->
+<c:set var="ocont" value="${odto }" />
+<!-- 상품 이미지 리스트 불러오기 -->
+<c:set var="plist" value="${pimgsList }" />
+<!-- 주문 이미지 리스트 불러오기 -->
+<c:set var="olist" value="${oimgsList }" />
+<!-- 같은 그룹 답변글 불러오기 [reply_list] -->	
+<c:set var="glist" value="${gList }" />
+
+
 	<div class="admin_member_inquiry_cont_wrapper">
 	
 	<jsp:include page="../include/admin_top_include.jsp" />
 	
 		<div class="admin_member_inquiry_container">
 		
-			<div>
+			<div class="inquiry_img">
+			[임시 : 문의 게시판 이미지]
 				<c:forEach items="${imgsList }" var="imgs">
 					<img alt="" src="./resources/upload/inquiry_board/${imgs }">
 				</c:forEach>
-			</div>
+			</div> <!-- inquiry_img -->
 		
 			<div class="member_inquiry_box">
 			
@@ -68,6 +72,7 @@
 						<c:if test="${pcont.product_no == idto.product_no }">
 							<div class="member_inquiry_product">
 								<a href="<%=request.getContextPath() %>/admin_product_content.do?no=${idto.product_no}">
+									[임시 상품 이미지]
 									<img alt="" src="./resources/upload/product/${plist[0] }">
 									<div>
 										상품 이름 : ${pcont.product_name}
@@ -82,6 +87,7 @@
 						<c:if test="${ocont.order_no == idto.order_no }">
 							<div class="member_inquiry_order">
 								<a href="<%=request.getContextPath()%>/admin_order_productCont.do?no=${idto.order_no}">
+									[임시 주문 이미지]
 									<img alt="" src="./resources/upload/product/${olist[0] }">
 									<div>
 										주문 번호 : ${ocont.order_no} / ${ocont.order_group }
@@ -102,6 +108,9 @@
 				</div>
 				<div>
 					ID: ${idto.inquiry_userid }
+				</div>
+				<div>
+					TITLE: ${idto.inquiry_title }
 				</div>
 				<div>
 					CONTENT: ${idto.inquiry_cont }
@@ -167,7 +176,7 @@
 							TITLE: ${gdto.inquiry_title }
 						</div>
 						<div>
-							${gdto.inquiry_cont }
+							COTENT: ${gdto.inquiry_cont }
 						</div>
 						<div>
 							<c:if test="${!empty gdto.inquiry_update }">
@@ -178,10 +187,14 @@
 							</c:if>
 						</div>
 						<div>
+						<input type="button" value="REPLY"
+						onclick="location.href='admin_inquiry_reply.do?no=${gdto.inquiry_no}&originNo=${idto.inquiry_no }'">
 						<input type="button" value="DOMIFY"
-						onclick="#">
+						onclick="location.href='admin_inquiry_modify.do?no=${gdto.inquiry_no}&originNo=${idto.inquiry_no }'">
 						<input type="button" value="DELETE"
-						onclick="#">
+						onclick="if(confirm('정말 레알 삭제 하시렵니까 ? :(')){
+							location.href='admin_reply_delete.do?no=${gdto.inquiry_no}'
+						}else {return; }">
 						</div>
 					</div> <!-- inquiry_reply_boxes -->
 					</c:if>

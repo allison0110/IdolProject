@@ -64,6 +64,7 @@
 		color: white;
 		font-family: 'Creepster', cursive;
 		font-size: 1.3em;
+		padding: 13px 0px 13px 13px;
 	}
 	
 	
@@ -74,10 +75,36 @@
 		color: gold;
 	}
 	
+	
+	.upBox_icon {
+		
+		font-size: 40px;
+		position: fixed;
+		right: 16px;
+		bottom: 50px;
+		display: none;
+		color: white;
+		cursor: pointer;
+		z-index: 3;
+	}
+	
+	.upBox_icon img:hover {
+		color: red;
+	}
+	
+	.upBox_icon img {
+		width: 50px;
+		height: 50px;
+	}
 </style>
+<script src="https://kit.fontawesome.com/a705bacd4a.js" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
 <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Creepster&family=Inconsolata:wght@200;300;400;500;600;700;800;900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Merriweather&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Press+Start+2P&family=Source+Code+Pro&family=Titillium+Web:ital,wght@0,400;1,300&display=swap" rel="stylesheet">
+
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js" integrity="sha256-xH4q8N0pEzrZMaRmd7gQVcTZiFei+HfRTBPJ1OGXC0k=" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
 
@@ -87,6 +114,40 @@
 		});	
 	});
 
+	// welcome 마우스 오버시 로그아웃 애니매이션
+	$(function(){
+		$('.admin_id_session').stop().mouseover(function(){
+			$(this).animate({color:'red' }, 200, function(){
+				$(this).text("LOGOUT");
+			});
+		})
+		.mouseout(function(){
+			$(this).stop().animate({color:'white'}, 200, function(){
+				$(this).text("WELLCOME ${admin_id } :D");
+			});
+		})
+		.click(function(){
+			location.href='<%=request.getContextPath()%>/admin_logout.do';
+		});
+	});
+	
+	
+	// 마우스 스크롤 애니메이션 탑 버튼 생성
+	$(function(){
+		$(window).scroll(function(){
+			if($(this).scrollTop() >= 300){
+				$('.upBox_icon').fadeIn();
+			}else {
+				$('.upBox_icon').fadeOut();
+			}
+		});
+		
+		$('.upBox_icon').click(function(){
+			
+			$('html, body').stop().animate({scrollTop:0},500);
+		});
+	});
+	
 </script>
 
 </head>
@@ -159,16 +220,20 @@
 				<!--<div>
 					<a>INSERT</a>
 				</div>-->	
-				<div class="admin_id_session">
+				
+				<div class="admin_id_session" style="cursor: pointer">
 					WELLCOME ${admin_id } :D
 				</div>
-				
+			
 			</div> <!-- admin_link -->
 			
 		</div> <!-- admin_navbar end -->
 			
 	
-	
+	<div class="upBox_icon">
+	 <!--  <i class="fa-solid fa-arrow-up-long"></i> -->
+	<img alt="" src="./resources/icon/ghost.gif">
+</div>
 	
 </body>
 </html>

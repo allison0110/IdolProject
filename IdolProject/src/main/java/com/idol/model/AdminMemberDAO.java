@@ -23,6 +23,48 @@ public interface AdminMemberDAO {
 	public void updateReplyStatus(InquiryDTO dto);
 	// 문의게시판 상세 페이지에서 답변글 불러오기 by group_no 
 	public List<InquiryDTO> getInquiryReplyList(int no);
+	// 답변글 수정하기 by inquiry_no
+	public int updateReply(InquiryDTO dto);
+	// 답글 정보 가져오기 by inquiry_no
+	public InquiryDTO getReplyCont(int no);
+	// 답글 삭제 후 넘버링 재정의
+	public void updateInquirySequen(int no);
+	// 답글 삭제 하기
+	public int deleteInquiry(int no);
+
+//////////// 맴버 아이디로 검색해서 각 테이블 리스트 불러오기 (맴버 상세 페이지로 이동 )///////////
+	// 맵버 상세 정보 가져오기 by member_no
+	public MemberDTO getMemberCont(int no);
+	// 맴버 아이디 검색 으로 오더리스트 불러오기 by order_userid
+	
+	public List<OrderDTO> getMemberOrderListByID(String id);
+	// 맴버 아이디 검색해서 중고게시판 리스트 불러오기 by used_userid
+	
+	public List<UsedDTO> getUsedListById(String id);
+	// 맴버 아이디 검색해서 중고게시판 답변 게시물 리스트 불러오기
+	public List<UsedCommDTO> getUsedCommByid(String id);
+	// 중고 게시판 카테고리 가져오기
+	public List<Used_CategoryDTO> getUsedCategory();
+	
+	// 맴버 아이디 검색해서 커뮤니티 리스트 불러오기 by comment_writer
+	public List<CommunityDTO> getCommunityListById(String id);
+	// 맴버 아이디로 검색해서 커뮤니티 답변 가져오기 
+	public List<Comm_CommentDTO> getCommunityCommById(String id);
+	// 커뮤니티 게시판 카테고리 가져오기
+	public List<Comm_CategoryDTO> getCommunityCategory();
+	
+	// 맴버 아이디 검색해서 문의 게시판 리스트 불러오기 by inquiry_id
+	public List<InquiryDTO> getinquiryListById(String id);
+	
+	public List<CelebDTO> getCelebList();
+	
+	public List<GroupDTO> getGroupList();
+
+//////////////////////////////////////////////////////////////////////	
+	
+	
+	
+	
 	
 	
 	

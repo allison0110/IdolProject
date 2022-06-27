@@ -60,9 +60,8 @@
 		<div class="admin_member_main_container">
 			<div class="member_container">
 			<c:forEach items="${mlist }" var="dto">
-				<a class="member_atag" href="<%=request.getContextPath()%>/admin_member_cont.do?no=${dto.member_no}">
+				<a class="member_atag" href="<%=request.getContextPath()%>/admin_member_cont.do?no=${dto.member_no}&id=${dto.member_id}">
 					<div class="member_info">
-					
 						<div class="member_img">
 					 		<img alt="" src="./resources/upload/member_image/${dto.member_no }/${dto.member_image}">
 						</div>

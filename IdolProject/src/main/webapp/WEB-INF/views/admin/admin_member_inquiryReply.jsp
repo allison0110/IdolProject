@@ -11,7 +11,7 @@
 </head>
 <body>
 <c:set var="icont" value="${iCont }" />
-
+<c:set var="oldNo" value="${oldNo }" />
 	<div class="admin_member_inquiryReply_wrapper">
 	 	<div class="admin_member_inquiryReply_container">
 	 		<form method="post" action="<%=request.getContextPath()%>/admin_inquiry_replayOk.do">
@@ -25,7 +25,7 @@
 	 			<input type="hidden" name="order_no" value="${icont.order_no }">
 	 			<input type="hidden" name="inquiry_image" value="${icont.inquiry_image }">
 	 			<input type="hidden" name="category_inofk" value="${icont.category_inofk }">
-	 			<input type="hidden" name="orginNo" value="${icont.inquiry_no }">
+	 			<input type="hidden" name="originNo" value="${oldNo }">
 				<div>
 					<input name="inquiry_title" value="(RE임시)${icont.inquiry_title }">
 				</div>

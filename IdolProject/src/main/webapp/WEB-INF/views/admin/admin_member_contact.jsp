@@ -153,7 +153,7 @@
 			<div class="admin_inquiry_replyOk">
 				<span style="color:gold">답변완료 </span>
  			<c:forEach items="${ilist }" var="i"> <!-- 문의게시판 리스트 -->
-				<c:if test="${i.inquiry_status == '1' }"> <!-- c:if 답변 완료만 뽑아내기 -->
+				<c:if test="${i.inquiry_status == '1' && i.inquiry_step == '0' }"> <!-- c:if 답변 완료만 뽑아내기 -->
 					<a class="member_box_link" href="<%=request.getContextPath()%>/admin_member_inquiryCont.do?no=${i.inquiry_no}
 						&pno=${i.product_no}&ono=${i.order_no}&gno=${i.inquiry_group}">
 						<div class="member_contact_box">

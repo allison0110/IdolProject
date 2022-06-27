@@ -36,6 +36,11 @@
 		<typeAlias type="com.idol.model.PageDTO" alias="pageDTO"/>
 		<typeAlias type="com.idol.model.ProductCategoryDTO" alias="pCategoryDTO"/>
 		<typeAlias type="com.idol.model.Inquiry_CategoryDTO" alias="iCategoryDTO"/>
+		<typeAlias type="com.idol.model.Used_CategoryDTO" alias="uCategoryDTO"/>
+		<typeAlias type="com.idol.model.Comm_CategoryDTO" alias="cCategoryDTO"/>
+		<typeAlias type="com.idol.model.UsedDTO" alias="usedDTO"/>
+		<typeAlias type="com.idol.model.UsedCommDTO" alias="usedCommDTO"/>
+		<typeAlias type="com.idol.model.Comm_CommentDTO" alias="CommCommDTO"/>
 		
 		
 		

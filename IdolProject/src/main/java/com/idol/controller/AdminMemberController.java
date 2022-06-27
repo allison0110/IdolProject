@@ -13,13 +13,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.idol.model.AdminCelebDAO;
 import com.idol.model.AdminMemberDAO;
 import com.idol.model.AdminProductDAO;
+import com.idol.model.CelebDTO;
+import com.idol.model.Comm_CategoryDTO;
+import com.idol.model.Comm_CommentDTO;
+import com.idol.model.CommunityDTO;
+import com.idol.model.GroupDTO;
 import com.idol.model.InquiryDTO;
 import com.idol.model.Inquiry_CategoryDTO;
 import com.idol.model.MemberDTO;
 import com.idol.model.OrderDTO;
 import com.idol.model.ProductDTO;
+import com.idol.model.UsedCommDTO;
+import com.idol.model.UsedDTO;
+import com.idol.model.Used_CategoryDTO;
 
 @Controller
 public class AdminMemberController {
@@ -29,6 +38,7 @@ public class AdminMemberController {
 	
 	@Autowired
 	private AdminProductDAO pdao;
+	
 	
 	
 	// 맴버 페이지 메인화면 가기
@@ -61,19 +71,20 @@ public class AdminMemberController {
 	@RequestMapping("admin_member_inquiryCont.do")
 	public String adminMemberInquiryCont(@RequestParam("no") int no, @RequestParam(value="pno", required=false, defaultValue="0") int pno, 
 			@RequestParam(value="ono", required=false, defaultValue="0") int ono, 
-				Model model, @RequestParam("gno") int gno) {
+				Model model, @RequestParam(value="gno", required=false, defaultValue="0") int gno) {
 		
 		System.out.println("no >>> " + no);
 		System.out.println("ono >>> " + ono);
 		System.out.println("pno >>> " + pno);
 		System.out.println("gno >>> " + gno);
 		
+		
+		
 		// inquiry 상세 정보
 		InquiryDTO idto = this.dao.getmemberInquiryCont(no);
 		
 		model.addAttribute("iCont", idto);
-		
-	////////////////////////////////////////////////////////////////
+
 		String imgs = idto.getInquiry_image();
 		
 		if(imgs != null) {
@@ -92,17 +103,19 @@ public class AdminMemberController {
 			
 		}
 		
-	/////////////////////////////////////////////////////////////////	
+		// 그룹 번호가 있는 경우 정보 넘기자!
+		if(gno != 0) {
+			
+			// inquiry group list 불러오기 by inquriy_group
+			List<InquiryDTO> glist = this.dao.getInquiryReplyList(gno);
+			
+			model.addAttribute("gList", glist);
+			
+		}else {
+			
+		}
 		
-		
-		
-		
-		
-		// inquiry group list 불러오기 by inquriy_group
-		List<InquiryDTO> glist = this.dao.getInquiryReplyList(gno);
-		
-		model.addAttribute("gList", glist);
-		
+		// 주문 번호가 있는 경우 정보를 넘기자!!
 		if(ono != 0) {
 			
 			OrderDTO odto = this.dao.getOrderContByNo(ono);
@@ -129,7 +142,7 @@ public class AdminMemberController {
 			
 		}
 
-		
+		// 상품 번호가 있는 경우 정보를 넘기자 !!
 		if(pno != 0) {
 			
 			ProductDTO pdto = this.pdao.getProductCont(pno);
@@ -162,21 +175,42 @@ public class AdminMemberController {
 	
 	// 문의게시글 답변 페이지로 가기
 	@RequestMapping("admin_inquiry_reply.do")
-	public String inquiryReply(@RequestParam("no") int no, Model model) {
+	public String inquiryReply(@RequestParam("no") int no, Model model, 
+			@RequestParam(value="originNo", required=false, defaultValue="0") int originNo) {
+		
+		System.out.println("before reply page");
+		
+		System.out.println("originNo1 :" + originNo );
+		System.out.println("no :" + no );
 		
 		
+		if(originNo != 0) {
+			
+			InquiryDTO idto = this.dao.getmemberInquiryCont(no);
+			
+			model.addAttribute("iCont", idto);	
+			
+			model.addAttribute("oldNo", originNo);
+			
+		}else {
+			
+			InquiryDTO idto = this.dao.getmemberInquiryCont(no);
+
+			model.addAttribute("iCont", idto);	
+			
+			model.addAttribute("oldNo", no);
+		}
 		
-		InquiryDTO idto = this.dao.getmemberInquiryCont(no);
-		
-		model.addAttribute("iCont", idto);	
 		
 		return "admin/admin_member_inquiryReply";
 	}
 	
 	// 답글 작성 완료
 	@RequestMapping("admin_inquiry_replayOk.do")
-	public void inquiryReplayOk(InquiryDTO dto, HttpServletResponse response,@RequestParam("orginNo") int originNo) throws IOException {
+	public void inquiryReplayOk(InquiryDTO dto, HttpServletResponse response,
+			@RequestParam("originNo") int originNo) throws IOException {
 		
+		System.out.println("====replyOk.do=====");
 		// 문의글 답변 상태 완료로 바꾸기
 		this.dao.updateReplyStatus(dto);
 		
@@ -191,10 +225,10 @@ public class AdminMemberController {
 		PrintWriter out = response.getWriter();
 		
 		if(check > 0) {
-			System.out.println("originNo : " + originNo);
+			System.out.println("originNo2 : " + originNo);
 			out.println("<script>");
 			out.println("alert('답변 글 작성 성공 :)')");
-			out.println("location.href='admin_member_inquiryCont.do?no="+originNo+"'");
+			out.println("location.href='admin_member_inquiryCont.do?no="+originNo+"&pno="+dto.getProduct_no()+"&gno="+dto.getInquiry_group()+"&ono="+dto.getOrder_no()+"'");
 			out.println("</script>");
 		}else {
 			
@@ -206,6 +240,149 @@ public class AdminMemberController {
 		}
 		
 	}
+	
+	// 답변 수정 폼 페이지로 가기
+	@RequestMapping("admin_inquiry_modify.do")
+	public String updateReply(@RequestParam("no") int no, Model model, 
+			@RequestParam("originNo") int originNo){
+		
+		InquiryDTO dto = this.dao.getReplyCont(no);
+		
+		model.addAttribute("replyCont", dto);
+		
+		model.addAttribute("originNo", originNo);
+		
+		return "admin/admin_reply_update";
+	}
+	
+	//답변글 수정 오케이
+	@RequestMapping("admin_reply_update_ok.do")
+	public void updateReplyOk(InquiryDTO dto, HttpServletResponse response, 
+			@RequestParam("originNo") int originNo,@RequestParam("product_no") int pno, @RequestParam("order_no") int ono) throws IOException {
+		
+		System.out.println("dto_NO : " + dto.getInquiry_no());
+		System.out.println("originNo : " + originNo);
+		
+		int check = this.dao.updateReply(dto);
+		
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		if(check > 0) {
+			
+			out.println("<script>");
+			out.println("alert('답변글 수정 완료 :)')");
+			out.println("location.href='admin_member_inquiryCont.do?no="+originNo+"&gno="+originNo+"&pno="+pno+"&ono="+ono+"'");
+			out.println("</script>");
+		
+		}else {
+			
+			out.println("<script>");
+			out.println("alert('답변글 수정 실패 :(')");
+			out.println("history.back()");
+			out.println("</script>");
+			
+		}
+		
+	}
+	
+	// 답변글 삭제 하기 
+	@RequestMapping("admin_reply_delete.do")
+	public void deleteReply(@RequestParam("no")int no, HttpServletResponse response) throws IOException {
+		
+		System.out.println("no : " + no);
+		
+		int check = this.dao.deleteInquiry(no);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		if(check > 0) {
+			
+			this.dao.updateInquirySequen(no);
+			
+			out.println("<script>");
+			out.println("alert('답변글 삭제 완료 :)')");
+			out.println("location.href='admin_member_contact.do'");
+			out.println("</script>");
+			
+		}else {
+			
+			out.println("<script>");
+			out.println("alert('답변글 삭제 실패 :(')");
+			out.println("history.back()");
+			out.println("</script>");
+			
+		}
+		
+	}
+	
+	
+	
+	// 맴버 상세 내역 불러오기 ( 모든 리스트 )
+	@RequestMapping("admin_member_cont.do")
+	public String getMemberAlldate(@RequestParam("no") int no, @RequestParam("id") String id, Model model) {
+		
+		MemberDTO dto = this.dao.getMemberCont(no);
+		
+		String mCeleb = dto.getMember_favorite_celeb();
+		
+		System.out.println("mCeleb : " + mCeleb);
+		
+		StringTokenizer tokenizer = new StringTokenizer(mCeleb, ",");
+		
+		String[] celebs = new String[tokenizer.countTokens()];
+		
+		for(int i = 0; i < celebs.length; i++) {
+			celebs[i] = tokenizer.nextToken();
+		}
+		
+		model.addAttribute("celebs", celebs);
+		
+		List<OrderDTO> orderList = this.dao.getMemberOrderListByID(id);
+		
+		List<UsedDTO> usedList = this.dao.getUsedListById(id);
+		
+		List<UsedCommDTO> usedCommList = this.dao.getUsedCommByid(id);
+		
+		List<Used_CategoryDTO> used_category = this.dao.getUsedCategory();
+		
+		List<CommunityDTO> commList = this.dao.getCommunityListById(id);
+		
+		List<Comm_CommentDTO> commCommList = this.dao.getCommunityCommById(id);
+		
+		List<Comm_CategoryDTO> comm_category = this.dao.getCommunityCategory();
+		
+		List<InquiryDTO> inquiryList = this.dao.getinquiryListById(id);
+		
+		List<Inquiry_CategoryDTO> inquiry_category = this.dao.getInquiryCategoryList();
+		
+		List<CelebDTO> celebList = this.dao.getCelebList();
+		
+		List<GroupDTO> groupList = this.dao.getGroupList();
+		
+		model.addAttribute("mdto", dto);
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("usedList", usedList);
+		model.addAttribute("usedCommList", usedCommList);
+		model.addAttribute("used_category", used_category);
+		model.addAttribute("commList", commList);
+		model.addAttribute("commCommList", commCommList);
+		model.addAttribute("comm_category", comm_category);
+		model.addAttribute("inquiryList", inquiryList);
+		model.addAttribute("inquiry_category", inquiry_category);
+		model.addAttribute("celebList", celebList);
+		model.addAttribute("groupList", groupList);
+		
+		return "admin/admin_member_cont";
+	}
+	
+	
+	
+	
 	
 	
 	

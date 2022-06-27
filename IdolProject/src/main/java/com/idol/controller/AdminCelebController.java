@@ -24,6 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
@@ -49,6 +50,19 @@ public class AdminCelebController {
 		
 		return "admin/admin_login";
 	}
+	
+	// 세션 종료 후 메인 페이지 접속 
+	@RequestMapping("admin_logout.do")
+	public String adminLogout(HttpServletRequest request, HttpServletResponse response) {
+		
+		HttpSession session = request.getSession();
+		
+		session.invalidate();
+		
+		
+		return "main";
+	}
+	
 	
 	// 관리자 메인 페이지 접속
 	@RequestMapping("admin_main.do")
