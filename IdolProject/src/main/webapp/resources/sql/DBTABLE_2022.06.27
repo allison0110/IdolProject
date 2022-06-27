@@ -1,4 +1,4 @@
-2022-06-22일(최신)
+2022-06-27일(최신)
 
 --회원 테이블(수정:DATEOFBIRTH 컬럼 TYPE DATE로 수정,MEMBER_PWD,MEMBER_PHONE 컬럼추가, MEMBER_IMAGE컬럼 타입 글자수 1000으로 변경  )
 --회원 테이블(수정: 회원 닉네임 컬럼 추가)
@@ -131,11 +131,12 @@ CREATE TABLE FOLLOW_FOLLOWER
 );
 
 
--- 커뮤니티 카테고리 테이블
+-- 커뮤니티 카테고리 테이블(수정: 카테고리 아이콘에 사용될 폰트어썸 클래스네임 컬럼 추가)
 CREATE TABLE COMMUNITY_CATEGORY
 (
     CATEGORY_CNO      NUMBER          PRIMARY KEY, -- 카테고리 번호 
-    CATEGORY_CNAME    VARCHAR2(30)    NOT NULL     -- 카테고리 이름
+    CATEGORY_CNAME    VARCHAR2(30)    NOT NULL,     -- 카테고리 이름
+    CATEGORY_ICNAME   VARCHAR2(100)                -- 카테고리 아이콘 클래스네임
 );
 
 -- 커뮤니티게시판 테이블(수정: 게시판제목, 게시판 내용 길이변경)
@@ -148,9 +149,9 @@ CREATE TABLE COMMUNITY_BOARD
     COMMUNITY_HIT          NUMBER           DEFAULT 0 NOT NULL, -- 게시판 조회수
     COMMUNITY_DATE         DATE             NOT NULL,           -- 게시판 작성일
     COMMUNITY_UPDATE       DATE             ,                   -- 게시판 수정일
-    COMMUNITY_RECOMMEND    NUMBER           DEFAULT 0 ,         -- 게시판 추천수
-    CATEGORY_CNOFK         NUMBER           NOT NULL,            -- 카테고리번호
-    COMMUNITY_IMAGE         VARCHAR2(1000)                       -- 커뮤니티 게시글 이미지
+    COMMUNITY_RECOMMEND    NUMBER           DEFAULT 0 NOT NULL,         -- 게시판 추천수
+    CATEGORY_CNOFK         NUMBER           ,            -- 카테고리번호
+    COMMUNITY_IMAGE         VARCHAR2(1000)               -- 커뮤니티 게시글 이미지
 );
 
 -- 커뮤티니 댓글테이블
@@ -276,17 +277,17 @@ CREATE TABLE MILEAGE_MASTER
     MILEAGE_DATE           DATE      NOT NULL            -- 기준일자
 );
 
--- 이벤트테이블 (수정: 그룹명, 셀럽명 컬럼 추가)
+-- 이벤트테이블 (수정: 그룹명, 셀럽명 컬럼 추가,NOTICE_CONT 크기변경)
 CREATE TABLE NOTICE
 (
     NOTICE_NO        NUMBER           PRIMARY KEY,         -- 공지사항번호
     ADMIN_ID         VARCHAR2(30)     NOT NULL,            -- 관리자 아이디
-    NOTICE_TYPE VARCHAR2(30) NOT NULL,                  --event type(celeb, concert)
-    GROUP_NAME      VARCHAR2(20)      NOT NULL,    -- 그룹명
-    CELEB_NAME      VARCHAR2(20),                      -- 셀럽명
+    GROUP_NAME      VARCHAR2(20) ,                           -- 그룹명
+    CELEB_NAME         VARCHAR2(20),                         -- 셀럽명
+    NOTICE_TYPE  VARCHAR2(30) NOT NULL,                  --type(celeb, concert)
     NOTICE_TITLE     VARCHAR2(200)     NOT NULL,            -- 제목
     NOTICE_IMAGE     VARCHAR2(1000)    NOT NULL,            -- 이미지
-    NOTICE_CONT      VARCHAR2(1000)    NOT NULL,            -- 내용
+    NOTICE_CONT      VARCHAR2(4000)    NOT NULL,            -- 내용
     NOTICE_HIT       NUMBER           DEFAULT 0 NOT NULL,  -- 조회수
     NOTICE_DATE      DATE             NOT NULL,            -- 작성일
     NOTICE_UPDATE    DATE,                                  -- 수정일
