@@ -154,11 +154,11 @@
 			<div class="mypage_main_top" algin="center">
 			
 				<div class="top_item" align="center">
-				 <a href="#">
+				 <a href="<%=request.getContextPath()%>/mileage_list.do">
 					<div class="main_top_icon icon_point">
 						<label for="icon_point" class="bi bi-wallet2"></label>
 					</div>
-				포인트
+				마일리지
 				<br>
 				
 				<span>

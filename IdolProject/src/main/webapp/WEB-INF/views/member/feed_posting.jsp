@@ -1,3 +1,7 @@
+<%@page import="com.idol.model.BoardCategoryDTO"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="com.idol.model.CommunityDTO"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="java.util.StringTokenizer"%>
 <%@page import="com.idol.model.MusicDTO"%>
 <%@page import="com.idol.model.FollowDTO"%>
@@ -26,14 +30,15 @@
 	margin:0 auto;
 	max-width: 1000px;
 	display:grid;
-	grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
 	gap:20px;
 	
 }
 	
-/* .card{
+ .card{
 	box-shadow: 0 0 3px rgba(0,0,0, 0.1);
-} */
+	heihgt:100%;
+} 
 
 .card_image {
 	width:100%;
@@ -58,6 +63,7 @@
 .card_content >p:first-of-type{
 	margin-top:0;
 	margin-bottom:0;
+	height:43px;
 }
 
 .card_userid{
@@ -126,6 +132,7 @@
 <body>
 	<c:set var="dto" value="${feedInfo.get('mInfo') }"/> <!-- 피드회원정보 -->
 	<c:set var="comm" value="${feedInfo.get('commList') }"/> <!--피드 회원의 커뮤니티게시글 리스트 -->
+	<c:set var="cList" value="${cList }"/> <!-- 커뮤니티 카테고리 리스트 -->
 	<%@include file="../include/user_top.jsp" %>
 	
 	<div class="feed_wrapper" align="center">
@@ -152,47 +159,90 @@
 				</table>
 			</div><!-- class="feed_title"  end -->
 			
+			
+			
+			
 			<div class="posting_cards">
 			<c:if test="${empty comm }">
 			<p> 작성한 게시글이 없습니다.</p>
 			</c:if>
 			<c:if test="${!empty comm }">
-			<c:forEach items="${comm }" var="list">
-			<div class="card">
-				<img alt="" src="https://fakeimg.pl/400x300/009578/fff/" class="card_image">
-				<div class="card_category">
-				 <span>카테고리</span> | <span>${list.getCommunity_date().substring(0,10) }</span>
-				</div>
+			
+			<%
+			HashMap<String, Object> map = (HashMap<String, Object>)session.getAttribute("feedInfo");
+			List<CommunityDTO> list = (List<CommunityDTO>)map.get("commList");
+			
+			for(int i=0; i<list.size(); i++){
+				
+				CommunityDTO cdto = list.get(i);
+				
+				String[] img = null;
+				
+				//이미지가 있는경우, 대표이미지 하나만 뽑아내기 
+				if(cdto.getCommunity_image() != null ){
+					img = cdto.getCommunity_image().split("\\|");
+					System.out.println(img[0]);
+				}
+				
+		%>
+				<div class="card">
+				<img src="https://fakeimg.pl/400x300/009578/fff/" class="card_image"> <!-- 이미지 값을 넣으면 java.lang.NullPointerException 오류남 왜?????? -->
+		 <%
+					List<BoardCategoryDTO> cList = (List<BoardCategoryDTO>)request.getAttribute("cList");
+					String categoryName = "";
+					for(int j=0; j<cList.size(); j++){
+						
+						BoardCategoryDTO category = cList.get(j);
+						
+						if(category.getCategory_cno() == cdto.getCategory_cnofk()){
+							
+							categoryName = category.getCategory_cname();
+					}
+							}//카테고리 for문 
+					System.out.println("이름:"+categoryName);
+					
+			%>		 
+				 <div class="card_category">
+					 <span><%=categoryName %></span> | 
+					 <span><%=cdto.getCommunity_date().substring(0, 10) %></span>
+				</div> <!-- class="card_category" -->
+				
 				<div class="card_content">
 				<p>
-					<c:if test="${list.getCommunity_cont().length() > 30 }">
-						${list.getCommunity_cont().substring(0,30) } ...
-					</c:if>
-					<c:if test="${list.getCommunity_cont().length() <= 30 }">
-						${list.getCommunity_cont()}
-					</c:if>
+			<%
+					if(cdto.getCommunity_cont().length()>30){ //내용이 30자 이상일 경우 30자 까지만 보이기
+						System.out.println("내용>30");
+						
+			%>			
+						<%=cdto.getCommunity_cont().substring(0, 30) %> ...	
+						
+			<% 		}else{ System.out.println("내용<30"); %>
+						<%=cdto.getCommunity_cont() %>
+						
+			<%} %>	
 				</p>
-			</div>
+			</div><!-- class="card_content" -->
 			<div class="card_userid">
-				<div class="userid_img">
-					<img src="./resources/upload/member_image/${dto.getMember_no() }/${dto.getMember_image() }" alt="member_image">
-				</div>
-				<div>
-					${list.getCommunity_userid() }
-				</div>
-			</div>
-			<div class="card_info">
-				<div>
-					<i class="material-symbols-outlined">thumb_up</i>${list.getCommunity_recommend() }
-					&nbsp;&nbsp;<i class="material-symbols-outlined">visibility</i>${list.getCommunity_hit() }
-				</div>
+					<div class="userid_img">
+						<img src="./resources/upload/member_image/${dto.getMember_no() }/${dto.getMember_image() }" alt="member_image">
+					</div>
 					<div>
-					<a href="./" class="card_link">Read More</a>
-				</div>
-			</div>
-		</div> <!-- class="card" end  -->
+						<%=cdto.getCommunity_userid() %>
+					</div>
+				</div><!-- class="card_userid" end -->		
+			<div class="card_info">
+					<div>
+						<i class="material-symbols-outlined">thumb_up</i><%=cdto.getCommunity_recommend() %>
+						&nbsp;&nbsp;<i class="material-symbols-outlined">visibility</i><%=cdto.getCommunity_hit() %>
+					</div>
+						<div>
+						<a href="<%=request.getContextPath()%>/community_boardContent.do?bno=<%=cdto.getCommunity_no() %>" class="card_link">Read More</a>
+					</div>
+				</div><!-- class="card_info" end -->	
 				
-				</c:forEach>
+				</div><!-- class="card" end  -->
+	 <% }//for문 %>
+			
 			</c:if>
 			</div><!-- class="posting_cards" -->
 			

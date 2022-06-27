@@ -30,6 +30,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.idol.model.AdminCelebDAO;
 import com.idol.model.AdminDTO;
+import com.idol.model.BoardCategoryDAO;
+import com.idol.model.BoardCategoryDTO;
 import com.idol.model.CelebDAO;
 import com.idol.model.CelebDTO;
 import com.idol.model.CommunityDAO;
@@ -82,6 +84,10 @@ public class MemberController {
 	//커뮤니티게시판
 	@Autowired
 	private CommunityDAO comDao;
+	
+	//커뮤니티 카테고리
+	@Autowired
+	private BoardCategoryDAO bcDao;
 	
 	//팔로워
 	@Autowired
@@ -1430,7 +1436,21 @@ public class MemberController {
 		
 	}
 	
-	
+	//마일리지 내역 
+	@RequestMapping("mileage_list.do")
+	public String mileageList(HttpSession session, Model model) {
+		
+		//로그인한 회원정보
+		MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
+		
+		//마일리지 리스트 불러오기
+		List<MileageDTO> mileage = this.mdao.getMileageList(dto.getMember_no());
+		
+		
+		model.addAttribute("mileage", mileage);
+		
+		return "member/mypage_mileage";
+	}
 	
 	
 	
@@ -1453,7 +1473,15 @@ public class MemberController {
 		feedInfo.put("commList", commList);
 		if(commList != null) {
 			model.addAttribute("community", commList);
+			
+			// 게시글 카테고리 리스트를 가져옴
+			List<BoardCategoryDTO> categorylist = this.bcDao.getCategoryList();
+					
+			model.addAttribute("cList", categorylist);
+			
 		}
+		
+		
 		
 		//누른 feed의 회원의 팔로우,팔로워 정보
 		//내가 팔로우 하는 사람들 팔로잉 follow
@@ -1756,14 +1784,18 @@ public class MemberController {
 	
 	//마이피드 - 포스팅 
 	@RequestMapping("feed_posting.do")
-	public String feed_posting(@RequestParam("id")String id, Model model) {
+	public String feed_posting(@RequestParam("id")String id, Model model, HttpSession session) {
 		
 		//내가 쓴 커뮤니티게시판 글 리스트 가져오기  - myfeed.do에서 세션 저장해둠 
 //		List<CommunityDTO> commList = this.comDao.getCommunityList(id);
 //		feedInfo.put("commList", commList);
 		
+		// 게시글 카테고리 리스트를 가져옴
+		List<BoardCategoryDTO> categorylist = this.bcDao.getCategoryList();
 		
 		
+		model.addAttribute("cList", categorylist);
+		model.addAttribute("id", (String)session.getAttribute("login_id"));
 		return "member/feed_posting";
 	}
 	

@@ -12,6 +12,6 @@ public class MileageDTO {
 	private int mileage_deduction;
 	private int mileage_accumulated;
 	private String mileage_type;
-	private String mielage_date;
+	private String mileage_date; //오타 수정
 
 }

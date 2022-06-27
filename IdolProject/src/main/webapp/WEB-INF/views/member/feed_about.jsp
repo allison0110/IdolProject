@@ -1,3 +1,4 @@
+<%@page import="com.idol.model.BoardCategoryDTO"%>
 <%@page import="com.idol.model.CommunityDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -105,6 +106,7 @@
 .card_content >p:first-of-type{
 	margin-top:0;
 	margin-bottom:0;
+	height:43px;
 }
 
 .card_userid{
@@ -280,11 +282,40 @@
 					for(int i=0; i<count; i++){ 
 						
 						CommunityDTO cdto = list.get(i);
+						
+						String[] img = null;
+						
+						//이미지가 있는경우, 대표이미지 하나만 뽑아내기 
+						if(cdto.getCommunity_image() != null ){
+							img = cdto.getCommunity_image().split("\\|");
+							//대표이미지는 맨처음 이미지 img[0]
+									
+							String str = "Aespa LOVE LETTER EARRINGSdetail1.jpg";
+							if(str.equals(img[0])){
+								System.out.println("동일");
+							}
+						}
+						
 				%>		
 					<div class="card">
-				<img alt="" src="https://fakeimg.pl/400x300/009578/fff/" class="card_image">
+				<img alt="" src="./resources/upload/community/<%=img[0] %>" class="card_image">
+				
+				<%
+					List<BoardCategoryDTO> cList = (List<BoardCategoryDTO>)request.getAttribute("cList");
+					String categoryName = "";
+					for(int j=0; j<cList.size(); j++){
+						
+						BoardCategoryDTO category = cList.get(j);
+						
+						if(category.getCategory_cno() == cdto.getCategory_cnofk()){
+							
+							categoryName = category.getCategory_cname();
+					}
+							}//카테고리 for문 
+					
+				%>	
 				<div class="card_category">
-				 <span>카테고리</span> | <span><%=cdto.getCommunity_date().substring(0,10) %></span>
+				 <span><%=categoryName %></span> | <span><%=cdto.getCommunity_date().substring(0,10) %></span>
 				</div>
 				<div class="card_content">
 				<p>
@@ -313,7 +344,7 @@
 						&nbsp;&nbsp;<i class="material-symbols-outlined">visibility</i><%=cdto.getCommunity_hit() %>
 					</div>
 						<div>
-						<a href="./" class="card_link">Read More</a>
+						<a href="<%=request.getContextPath()%>/community_boardContent.do?bno=<%=cdto.getCommunity_no() %>" class="card_link">Read More</a>
 					</div>
 				</div>
 			</div> <!-- class="card" end  -->
