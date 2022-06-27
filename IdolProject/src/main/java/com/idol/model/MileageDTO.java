@@ -13,5 +13,6 @@ public class MileageDTO {
 	private int mileage_accumulated;
 	private String mileage_type;
 	private String mileage_date; 
+	
 
 }
