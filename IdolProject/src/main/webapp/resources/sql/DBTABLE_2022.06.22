@@ -1,4 +1,4 @@
-2022-06-15일(최신)
+2022-06-22일(최신)
 
 --회원 테이블(수정:DATEOFBIRTH 컬럼 TYPE DATE로 수정,MEMBER_PWD,MEMBER_PHONE 컬럼추가, MEMBER_IMAGE컬럼 타입 글자수 1000으로 변경  )
 --회원 테이블(수정: 회원 닉네임 컬럼 추가)
@@ -205,7 +205,7 @@ CREATE TABLE USED_CATEGORY
     CATEGORY_UNAME    VARCHAR2(30)    NOT NULL 
 );
 
--- 중고게시판 테이블
+-- 중고게시판 테이블(수정: 중고제품 이름컬럼 추가)
 CREATE TABLE USED_BOARD
 (
     USED_NO           NUMBER           PRIMARY KEY, -- 중고거래글번호
@@ -220,10 +220,12 @@ CREATE TABLE USED_BOARD
     USED_SIZE         VARCHAR2(20)     ,         -- 사이즈
     USED_PRICE        NUMBER(10)       ,         -- 중고거래가
     USED_STATUS       NUMBER           CHECK(USED_STATUS in(0,1)),         -- 중고제품상태(중고:0, 새상품 1)
-    USED_SALTATUS     NUMBER           CHECK(USED_SALTATUS in(0,1))       -- 판매상태(판매중: 0, 판매완료: 1)
+    USED_SALTATUS     NUMBER           CHECK(USED_SALTATUS in(0,1)),       -- 판매상태(판매중: 0, 판매완료: 1)
+    USED_PRODUCT      VARCHAR2(100)              -- 중고제품 이름   
 );
 
--- 중고게시판 댓글테이블
+
+-- 중고게시판 댓글테이블(수정: 카테고리 번호 컬럼 삭제)
 CREATE TABLE USED_COMMENT
 (
     COMMENT_NO        NUMBER           PRIMARY KEY, -- 댓글번호
@@ -234,8 +236,7 @@ CREATE TABLE USED_COMMENT
     COMMENT_GROUP     NUMBER           NOT NULL,    -- 댓글그룹
     COMMENT_STEP      NUMBER           NOT NULL,    -- 댓글에 순서
     COMMENT_INDENT    NUMBER           NOT NULL,    -- 대댓글
-    USED_NOFK         NUMBER           NOT NULL,    -- 게시판 글번호
-    CATEGORY_UNOFK    NUMBER           NOT NULL     -- 카테고리번호
+    USED_NOFK         NUMBER           NOT NULL    -- 게시판 글번호
 );
 
 -- 제품 카테고리 테이블
