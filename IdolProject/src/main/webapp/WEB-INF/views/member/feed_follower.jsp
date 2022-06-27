@@ -8,34 +8,19 @@
 <title>${id }님의 피드 - 팔로워</title>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" ></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
+<link rel="stylesheet" href="./resources/css/member.css?v=2022062314">
 <script type="text/javascript">
 
 
 </script>
 <style type="text/css">
 
-	div{
-		border:1px solid gray;
-	}
 	
-	.myfeed_container{
-		background-color: #d8e0e3;
-	}
-
-	.feed_title table{
-		width:1000px;
-		text-align: center;
-		border-bottom: 1px solid gray;
-		font-weight: bold;
-	}
-	
-	.feed_title a{
-		text-decoration: none;
-		
-	}
 	
 	.feed_fList{
-		width: 50%;	
+		background-color:white;
+		width: 100%;	
+		padding:20px 20px 100px 20px;
 	}
 	
 	.fList_item{
@@ -46,7 +31,7 @@
 	}
 	
 	.fList_img{
-		margin-left:100px;
+		margin-left:180px;
 		display:block;
 		overflow:hidden;
 		border-radius: 50%;
@@ -64,6 +49,7 @@
 	.fList_info{
 		text-align:left;
 	}
+	
 
 </style>
 </head>
@@ -73,6 +59,7 @@
 	<c:set var="login_f" value="${feedInfo.get('login_follow') }"/> <!-- 팔로워 -->
 	
 	<%@include file="../include/user_top.jsp" %>
+	<div class="feed_wrapper" align="center">
 	<div class="myfeed_container" align="center">
 		<!-- myfeed_top include 추가  -->
 		<jsp:include page="../include/feed_top.jsp"/>
@@ -81,7 +68,7 @@
 			<div class="feed_title">
 				<table>
 					<tr>
-						<td >
+						<td style="border-bottom:1px solid #2a3a52">
 							<a href="<%=request.getContextPath() %>/feed_follower.do?id=${id}" style="color: black;">팔로워</a>
 						</td>
 						<td >
@@ -100,7 +87,8 @@
 						<img src="./resources/upload/member_image/${cont.getMember_no() }/${cont.getMember_image() }" alt="member_image">
 					</div>
 					<div class="fList_info">
-						${cont.getMember_nickname() } <br> @${cont.getMember_id() }
+						${cont.getMember_nickname() } <br> 
+						<a href="<%=request.getContextPath()%>/myfeed.do?id=${cont.getMember_id() }">@${cont.getMember_id() }</a>
 					</div>
 					<div class="fList_btn">
 						<c:if test="${!empty login_f }"> <!-- 로그인회원에게 팔로우리스트 데이터가 있다면 -->
@@ -128,12 +116,12 @@
 							<c:set var="check" value="-1"/>
 						</c:if>
 						
-						${check }
+						<%-- ${check } --%>
 						<c:if test="${check == '1' }">
-								<input type="button" value="팔로잉" onclick="location.href='unfollow.do?id=${cont.getMember_id()}'">
+								<input class="f_btn2" type="button" value="팔로잉" onclick="location.href='unfollow.do?id=${cont.getMember_id()}'">
 							</c:if>
 						<c:if test="${check == '0' }">
-								<input type="button" value="팔로우" onclick="location.href='follow.do?id=${cont.getMember_id()}'">
+								<input class="f_btn1" type="button" value="팔로우" onclick="location.href='follow.do?id=${cont.getMember_id()}'">
 						</c:if>
 						<c:if test="${check == '-1' }">
 							
@@ -150,6 +138,7 @@
 		</div><!-- class="feed_main" end -->
 	
 	</div><!-- class="myfeed_container" end -->
+	</div>
 	<%@include file="../include/user_bottom.jsp" %>
 </body>
 </html>

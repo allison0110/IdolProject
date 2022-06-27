@@ -135,14 +135,14 @@
 				</tr>
 				<tr>
 					<th>답변상태</th> <!-- 관리자 답변 달으면 답변대기 수정 필요!!! -->
-					<td>
+					
 					<c:if test="${cont.getInquiry_status() == 0 }">
-						답변대기
+						<td><span style="color:#ff5722;">답변대기</span></td>
 						</c:if>
 						<c:if test="${cont.getInquiry_status() == 1 }">
-						답변완료
+						<td>답변완료</td>
 						</c:if>
-					</td>
+					
 				</tr>
 				<tr>
 					<th>제목</th>

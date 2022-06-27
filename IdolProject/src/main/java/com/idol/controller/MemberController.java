@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.idol.model.AdminCelebDAO;
+import com.idol.model.AdminDTO;
 import com.idol.model.CelebDAO;
 import com.idol.model.CelebDTO;
 import com.idol.model.CommunityDAO;
@@ -43,6 +45,8 @@ import com.idol.model.MemberDAO;
 import com.idol.model.MemberDTO;
 import com.idol.model.MileageDAO;
 import com.idol.model.MileageDTO;
+import com.idol.model.MusicDAO;
+import com.idol.model.MusicDTO;
 import com.idol.model.OrderDAO;
 import com.idol.model.OrderDTO;
 import com.idol.model.PageDTO;
@@ -91,6 +95,14 @@ public class MemberController {
 	@Autowired
 	private OrderDAO odao;
 	
+	//MUSIC테이블
+	@Autowired
+	private MusicDAO musicDao;
+	
+	@Autowired
+	private AdminCelebDAO acdao;
+	
+	
 	//게시판 페이지 관련 
 	//페이지 처리용 변수
 	private final int rowsize = 3;  //한 페이지당 보이는 게시글의 수
@@ -121,19 +133,40 @@ public class MemberController {
 		return "member/join";
 	}
 	
+//	//회원가입폼페이지 아이디중복체크 메서드
+//		@ResponseBody
+//		@RequestMapping(value="/idCheck.do", method=RequestMethod.POST, produces="application/json")
+//		public int idCheck(HttpServletRequest request){
+//			
+//
+//			String id = request.getParameter("member_id");
+//			System.out.println("중복확인 id:"+id);
+//			
+//			int result = this.dao.idcheck(id);
+//			
+//			return result;
+//		}
+	
 	
 	//회원가입폼페이지 아이디중복체크 메서드
 	@ResponseBody
-	@RequestMapping(value="/idCheck.do", method=RequestMethod.POST, produces="application/json")
-	public int idCheck(HttpServletRequest request){
+	@RequestMapping(value="/idCheck.do", method=RequestMethod.POST)
+	public String idCheck(HttpServletRequest request){
 		
 
 		String id = request.getParameter("member_id");
 		System.out.println("중복확인 id:"+id);
 		
-		int result = this.dao.idcheck(id);
+		String result1 = "";
 		
-		return result;
+		if(this.dao.idcheck(id) == 1) {
+			
+			result1 ="1";
+		}else {
+			result1 ="0";
+		}
+		
+		return result1;
 	}
 	
 	
@@ -230,7 +263,7 @@ public class MemberController {
 		
 		HttpSession session = request.getSession();
 		
-		if(check > 0 ) {
+		if(check == 1 ) {
 			
 			MemberDTO login = this.dao.getMemInfo(dto.getMember_id());
 			
@@ -249,6 +282,26 @@ public class MemberController {
 			out.println("</script>");
 			
 		}else if(check == -1) {
+			out.println("<script>");
+			out.println("alert('비밀번호가 틀렸습니다. 다시 확인해주세요')");
+			out.println("history.back()");
+			out.println("</script>");
+		}else if(check == 99) {//정환님코드 추가
+			
+			AdminDTO adto = this.acdao.getAdminCont(dto.getMember_id());
+			
+			session.setAttribute("admin_id", adto.getAdmin_id());
+			session.setAttribute("admin_pwd", adto.getAdmin_pwd());
+			session.setAttribute("admin_name", adto.getAdmin_name());
+			session.setAttribute("admin_email", adto.getAdmin_email());
+			session.setAttribute("admin_date", adto.getAdmin_date());
+			
+			out.println("<script>");
+			out.println("alert('관리자 모드 로그인 성공 :)')");
+			out.println("location.href='admin_main.do'");
+			out.println("</script>");
+			
+		}else if(check == 88) {
 			out.println("<script>");
 			out.println("alert('비밀번호가 틀렸습니다. 다시 확인해주세요')");
 			out.println("history.back()");
@@ -352,13 +405,16 @@ public class MemberController {
 		//문의내역 - 답변대기중인 게시글 수
 		int waiting = this.idao.watingReply(dto.getMember_id());
 		
+		//최근 3일간 구매한 건수 
+		int ThreeDaysOrder = this.odao.get3daysOrder(dto.getMember_id());
+		
 		
 		//값전달
 		model.addAttribute("mileage", mileage); //회원에 대한 마일리지 정보
 		model.addAttribute("waiting", waiting);//답변대기 문의글
 		model.addAttribute("iList",iList); //문의내역
 		model.addAttribute("oList", oList);
-		
+		model.addAttribute("threedays", ThreeDaysOrder);
 		
 		return "member/mypage";
 	}
@@ -669,8 +725,6 @@ public class MemberController {
 	}
 	
 	
-	
-	
 	//마이페이지 - 구매내역페이지 이동
 	@RequestMapping("order_list.do")
 	public String order_list(HttpSession session, Model model) {
@@ -697,6 +751,190 @@ public class MemberController {
 		model.addAttribute("dates", orderDates);
 
 		return"member/mypage_orderList" ;
+	}
+	
+	//마이페이지 - 문의게시글 날짜검색
+		@RequestMapping("order_date.do")
+		public String order_date(HttpServletRequest request, Model model,
+				HttpSession session) throws ParseException {
+			
+			String login_id = (String)session.getAttribute("login_id");
+			
+			//날짜 조회 
+			int search_date = Integer.parseInt(request.getParameter("search_date"));
+			
+			//오늘날짜 기준 
+			Calendar cal = Calendar.getInstance();
+			
+			int year = cal.get(Calendar.YEAR);
+			int month =cal.get(Calendar.MONTH)+1;
+			int day =cal.get(Calendar.DAY_OF_MONTH);
+			
+			String endDate = year+"-"+month+"-"+day;
+			String startDate = "";
+			
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = format.parse(endDate);
+			
+			cal.setTime(date);
+			
+			switch (search_date) {
+			case 0: //오늘
+				startDate = endDate;
+				break;
+			case 7: //일주일
+				cal.add(Calendar.DATE, -7);
+				startDate = format.format(cal.getTime());
+				break;
+			case 1: //한달
+				cal.add(Calendar.DATE, -30);
+				startDate = format.format(cal.getTime());
+				break;
+			case 3: //3달
+				cal.add(Calendar.DATE, -90);
+				startDate = format.format(cal.getTime());
+				break;
+			case 6: //6달
+				cal.add(Calendar.DATE, -180);
+				startDate = format.format(cal.getTime());
+				break;
+			case 12: //1년
+				cal.add(Calendar.DATE, -365);
+				startDate = format.format(cal.getTime());
+				break;
+			}
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();//날짜조회 sql 파라미터들
+			
+			System.out.println("startdate"+startDate);
+			System.out.println("enddate"+endDate);
+			
+			map.put("order_userid", login_id);
+			map.put("startDate", startDate);
+			map.put("endDate", endDate);
+			
+
+			//날짜검색한 구매내역 날짜들 뽑기
+			List<String> orderDates = this.odao.getOrderDates(map);	
+			
+			System.out.println("orderDates.size"+orderDates.size());
+
+			HashMap<Integer, List> maps = new HashMap<Integer, List>();//날짜별 구매내역 리스트담을 map
+
+			HashMap<String, String> params = new HashMap<String, String>();//mybatis 다중파라미터로 사용
+
+			params.put("id", login_id);
+
+			//날짜에 해당하는 구매리스트 가져오기
+			for(int i =0; i<orderDates.size(); i++) {
+				params.put("date", orderDates.get(i));
+				maps.put(i, this.odao.getOrderDateList(params)); //아이디와 날짜 넘김
+
+			}
+			
+			model.addAttribute("dateMap", maps);
+			model.addAttribute("dates", orderDates);
+			model.addAttribute("search_date", search_date);
+
+			return "member/mypage_orderDate";
+			
+		}
+	
+	
+	
+	//마이페이지 - 구매내역 상세페이지 
+	@RequestMapping("orderlist_cont")
+	public String orderCont(@RequestParam("ogno")int ogno, Model model) {
+		
+		
+		//주문그룹 내역 리스트
+		List<OrderDTO> orderCont = this.odao.getOrderGroup(ogno);
+		
+		//제품 정보리스트
+		List<ProductDTO> pList = new ArrayList<ProductDTO>();
+		
+		int pay = 0; //실제 결제금액
+		int totalPrice =0; //구매가격 total
+		int trans =0; //배송비
+		String payDate =""; //구매날짜
+		
+		String receiveName = "";
+		String receiveAddr = "";
+		String receivePhone = "";
+		
+		
+		
+		for(int i=0; i<orderCont.size(); i++) {
+			
+			OrderDTO dto = orderCont.get(i);
+			
+			ProductDTO pdto = this.pdao.getProductDetail(dto.getOrder_pname());
+			
+			
+			totalPrice += dto.getOrder_qty()*dto.getOrder_pprice();
+			pay += dto.getOrder_total();
+			trans += dto.getOrder_tcost();
+			
+			if(payDate == "" || receiveName == "" || receiveAddr == "" || receivePhone == "") {
+				System.out.println("if문진입");
+				payDate = dto.getOrder_date().substring(0, 10);
+				
+				receiveName = dto.getOrder_receivername();
+				receiveAddr = dto.getOrder_receiveraddress();
+				receivePhone = dto.getOrder_receiverphone();
+			}
+			
+			if(receiveAddr != null) {
+				
+				StringTokenizer st= new StringTokenizer(receiveAddr, "|");
+				
+				String [] mem_addr = new String[st.countTokens()];
+				
+				for(int j =0; j<mem_addr.length; j++){
+					mem_addr[j]=st.nextToken();
+				}
+				
+				model.addAttribute("Addr", mem_addr);
+			}
+			
+			pList.add(pdto);
+		}
+		
+		
+		model.addAttribute("orderGroup", orderCont);
+		model.addAttribute("pList", pList);
+		model.addAttribute("pay", pay);
+		model.addAttribute("totalPrice", totalPrice);
+		model.addAttribute("trans", trans);
+		model.addAttribute("payDate", payDate);
+		model.addAttribute("name", receiveName);
+		model.addAttribute("phone", receivePhone);
+		
+		return "member/mypage_orderCont";
+	}
+	
+	//구매내역(그룹별) 삭제 
+	@RequestMapping("order_delete")
+	public void orderDelete (@RequestParam("ogno")int ogno, HttpServletResponse response) throws IOException {
+		
+		int  check = this.odao.deleteOgno(ogno);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		if(check>0) {
+			
+			out.println("<script>");
+			out.println("alert('구매내역 삭제 완료')");
+			out.println("location.href='order_list.do'");
+			out.println("</script>");
+			
+		}else {
+			out.println("<script>");
+			out.println("alert('구매내역 삭제 실패')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
 	}
  
 	
@@ -881,21 +1119,31 @@ public class MemberController {
 		//문의게시판 카테고리 리스트
 		List<Inquiry_CategoryDTO> cList = this.idao.getInquiryCategory();
 		
-		//구매한 후 문의하기를 눌러 넘겨받은 제품번호가 있다면
-		try {
-			
-			int pno = Integer.parseInt(request.getParameter("pno"));
-			
-			//상품정보 가져와 저장하기 
-			ProductDTO product = this.pdao.getProductDetail(pno);
-			
-			model.addAttribute("pCont", product);
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("문의글 작성하기 - 상품정보 없음");
-		}
+		int pno = 0; 
 		
+		if(request.getParameter("pno") == null && request.getParameter("ono") == null) {
+			
+			System.out.println("제품정보 및 주문정보 없음");
+			
+		}else if( request.getParameter("ono") != null && request.getParameter("pno") == null){
+			//주문정보가 있는 경우 
+			
+			//주문 정보
+			OrderDTO odto = this.odao.getOrderCont(Integer.parseInt(request.getParameter("ono")));
+			
+			//주문한 제품정보 가져오기 (이름으로 찾기)
+			ProductDTO product = this.pdao.getProductDetail(odto.getOrder_pname());
+			
+			//제품정보 넘기기
+			model.addAttribute("pCont", product);
+			model.addAttribute("ono", odto.getOrder_no());
+			
+		}else if(request.getParameter("pno") != null) {
+			
+			pno = Integer.parseInt(request.getParameter("pno"));
+			ProductDTO product = this.pdao.getProductDetail(pno);
+			model.addAttribute("pCont", product);
+		}
 		
 		
 		model.addAttribute("cList", cList);
@@ -1203,6 +1451,9 @@ public class MemberController {
 		//누른 feed의 회원 게시글 리스트
 		List<CommunityDTO> commList = this.comDao.getCommunityList(id);
 		feedInfo.put("commList", commList);
+		if(commList != null) {
+			model.addAttribute("community", commList);
+		}
 		
 		//누른 feed의 회원의 팔로우,팔로워 정보
 		//내가 팔로우 하는 사람들 팔로잉 follow
@@ -1363,13 +1614,19 @@ public class MemberController {
 		return "member/feed_following";
 		}
 	
-	//언팔 기능
+	//회원 언팔 기능
 	@RequestMapping("unfollow.do")
 	public void unfollow(@RequestParam("id")String id, HttpServletResponse response, HttpSession session) throws IOException {
 		
 		String login = (String)session.getAttribute("login_id");
 		
-		int check = this.followDao.deleteFollow(login, id);
+		HashMap<String, String> param = new HashMap<String, String>();
+		param.put("login",login);
+		param.put("id", id);
+		
+		
+		
+		int check = this.followDao.deleteFollow(param);
 		response.setContentType("text/html; charset=UTF-8");
 		
 		String redirect ="";
@@ -1396,7 +1653,7 @@ public class MemberController {
 		
 	}
 	
-	//팔로우기능
+	//회원 팔로우기능
 	@RequestMapping("follow.do")
 	public void follow(@RequestParam("id")String id, HttpServletResponse response, HttpSession session) throws IOException {
 		
@@ -1432,5 +1689,83 @@ public class MemberController {
 			out.println("</script>");
 		}
 	}
+	
+	//마이피드 - LIKE
+	@RequestMapping("feed_like.do")
+	public String feed_like(@RequestParam("id")String id, Model model) {
+		
+		//좋아요 누른 MUSIC 리스트 
+		List<FollowDTO> musicLike = this.followDao.getMusicLike(id);
+		
+		//좋아요한 곡에 대한 정보 리스트
+		List<MusicDTO> musicCont = new ArrayList<MusicDTO>();
+		
+		
+		for(int i=0; i<musicLike.size(); i++) {
+			
+			FollowDTO fdto = musicLike.get(i);
+			
+			//좋아요한 곡 정보를 담아 리스트에 저장하기 
+			MusicDTO mdto = this.musicDao.getMusicCont(fdto.getFollow_no());
+			
+			musicCont.add(mdto);
+			
+		}
+		
+		model.addAttribute("mLike", musicLike);
+		model.addAttribute("mCont", musicCont);
+		model.addAttribute("id", id);
+		
+		return "member/feed_like";
+	}
+	
+	//
+	@RequestMapping("delLike.do")
+	public void delLike(@RequestParam("fno") int fno, @RequestParam("type") String type, HttpSession session,
+					HttpServletResponse response) throws IOException {
+		
+		String login = (String)session.getAttribute("login_id");
+		
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		
+		param.put("login", login);
+		param.put("fno", fno);
+		param.put("type", type);
+		
+		int check = this.followDao.deleteLike(param);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		if(check>0) {
+			out.println("<script>");
+			out.println("alert('좋아요 삭제 성공')");
+			out.println("location.href='feed_like.do?id="+login+"'");
+			out.println("</script>");
+			
+		}else {
+			out.println("<script>");
+			out.println("alert('좋아요 삭제 실패')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+		
+	}
+	
+	
+	//마이피드 - 포스팅 
+	@RequestMapping("feed_posting.do")
+	public String feed_posting(@RequestParam("id")String id, Model model) {
+		
+		//내가 쓴 커뮤니티게시판 글 리스트 가져오기  - myfeed.do에서 세션 저장해둠 
+//		List<CommunityDTO> commList = this.comDao.getCommunityList(id);
+//		feedInfo.put("commList", commList);
+		
+		
+		
+		return "member/feed_posting";
+	}
+	
 	
 }

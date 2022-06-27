@@ -59,6 +59,8 @@
 	<c:set var="dto" value="${loginInfo }"/> <!--로그인회원 정보 저장 -->
 	<c:set var="category" value="${cList }"/> <!-- 문의게시글 카테고리 리스트 -->
 	<c:set var="pCont" value="${pCont }"/> <!-- 제품정보 -->
+	<c:set var="ono" value="${ono }"/><!-- 주문번호  -->
+	
 	<script type="text/javascript">
 	
 		
@@ -78,6 +80,7 @@
 		<br>
 		
 			<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/inquiry_write_ok.do">
+			<input type="hidden" name="order_no" value="${ono }">
 			<table class="qnaCont_table">
 				<tr>
 					<th>작성자</th>

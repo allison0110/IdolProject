@@ -16,12 +16,12 @@
  		select * from follow_follower where follow_name = #{id} and f_type='MEMBER'
  	</select>
  	
- 	<!-- 언팔 -->
+ 	<!-- 언팔(회원) -->
  	<delete id="deleteFollow" parameterType="HashMap">
- 		delete from follow_follower where follow_name= #{id} and follower_name=#{login}
+ 		delete from follow_follower where follow_name= #{id} and follower_name=#{login} and f_type='MEMBER'
  	</delete>
  	
- 	<!-- 팔로우기능 -->
+ 	<!-- 팔로우기능(회원) -->
  	<insert id="insertFollow" parameterType="HashMap">
  		 <selectKey resultType="int" keyProperty="f_no"  order="BEFORE">
 			select case when max(f_no) is null then 1 else max(f_no)+1 end from follow_follower
@@ -29,5 +29,15 @@
 		
 		insert into follow_follower values(#{f_no}, 'MEMBER', #{id_no}, #{id_id}, #{login_no}, #{login_id})
  	</insert>
+ 	
+ 	<!-- 회원이 좋아요한 곡 리스트  -->
+ 	<select id="getMusicLike" parameterType="String" resultType="followDTO">
+ 		select * from follow_follower where follower_name= #{id} and f_type='MUSIC'
+ 	</select>
+ 	
+ 	<!-- 좋아요 취소 -->
+ 	<delete id="delLike" parameterType="HashMap">
+ 		delete from follow_follower where f_no = #{fno} and follower_name = #{login} and f_type =#{type}
+ 	</delete>
  	
  </mapper>

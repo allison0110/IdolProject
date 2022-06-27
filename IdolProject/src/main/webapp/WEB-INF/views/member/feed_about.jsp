@@ -1,3 +1,5 @@
+<%@page import="com.idol.model.CommunityDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -6,30 +8,27 @@
 <head>
 <meta charset="UTF-8">
 <title>${id }님의 피드 - about</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Icons"
+      rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols"
+      rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" ></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
+<link rel="stylesheet" href="./resources/css/member.css?v=2022062212">
 <style type="text/css">
 	
-	.myfeed_container{
-		background-color: #d8e0e3;
-	}
-
-	.feed_title table{
-		width:1000px;
-		text-align: center;
-		border-bottom: 1px solid gray;
-		font-weight: bold;
-	}
 	
-	.feed_title a{
-		text-decoration: none;
-		
-	}
 	
 	.feed_introduction{
 		background-color:white;
-		
-		padding:10px;
+		padding:20px;
+		font-size:0.95em;
+	}
+	
+	
+	.feed_introduction table td{
+		padding : 6px
 	}
 	
 	.feed_introduction table tr{
@@ -70,15 +69,114 @@
 		font-size:0.8em;
 		
 	}
+	
+	.feed_posting{
+		background-color:white;
+		padding:20px;
+		
+		margin:0 auto;
+		max-width: 1000px;
+		display:grid;
+		grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+		gap:20px;
+		
+	}
+	
+	.card_image {
+	width:100%;
+	display:block;
+}
+
+.card_category{
+	font-size:0.8em;
+	padding:10px;
+	background:#fafafa;
+	text-align: left;
+}
+
+.card_content{
+	line-height: 1.5;
+	font-size:0.9em;
+	padding:10px;
+	background:#fafafa;
+	text-align: left;
+}
+
+.card_content >p:first-of-type{
+	margin-top:0;
+	margin-bottom:0;
+}
+
+.card_userid{
+	display:flex;
+	margin:10px;
+	font-size:0.9em;
+}
+
+.card_userid>div:last-of-type{
+	margin-left:8px;
+}
+
+.userid_img{
+
+	display:block;
+		overflow:hidden;
+		border-radius: 50%;
+		width:20px;
+		height:20px;
+}
+
+.userid_img >img{
+		display:block;
+		width:auto;
+		height:100%
+	}
+
+
+.card_info{
+	padding:10px;
+	display:flex;
+	justify-content: space-between;
+	align-items:center;
+	background:#eeeeee;
+	font-size:0.8em;
+	border-bottom:2px solid #cccccc;
+	color:#555555;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 100,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+
+.card_info i{
+	font-size:0.95em;
+	margin-right :5px;
+	
+}
+
+.card_link {
+	color:#626262;
+	text-decoration: none;
+}
+
+.card_link:hover {
+	text-decoration: underline;
+}
 
 </style>
 </head>
 <body>
 	<c:set var="dto" value="${feedInfo.get('mInfo') }"/> <!-- 회원정보 -->
 	<c:set var="fav" value="${favList }"/> <!-- 좋아하는 가수 정보가 들은 리스트  -->
+	<c:set var="comm" value="${community }"/> <!--피드 회원의 커뮤니티게시글 리스트 -->
 	<%@include file="../include/user_top.jsp" %>
 	
-	<div class="feed_wrapper">
+	<div class="feed_wrapper" align="center">
 	<div class="myfeed_container" align="center">
 		<!-- myfeed_top include 추가  -->
 		<jsp:include page="../include/feed_top.jsp"/>
@@ -87,22 +185,25 @@
 			<div class="feed_title">
 				<table>
 					<tr>
-						<td>
-							<a href="<%=request.getContextPath() %>/myfeed.do?id=${dto.getMember_id()}" style="color: black;">ABOUT</a>
+						<td style="border-bottom:1px solid #2a3a52">
+							<a href="<%=request.getContextPath() %>/myfeed.do?id=${dto.getMember_id()}" style="color: black; ">
+							ABOUT
+							</a>
 						</td>
 						<td >
-							<a href="#" style="color: gray;">POSTING</a>
+							<a href="<%=request.getContextPath() %>/feed_posting.do?id=${dto.getMember_id()}" style="color: gray;">POSTING</a>
 						</td >
 						<td >
-							<a href="#" style="color: gray;">LIKE♥</a>
+							<a href="<%=request.getContextPath() %>/feed_like.do?id=${dto.getMember_id()}" style="color: gray;">LIKE♥</a>
 						</td>
 					</tr>
 				</table>
 			</div><!-- class="feed_title"  end -->
-			<div class="feed_introduction">
+			<div class="feed_introduction" align="left">
+				<div class="introduction_cont">
 				<p>${dto.getMember_introduction() }</p>
-				
-				<hr width="50%" align="center">
+				</div>
+				<hr>
 				<table>
 					<tr>
 						<td>
@@ -110,10 +211,10 @@
 						</td>
 						<td colspan="4">
 						 <c:if test="${dto.getMember_gender() == 'M' }">
-						 MALE
+						  &nbsp;MALE
 						 </c:if>
 						 <c:if test="${dto.getMember_gender() == 'F' }">
-						 FEMALE
+						   &nbsp; FEMALE
 						 </c:if>
 						</td>
 					</tr>
@@ -123,13 +224,13 @@
 						</td>
 						<td colspan="4">
 						<c:if test="${!empty fav }">
-						<div class="fav_list">
+						<div class="fav_list" >
 						<c:forEach items="${fav }" var="list">
 						<c:if test="${list[3] == 'solo' }"> <!-- 솔로 가수인 경우 -->
 						
-							<div class="fav_item">
+							<div class="fav_item" >
 							<a href="#">
-							<div class="fav_img">
+							<div class="fav_img" >
 								<img src="./resources/upload/celeb/${list[2] }" alt="celeb_image">
 							</div>
 							<div class="fav_name">
@@ -154,18 +255,73 @@
 						</c:forEach>
 						</div><!-- class="fav_list" -->
 						</c:if>
+						<c:if test="${empty fav }">
+						<div class="fav_list" >
+							<p>선택한 가수가 없습니다.</p>
+						</div>
+						</c:if>
 						
 						</td>
 					</tr>
 				</table>
-				<hr width="50%" align="center">
-			
+				<hr>
 			</div><!-- class="feed_introduction" -->
+			<c:if test="${!empty comm }">
 			<div class="feed_posting">
-			
+				<%
+					List<CommunityDTO> list = (List<CommunityDTO>)request.getAttribute("community");
+					
+					int count =3;//리스트 최신 3개까지 보여주기 
+					
+					if(list.size()<3){
+						count = list.size();
+					}
+				
+					for(int i=0; i<count; i++){ 
+						
+						CommunityDTO cdto = list.get(i);
+				%>		
+					<div class="card">
+				<img alt="" src="https://fakeimg.pl/400x300/009578/fff/" class="card_image">
+				<div class="card_category">
+				 <span>카테고리</span> | <span><%=cdto.getCommunity_date().substring(0,10) %></span>
+				</div>
+				<div class="card_content">
+				<p>
+					<%
+						if(cdto.getCommunity_cont().length() > 30){ //30자이상일 경우
+					%>
+						<%=cdto.getCommunity_cont().substring(0,30) %>...
+					<% 	}else{ %>
+						<%=cdto.getCommunity_cont() %>	
+							
+					<%} %>
+					
+				</p>
+				</div>
+				<div class="card_userid">
+					<div class="userid_img">
+						<img src="./resources/upload/member_image/${dto.getMember_no() }/${dto.getMember_image() }" alt="member_image">
+					</div>
+					<div>
+						<%=cdto.getCommunity_userid() %>
+					</div>
+				</div>
+				<div class="card_info">
+					<div>
+						<i class="material-symbols-outlined">thumb_up</i><%=cdto.getCommunity_recommend() %>
+						&nbsp;&nbsp;<i class="material-symbols-outlined">visibility</i><%=cdto.getCommunity_hit() %>
+					</div>
+						<div>
+						<a href="./" class="card_link">Read More</a>
+					</div>
+				</div>
+			</div> <!-- class="card" end  -->
+					
+				<%} %>
 			
 			</div>
-		
+			</c:if>
 		</div><!-- class="feed_main" end -->
 	
 	</div><!-- class="myfeed_container" end -->
