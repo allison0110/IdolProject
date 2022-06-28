@@ -198,6 +198,34 @@
     margin-right: 2px;
 }
 
+/* 댓글 및 대댓글 수정 필드 */
+.comment .update-input-group{
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 35px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    align-items: center;
+    display: none;
+}
+
+.update-input-group .input-group-text{
+	font-size: 12px;
+	height: 37px;
+}
+
+.update-input-group .btn{
+	font-size: 12px;
+	padding: 8px 0px;
+	width: 40px;
+    margin-left: 2px;
+    margin-right: 2px;
+    
+}
+
+
+
 /*댓글 수정 삭제버튼은 기본적으로 안보이게 처리*/
 .commentbtnGroup .comment-up{
     display: none;

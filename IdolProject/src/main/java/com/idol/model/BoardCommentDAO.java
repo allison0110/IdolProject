@@ -19,5 +19,11 @@ public interface BoardCommentDAO {
 	// 게시글 댓글 갯수
 	int getcommentCount(int bno);
 	
+	// 댓글 및 대댓글 삭제
+	int deleteComment(int cno);
+	
+	// 댓글 및 대댓글 수정
+	int updateComment(BoardCommentDTO boardCommentdto);
+	
 
 }

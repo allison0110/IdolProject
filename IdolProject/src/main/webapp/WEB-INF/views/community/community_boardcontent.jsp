@@ -138,7 +138,10 @@
                             	<!-- 댓글 작성자 로그인한 유저와 댓글을 단 유저가 같으면 수정 삭제버튼을 보이게 처리한다.-->
                             	<input type="hidden"  class="commentWriter" value="${cdto.comment_writer}">
                                 <button type="button" class="btn btn-outline-secondary comment-up">수정</button>
-                                <button type="button" class="btn btn-outline-secondary comment-del">삭제</button>
+                                <button type="button" class="btn btn-outline-secondary comment-del"
+                                onclick="if(confirm('정말로 삭제하시겠습니까?')){
+                                	location.href='community_commentDelete.do?cno=${cdto.comment_no}&bno=${boardCont.community_no}'
+                                }else{return;}">삭제</button>
                                 <button type="button" class="btn btn-outline-secondary comment-reply">답글</button>
                             </div>
                         </div>
@@ -147,12 +150,21 @@
                         <input type="hidden"  name="comment_group" value="${cdto.comment_group}">
                         <input type="hidden"  name="comment_step" value="${cdto.comment_step}">
                         <input type="hidden"  class="comment_indent" name="comment_indent" value="${cdto.comment_indent}">
-                        <input type="hidden"  name="community_nofk" value="${cdto.community_nofk}">
+                        <input type="hidden"  class="community_nofk" name="community_nofk" value="${cdto.community_nofk}">
                         <input type="hidden"  name="category_cnofk" value="${cdto.category_cnofk}">
+                        <!-- 대댓글 write textfiled -->
                         <div class="comment-input-group">
                             <span class="input-group-text">${loginInfo.member_id }</span>
-                            <textarea class="form-control"  rows="1" aria-label="With textarea" name="comment_cont"></textarea>
+                            <textarea class="form-control comment-text"  rows="1" aria-label="With textarea" name="comment_cont" maxlength="200"></textarea>
                             <button type="submit" class="btn btn-outline-secondary">답글입력</button>
+                        </div>
+                        <!-- 대댓글 update textfiled -->
+                        <div class="update-input-group">
+                            <span class="input-group-text">${loginInfo.member_id }</span>
+                            <!-- 수정버튼 클릭시 요청과 함께 전달한 댓글번호 -->
+                            <input type="hidden"  class="comment_no" value="${cdto.comment_no}">
+                            <textarea class="form-control update-text"  rows="1" aria-label="With textarea" maxlength="200"></textarea>
+                            <button type="button" class="btn btn-outline-secondary commentUpBtn">수정</button>
                         </div>
                     </div>
                     </form>
@@ -172,6 +184,6 @@
 	
 <%@include file="../include/user_bottom.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<script type="text/javascript" src="js/community_boardcontent.js"></script>
+<script type="text/javascript" src="js/community_boardcontent.js?ver=1"></script>
 </body>
 </html>

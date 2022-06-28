@@ -147,8 +147,10 @@
 for(let i=0;i<$('.comment').length;i++){
 	$('.comment-reply').eq(i).click(function(){
 		if($('#loginId').val() != ""){
+			// 기존에 답글이또는 수정 text filed가 열려있다면 닫아준다.
 			for(let j=0;j<$('.comment').length;j++){
 				$('.comment-input-group').eq(j).css("display","none");
+				$('.update-input-group').eq(j).css("display","none");
 			}
 			$('.comment-input-group').eq(i).css("display","flex");
 		}else{
@@ -156,7 +158,39 @@ for(let i=0;i<$('.comment').length;i++){
 		}
 	});
 }
-  
+
+
+// 수정버튼 클릭시 수정 text필드 표시
+for(let i=0;i<$('.comment').length;i++){
+	$('.comment-up').eq(i).click(function(){
+		// 기존에 답글이또는 수정 text filed가 열려있다면 닫아준다.
+		for(let j=0;j<$('.comment').length;j++){
+				$('.comment-input-group').eq(j).css("display","none");
+				$('.update-input-group').eq(j).css("display","none");
+		}
+		$('.update-input-group').eq(i).css("display","flex");
+		$('.update-text').eq(i).val($(".commentdetail").eq(i).text());
+	});
+}
+
+// 수정 text필드의수정 button 클릭시 댓글 수정요청
+for(let i=0;i<$('.comment').length;i++){
+	$('.commentUpBtn').eq(i).click(function(){
+		if($('.update-text').eq(i).val() != ""){
+			console.log($('.update-text').eq(i).val());
+			// 컨트롤러로 수정텍스트,댓글번호,게시판번호를 전송한다.
+			let ctext = $('.update-text').eq(i).val(),
+			cno = $('.comment_no').eq(i).val(),
+			bno = $('.community_nofk').eq(i).val();
+			
+			location.href="community_commentUpdate.do?ctext="+ctext+"&cno="+cno+"&bno="+bno;
+		}else{
+			alert('수정할 내용을 입력해 주세요');
+		}
+		
+	});
+}
+
   
   
   

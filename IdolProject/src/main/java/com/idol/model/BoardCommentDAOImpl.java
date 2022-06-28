@@ -44,5 +44,17 @@ public class BoardCommentDAOImpl implements BoardCommentDAO {
 	@Override
 	public int getcommentCount(int bno) {
 		return sqlSession.selectOne("commentCount", bno);
+	}
+
+	// 댓글 및 대댓글 삭제
+	@Override
+	public int deleteComment(int cno) {
+		return sqlSession.delete("deleteComment", cno);
+	}
+	
+	// 댓글 및 대댓글 수정
+	@Override
+	public int updateComment(BoardCommentDTO boardCommentdto) {
+		return sqlSession.update("updateComment", boardCommentdto);
 	} 
 }

@@ -40,6 +40,16 @@
  	<![CDATA[select count(*)from community_comment where COMMUNITY_NOFK = #{bno}]]>
  </select>
  
+ <!-- 댓글 및 대댓글 삭제 -->
+ <delete id="deleteComment" parameterType="int">
+ 	<![CDATA[delete from community_comment where comment_no = #{cno}]]>
+ </delete>
+ 
+ <!-- 댓글 및 대댓글 수정 -->
+ <update id="updateComment" parameterType="BoardCommentDTO">
+ 	<![CDATA[update community_comment set comment_cont = #{comment_cont}, comment_update = sysdate  where comment_no = #{comment_no}]]>
+ </update>
+ 
  
  
  

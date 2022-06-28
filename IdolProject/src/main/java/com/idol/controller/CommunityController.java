@@ -543,6 +543,8 @@ public class CommunityController {
 		boardcommentdto.setComment_step(boardcommentdto.getComment_step()+1);
 		boardcommentdto.setComment_indent(boardcommentdto.getComment_indent()+1);
 		
+		System.out.println(boardcommentdto.getComment_cont());
+		
 		// 댓글에 대한 답글등록
 		int result = boardCommentdao.replyWrite(boardcommentdto);
 		
@@ -553,7 +555,46 @@ public class CommunityController {
 		}
 		
 		return "redirect:community_boardContent.do?bno="+boardcommentdto.getCommunity_nofk();
+	}
+	
+	// 커뮤니티 댓글,대댓글 삭제
+	@RequestMapping("community_commentDelete.do")
+	public String community_commentDelete(HttpServletRequest request) {
 		
+		int cno = Integer.parseInt(request.getParameter("cno").trim());
+		int bno = Integer.parseInt(request.getParameter("bno").trim());
+		
+		int result = boardCommentdao.deleteComment(cno);
+		
+		if(result>0) {
+			System.out.println("댓글삭제 성공");
+		}else {
+			System.out.println("댓글삭제 실패");
+		}
+		
+		return "redirect:community_boardContent.do?bno="+bno;
+	}
+	
+	// 커뮤니티 댓글,대댓글 수정
+	@RequestMapping("community_commentUpdate.do")
+	public String community_commentUpdate(HttpServletRequest request) {
+		String ctext = request.getParameter("ctext").trim();
+		int cno = Integer.parseInt(request.getParameter("cno").trim());
+		int bno = Integer.parseInt(request.getParameter("bno").trim());
+		
+		BoardCommentDTO boardCommentdto = new BoardCommentDTO();
+		boardCommentdto.setComment_no(cno);
+		boardCommentdto.setComment_cont(ctext);
+		
+		int result = boardCommentdao.updateComment(boardCommentdto);
+		
+		if(result>0) {
+			System.out.println("댓글수정 성공");
+		}else {
+			System.out.println("댓글수정 실패");
+		}
+		
+		return "redirect:community_boardContent.do?bno="+bno;
 	}
 	
 	
