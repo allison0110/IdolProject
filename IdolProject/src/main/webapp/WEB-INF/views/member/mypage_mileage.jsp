@@ -14,10 +14,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./resources/js/member.js"></script>
-<link rel="stylesheet" href="./resources/css/member.css?v=2022062209">
+<link rel="stylesheet" href="./resources/css/member.css?v=2022062814">
+
+
 <style type="text/css">
-	
-	
 	
 	.mileage_list{
 	   margin-top:50px;
@@ -64,8 +64,9 @@
 	}
 	
 	.mileage_amount{
-	
+		width:70px;
 		margin-top:20px;
+		text-align: right;
 	}
 	
 	.deduct_state{
@@ -74,6 +75,11 @@
 	
 	.add_state{
 		color:#39c934;
+	}
+	
+	.mileage_amount>span:last-of-type{
+		font-size:0.85em;
+		color:rgba(132,132,132,0.5);
 	}
 	
 	.mileage_amount input{
@@ -95,16 +101,6 @@
 		line-height: 1.5;
 		width: 70%;
 		margin-top:20px;
-	}
-	
-	.order_btns input{
-		margin: 2px;
-    width: 100px;
-    height: 33px;
-    border-radius: 5px;
-    background-color: white;
-    border: 1px solid #2a3a52;
-    cursor: pointer;
 	}
 	
 	#load{
@@ -203,7 +199,7 @@
 		<div class="order_main">
 
 			<c:if test="${!empty list }">
-			<div class="mileage_list">
+			<div class="mileage_list" >
 		<%
 			List<MileageDTO> mileage = (List<MileageDTO>)request.getAttribute("mileage");
 		
@@ -217,9 +213,12 @@
 				
 				MileageDTO dto = mileage.get(i);
 				
+				//남은 마일리지금액
+				String remain = format.format(dto.getMileage_remaining());
+				
 		%>			
 				
-				<div class="mileage_item">
+				<div class="mileage_item" >
 		<% 
 					if(dto.getMileage_earn() > 0){ //얻은 마일리지 내역이 있다면 
 						amount = dto.getMileage_earn();
@@ -246,6 +245,7 @@
 					
 					<div class="mileage_amount">
 						<span class="<%=state%>"><%=amountF%>원</span> <br>
+						<span ><%=remain%>원</span>
 					<!-- 	<input type="button" value="내역삭제"> -->
 					</div>
 				</div><!-- class="mileage_item" -->
@@ -304,8 +304,6 @@
 		</script> 
 		
 		</div><!-- class="mypage_main" end -->
-		
-		
 	</div><!-- class="mypage_container" end -->
 	<%@include file="../include/user_bottom.jsp" %>
 </body>

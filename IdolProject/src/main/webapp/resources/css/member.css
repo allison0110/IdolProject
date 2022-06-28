@@ -351,6 +351,7 @@
 	.mypage, .mypage_main{
 		width:90%;
 		margin-bottom:100px;
+		min-height: 100vh;
 	}
 	.mypage_main{
 		margin-left:30px;

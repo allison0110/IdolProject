@@ -21,8 +21,13 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="./resources/css/member.css?v=2022062212">
+
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+
 <style type="text/css">
-	
+
 .posting_cards{
 	background-color:white;
 	padding:30px;
@@ -162,7 +167,7 @@
 			
 			
 			
-			<div class="posting_cards">
+			<div class="posting_cards" data-aos="fade-down" >
 			<c:if test="${empty comm }">
 			<p> 작성한 게시글이 없습니다.</p>
 			</c:if>
@@ -183,10 +188,15 @@
 					img = cdto.getCommunity_image().split("\\|");
 					System.out.println(img[0]);
 				}
+				String upload = "Aespa earing.jpg";
 				
 		%>
-				<div class="card">
-				<img src="https://fakeimg.pl/400x300/009578/fff/" class="card_image"> <!-- 이미지 값을 넣으면 java.lang.NullPointerException 오류남 왜?????? -->
+				<div class="card" >
+				<img class="card_image" src="./resources/upload/community/<%=upload%>" > 
+				<!-- 이미지 값을 넣으면 java.lang.NullPointerException + checked_encoding 에러
+					 net::ERR_INCOMPLETE_CHUNKED_ENCODING ===> 파일명 길이를 수정하니까 오류 해결
+					 ******병합할때 수정하기******
+				 -->
 		 <%
 					List<BoardCategoryDTO> cList = (List<BoardCategoryDTO>)request.getAttribute("cList");
 					String categoryName = "";
@@ -199,7 +209,6 @@
 							categoryName = category.getCategory_cname();
 					}
 							}//카테고리 for문 
-					System.out.println("이름:"+categoryName);
 					
 			%>		 
 				 <div class="card_category">
@@ -211,12 +220,11 @@
 				<p>
 			<%
 					if(cdto.getCommunity_cont().length()>30){ //내용이 30자 이상일 경우 30자 까지만 보이기
-						System.out.println("내용>30");
 						
 			%>			
 						<%=cdto.getCommunity_cont().substring(0, 30) %> ...	
 						
-			<% 		}else{ System.out.println("내용<30"); %>
+			<% 		}else{  %>
 						<%=cdto.getCommunity_cont() %>
 						
 			<%} %>	
@@ -254,6 +262,11 @@
 	
 	</div><!-- class="myfeed_container" end -->
 	</div>
+	
+		<script>
+    AOS.init();
+  </script>
+	
 	<%@include file="../include/user_bottom.jsp" %>
 </body>
 </html>
