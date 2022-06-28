@@ -59,10 +59,47 @@
   	/*********** celeb_link_tag **************/
 
 </style>
+
+<script type="text/javascript">
+	$(function() {
+		  $('input[name="daterange"]').daterangepicker({
+	locale: {
+		      "separator": "-",                     // 시작일시와 종료일시 구분자
+	      "format": 'YYYY/MM/DD',     // 일시 노출 포맷
+	      },
+	  
+	  ranges: {
+	        'Today': [moment(), moment()],
+	        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+	        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+	        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+	        'This Month': [moment().startOf('month'), moment().endOf('month')],
+	        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+	    },
+	    format: 'YYYY-MM-DD',
+	    alwaysShowCalendars: true,
+	    opens: 'conter'
+	  }, function(start, end, label) {
+	    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+	  });
+	});
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
 </head>
 <body>
 
 	<div class="celeb_link_tag">
+		<div class="insert_btn">
+			<form action="<%=request.getContextPath() %>/test_result.do">
+				<input name="daterange">
+				<input type="submit" value="GO">
+		</form>
+		</div>
 		<div class="insert_btn">
 			<a href="<%=request.getContextPath()%>/admin_products_management.do">
 				SALES

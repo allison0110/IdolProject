@@ -41,6 +41,7 @@
 		<typeAlias type="com.idol.model.UsedDTO" alias="usedDTO"/>
 		<typeAlias type="com.idol.model.UsedCommDTO" alias="usedCommDTO"/>
 		<typeAlias type="com.idol.model.Comm_CommentDTO" alias="CommCommDTO"/>
+		<typeAlias type="com.idol.model.DateRangeDTO" alias="dRangeDTO"/>
 		
 		
 		

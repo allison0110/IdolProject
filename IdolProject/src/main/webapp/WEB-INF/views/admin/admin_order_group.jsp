@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ADMIN ORDER GROUP</title>
 <style type="text/css">
 	
 	html, body {
@@ -75,8 +75,10 @@
 			
 			 
 			 
-			 <div class="order_cont_wrapper">
+			<div class="order_cont_wrapper">
 			 
+			 <c:set var="sumQty" value="0" />
+			 <c:set var="sumTotal" value="0" />
 			 <c:forEach items="${olist }" var="odto" varStatus="i1">
 			<!-- 
 				 <div class="order_cont_img">
@@ -100,17 +102,17 @@
 						제품 수량: ${odto.order_qty }
 					</div>
 					<div>
-						제품의 개당 가격: <fmt:parseNumber value="${odto.order_pprice }" />
+						상품 가격: <fmt:formatNumber value="${odto.order_pprice }" />원
 					</div>
 					<div>
-						총금액: <fmt:parseNumber value="${odto.order_total }" />
+						총 금액: <fmt:formatNumber value="${odto.order_total }" />원
 					</div>
 					<div>
-						운송비: <fmt:parseNumber value="${odto.order_tcost }" />
+						운송비: <fmt:formatNumber value="${odto.order_tcost }" />원
 					</div>
 					
 					<div>
-						마일리지: <fmt:parseNumber value="${odto.order_mileage }" />
+						마일리지: <fmt:formatNumber value="${odto.order_mileage }" /> 마일리지
 					</div>
 					<div>
 						<c:if test="${odto.order_type == '1' }">
@@ -134,9 +136,27 @@
 					</div>
 					
 				</div> <!-- order_cont_info_box -->
+				<c:set var="sumQty" value="${sumQty + odto.order_qty }" />
+				<c:set var="sumTotal" value="${sumTotal + odto.order_total }" />
+			</c:forEach>
+			</div><!-- order_cont_wrapper -->
 			
-				</c:forEach>
+			<div class="test" style="color: white">
+			<ul>
+				<li>
+					총 수량 : <fmt:formatNumber value="${sumQty }" /> 개
+					
+				</li>
+				<li>
+					총 구매 금액: <fmt:formatNumber value="${sumTotal }" /> 원
+				</li>
+				
+			</ul> 
+				
 			</div>
+			
+			
+			
 		</div> <!-- order_container -->
 	
 	</div> <!-- admin_order_cont_wrapper -->

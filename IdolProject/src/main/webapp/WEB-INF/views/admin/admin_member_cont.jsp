@@ -112,14 +112,22 @@
 				CELEB : ${mdto.member_favorite_celeb }
 				</div>
 				<div>
+				<c:if test="${!empty mdto.member_introduction }">
 				INTRODUCTION : ${mdto.member_introduction }
+				</c:if>
+				<c:if test="${empty mdto.member_introduction }">
+				[아직 자기소개가 없습니다.]
+				</c:if>
 				</div>
 			</div> <!-- member_content -->
 			
 			<div class="member_favorite_celeb">
+			
 			<div>
 			[FAVORITE CELEB]
 			</div>
+			
+			<c:if test="${!empty celebs}">
 				<c:forEach items="${celeblist }" var="c">
 					<c:forEach items="${celebs }" var="mc">
 						<c:if test="${c.celeb_no == mc }">
@@ -141,7 +149,11 @@
 						</c:if>
 					</c:forEach>
 				</c:forEach>
-			</div>
+			</c:if>
+			<c:if test="${empty celebs }">
+				[좋아하는 셀럽이 아직 없습니다 :( ]
+			</c:if>
+			</div> <!-- member_favorite_celeb -->
 			
 			
 			
@@ -151,6 +163,7 @@
 			[INQUIRY BOARD]
 			</div>
 			
+			<c:if test="${!empty inquirylist }">
 			<c:forEach items="${inquiryCategory}" var="icate">
 				<div class="member_inquiry_category_box">
 				${icate.category_ino }. [${icate.category_iname }]
@@ -202,6 +215,14 @@
 					</c:forEach>
 				</div>
 			</c:forEach>
+			</c:if>
+			<c:if test="${empty inquirylist }">
+				THERE ARE NO AVAILABLE DATA...
+			</c:if>
+			
+			
+			
+			<c:if test="${!empty inquirylist }">
 			<div>
 			[답변완료]
 			</div>
@@ -254,6 +275,10 @@
 					</div>
 				</c:if>
 			</c:forEach>
+			</c:if>
+			<c:if test="${empty inquirylist }">
+			</c:if>
+			
 			</div> <!-- member_inquiry -->
 			
 			

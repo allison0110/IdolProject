@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.idol.model.AdminProductDAO;
 import com.idol.model.CelebDTO;
+import com.idol.model.DateRangeDTO;
 import com.idol.model.OrderDTO;
 import com.idol.model.ProductCategoryDTO;
 import com.idol.model.ProductDTO;
@@ -483,11 +484,34 @@ public class AdminProductController {
 		
 		model.addAttribute("mList", list);
 		
-		return "admin/admin_product_memberInfo";
+		return "admin/admin_order_memberInfo";
 	}
 	
 	
-	
+	@RequestMapping("test_result.do")
+	public String dateRangeSalesList(Model model, @RequestParam("daterange") String dates, DateRangeDTO dto) {
+		
+		System.out.println("dates : " + dates);
+		
+		StringTokenizer tokenizer = new StringTokenizer(dates, "-");
+		
+		String[] dateList = new String[tokenizer.countTokens()];
+		
+		for(int i = 0; i < dateList.length; i++) {
+			dateList[i] = tokenizer.nextToken();
+		}
+		
+		System.out.println("dateList : " + dateList);
+
+		dto.setFirstDate(dateList[0]);
+		dto.setLastDate(dateList[1]);
+		
+		List<OrderDTO> rangeList = this.dao.getTestRange(dto);
+		
+		model.addAttribute("oList", rangeList);
+				 	 
+		return "admin/admin_order_management";
+	}
 	
 	
 	

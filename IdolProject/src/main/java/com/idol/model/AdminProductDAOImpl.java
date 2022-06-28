@@ -90,6 +90,11 @@ public class AdminProductDAOImpl implements AdminProductDAO{
 	public List<OrderDTO> getMemberPurchaseInfo(String name) {
 		return this.sqlSession.selectList("getMemberPurchase", name);
 	}
+
+	@Override
+	public List<OrderDTO> getTestRange(DateRangeDTO dto) {
+		return this.sqlSession.selectList("DateRageSales", dto);
+	}
 	
 	
 	

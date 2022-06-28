@@ -58,8 +58,16 @@
 		color: white;
 	}
 </style>
+
+
+
+<script type="text/javascript">
+	
+</script>
+
 </head>
 <body>
+
 <c:set var="odto" value="${orderCont }" />
 <c:set var="imgs" value="${imgsList }" />
 
@@ -73,14 +81,7 @@
 	
 		<div class="order_container">
 			
-					
-			
-			 <h1>test_admin_order_cont.page</h1>
-			 
 			 <div class="order_cont_wrapper">
-			 
-			
-				
 				<div class="order_cont_info_box">
 					<div>
 						주문 번호: ${odto.order_no }
@@ -129,12 +130,19 @@
 					<div>
 						수취인 연락처: ${odto.order_receiverphone }
 					</div>
-					
 				</div> <!-- order_cont_info_box -->
+			</div><!-- order_cont_wrapper -->
 			
-				
+			<div>
+			
+			
 			</div>
+			
+			
+			
 		</div> <!-- order_container -->
+		
+		
 	
 	</div> <!-- admin_order_cont_wrapper -->
 </body>

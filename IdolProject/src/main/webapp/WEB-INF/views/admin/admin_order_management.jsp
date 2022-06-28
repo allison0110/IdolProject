@@ -13,6 +13,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+
 <style type="text/css">
 	
 	html, body {
@@ -78,24 +79,26 @@
 	
 	
 </style>
+
+	
+<script type="text/javascript">
 	
 	
 	
-	
+</script>
 	
 </head>
 <body>
 	<c:set var="olist" value="${oList }" />
-
 	<div class="products_order_wrapper"> 
 	
 	<jsp:include page="../include/admin_top_include.jsp" />
 	<jsp:include page="../include/admin_products_include.jsp" />
 	
+	
 		<div class="products_order_container">
 		
-			<div class="order_calendar">
-			</div> <!-- order_calendar -->
+			
 		<%
 		List<OrderDTO> oList = (List<OrderDTO>)request.getAttribute("oList");
 		

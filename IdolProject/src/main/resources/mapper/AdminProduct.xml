@@ -76,7 +76,9 @@
     		select * from order_product where order_userid = #{name}
     	</select>
     	
-    	
+    	<select id="DateRageSales" parameterType="dRangeDTO" resultType="OrderDTO">
+    		select * from order_product where order_date between #{firstDate} and #{lastDate}
+    	</select>
     	
     	
     </mapper>

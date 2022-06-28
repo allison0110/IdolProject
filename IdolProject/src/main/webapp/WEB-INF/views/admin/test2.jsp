@@ -37,47 +37,21 @@
 		  });
 		});
 </script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawVisualization);
 
-      function drawVisualization() {
-        // Some raw data (not necessarily accurate)
-        var data = google.visualization.arrayToDataTable([
-          ['Month', '잡화', 'DVD', '포스터', '문구', '응원봉', '카드', '의류', '악세사리', '총매출'],
-          ['2022/02',  165,      938,         522,            998,          998,    450,       450,   450,      614.6],
-          ['2022/03',  135,      1120,        599,            1268,         998,    450,       450,   288,      682],
-          ['2022/04',  157,      1167,        587,            807,          998,    450,       450,   397,      623],
-          ['2022/05',  139,      1110,        615,            968,          998,    450,       450,   215,      609.4],
-          ['2022/06',  136,      691,         629,            1026,         998,    450,       450,   366,      569.6]
-        ]);
-
-        var options = {
-          title : 'IdolProject Sales Management Chart',
-          vAxis: {title: 'Goods'},
-          hAxis: {title: 'Month'},
-          seriesType: 'bars',
-          series: {8: {type: 'line'}}
-        };
-
-        var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-    </script>
 </head>
 <body>
 <c:set var="orderlist" value="${orderList }" />
 <c:set var="rdate" value="${rangeDate }" />
 <c:set var="testlist" value="${testList }" />
 
-
+<h1>TEST</h1>
 
 
 
 <form action="<%=request.getContextPath() %>/test_result.do">
 	<input name="daterange">
 	<input type="submit" value="GO">
+	
 </form>
 <c:forEach items="${rangeDate }" var="t">
 	<div style="color:blue">
@@ -88,7 +62,7 @@
 
 <div>
 	<c:forEach items="${testlist }" var="dto">
-
+		</div>
 		<ul>
 			<li>
 				${dto.order_no }
@@ -115,10 +89,13 @@
 				${dto.order_date }
 			</li>
 		</ul>
+
+
 	</c:forEach>
+
 </div>
 
-<div id="chart_div" style="width: 900px; height: 500px;"></div>
+
 
 </body>
 </html>

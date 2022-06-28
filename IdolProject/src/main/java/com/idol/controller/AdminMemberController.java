@@ -332,15 +332,23 @@ public class AdminMemberController {
 		
 		System.out.println("mCeleb : " + mCeleb);
 		
-		StringTokenizer tokenizer = new StringTokenizer(mCeleb, ",");
-		
-		String[] celebs = new String[tokenizer.countTokens()];
-		
-		for(int i = 0; i < celebs.length; i++) {
-			celebs[i] = tokenizer.nextToken();
+		if(mCeleb != null) {
+			
+			StringTokenizer tokenizer = new StringTokenizer(mCeleb, ",");
+			
+			String[] celebs = new String[tokenizer.countTokens()];
+			
+			for(int i = 0; i < celebs.length; i++) {
+				celebs[i] = tokenizer.nextToken();
+			}
+			
+			model.addAttribute("celebs", celebs);
+			
+		}else {
+			
+			
 		}
 		
-		model.addAttribute("celebs", celebs);
 		
 		List<OrderDTO> orderList = this.dao.getMemberOrderListByID(id);
 		

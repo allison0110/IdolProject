@@ -134,10 +134,10 @@
 				</div>
 				<div>
 					<c:if test="${idto.inquiry_status == '0' }">
-						답변대기
+						답변대기 [${idto.inquiry_status}]
 					</c:if>
 					<c:if test="${idto.inquiry_status == '1' }">
-						답변완료
+						답변완료 [${idto.inquiry_status}]
 					</c:if>
 				</div>
 				<div>
@@ -148,6 +148,14 @@
 				</div>
 				<div>
 					INDENT. ${idto.inquiry_indent }
+				</div>
+				<div>
+					<c:if test="${!empty idto.inquiry_update }">
+						${idto.inquiry_update.substring(0, 10) }
+					</c:if>
+					<c:if test="${empty idto.inquiry_update }">
+						${idto.inquiry_date.substring(0, 10) }
+					</c:if>
 				</div>
 				<div>
 					<input type="button" value="REPLY"
@@ -178,6 +186,12 @@
 						<div>
 							COTENT: ${gdto.inquiry_cont }
 						</div>
+							<c:if test="${gdto.inquiry_status == '0' }">
+								<span style="color: red">답변대기 [${gdto.inquiry_status }]</span>
+							</c:if>
+							<c:if test="${gdto.inquiry_status == 1 }">
+								답변완료 [${gdto.inquiry_status }]
+							</c:if>
 						<div>
 							<c:if test="${!empty gdto.inquiry_update }">
 								${gdto.inquiry_update.substring(0, 10) }

@@ -30,7 +30,8 @@ public interface AdminProductDAO {
 	public List<OrderDTO> getOrderContList(int no);
 	// 맴버별 구매내역 불러오기 
 	public List<OrderDTO> getMemberPurchaseInfo(String name);
-	
+	// test
+	public List<OrderDTO> getTestRange(DateRangeDTO dto);
 	
 	
 	
