@@ -23,8 +23,9 @@
                 <div id="list-container">
                 <c:set var = "seatchlist" value="${seatchList }"/>
                 <c:set var = "memlist" value="${memList }"/>
+                <c:set var = "comcountlist" value="${comcountList }"/>
                 	<c:if test="${!empty seatchlist }">
-                	<c:forEach items="${seatchlist }" var="searchdto">
+                	<c:forEach items="${seatchlist }" var="searchdto" varStatus="status">
                     <div class="article">
                         <!-- <div class="new">new</div> -->
                         <!-- <div class="hot">Hot</div> -->
@@ -67,7 +68,7 @@
                                 <div class="info-left">
                                     <i class="fa-solid fa-eye"></i>${searchdto.community_hit } &nbsp;&nbsp;
                                     <i class="fa-solid fa-thumbs-up"></i>${searchdto.community_recommend } &nbsp;&nbsp;
-                                    <i class="fa-solid fa-comment"></i>0 &nbsp;&nbsp;
+                                    <i class="fa-solid fa-comment"></i>${comcountlist[status.index]} &nbsp;&nbsp;
                                 </div>
                                 <div class="info-right">
                                     <i class="fa-solid fa-clock"></i>${searchdto.community_date.substring(0,10) }

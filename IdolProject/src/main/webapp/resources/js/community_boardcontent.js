@@ -13,6 +13,18 @@
  
  viewBtn();
  
+ /*
+ 	게시물 댓글 input창이 로그인을 하지 않으면 보이지 않도록 하는 함수
+ */
+ function viewcommentInput(){
+ 	if($('#loginId').val() == ""){
+ 		$('.formContainer').css("display","none");
+ 	}else{
+ 		$('.formContainer').css("display","block");
+ 	}
+ }
+ viewcommentInput();
+ 
  
  //게시물 삭제버튼 클릭
  $("#deleteBtn").click(function(){
@@ -91,4 +103,69 @@
 		  }
 		})
   });
+
+
+  // 게시물 댓글 등록
+  function submitCheck(){
+  	if($('#loginId').val() == ""){
+ 		alert('로그인 정보가 없습니다. 다시로그인해 주세요');
+ 		return false;
+ 	}else{
+ 		return true;
+ 	}
+  }
+
+  // 게시물 댓글 답변글(대댓글) 등록
+  function replyCheck(){
+	if($('#loginId').val() == ""){
+		alert('로그인 정보가 없습니다. 다시로그인해 주세요');
+		return false;
+	}else{
+		return true;
+	}
+  }
+
+
+  // 대댓글 indent 에 따른 padding요소 및 background
+  for(let i=0;i<$('.comment').length;i++){
+	if($('.comment_indent').eq(i).val() > 0){
+		let padding = $('.comment_indent').eq(i).val()*20;
+		$('.comment').eq(i).css("background-color","rgba(248, 248, 248)")
+		.css("padding-left",padding+"px");
+	}
+  }
+
+  // 댓글 수정삭제버튼 view
+  for(let i=0;i<$('.comment').length;i++){
+	if($('.commentWriter').eq(i).val() == $('#loginId').val()){
+		$('.comment-up').eq(i).css("display","inline-block");
+		$('.comment-del').eq(i).css("display","inline-block");
+	}
+  }
+
+// 대댓글 작성view 표시
+for(let i=0;i<$('.comment').length;i++){
+	$('.comment-reply').eq(i).click(function(){
+		if($('#loginId').val() != ""){
+			for(let j=0;j<$('.comment').length;j++){
+				$('.comment-input-group').eq(j).css("display","none");
+			}
+			$('.comment-input-group').eq(i).css("display","flex");
+		}else{
+			alert('로그인이 필요합니다.');
+		}
+	});
+}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   

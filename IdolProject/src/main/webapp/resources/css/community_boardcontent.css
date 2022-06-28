@@ -108,7 +108,6 @@
 }
 
 #leftContent .info2 .UpdateAndDelete{
-	
 	display: none;
 }
 
@@ -128,6 +127,7 @@
 
 #leftContent .formContainer{
     padding: 20px 0px;
+    display: none;
 }
 
 
@@ -135,6 +135,8 @@
 #leftContent .comment{
     font-size: 13px;
     border-bottom: 1px solid lightgray;
+    width: 100%;
+    word-break:break-all;
 }
 
 /* #leftContent .comment:nth-child(odd){
@@ -145,24 +147,70 @@
     margin-bottom: 8px;
 }
 
+
 #leftContent .comment .commentInfo{
     opacity: 0.5;
 }
-/* 대댓글  */
-#leftContent .comment-reply{
-    font-size: 13px;
-    border-bottom: 1px solid lightgray;
-    background-color: rgba(248, 248, 248);
-    padding-left: 10px;
-}
 
-#leftContent .comment-reply p{
-    margin-bottom: 8px;
-}
-
-#leftContent .comment-reply .comment-replyInfo{
+#leftContent .comment .commentInfo{
     opacity: 0.5;
 }
+
+#leftContent .comment .commentBottom{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.commentBottom .btn{
+	font-size: 10px;
+	width: 40px;
+	height: 20px;
+	padding:0px;
+	
+}
+.comment .comment-input-group{
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 35px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    align-items: center;
+    display: none;
+}
+.comment-input-group .input-group-text{
+	font-size: 12px;
+	height: 37px;
+}
+
+.comment-input-group .form-control{
+	
+}
+.comment-input-group .btn{
+	font-size: 12px;
+	padding: 0px;
+	width: 40px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+/*댓글 수정 삭제버튼은 기본적으로 안보이게 처리*/
+.commentbtnGroup .comment-up{
+    display: none;
+}
+
+.commentbtnGroup .comment-del{
+    display: none;
+}
+
+
+
+
+
 
 
 

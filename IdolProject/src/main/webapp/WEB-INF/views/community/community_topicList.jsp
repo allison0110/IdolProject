@@ -37,6 +37,7 @@
                 <c:set var = "topiclist" value="${topicList }"/>
                 <c:set var = "memlist" value="${memList }"/>
                 <c:set var = "imgCountlist" value="${imgCountList }"/>
+                <c:set var = "comcountlist" value="${comcountList }"/>
                 	<c:if test="${!empty topiclist }">
                 	<c:forEach items="${topiclist }" var="topicdto" varStatus="status">
                 	<input type="hidden" class=ImgTrue value="${topicdto.community_image}">
@@ -94,7 +95,7 @@
                                 <div class="info-left">
                                     <i class="fa-solid fa-eye"></i>${topicdto.community_hit } &nbsp;&nbsp;
                                     <i class="fa-solid fa-thumbs-up"></i>${topicdto.community_recommend } &nbsp;&nbsp;
-                                    <i class="fa-solid fa-comment"></i>0 &nbsp;&nbsp;
+                                    <i class="fa-solid fa-comment"></i>${comcountlist[status.index]} &nbsp;&nbsp;
                                 </div>
                                 <div class="info-right">
                                     <i class="fa-solid fa-clock"></i>${topicdto.community_date.substring(0,10) }

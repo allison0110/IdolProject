@@ -22,6 +22,7 @@
                 <!-- 게시물 상세내용 -->
                 <div id="leftContent">     
                 <c:set var="clist" value="${cList}"/>  
+                <c:set var="commentlist" value="${commentList}"/>  
                 <c:set var="mlist" value="${mList}"/>  
                 <input type="hidden" id="loginId" value="${loginInfo.member_id }">
                 <input type="hidden" id="writerId" value="${boardCont.community_userid }">
@@ -64,7 +65,7 @@
                         <i class="fa-solid fa-clock"></i>&nbsp;수정일:${boardCont.community_update.substring(0,10) }&nbsp;&nbsp;&nbsp;&nbsp;
                         </c:if>
                         <i class="fa-solid fa-eye"></i>&nbsp;${boardCont.community_hit } &nbsp;&nbsp;&nbsp;&nbsp;
-                        <i class="fa-solid fa-comment"></i>&nbsp;댓글 &nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fa-solid fa-comment"></i>&nbsp; ${commentCount } &nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                    
                     <div class="borderLine"></div>
@@ -86,7 +87,7 @@
                     <div class="info2">
                     	<div class="HitandComment">
                         <i class="fa-solid fa-thumbs-up"></i>&nbsp;${boardCont.community_recommend } &nbsp;&nbsp;&nbsp;&nbsp;
-                        <i class="fa-solid fa-comment"></i>&nbsp;댓글 &nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fa-solid fa-comment"></i>&nbsp;${commentCount } &nbsp;&nbsp;&nbsp;&nbsp;
                         </div>
                         <div class="UpdateAndDelete">
                         	<button type="button" id="updateBtn" class="btn btn-outline-secondary">수정</button>
@@ -94,46 +95,69 @@
                         </div>
                     </div>
 
-                    <div class="borderLine"></div>
-
-                                     
                     <div class="formContainer">
-                    <form action="">
+                    <form method="post" action="<%=request.getContextPath()%>/community_commentWrite.do" onsubmit="return submitCheck();">
                         <div class="input-group">
-                        	<c:if test="${!empty loginInfo }">
                             <span class="input-group-text">${loginInfo.member_id }</span>
-                            </c:if>
-                            <c:if test="${empty loginInfo }">
-                            <span class="input-group-text">로그인필요</span>
-                            </c:if>
-                            
-                            <textarea class="form-control"  rows="1" aria-label="With textarea" placeholder="댓글을 남겨보세요"></textarea>
-                            <button type="button" class="btn btn-outline-secondary">댓글입력</button>
+                            <textarea class="form-control"  rows="1" aria-label="With textarea" placeholder="댓글을 남겨보세요"
+                            name="comment_cont"></textarea>
+                            <button type="submit" class="btn btn-outline-secondary">댓글입력</button>
                         </div>
+                        <input type="hidden" name="comment_writer" value="${loginInfo.member_id }">
+                        <input type="hidden" name="community_nofk" value="${boardCont.community_no }">
+                        <input type="hidden" name="category_cnofk" value="${boardCont.category_cnofk }">
                     </form>
                     </div>
 
                     <div class="commentCount">
-                       			 댓글 0
+                       			 댓글 ${commentCount }
                     </div>
-
+                    
+                    <!-- 댓글 출력구간 -->
+                    <c:if test="${!empty commentlist }">
+                    <c:forEach items="${commentlist}" var="cdto">
+                    <form method="post" action="<%=request.getContextPath()%>/community_replyWrite.do" onsubmit="return replyCheck();">
                     <div class="comment">
-                        <p class="commentUser">hong 홍길동</p>
-                        <p class="commentdetail">홍길동님이 임시댓글을 남기셨습니다.</p>
-                        <p class="commentInfo"><i class="fa-solid fa-clock"></i>&nbsp;날짜</p>
+                    	<c:if test="${cdto.comment_writer == writerInfo.member_id}">
+                        <p class="commentUser">${cdto.comment_writer}&nbsp;&nbsp; <span style="color:red">작성자</span> </p>
+                        </c:if>
+                        
+                        <c:if test="${cdto.comment_writer != writerInfo.member_id}">
+                        <p class="commentUser">${cdto.comment_writer}</p>
+                        </c:if>
+                        
+                        <p class="commentdetail">${cdto.comment_cont}</p>
+                        <div class="commentBottom">
+                        	<c:if test="${empty cdto.comment_update }">
+                            <div class="commentInfo"><i class="fa-solid fa-clock"></i>&nbsp;${cdto.comment_date}작성</div>
+                            </c:if>
+                            <c:if test="${!empty cdto.comment_update }">
+                            <div class="commentInfo"><i class="fa-solid fa-clock"></i>&nbsp;${cdto.comment_update}수정</div>
+                            </c:if>
+                            <div class="commentbtnGroup">
+                            	<!-- 댓글 작성자 로그인한 유저와 댓글을 단 유저가 같으면 수정 삭제버튼을 보이게 처리한다.-->
+                            	<input type="hidden"  class="commentWriter" value="${cdto.comment_writer}">
+                                <button type="button" class="btn btn-outline-secondary comment-up">수정</button>
+                                <button type="button" class="btn btn-outline-secondary comment-del">삭제</button>
+                                <button type="button" class="btn btn-outline-secondary comment-reply">답글</button>
+                            </div>
+                        </div>
+                        <!-- 대댓글 컨트롤러 로직 수행시 입력될 파라메터 -->
+                        <input type="hidden"  name="comment_writer" value="${loginInfo.member_id }">
+                        <input type="hidden"  name="comment_group" value="${cdto.comment_group}">
+                        <input type="hidden"  name="comment_step" value="${cdto.comment_step}">
+                        <input type="hidden"  class="comment_indent" name="comment_indent" value="${cdto.comment_indent}">
+                        <input type="hidden"  name="community_nofk" value="${cdto.community_nofk}">
+                        <input type="hidden"  name="category_cnofk" value="${cdto.category_cnofk}">
+                        <div class="comment-input-group">
+                            <span class="input-group-text">${loginInfo.member_id }</span>
+                            <textarea class="form-control"  rows="1" aria-label="With textarea" name="comment_cont"></textarea>
+                            <button type="submit" class="btn btn-outline-secondary">답글입력</button>
+                        </div>
                     </div>
-
-                    <div class="comment-reply">
-                        <p class="comment-replyUser">hong 홍길동</p>
-                        <p class="comment-replydetail">홍길동님이 임시대댓글을 남기셨습니다.</p>
-                        <p class="comment-replyInfo"><i class="fa-solid fa-clock"></i>&nbsp;날짜</p>
-                    </div>
-
-                    <div class="comment">
-                        <p class="commentUser">hong 홍길동</p>
-                        <p class="commentdetail">홍길동님이 임시댓글을 남기셨습니다.</p>
-                        <p class="commentInfo"><i class="fa-solid fa-clock"></i>&nbsp;날짜</p>
-                    </div>
+                    </form>
+                    </c:forEach>
+                    </c:if>
 
                 </div> <!-- leftContent end --> 
 
