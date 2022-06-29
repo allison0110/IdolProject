@@ -2,17 +2,28 @@ package com.idol.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpSession;
 
 import org.omg.CORBA.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.idol.model.EventDTO;
+import com.idol.model.ImagesDTO;
+import com.idol.model.ProductDAO;
+import com.idol.model.ProductDTO;
+import com.idol.model.UserEventDAO;
+import com.idol.model.UserImagesDAO;
 
 /**
  * Handles requests for the application home page.
@@ -22,14 +33,50 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
+	@Autowired
+	private UserImagesDAO userImagesDAO;
+	
+	@Autowired
+	private ProductDAO productDao;
+	
+	@Autowired
+	private UserEventDAO userEventDao;
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
+		List<ImagesDTO> list= this.userImagesDAO.imagesList();
+		List<ProductDTO> mainplist = this.productDao.mainProductList();
+		List<EventDTO> elist = this.userEventDao.allList();
+		
+		for(int i=0; i<10; i++) {
+			
+			ImagesDTO imagesDto = new ImagesDTO();
+			int visible = i%1;
+			if(visible == 1) {
+				
+				int priority = i;
+				
+				imagesDto.setImage_priority(priority);
+				imagesDto.setImage_visible(visible);
+				
+			}
+		}
+		
+		for(int i = 0;i<mainplist.size();i++) {
+			StringTokenizer tokenizer = new StringTokenizer(mainplist.get(i).getProduct_image(), "|");
+			String result = tokenizer.nextToken();
+			mainplist.get(i).setProduct_image(result);
+		}
 		
 		
+		
+		model.addAttribute("plist", mainplist);
+		model.addAttribute("images", list);
+		model.addAttribute("elist", elist);
 		
 		return "main";
 	}

@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class OrderDTO {
 	private int order_no;
-	private int order_cno;
 	private String order_userid;
 	private String order_pimage;
 	private String order_pname;
@@ -19,4 +18,5 @@ public class OrderDTO {
 	private String order_receivername;
 	private String order_receiveraddress;
 	private String order_receiverphone;
+	private int order_pprice; 
 }

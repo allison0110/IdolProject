@@ -6,7 +6,6 @@
       rel="stylesheet"
       href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
     />
-    
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <style>
     
@@ -68,6 +67,17 @@
       width: 230px;
       height: 300px;
       }
+      
+      .swiper-slide-issue-wrap{
+      width: 320px;
+      height: 520px;
+      }
+      
+      .swiper-slide-album-wrap{
+      width: 350px;
+      height: 350px;
+      
+      }
       .swiper-slide .swiper-slide-items-wrap a img{
        width: 230px;
        height: 250px;
@@ -100,9 +110,26 @@
       
       .main_section04{
       height: 500px;
-      width: 1100px;
+      width: 100%;
       margin: 0 auto;
+      background-color: #CCE5FF;
       }
+      
+      .albumSwiper-wrap{
+      width: 1100px;
+      height: 500px;
+      margin: 0 auto;
+      padding-top: 20px;
+      padding-bottom: 40px;
+      }
+      
+      #view_all{
+      text-align: right;
+      font-weight: 600;
+      color: gray;
+      }
+      
+     
     </style>
     
     <main>
@@ -113,45 +140,15 @@
         <div class="swiper-wrapper">
           <!-- Slides -->
           
-     		<!-- <c:forEach items="${images }" var="dto">
+     		<c:forEach items="${images }" var="dto">
      	     <div class="swiper-slide" id="main_img1">
         	    <div class="swiper-slide-img-wrap" >
+        	    <a href="<%=request.getContextPath()%>/${dto.getImage_link()}">
             	  <img
-                	src="${dto.getImage_path() }"/>
+                	src="./resources/upload/images/${dto.getImage_path() }"/></a>
             	</div>
           	 </div>
-          </c:forEach> -->
-          
-          <div class="swiper-slide">
-            <div class="swiper-slide-img-wrap">
-              <img
-                src="./resources/upload/bts.jpg"/>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="swiper-slide-img-wrap">
-              <img
-                src="./resources/upload/stayc.jpg"/>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="swiper-slide-img-wrap">
-              <img
-                src="./resources/upload/ive.jpg"/>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="swiper-slide-img-wrap">
-              <img
-                src="./resources/upload/psy.jpg"/>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="swiper-slide-img-wrap">
-              <img
-                src="./resources/upload/르세라핌.jpg"/>
-            </div>
-          </div>
+          </c:forEach>
         </div>
         <!-- If we need pagination -->
         <div class="swiper-pagination"></div>
@@ -163,57 +160,50 @@
     </main>
 
 		
-		<!-- 상품swiper -->
-		<div class="main_section02">
+	<!-- 상품swiper -->
+	<div class="main_section02">
 		<div class="item-sec">
 			<h1 align="center" id="mainH1">New Items</h1>
+			<div id="view_all">
+   				<a href="<%=request.getContextPath()%>/product_list.do"><span>전체보기</span></a>
+   			</div>
   	 		<div class="swiper productSwiper">
      			<div class="swiper-wrapper">
-	        		<div class="swiper-slide">
-	        			<div class="swiper-slide-items-wrap">
-	        				<a href="#"><img src=""></a>
-	        			</div>
-	        		</div>
-	        		<div class="swiper-slide">
-	        			<div class="swiper-slide-items-wrap">
-	        				<a href="#"><img src=""></a>
-	        			</div>
-	        		</div>
-	        		<div class="swiper-slide">
-	        			<div class="swiper-slide-items-wrap">
-	        				<a href="#"><img src=""></a>
-	        			</div>
-	        		</div>
-	        		<div class="swiper-slide">
-	        			<div class="swiper-slide-items-wrap">
-	        				<a href="#"><img src=""></a>
-	        			</div>
-	        		</div>
-	        		<div class="swiper-slide">
-	        			<div class="swiper-slide-items-wrap">
-	        				<a href="#"><img src=""></a>
-	        			</div>
-	        		</div>
-	        		<div class="swiper-slide">
-	        			<div class="swiper-slide-items-wrap">
-	        				<a href="#"><img src=""></a>
-	        			</div>
-	        		</div>
-	        		
+	        		<c:forEach items="${plist }" var="pdto">
+		     	     	<div class="swiper-slide">
+		        	    	<div class="swiper-slide-items-wrap" >
+	        	    			<a href="<%=request.getContextPath()%>/product_list.do?id=${pdto.product_no}">
+	            	  				<img src="./resources/upload/product/${pdto.product_image }"/>
+	            	  			</a>
+	            	  			<div class="card_overlay">
+	            	  				<div class="card_header">
+	            	  					<div class="card_header_txt">
+	            	  						<a href="<%=request.getContextPath()%>/product_list.do?id=${pdto.product_no}">
+	            	  							<span class="card_title">${pdto.product_name }</span>
+	            	  						</a>
+	            	  						<span class="card_price">₩ ${pdto.product_price }
+				            	  				<a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+	            	  						</span>
+	            	  					</div>
+	            	  				</div>
+	            	  			</div>
+		            		</div>
+		          	 	</div>
+	          		</c:forEach>
 	      		</div>
 	      		<div class="swiper-button-next"></div>
 	      		<div class="swiper-button-prev"></div>
 	      		<div class="swiper-scrollbar"></div>
-      			</div>
-    		</div>
-			</div>
+   			</div>
+   		</div>
+	</div>
 		
-		<!-- 이슈swiper -->
-		<div class="main_section03">
-			<div>
+	<!-- 이슈swiper -->
+	<div class="main_section03">
+		<div>
 			<h1 align="center" id="mainH1">New Issue</h1>
-  	 		<div class="swiper issueSwiper">
-     			<div class="swiper-wrapper">
+	 		<div class="swiper issueSwiper">
+	   			<div class="swiper-wrapper">
 	        		<div class="swiper-slide">
 	        			<div class="swiper-slide-issue-wrap">
 	        				<a href="#"><img src=""></a>
@@ -249,13 +239,13 @@
 		        <div class="swiper-pagination"></div>
 		
 			</div>
-			</div>
 		</div>
+	</div>
 
 
 
-		<div class="main_section04">
-			<div>
+	<div class="main_section04">
+		<div class="albumSwiper-wrap">
 			<h1 align="center" id="mainH1">New Album</h1>
   	 		<div class="swiper albumSwiper">
      			<div class="swiper-wrapper">
@@ -294,12 +284,8 @@
 		        <div class="swiper-scrollbar"></div>
 		
 			</div>
-			</div>
 		</div>
-		
-<!-- 		<form id="popUp">
-			<input type="hidden" name="popUp" value="">
-		</form> -->
+	</div>
 		
   <script>
   function loginAlert() {

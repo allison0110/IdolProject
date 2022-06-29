@@ -9,16 +9,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	div{
-	display: block;
 	
-	}
 	.event_wrap{
-	width: 980px;
-	height: auto;
-	margin: 0 auto;
-	margin-top: 40px;
-	
+		width: 980px;
+		height: auto;
+		margin: 0 auto;
+		margin-top: 40px;
 	}
 	#event_h2{
 		text-align: center;
@@ -31,19 +27,25 @@
 		text-decoration: none;
 	}
 	
+	.event_title ul{
+		display: flex;
+	}
+	
 	.event_title ul li{
 		border-bottom: 2px solid lightgray;
-		float:left;
 		width: 50%;
 		margin: 70px auto;
 		height: 45px;
 		line-height:45px;
-		
 	}
 	
 	.event_title ul li.active{
 		border-bottom-color: red;
 		color: red;
+	}
+	
+	.event_menu ul{
+		display: flex;
 	}
 	
 	.event_menu ul li{
@@ -62,18 +64,49 @@
 		
 	}
 	
-	.event_menu ul li{
-		float:left;
+	.event_menu ul li { 
+		height: 20px;
+	    line-height: 20px;
+	    margin-right: 16px;
 	}
 	
 	.event_cont_table{
-	border-bottom: 1px solid #d5d5da;
+	border-bottom: 2px solid lightgray;
     padding-left: 30px !important;
-    width: 1170px !important;
+    width: 980px !important;
     display: block;
+    margin-top: 24px;
+    padding: 16px;
+    border-collapse: collapse;
+    overflow: hidden;
+  	box-shadow: 0 0 20px rgba(0,0,0,0.1);
 	
 	}
 	
+	#event_cont_tr{
+	border-bottom: 2px solid lightgray;
+	}
+	
+	#event_cont_title{
+	padding: 16px;
+	
+	}
+	
+	.event_cont_wrap{
+	margin: 0 auto;
+	width: 980px;
+	height: 100%;
+	}
+	
+	#notice_cont_area{
+	width: 100%;
+	box-sizing: border-box;
+	resize: none;
+	padding: 16px;
+	border: none;
+	outline: none;
+	text-align: center;
+	}
 	
 </style>
 </head>
@@ -109,47 +142,51 @@
 		
 			<c:set var="dto" value="${Cont }"/>
 			<c:set var="paging" value="${Page }"/>
-		
+		<div class="event_cont_wrap">
 			<table class="event_cont_table">
 				<tbody>
-					<tr>
-						<td>
+					<tr id="event_cont_tr">
+						<td id="event_cont_title">
 							${dto.notice_title }
 						</td>
 					</tr>
-					
+					<tr id="event_cont_tr">
+						<td id="notice_cont_area">
+							${dto.notice_cont }
+						</td>
+					</tr>
+
 					<c:if test="${dto.notice_update==null }">
 						<tr>
-							<td>
+							<td id="event_cont_td">
 								${dto.notice_date }
 							</td>
+							
+							<th id="event_cont_th">조회수</th>
+								<td>
+									${dto.notice_hit }
+								</td>
+							
 						</tr>
 					</c:if>
 					
 					<c:if test="${dto.notice_update!=null }">
 						<tr>
-							<td>
+							<td id="event_cont_td">
 								${dto.notice_update }
 							</td>
+							
+							<th>조회수</th>
+								<td>
+									${dto.notice_hit }
+								</td>
 						</tr>
 					</c:if>
 					
-					<tr>
-						<th>조회수</th>
-						<td>
-							${dto.notice_hit }
-						</td>
-					</tr>
-					
-					<tr>
-						<td>
-							${dto.notice_cont }
-						</td>
-					</tr>
 				</tbody>
 			
 			</table>
-		
+		</div>
 		
 
 <%@include file="../include/user_bottom.jsp" %>

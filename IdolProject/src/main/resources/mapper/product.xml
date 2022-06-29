@@ -79,8 +79,11 @@
 		
   </select>
   
-  
-  
+  <!-- main slider product images -->
+  <select id="mainProductList" resultType="ProductDTO">
+	select * from (select p.*, row_number() over(order by product_input desc) rnum from product p)
+		<![CDATA[where rnum <=10]]>
+  </select>
   
   
   

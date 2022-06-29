@@ -11,4 +11,6 @@ public interface ProductDAO {
 	int productTotalRecord(HashMap<String, Object> maps);
 	List<InquiryDTO> productListPage(HashMap<String, Object> maps);
 	
+	//main용 list입니다
+	List<ProductDTO> mainProductList();
 }

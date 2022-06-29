@@ -26,9 +26,8 @@ public class UserEventDAOImpl implements UserEventDAO{
 	}
 
 	@Override
-	public int getListCount() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getListCount(HashMap<String, String> map) {
+		return this.sqlSession.selectOne("count", map);
 	}
 
 	@Override
@@ -40,6 +39,11 @@ public class UserEventDAOImpl implements UserEventDAO{
 	@Override
 	public EventDTO eventCont(int no) {
 		return this.sqlSession.selectOne("cont", no);
+	}
+
+	@Override
+	public List<EventDTO> allList() {
+		return this.sqlSession.selectList("all");
 	}
 
 	

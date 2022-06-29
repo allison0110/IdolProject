@@ -36,7 +36,16 @@ public class OrderDAOImpl implements OrderDAO{
 		return this.sqlSession.selectList("orderListDate", params);
 	}
 
-	
+	@Override
+	public int newGroupNo() {
+		return sqlSession.selectOne("newGroupno");
+	}
+
+	@Override
+	public List<OrderDTO> getLastOrderList(String memid) {
+		return sqlSession.selectList("lastorder", memid);
+	}
+
 	
 	
 }

@@ -83,7 +83,7 @@ var albumList = [
   {
     singer: "AESPA",
     title: "Girls",
-    img: "https://w.namu.la/s/29f19b3fba345c1d899341ea2cfa6d9e85680e9d2657c3f4614b421d85d37c6b9fcd7b82b012d08025f8f31f7895a86b804180b17f5f66024b4ce7596e1601e87e436565f75e871717bcec6bc2d3b55be193fac8d104048feb62bc813a0e93aa385cee930700087df17883adb4675879",
+    img: "./resources/upload/group/1655170280995AESPA_GROUP1.jpg",
   },
   {
     singer: "BTS",
@@ -93,7 +93,7 @@ var albumList = [
   {
     singer: "BLACK PINK",
     title: "How You Like That",
-    img: "https://w.namu.la/s/b831d9d84a7b597fafde39f4c7de76f28709aa0b27b58e03f7814a472abf0fc82999c7c1eb92d07d83fb01cb23bc5d136f40c4b4fce5ab0065eb01257c3814f68dfed0ad49c65282aed7eb1bde9ea15eb7a36726a3c812bfafa2e1e79c4767c05db8393c3c4df2db3d331b4cff2178d8",
+    img: "./resources/upload/group/1655183364336BLACKPINK_GROUP1.jpg",
   },
   {
     singer: "RED VELVET",
