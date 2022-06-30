@@ -79,11 +79,11 @@
 		
   </select>
   
-  <!-- main slider product images -->
-  <select id="mainProductList" resultType="ProductDTO">
-	select * from (select p.*, row_number() over(order by product_input desc) rnum from product p)
-		<![CDATA[where rnum <=10]]>
+  <!-- 제품명으로 제품정보 찾기 -->
+  <select id="PdetailbyName" parameterType="String" resultType="ProductDTO">
+  	<![CDATA[select *from PRODUCT where PRODUCT_NAME = #{order_pname}]]>
   </select>
+  
   
   
   

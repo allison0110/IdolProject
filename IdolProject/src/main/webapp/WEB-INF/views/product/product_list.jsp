@@ -13,6 +13,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+<%@include file="../include/user_top.jsp" %>
 <div id="wrap">
         <div id="container">
 
@@ -262,6 +263,8 @@
         <a id="bclose"><i class="fa-solid fa-xmark fa-2x"></i></a>
     </div>
 
+
+<%@include file="../include/user_bottom.jsp" %>
 <script src="js/product_list.js"></script>
 </body>
 </html>

@@ -13,88 +13,10 @@
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-<link rel="stylesheet" href="./resources/css/member.css">
+<link rel="stylesheet" href="./resources/css/member.css?v=2022063010">
 <style type="text/css">
 	
 	
-
-	/* .mypage_container{
-		display:flex;	
-		width:80%;
-		
-		border:1px solid lightgray;
-		
-	}
-	
-	.mypage_aside{
-		width:18%;
-		border: 1px solid lightgray;
-	}
-	
-	.profile_box{
-		
-		padding:20px;
-		background-color:#dadbdb;
-		
-	}
-	
-	.profile_image{
-		display:block;
-		overflow:hidden;
-		border-radius: 50%;
-		width:175px;
-		height:175px;
-		margin-top:7%;
-		margin-left: 15%;
-	}
-
-	.profile_image >img{
-		display:block;
-		width:auto;
-		height:100%
-	}
-	
-	.info{
-		margin-top:5%;
-		margin-bottom:30px;
-		text-align: center;
-	}
-	
-	.info_cont{
-		padding:10px;
-		font-weight: bold;
-		color:white;
-		
-		
-	}
-	
-	.info_cont .nickname{
-		display:inline-block;
-		font-size:1.2em;
-		margin-bottom:5px;
-	}
-	
-	.mypage_menu ul{
-		list-style: none;
-		line-height: 3;
-		font-size: 1.2em;
-	}
-	
-	.mypage_menu ul a{
-		text-decoration: none;
-		color:black;
-	}
-	
-	.mypage_menu ul a:hover {
-	
-		color:green;
-	}
-	
-	
-	
-	.mypage_main{
-		width:90%;
-	} */
 	
 	.mypage_main_top {
 	
@@ -112,7 +34,7 @@
 	}
 	
 	.mypage_main_top span{
-		font-size:3em;
+		font-size:2em;
 		font-weight: 400;	
 		
 	}
@@ -137,9 +59,9 @@
 	
 	.top_item {
 		padding:20px;
-		width:30%;
+		width:34%;
 		
-		border:1px solid lightgray;
+		border:1px solid #ececec;
 	
 	}
 	.icon_point{
@@ -195,19 +117,19 @@
 	.order_photo img{
 		width:100%;
 		height:100%;
-		border: 1px solid #8b8989;
-	}
+		}
 	
 	.order_item .order_info{
 		line-height: 1.5;
 	}
 	
 	.qna_item{
-		margin: 20px 0;
-		line-height: 1.5
+		margin: 10px;
+		padding: 10px 0;
+		line-height: 1.5;
 	}
 	.qna_item:hover, .order_item:hover {
-		background-color:#eae6e6;
+		background-color:rgba(236,236,236,0.5);
 		opaciy: 50%
 	}
 	
@@ -220,24 +142,23 @@
 <body>
 	
 	<c:set var="mileage" value="${mileage }"/>	
-
+	
 
 	<%@include file="../include/user_top.jsp" %>
-
-	<div class="mypage_container" algin="center">
+	<div class="mypage_container" >
 		
 		<!-- aisde inlcude 추가  -->
 		<jsp:include page="../include/mypage_aside.jsp"/>
 		
-		<div class="mypage_main">
+		<div class="mypage">
 			<div class="mypage_main_top" algin="center">
 			
 				<div class="top_item" align="center">
-				 <a href="#">
+				 <a href="<%=request.getContextPath()%>/mileage_list.do">
 					<div class="main_top_icon icon_point">
 						<label for="icon_point" class="bi bi-wallet2"></label>
 					</div>
-				포인트
+				마일리지
 				<br>
 				
 				<span>
@@ -247,11 +168,15 @@
 				</div>
 				
 				<div class="top_item" align="center">
-				<a href="#">
+				<a href="<%=request.getContextPath()%>/order_list.do">
 					<div class="main_top_icon icon_delivery">
 						<label for="icon_delivery" class="bi bi-truck"></label>
 					</div>
 				주문/배송
+				<br>
+				<span>
+					<fmt:formatNumber value="${threedays}" /> 
+				</span>
 				</a>
 				</div>
 				
@@ -297,7 +222,7 @@
 					String price = format.format(odto.getOrder_total());
 			%>		
 				
-					<a href="<%=request.getContextPath()%>/order_cont?no=<%=odto.getOrder_no()%>&page=1">
+					<a href="<%=request.getContextPath()%>/orderlist_cont.do?ogno=<%=odto.getOrder_group() %>">
 					<div class="order_item">
 					
 					<div class="order_photo">

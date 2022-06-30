@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/product_order.css">
 </head>
 <body>
+<%@include file="../include/user_top.jsp" %>
     <div id="wrap">
         <div id="container">
         <div id="content">
@@ -507,7 +508,7 @@
         <a id="back-to-top" href="#">Top</a>
         <a id="back-to-bottom" href="#">Bot</a>
     </div>  
-    
+    <%@include file="../include/user_bottom.jsp" %>
     <script src="js/product_order.js"></script>
 </body>
 </html>

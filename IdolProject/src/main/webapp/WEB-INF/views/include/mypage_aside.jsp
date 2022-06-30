@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
-<link rel="stylesheet" href="./resources/css/member.css">
+<link rel="stylesheet" href="./resources/css/member.css?v=2022063010">
 <style type="text/css">
 
 	.profile_image_wrap{
@@ -28,8 +28,8 @@
 	
 	.image_setting{
 	    position: absolute;
-   		 top: 120px;
-   		 left: 160px;
+   		 top: 90px;
+   		 left: 120px;
 	
 	}
 	
@@ -68,27 +68,17 @@
 	
 	.editProfile .editFile{
 		border: 1px solid #8b8989;
-   	    padding: 5px;
+   	    padding: 8px;
         border-radius: 5px;
         background-color: white;
         box-shadow: 1px 1px 3px #8b8989;
-        margin-bottom: 15px;
+        margin: 15px;
 	}
 	
 	.editFile{
 		font-size: 0.9em;
 	}
 	
-/* 	.editProfile .popup_close {
-		
-		position: absolute;
-		right: 0 ; top:0;
-		width: 20px;
-		height: 20px;
-		background: url(..image/close.png) no-repeat;
-		/* color:transparent; */
-	
-	} */
 	
 	.edit_dim {
 		display:none;
@@ -160,8 +150,9 @@
 					<input type="hidden" name="member_id" value="${dto.getMember_id() }">
 					<input type="hidden" name="old_img" value="${dto.getMember_image() }">
 					<input type="hidden" name="uri" value="<%=request.getRequestURI()%>">
-					<p><i class="bi bi-check-circle"></i>Upload Profile</p>	
-					<div class="editFile">
+					
+					<p><i class="bi bi-check-circle"></i> Upload Profile</p>	
+					<div class="editFile" align="left">
 					<input type="file" name="file1">
 					</div>
 					<input type="submit" class="edit_btn" value="확인">
@@ -195,7 +186,7 @@
 				<div class="info">
 					<div class="info_cont">
 					<span class="nickname">${dto.getMember_nickname() }님</span><br> <!-- 닉네임 -->
-					<span>	<!-- 아이디 -->
+					<span style="font-size:0.9em;">	<!-- 아이디 -->
 						<c:if test="${dto.getMember_id().length() <= 4 }">
 							${dto.getMember_id().substring(0,2) }
 							<c:forEach begin="1" end="${dto.getMember_id().substring(2).length() }">
@@ -218,8 +209,9 @@
 					<ul>
 						<li><a href="<%=request.getContextPath()%>/mypage.do">마이페이지</a></li>
 						<li><a href="<%=request.getContextPath()%>/mySettings.do">회원정보관리</a></li>
-						<li><a href="<%=request.getContextPath()%>/order_list.do">주문내역</a></li>
-						<li><a href="<%=request.getContextPath()%>/inquiry_list.do">문의내역</a></li>
+						<li><a href="<%=request.getContextPath()%>/mileage_list.do">마일리지 내역</a></li>
+						<li><a href="<%=request.getContextPath()%>/order_list.do">주문 내역</a></li>
+						<li><a href="<%=request.getContextPath()%>/inquiry_list.do">문의 내역</a></li>
 						<li><a href="<%=request.getContextPath()%>/logout.do">로그아웃</a></li>
 					</ul>
 			

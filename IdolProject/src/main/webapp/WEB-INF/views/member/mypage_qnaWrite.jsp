@@ -11,48 +11,40 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./resources/js/member.js"></script>
-<link rel="stylesheet" href="./resources/css/member.css">
+<link rel="stylesheet" href="./resources/css/member.css?v=2022063010">
 <style type="text/css">
 	
-	/* ***********마이페이지 회원정보관리************* */
-	
-	.qna_notice{
-		display:grid;
-		grid-template-columns: 1fr 1fr;
+	.qnaCont_table input{
+		padding: 5px 8px;
+		border:none;
 	}
-	
-	.month_area ul{
-		display:flex;
-		list-style: none;
-	}
-	
-	.quick_search{
-	
-		width:60px;
-		height:25px;
-		text-align:center;
-		padding:1px;
-		
-	}
-	.quick_search input{
-		display:none;
-	}
-	.quick_search label{
-		border:1px solid gray;
-		width:100vw;
-		height:100vh;
-	}
-	
-	.qna_table{
-		padding: 0 10px;
-		
-	}
-	
-	.qna_table table{
-		width: 100%;
-	}
-	
 
+
+		.btn{
+	background-color: white;
+    border: 1px solid #233044;
+    padding: 8px 20px;
+    border-radius: 21px;
+    cursor: pointer;
+    margin: 30px 2px;
+	
+	}
+	
+	.btn:hover {
+		background-color: #2a3a52;
+		color:white;
+	}
+	
+	.search_btn{
+	
+		    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: white;
+    border: 1px solid #2a3a52;
+    color: #2a3a52;
+    cursor: pointer;
+	}
 
 </style>
 
@@ -67,6 +59,8 @@
 	<c:set var="dto" value="${loginInfo }"/> <!--로그인회원 정보 저장 -->
 	<c:set var="category" value="${cList }"/> <!-- 문의게시글 카테고리 리스트 -->
 	<c:set var="pCont" value="${pCont }"/> <!-- 제품정보 -->
+	<c:set var="ono" value="${ono }"/><!-- 주문번호  -->
+	
 	<script type="text/javascript">
 	
 		
@@ -79,15 +73,15 @@
 		<!-- aisde inlcude 추가  -->
 		<jsp:include page="../include/mypage_aside.jsp"/>
 		
-		<div class="mypage_main" style="margin-left: 20px; margin-top: 50px;">
-		<div class="qna_top">
-		<h2>고객문의 글 작성</h2>
+		<div class="mypage_main">
+		<div class="manage_top">
+		고객문의 글 작성
 		</div>
-		<hr style="border: 2px solid black;">
 		<br>
 		
 			<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/inquiry_write_ok.do">
-			<table>
+			<input type="hidden" name="order_no" value="${ono }">
+			<table class="qnaCont_table">
 				<tr>
 					<th>작성자</th>
 					<td><input name="inquiry_userid" value="${dto.getMember_id()}" readonly></td>
@@ -97,14 +91,14 @@
 					<td>
 					
 					<c:if test="${!empty pCont }">
-					<input name="product_name" value="${pCont.getProduct_name() }"> <!-- 상품정보 있는 경우 상품 이름이 들어가기 -->
+					<input name="product_name" value="${pCont.getProduct_name() }" size="20"> <!-- 상품정보 있는 경우 상품 이름이 들어가기 -->
 					<input type="hidden" name="product_no" value="${pCont.getProduct_no() }">
 					</c:if>
 					
 					<c:if test="${empty pCont }">
-					<input name="product_name"> <!-- 상품정보 있는 경우 상품 이름이 들어가기 -->
+					<input name="product_name" size="20"> <!-- 상품정보 있는 경우 상품 이름이 들어가기 -->
 					</c:if>
-					<button type="button" class="product_search" 
+					<button class="search_btn" type="button" class="product_search" 
 					onclick="window.open( '<%=request.getContextPath()%>/inquiry_product.do', '', 'width=500,height=400, scrollbars=yes,directories=no') ">
 					상품 검색
 					</button></td>
@@ -128,21 +122,18 @@
 				<tr>
 					<th>내용</th>
 					<td>
-						<textarea rows="10" cols="30" name="inquiry_cont"></textarea>
+						<textarea rows="10" cols="50" name="inquiry_cont"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<th>파일</th>
 					<td><input type="file" name="file1" multiple="multiple"></td>
 				</tr>
-				<tr>
-					<td colspan="2">
-					<input type="submit" value="확인">
-					<input type="reset" value="새로고침">
-					</td>
-				</tr>
-			
 			</table>
+			<div class="qna_table_bottom" align="right">
+				<input class="btn" type="submit" value="확인">
+				<input class="btn" type="reset" value="새로고침">
+			</div>
 		</form>		
 		
 		

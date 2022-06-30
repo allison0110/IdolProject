@@ -14,57 +14,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./resources/js/member.js"></script>
-<link rel="stylesheet" href="./resources/css/member.css">
-<style type="text/css">
-	
-	/* ***********마이페이지 회원정보관리************* */
-	
-	.qna_notice{
-		display:grid;
-		grid-template-columns: 1fr 1fr;
-	}
-	.notice_1 span{
-		color:#ff5722;
-		font-weight: bold;
-	}
-	
-	.month_area ul{
-		display:flex;
-		list-style: none;
-	}
-	
-	.quick_search{
-	
-		width:60px;
-		height:25px;
-		text-align:center;
-		padding:1px;
-		border:1px solid black;
-		
-	}
-	
-	
-	.quick_search input{
-		display:none;
-	}
-	.quick_search label{
-		width:100vw;
-		height:100vh;
-	}
-	
-	.qna_table{
-		padding: 0 10px;
-		
-	}
-	
-	.qna_table table{
-		width: 100%;
-	}
-	
-
-
-</style>
-
+<link rel="stylesheet" href="./resources/css/member.css?v=2022063010">
 
 <script type="text/javascript">
 
@@ -83,18 +33,17 @@
 		<!-- aisde inlcude 추가  -->
 		<jsp:include page="../include/mypage_aside.jsp"/>
 		
-		<div class="mypage_main" style="margin-left: 20px; margin-top: 50px;">
-		<div class="qna_top">
-		<h2>고객문의 내역</h2>
+		<div class="mypage_main">
+		<div class="manage_top">
+		고객문의 내역
 		</div>
-		<hr style="border: 2px solid black;">
 		<div class="qna_notice">
 			<div class="notice_1">* 현재 답변 대기 중인 문의는 
 				<span>${waiting }</span>건입니다.</div>
-			<div class="notice_2"><input type="button" value="문의하기" onclick="location.href='inquiry_write.do'"></div>
+			<div class="notice_2" align="right"><input type="button" value="문의하기" onclick="location.href='inquiry_write.do'"></div>
 		</div>	
 		<form method="post" action="<%=request.getContextPath() %>/inquiry_date.do">
-		<div class="qna_month">
+		<div class="qna_month" align="center">
 			<table>
 				<tr>
 					<td>
@@ -129,7 +78,7 @@
 				$("input[name='search_date']").click(function(){
 					
 					if(count >=1){
-						$("#"+check).css('background-color','#e9e3e1');
+						$("#"+check).css('background-color','#ececec');
 						$("#"+preValue).css('background-color', 'white');
 						preValue = String($(this).val());
 					}
@@ -148,20 +97,11 @@
 				
 			});
 		
-		
-			/* if($(":radio[name='search_date']:checked")){
-				var check = $(this).val();
-				console.log(check);	
-				
-			} */
-			
-		
 		</script>
 		
 		<div class="qna_table">
-		<table border="1" >
-			<tr>
-				<th>번호</th>
+		<table>
+			<tr class="firstRow">
 				<th>구분</th>
 				<th>상품정보</th>
 				<th>제목</th>
@@ -198,41 +138,48 @@
 							break;
 						}
 						
+				%>		
+					<!-- 테이블 행 시작  -->
+					<tr>
+						<%-- <td><%=idto.getInquiry_no() %></td>	 --%>			
+						<td class="qna_td"><%=category %></td>
+					
+					<!-- 상품 정보  -->
+					<% if(idto.getProduct_no() == 0){ //상품정보가 없으면 %> 
+						<td class="qna_product"> </td>	
+					<% }else{ //상품정보가 있으면 %>
+						<td class="qna_product">
+						<a href="<%=request.getContextPath()%>/product_detail.do?pno=<%=product.getProduct_no()%>">
+						<%=product.getProduct_name() %></a>
+						</td>
+					<%}%>
+						<td class="qnaboard_title">
+							<a href="<%=request.getContextPath()%>/inquiry_cont.do?no=<%=idto.getInquiry_no() %>&page=${paging.getPage()}"><%=idto.getInquiry_title() %></a>
+						</td>
+						<td class="qna_td"><%=idto.getInquiry_date().substring(0,10) %></td>
+						
+					<% 
 						//답변상태
 						String status ="";
 						
 						if(idto.getInquiry_status() == 0){
 							status ="답변대기";
-						}else{
+					%>
+						<td class="qna_td">	<span style="color:#ff5722;"><%=status %></span></td>
+					<% 	}else{
 							status ="답변완료";
-						}
-				%>		
-					<!-- 테이블 행 시작  -->
-					<tr>
-						<td><%=idto.getInquiry_no() %></td>				
-						<td><%=category %></td>
-					
-					<!-- 상품 정보  -->
-					<% if(idto.getProduct_no() == 0){ //상품정보가 없으면 %> 
-						<td> </td>	
-					<% }else{ //상품정보가 있으면 %>
-						<td>
-						<a href="<%=request.getContextPath()%>/product_detail.do?pno=<%=product.getProduct_no()%>">
-						<%=product.getProduct_name() %></a>
-						</td>
-					<%}%>
-						<td>
-							<a href="<%=request.getContextPath()%>/inquiry_cont.do?no=<%=idto.getInquiry_no() %>&page=${paging.getPage()}"><%=idto.getInquiry_title() %></a>
-						</td>
-						<td><%=idto.getInquiry_date().substring(0,10) %></td>
-						<td><%=status %></td>
+					%>
+						<td class="qna_td">	<%=status %></td>
+					<% } %>	
+						
+						
 					</tr>
 				<%	}%>
 			</c:if>
 		</table>
 		
 		<!-- 페이징 처리 -->
-		<div class="table_page">
+		<div class="table_page" align="center">
 		<c:if test="${paging.getPage() > paging.getBlock() }"> <!-- 현재 페이지가 4인데 block사이즈는 3이라면 -->
 			<a href="inquiry_list.do?page=1">[맨 처음]</a>
 			<a href="inquiry_list.do?page=${paging.getStartBlock()-1 }">◀</a>

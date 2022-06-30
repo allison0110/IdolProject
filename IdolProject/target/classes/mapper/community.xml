@@ -15,7 +15,7 @@
 	
 	<!-- 회원(id)가 작성한 커뮤니티 리스트 -->
 	<select id="commList" resultType="communityDTO" parameterType="String">
-		select * from community_board where community_userid = #{id}
+		select * from community_board where community_userid = #{id} order by community_date desc
 	</select>
 
 </mapper>

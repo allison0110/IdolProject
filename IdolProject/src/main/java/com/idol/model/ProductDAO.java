@@ -10,6 +10,7 @@ public interface ProductDAO {
 	ProductDTO getProductDetail(int pno);
 	int productTotalRecord(HashMap<String, Object> maps);
 	List<InquiryDTO> productListPage(HashMap<String, Object> maps);
+	ProductDTO getProductDetail(String order_pname);
 	
 	//main용 list입니다
 	List<ProductDTO> mainProductList();
