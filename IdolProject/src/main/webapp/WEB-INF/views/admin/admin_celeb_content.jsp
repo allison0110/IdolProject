@@ -235,7 +235,6 @@
 		  autoplay: true,
 		  adaptiveHeight: true,
 		  arrows: false,
-		  pauseOnFocus: true
 		 
 		  
 		});

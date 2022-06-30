@@ -23,24 +23,28 @@
 	.product_cont_wrapper {
 		display: flex;
 		flex-direction: column;
-		min-height: 100vh;
+    	min-height: 100vh;
 	}
 	
 	
 	.product_cont_container {
 		display: flex;
 		flex-direction: row;
-		
+		justify-content: center;
+		align-items: center;
 	}
 	
-	
+	.product_cont_box {
+		margin-left: 10%;
+		width: 30%;
+	}
 	
 	
 	.product_cont_detail {
 		color: white;
 		font-family: 'Press Start 2P', 'Gugi', cursive;
-		font-size: 0.7em;
-	
+		font-size: 0.9em;
+		line-height: 1.4;
 	}
 	
 	/******************************/
@@ -49,14 +53,15 @@
 	.product_cont_slider {
 		/*width: 500px;*/
 		/*height: 600px;*/
-		width: 40%;
-		height: 40%;
+		width: 35%;
+		height: 35%;
 	}
 	
 	.product_cont_slider img{
 		width: 100%;
 		height: 100%;
-		cursor: pointer;
+		/*cursor: pointer;*/
+		border-radius: 10% / 50%;
 	}
 	
 	
@@ -81,36 +86,29 @@
 	
 	
 	
-	/*************** 버튼 ***************//
+	/*************** 버튼 ***************/
 	.celeb_btn {
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
+		margin-right: 30%;
 	}
 	
 	.celeb_btn input {
 		color: white;
 		background-color: black;
-	}
-	
-	.inset_btn {
 		font-family: 'Creepster', cursive;
-
 		font-size: 1.9em;
-		cursor: pointer;	
+		cursor: pointer;
 	}
 	
-	.inset_btn:hover {
+	
+	.product_btn:hover {
 		color: red;
 	}
 	
-	.rightBtn {
-		margin-right: 80px;
-	}
 	
-	.select {
-		height: 27px;
-	}
+	
 	
 	
 </style>
@@ -133,13 +131,13 @@
 		<div class="product_cont_container">
 			
 			<div class="product_cont_slider"> 
-				<c:forEach items="${imgsList }" var="img2">
+				<c:forEach begin="0" end="0" items="${imgsList }" var="img2">
 					<img alt="" src="./resources/upload/product/${img2}">
 				</c:forEach>
 			</div> <!-- product_imgs -->
 		
 		
-			<div class="product_cont_wrapper">
+			<div class="product_cont_box">
 			
 				<div class="product_cont_detail">
 					<div>
@@ -171,15 +169,15 @@
 				</div> <!-- product_cont_detail -->
 				
 				<div class="celeb_btn">
-					<input type="button" value="MODIFY" class="inset_btn"
+					<input class="product_btn" type="button" value="MODIFY" class="inset_btn"
 					onclick="location.href='admin_product_update.do?no=${dto.product_no}'">
 					
-					<input type="button" value="DELETE" class="inset_btn"
+					<input class="product_btn" type="button" value="DELETE" class="inset_btn"
 					onclick="if(confirm('상품을 삭제하시겠습니까? :(')){
 						location.href='admin_product_delete.do?no=${dto.product_no}&imgs=${dto.product_image }'
 					}else{return; }">
 					
-					<input type="button" value="BACK" class="inset_btn"
+					<input class="product_btn" type="button" value="BACK" class="inset_btn"
 					onclick="location.href='admin_products_list.do'">
 				</div>
 				
