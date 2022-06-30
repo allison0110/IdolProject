@@ -1,3 +1,6 @@
+<%@page import="java.util.StringTokenizer"%>
+<%@page import="com.idol.model.NoticeDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -6,8 +9,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ADMIN NOTICE MAIN</title>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Creepster&family=East+Sea+Dokdo&family=Gamja+Flower&family=Gugi&family=Jua&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kirang+Haerang&family=Nosifer&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Press+Start+2P&family=VT323&family=Wallpoet&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
 <style type="text/css">
+
 	html, body {
 		padding: 0px;
 		margin: 0px;
@@ -28,7 +38,7 @@
 	.admin_notice_wrapper {
 		display: flex;
 		flex-direction: column;
-		height: 100vh;
+		min-height: 100vh;
 	
 	}
 	
@@ -37,26 +47,62 @@
 		display: flex;
 	    flex-direction: row;
 	    flex-wrap: wrap;
-	    gap: 10px;
+	    width: 80%;
+    	align-self: center;
+	    
 	}
 	
 	.admin_notice_content{
 		border: 1px solid pink;
-		width: 200px;
-		height: 200px;
+		width: 360px;
+		height: 320px;
 		color: white;
 		display: flex;
 		flex-direction: row;
 	}
-	
-	.left_side {
-		flex: 50%:
-		
+
+	.notice_boxes {
+		width: 100%;
+		height: 100%;
+		display: grid;
+		grid-template-rows: 70% 30%;
+		font-family: 'Gamja Flower', cursive;
+		font-size: 1.3em;
 	}
 	
-	.left_right {
-		flex: 50%;
+	
+	.notice_img {
+		grid-row: 1;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: row;
 	}
+	.notice_img img {
+		width: 70%;
+		height: 100%;
+	}
+	
+	.notice_list_title {
+		grid-row: 2;
+		margin-left: 20px;
+		margin-top: 10px;
+	}
+	
+	
+	.notice_list_date {
+		font-family: 'Press Start 2P', cursive;
+		font-size: 0.5em;
+		line-height: 1.5;
+		margin-left: 20px;
+		margin-top: 10px;
+	}
+	
+	.date {
+		display: flex;
+    	flex-direction: column;
+	}
+	
 	
 </style>
 </head>
@@ -69,53 +115,101 @@
 		<jsp:include page="../include/admin_notice_include.jsp" />
 	
 	
+	
+	
 		<div class="admin_notice_container">
-		
-			<c:if test="${!empty list }">
-				<c:forEach items="${list }" var="dto">
-					<a href="<%=request.getContextPath()%>/admin_notice_content.do?no=${dto.notice_no}">
-						
-						<div class="admin_notice_content">
-							
-						<c:if test="${(dto.notice_no % 2) != '0' }">
-							<div class="left_side">
-								<div>관리자 아이디 : ${dto.admin_id }</div>
-								<div>제목 : ${dto.notice_title }</div>
-								<div>
-									<c:if test="${dto.notice_update == null }">
-										등록 일 : ${dto.notice_date.substring(0, 10) }
-									</c:if>
-									<c:if test="${dto.notice_update != null }">
-										수정 날짜 : ${dto.notice_update.substring(0, 10) }
-									</c:if>
-								</div>
-								<div>종료일 : ${dto.notice_enddate.substring(0, 10) }</div>
-							</div>	<!-- left_side -->
-						</c:if>		
-						<c:if test="${(dto.notice_no % 2) == '0' }">	
-							<div class="right_side">
-								<div>관리자 아이디 : ${dto.admin_id }</div>
-								<div>제목 : ${dto.notice_title }</div>
-								<div>
-									<c:if test="${dto.notice_update == null }">
-										등록 일 : ${dto.notice_date.substring(0, 10) }
-									</c:if>
-									<c:if test="${dto.notice_update != null }">
-										수정 날짜 : ${dto.notice_update.substring(0, 10) }
-									</c:if>
-								</div>
-								<div>종료일 : ${dto.notice_enddate.substring(0, 10) }</div>
-							</div> <!-- right_side -->
-						</c:if>		
-							
-						</div> <!-- admin_notice_content -->
-					</a>
-				</c:forEach>
-			</c:if>	
+		<c:if test="${!empty noticeList}">
 			
+			<%
+			List<NoticeDTO> list = (List<NoticeDTO>)request.getAttribute("noticeList");
+			
+			for(int i = 0; i < list.size(); i++){
+				
+				NoticeDTO dto = list.get(i);
+				
+				String imgs = dto.getNotice_image();
+				
+				StringTokenizer str = new StringTokenizer(imgs, "|");
+				
+				String[] array = new String[str.countTokens()];
+				
+				for(int j = 0; j < array.length; j++){
+					
+					array[j] = str.nextToken();
+				}
+				
+			
+			
+			%>
+			
+				<a class="admin_notice_content" data-aos="fade-up" data-aos-anchor=".other-element" href="<%=request.getContextPath()%>/admin_notice_content.do?no=<%=dto.getNotice_no()%>">
+					<div class="notice_boxes">
+						<div class="notice_img">
+							<img alt="" src="./resources/upload/notice/<%=array[0]%>">
+							<div class="notice_list_date">
+								<div class="date">
+								<%
+								if(dto.getNotice_update() == null){
+								%>
+									<span>DATE:</span> <sapn><%=dto.getNotice_date().substring(0, 10) %></sapn>
+								<%	} else {%>
+									<span>END DATE:</span> <span><%=dto.getNotice_enddate().substring(0, 10) %></span>
+								<% } %>	
+		
+								</div>
+								
+								<%
+								if(dto.getNotice_enddate() == null){
+								%>
+									
+								<%	} else {%>
+									<div>
+										<span>END DATE:</span> <span><%=dto.getNotice_enddate().substring(0, 10) %></span>
+									</div>
+								<% } %>	
+							</div>
+						</div>
+						
+						
+						<div class="notice_list_title">
+							<div style="text-transform: uppercase ">ADMIN ID: <%=dto.getAdmin_id()%></div>
+							<div>TITLE: <%=dto.getNotice_title()%></div>
+						</div>
+						
+						
+						
+					</div>	<!-- notice_boxes -->
+				</a>
+					
+			<%}%>		
+			</c:if>	
+			<c:if test="${empty noticeList }">
+			<div style="color: red">
+			없어요오오오
+			</div>
+			</c:if>
 		</div> <!-- admin_notice_container -->
 	</div> <!-- admin_notice_wrapper -->
 	
+
+
+  <div
+    data-aos="fade-up"
+    data-aos-offset="200"
+    data-aos-delay="50"
+    data-aos-duration="1000"
+    data-aos-easing="ease-in-out"
+    data-aos-mirror="true"
+    data-aos-once="false"
+    data-aos-anchor-placement="top-center"
+  >
+  </div>
+  
+  	
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+ </script>
 	
 	
 </body>

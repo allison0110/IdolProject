@@ -9,87 +9,89 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ADMIN IMAGES CONTENT</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Creepster&family=East+Sea+Dokdo&family=Gamja+Flower&family=Gugi&family=Jua&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kirang+Haerang&family=Nosifer&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Press+Start+2P&family=VT323&family=Wallpoet&display=swap" rel="stylesheet">
+
+
 <style type="text/css">
 	
 	html, body {
 		margin: 0px;
 		padding: 0px;
 		height: 100%;
-	
+		background-color: black;
 	}
 	
 	.admin_content_wrapper {
 		display: flex;
 		flex-direction: column;
-		height: 100vh;
-		justify-content: center;
-	    align-items: center;
+		min-height: 100vh;
 	}
 	
 	ul {
 		list-style-type: none;
 	}
 	
-	.testImage {
-		width: 450px;
-		height: 500px;
-	}
 	
-	.testImage img {
-		width: 100%;
-	}
-	
-	.admin_cont_imageBox {
-		display: flex;
-		flex-direction: row;
-	}
-	
-	.admin_cont_imageBox img {
-		width: 100%;
-		height: 100%;
-	}
-	
-	.admin_content_box {
-	
-	
-	}
+
 	
 	.admin_content_container {
 		display: flex;
-   		flex-direction: column;
-		align-items: center;
-	}
-	
-	/************ 이미지 슬라이드 **************/
-	
-	.slide_wrapper {
-		position: relative;
-		width: 660px;
-		margin: 0 auto;
-		height: 200px;
-		overflow: hidden;
+	    flex-direction: column;
+	    align-items: center;
 		
 	}
 	
-	.slides {
-		position: absolute;
-		left:0, top: 0;
+	.admin_content_box {
+		color: white;
+	
+	}
+	.admin_images_cont_img {
+		width: 500px;
+		height: 400px;
+		display: flex;
+    	justify-content: center;
+	}
+	
+	
+	.admin_images_cont_img img{
+		width: 100%;	
+	
+	}
+	
+	.admin_content_box {
+		display: flex;
+	    flex-direction: column;
+	    align-items: center;
+	    margin-top: 30px;
+	}
+	
+	.admin_content_text {
+		display: flex;
+	    flex-direction: column;
+	    align-items: center;
+	    font-family: 'Press Start 2P', cursive;
+	    font-size: 0.8em;
+	    line-height: 1.4;
+	    argin-bottom: 18px;
+	}
+	
+	.admin_images_content_btn {
 		
 	}
 	
-	.slides.animated{
-		transition: 0.5s ease-out;
-		
+	.btn {
+		color: white;
+		background-color: black;
+		font-family: 'Nosifer', cursive;
+		font-size: 1.3em;
+		cursor: pointer;
 	}
 	
-	.slides. li:not(:last-child){
-		margin-right: 30px;
+	.btn:hover {
+		color: red;
 	}
-	
-	.
-	/*****************************************/
-	
 	
 </style>
 
@@ -107,43 +109,57 @@
 	
 	<div class="admin_content_wrapper">
 	
+	<jsp:include page="../include/admin_top_include.jsp" />
+	<jsp:include page="../include/admin_images_include.jsp" />
+	
 		<div class="admin_content_container">
 		
-			<div class="admin_content_box">
-				<ul>
-					<li>
-						이미지 NO. : ${cont.image_no }
-					</li>
-					<li>
-						이미지 path: ${cont.image_path }
-					</li>
-					<li>
-						이미지 링크 : ${cont.image_link }
-					</li>
-					<li>
-						이미지 순서 : ${cont.image_priority }
-					</li>
-					<li>
-						<c:if test="${cont.image_visible == 1 }">
-						visible : on
-						</c:if>
-						<c:if test="${cont.image_visible == 0 }">
-						visible : off
-						</c:if>
-					</li>
-					
-				</ul>
-				
-				<input type="button" value="수정"
-				onclick="location.href='admin_images_modify.do?no=${cont.image_no}'">
-				<input type="button" value="삭제"
-				onclick="if(confirm('삭제 하시겠습니까 ?? :(')){
-					location.href='<%=request.getContextPath()%>/admin_images_delete.do?no=${cont.image_no }&imgs=${cont.image_path }'
-				}else {return}">
-				<input type="button" value="메인으로"
-				onclick = "location.href='admin_main.do'">
+			<div class="admin_images_cont_img">
+				<img alt="" src="./resources/upload/images/${cont.image_path }">
 			</div>
+		
+			<div class="admin_content_box">
+			
+				<div class="admin_content_text">
+					<div>
+						NO. ${cont.image_no }
+					</div>
+					<div>
+						IMAGE PATH: ${cont.image_path }
+					</div>
+					<div>
+						IMAGE LINK: ${cont.image_link }
+					</div>
+					<div>
+						IMAGE PRIORITY: <span style="color:gold">${cont.image_priority }</span>
+					</div>
+					<c:if test="${cont.image_visible == 1 }">
+						<div>
+							VISIBLE :<span style="color: gold"> ON</span>
+						</div>
+					</c:if>
+					<c:if test="${cont.image_visible == 0 }">
+						<div>
+							VISIBLE :<span style="color: red"> OFF</span>
+						</div>
+					</c:if>
+				</div> <!-- admin_content_text -->
+				
+				<div class="admin_images_content_btn">
+					<input class="btn" type="button" value="MODIFY"
+						onclick="location.href='admin_images_modify.do?no=${cont.image_no}'">
+					<input class="btn" type="button" value="DELETE"
+						onclick="if(confirm('삭제 하시겠습니까 ?? :(')){
+						location.href='<%=request.getContextPath()%>/admin_images_delete.do?no=${cont.image_no }&imgs=${cont.image_path }'
+						}else {return}">
+					<input class="btn" type="button" value="BACK"
+						onclick = "location.href='admin_images_list.do'">
+				</div> <!-- admin_images_content_btn -->
+				
+			</div><!-- admin_content_box -->
+			
 		</div> <!-- the end of admin_content_container -->
+		
 	</div> <!-- the end of admin_content_wrapper -->
 	
 	

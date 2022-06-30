@@ -6,6 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
 
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -65,11 +70,52 @@
         chart.draw(data, options);
       }
     </script>
+    
+    
+    <style type="text/css">
+    
+    .notice_cont_slider {
+		/*width: 500px;*/
+		/*height: 600px;*/
+		width: 40%;
+		height: 40%;
+	}
+	
+	.notice_cont_slider img{
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+	}
+	
+	
+	.draggable {
+   		height: 100%;
+		width: 100%;
+	}
+	
+	.slick-track {
+		height: 100%;
+		width: 100%;
+	}
+	
+	.slick-dots {
+		display: flex;
+		color: white;
+		background-color: black;
+		font-family: 'Press Start 2P', cursive;
+		
+	}
+    
+    
+    </style>
+    
 </head>
 <body>
 <c:set var="orderlist" value="${orderList }" />
 <c:set var="rdate" value="${rangeDate }" />
 <c:set var="testlist" value="${testList }" />
+<c:set var="gdto" value="${grouCont }" />
+<c:set var="gimgs" value="${arrayGrouImage }" />
 
 
 
@@ -79,12 +125,17 @@
 	<input name="daterange">
 	<input type="submit" value="GO">
 </form>
-<c:forEach items="${rangeDate }" var="t">
-	<div style="color:blue">
-		${t }
-	</div>
-	
-</c:forEach>
+
+	<h1>
+		${gdto.group_name }
+	</h1>
+
+	<div class="notice_cont_slider">
+		<c:forEach items="${arrayGrouImage }" var="gimg">
+	    	<img alt="" src="./resources/upload/group/${gimg }">
+	    </c:forEach>
+	 </div> <!-- notice_cont_slider -->
+
 
 <div>
 	<c:forEach items="${testlist }" var="dto">
@@ -119,6 +170,27 @@
 </div>
 
 <div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+
+
+
+
+
+<script type="text/javascript">
+
+$('.notice_cont_slider').slick({
+	  slidesToShow: 3,
+	  slidesToScroll: 1,
+	  autoplay: true,
+	  autoplaySpeed: 2000,
+	});
+							
+
+</script>
+
+
+
+
 
 </body>
 </html>

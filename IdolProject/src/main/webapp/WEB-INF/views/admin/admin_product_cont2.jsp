@@ -6,11 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ADMIN PRODUCT CONTENT</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Creepster&family=East+Sea+Dokdo&family=Gamja+Flower&family=Gugi&family=Jua&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kirang+Haerang&family=Nosifer&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Press+Start+2P&family=VT323&family=Wallpoet&display=swap" rel="stylesheet">
-
-
+<title>Insert title here</title>
 <style type="text/css">
 
 	html, body {
@@ -26,15 +22,28 @@
 		min-height: 100vh;
 	}
 	
-	
 	.product_cont_container {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		
 	}
+	.product_cont_div_forCenter {
+		display: flex;
+    	flex-direction: column;
+    	align-items: center;
+	}
 	
-	
-	
+	.product_imgs {
+		width: 199px;
+		height: 220px;
+		display: flex;
+   		flex-direction: row;
+   		justify-content: center;
+	}
+	.product_imgs img {
+		width: 100%;
+		height: 100%;
+	}
 	
 	.product_cont_detail {
 		color: white;
@@ -43,40 +52,6 @@
 	
 	}
 	
-	/******************************/
-	
-	
-	.product_cont_slider {
-		/*width: 500px;*/
-		/*height: 600px;*/
-		width: 40%;
-		height: 40%;
-	}
-	
-	.product_cont_slider img{
-		width: 100%;
-		height: 100%;
-		cursor: pointer;
-	}
-	
-	
-	.draggable {
-   		height: 100%;
-		width: 100%;
-	}
-	
-	.slick-track {
-		height: 100%;
-		width: 100%;
-	}
-	
-	.slick-dots {
-		display: flex;
-		color: white;
-		background-color: black;
-		font-family: 'Press Start 2P', cursive;
-		
-	}
 	
 	
 	
@@ -129,18 +104,19 @@
 	<jsp:include page="../include/admin_top_include.jsp" />
 	<jsp:include page="../include/admin_products_include.jsp" />
 		
+		<div class="product_imgs"> 
+			<c:forEach items="${imgsList }" var="img2">
+				<img alt="" src="./resources/upload/product/${img2}">
+			</c:forEach>
+		</div> <!-- product_imgs -->
+		
 		
 		<div class="product_cont_container">
 			
-			<div class="product_cont_slider"> 
-				<c:forEach items="${imgsList }" var="img2">
-					<img alt="" src="./resources/upload/product/${img2}">
-				</c:forEach>
-			</div> <!-- product_imgs -->
-		
-		
-			<div class="product_cont_wrapper">
-			
+			<div class="product_cont_div_forCenter">
+				
+				
+				
 				<div class="product_cont_detail">
 					<div>
 						${dto.product_name }
@@ -183,8 +159,8 @@
 					onclick="location.href='admin_products_list.do'">
 				</div>
 				
-			</div>	<!-- product_cont_wrapper -->
 				
+			</div> <!-- product_cont_div_forCenter -->
 			
 		</div> <!-- product_cont_container -->
 		
@@ -194,7 +170,7 @@
 
 <script type="text/javascript">
 
-		$('.product_cont_slider').slick({
+		$('.product_imgs').slick({
 		  dots: false,
 		  infinite: true,
 		  speed: 500,

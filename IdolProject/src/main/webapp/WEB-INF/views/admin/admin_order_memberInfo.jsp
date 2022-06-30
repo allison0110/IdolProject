@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ADMIN MEMBER ORDER LIST</title>
 <style type="text/css">
 
 	.admin_member_purchase_detail {
@@ -24,7 +24,6 @@
 	
 		<div class="admin_memberInfo_container">
 		
-			<h1>test</h1>
 			
 			<c:forEach items="${mList }" var="dto">
 		
@@ -57,6 +56,15 @@
 					<c:if test="${empty dto.order_tcost }">
 					
 					</c:if>
+					<div>			
+						수령인 : ${dto.order_receivername }
+					</div>
+					<div>
+						수령인 연락처: ${dto.order_receiverphone }
+					</div>
+					<div>
+						수령인 주소: ${dto.order_receiveraddress }
+					</div>
 					</div>
 					
 				</div> <!-- admin_member_purchase_detail -->
@@ -65,22 +73,7 @@
 				
 		</div> <!-- admin_memberInfo_container -->
 		
-		<div class="member_order_address">
-			<div>
-			[주소]
-			</div>
-			<c:forEach begin="0" end="0" items="${mList }" var="addr">
-				<div>			
-					수령인 : ${addr.order_receivername }
-				</div>
-				<div>
-					수령인 연락처: ${addr.order_receiverphone }
-				</div>
-				<div>
-					수령인 주소: ${addr.order_receiveraddress }
-				</div>
-			</c:forEach>
-		</div>
+		
 		
 		
 		

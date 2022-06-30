@@ -110,6 +110,7 @@ public class AdminNoticeController {
 		
 		List<NoticeDTO> list = this.dao.getNoticeList();
 		
+		
 		model.addAttribute("noticeList", list);
 		
 		return "admin/admin_notice_list";

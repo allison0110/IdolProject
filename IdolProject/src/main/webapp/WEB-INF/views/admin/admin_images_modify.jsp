@@ -9,51 +9,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ADMIN IMAGES MODIFY</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Creepster&family=East+Sea+Dokdo&family=Gamja+Flower&family=Gugi&family=Jua&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kirang+Haerang&family=Nosifer&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Press+Start+2P&family=VT323&family=Wallpoet&display=swap" rel="stylesheet">
+
+
 <style type="text/css">
 	
 	html, body {
 		margin: 0px;
 		padding: 0px;
 		height: 100%;
-	
+		background-color: black;
 	}
 	
 	.admin_content_wrapper {
 		display: flex;
 		flex-direction: column;
-		height: 100vh;
-		justify-content: center;
-	    align-items: center;
+		min-height: 100vh;
 	}
 	
-	ul {
-		list-style-type: none;
-	}
-	
-	.testImage {
-		width: 450px;
-		height: 500px;
-	}
-	
-	.testImage img {
-		width: 100%;
-	}
-	
-	.admin_cont_imageBox {
-		display: flex;
-		flex-direction: row;
-	}
-	
-	.admin_cont_imageBox img {
-		width: 100%;
-		height: 100%;
-	}
-	
-	.admin_content_box {
 	
 	
-	}
 	
 	.admin_content_container {
 		display: flex;
@@ -62,63 +39,94 @@
 	}
 	
 	
+	.images_modify_text {
+		color: white;
+		font-family: 'Press Start 2P', cursive;
+		line-height: 1.3;
+	}
+	
+	.modify_btn {
+		background-color: black;
+		color: white;
+		font-family: 'Creepster', cursive;
+		font-size: 1.9em;
+		cursor: pointer;
+	}
+	
+	.modify_btn:hover {
+		color: red;
+	}
+	
+	.images_modify_btn {
+		margin-left: 30px;
+	}
 </style>
 </head>
 <body>
 
 	<c:set var="cont" value="${imagesModify }" />
+	
 	<div class="admin_content_wrapper">
+	
+	<jsp:include page="../include/admin_top_include.jsp" />
+	<jsp:include page="../include/admin_images_include.jsp" />
+	
 		<div class="admin_content_container">
-		
 			
-			<div class="admin_content_box">
-			<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath() %>/admin_images_modify_ok.do">
+			
+			<form method="post" enctype="multipart/form-data" 
+				action="<%=request.getContextPath() %>/admin_images_modify_ok.do">
 			
 			<input type="hidden" name="image_no" value="${cont.image_no }">
 			<input type="hidden" name="oldPath" value="${cont.image_path }">
 			
-				<ul>
-					<li>
-						이미지 링크 : <input name="image_link" value="${cont.image_link }">
-					</li>
-					<li>
-						이미지 순서 : <input type="number" name="image_priority" value="${cont.image_priority }">
-					</li>
-					<li>
-					<select name="image_visible">
-						<option>
-							on/off 선택
-						</option>
-						<c:if test="${cont.image_visible == 1 }">
-							<option value="1" selected>
-								on (val=1)
-							</option>
-							<option value="0">
-								off (val=0)
-							</option>
-						</c:if>
-						<c:if test="${cont.image_visible == 0 }">
-							<option value="1">
-								on (val=1)
-							</option>
-							<option value="0" selected>
-								off (val=0)
-							</option>	
-						</c:if>
-					</select>
-					</li>
-					<li>
-						이미지 path: <input name="file" type="file" multiple="multiple">
-					</li>
+				<div class="images_modify_text">
 					
-				</ul>
+					<div>
+						IMAGES PRIORITY : <input type="number" name="image_priority" value="${cont.image_priority }">
+					</div>
+					
+					
+					<div>
+						IMAGES PATH: <input name="file" type="file" multiple="multiple">
+					</div>
+					<div>
+						IMAGES LINK: <input name="image_link" value="${cont.image_link }">
+					</div>
+					<div>
+					IMAGES VISIBLE
+						<select name="image_visible">
+							<option>
+								ON/OFF 선택
+							</option>
+							<c:if test="${cont.image_visible == 1 }">
+								<option value="1" selected>
+									ON (VAL=1)
+								</option>
+								<option value="0">
+									OFF (VAL=0)
+								</option>
+							</c:if>
+							<c:if test="${cont.image_visible == 0 }">
+								<option value="1">
+									ON (VAL=1)
+								</option>
+								<option value="0" selected>
+									OFF (VAL=0)
+								</option>	
+							</c:if>
+						</select>
+					</div>
+				</div>
 				
-				<input type="submit" value="등록">
-				<input type="reset" value="다시작성">
-				<input type="button" value="리스트"
-				onclick = "location.href='admin_main.do'">
-				</form>
-			</div> <!-- admin_content_box end  -->
+				<div class="images_modify_btn">
+					<input class="modify_btn" type="submit" value="GO!!!">
+					<input class="modify_btn" type="reset" value="RESET">
+					<input class="modify_btn" type="button" value="BACK"
+						onclick = "location.href='admin_images_content.do?no=${cont.image_no}'">
+				</div>	
+			</form>
+			
 		</div> <!-- the end of admin_content_container -->
 	</div> <!-- the end of admin_content_wrapper -->
 </body>

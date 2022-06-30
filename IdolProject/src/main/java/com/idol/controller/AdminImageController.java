@@ -63,9 +63,9 @@ public class AdminImageController {
             
             System.out.println("fileSize : " + fileSize);
 
-            String saveFile = path + System.currentTimeMillis() + originFileName;
+            String saveFile = path + originFileName;
             
-            dbFileName += System.currentTimeMillis() + originFileName;
+            dbFileName += originFileName;
             
             try {
             	
@@ -239,11 +239,11 @@ public class AdminImageController {
 			
 			System.out.println("fileSize : " + fileSize);
 			
-			String saveFile = path + System.currentTimeMillis() + originFileName;
+			String saveFile = path + originFileName;
 			
 			System.out.println("saveFile :" + saveFile);
 			
-			dbFileName += System.currentTimeMillis() + originFileName ;
+			dbFileName += originFileName ;
 			
 			try {
             	

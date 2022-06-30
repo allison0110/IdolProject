@@ -76,8 +76,9 @@
     		select * from order_product where order_userid = #{name}
     	</select>
     	
+    	<!-- 기간별 판매 내역 불러오기 -->
     	<select id="DateRageSales" parameterType="dRangeDTO" resultType="OrderDTO">
-    		select * from order_product where order_date between #{firstDate} and #{lastDate}
+    		select * from order_product where order_date between #{firstDate} and #{lastDate} order by order_date desc, order_group desc 
     	</select>
     	
     	

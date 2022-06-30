@@ -220,8 +220,8 @@
 						
 					}
 				%>
-			<a href="<%=request.getContextPath()%>/admin_celeb_content.do?no=<%=dto.getCeleb_no() %>">			
-				<div data-aos="fade-in" class="admin_celeb_content">
+			<a data-aos="fade-in" href="<%=request.getContextPath()%>/admin_celeb_content.do?no=<%=dto.getCeleb_no() %>">			
+				<div class="admin_celeb_content">
 				
 					<div class="admin_celeb_img_box" style="background-image: url('./resources/upload/celeb/<%= arrayToekn[0] %>')">
 						<!-- <img class="imgs" alt="" src="./resources/upload/celeb/<%= arrayToekn[0] %>">	
@@ -266,17 +266,20 @@
 		</div> <!-- admin_celeb_container -->
 		
 	</div> <!-- admin_celeb_wrapper -->
-	<div
-	    data-aos="fade-up"
-	    data-aos-offset="200"
-	    data-aos-delay="50"
-	    data-aos-duration="1000"
-	    data-aos-easing="ease-in-out"
-	    data-aos-mirror="true"
-	    data-aos-once="false"
-	    data-aos-anchor-placement="top-center"
-	  >
-	  </div>	
+	 <div
+    data-aos="fade-up"
+    data-aos-offset="200"
+    data-aos-delay="50"
+    data-aos-duration="1000"
+    data-aos-easing="ease-in-out"
+    data-aos-mirror="true"
+    data-aos-once="false"
+    data-aos-anchor-placement="top-center"
+  >
+  </div>	
+	
+
+	
 	
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>

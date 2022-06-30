@@ -5,6 +5,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+<!-- calendar -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
 <style type="text/css">
 
 	/*********** celeb_link_tag  **************/
@@ -58,9 +71,37 @@
 	
   	/*********** celeb_link_tag **************/
 
+	.calendar {
+		margin-right: 20px;
+	}
+	
+	.calendar_btn {
+		color: white;
+    	background-color: black;
+    	font-family: 'Press Start 2P', cursive;
+    	font-size: 1em;
+	}
+	
+	.calendar_btn:hover {
+		color: red;
+		cursor: pointer;
+	}
+	
+	.dateRage_selector {
+		background-color: black;
+	    color: white;
+	    height: 23px;
+
+	}
+	
+	.calendar_btn {
+		margin-top: 9px;
+	}
+	
 </style>
 
 <script type="text/javascript">
+
 	$(function() {
 		  $('input[name="daterange"]').daterangepicker({
 	locale: {
@@ -83,22 +124,20 @@
 	    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
 	  });
 	});
+	
 </script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 
 </head>
 <body>
 
 	<div class="celeb_link_tag">
-		<div class="insert_btn">
+	
+		<div class="insert_btn calendar">
 			<form action="<%=request.getContextPath() %>/test_result.do">
-				<input name="daterange">
-				<input type="submit" value="GO">
-		</form>
+				<input class="dateRage_selector" name="daterange">
+				<input class="calendar_btn" type="submit" value="GO">
+			</form>
 		</div>
 		<div class="insert_btn">
 			<a href="<%=request.getContextPath()%>/admin_products_management.do">
@@ -114,6 +153,7 @@
 			<input type="submit" class="search_btn" value="SEARCH">
 			<input name="group_search" class="search_text" minlength="2">
 		</form>
+		
 	</div>
 
 </body>

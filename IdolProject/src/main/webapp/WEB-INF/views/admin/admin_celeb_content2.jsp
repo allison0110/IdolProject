@@ -26,7 +26,7 @@
 	.admin_content_wrapper {
 		display: flex;
 		flex-direction: column;
-		min-height: 100%;
+		/*height: 100%;*/
 		
 	}
 	
@@ -34,40 +34,38 @@
 		list-style-type: none;
 	}
 	
-	
-	
-	.admin_content_container {
-		display: flex;
-   		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-		
+	.testImage {
+		width: 200px;
+		height: 200px;
 	}
 	
+	.testImage img {
+		width: 100%;
+		height: 100%;
+	}
 	
+	.admin_cont_imageBox {
+		display: flex;
+		flex-direction: row;
+	}
 	
+	.admin_cont_imageBox img {
+		width: 100%;
+		height: 100%;
+	}
 	
 	.admin_content_box {
 		color: white;
 		font-family: 'VT323', 'Jua', monospace;
-		font-size: 1.3em;
-		margin-left: 10%;
+		font-size: 1.7em;
+		font-family: 
+		
 	}
 	
-	
-	.celeb_detail_box {
+	.admin_content_container {
 		display: flex;
-	    flex-direction: column;
-	    align-items: center;
-	
-	}
-	
-	
-	.content_btns {
-		margin: 13px 0px;
-	    display: flex;
-	    justify-content: center;
-	
+   		flex-direction: column;
+		align-items: center;
 	}
 	
 	.content_btns input{
@@ -84,49 +82,13 @@
 	
 	.celeb_noticeNevent_box {
 		width: 600px;
-		/*height: 400px;*/
+		height: 400px;
 	
 	}
 	
 	.celeb_noticeNevent_box {
 		color: white;
-		justify-content: center;
-	    display: flex;
-	    flex-direction: column;
-		margin-bottom: 23px;
-	}
 	
-	
-	.notice_title {
-		align-self: center;
-		
-	}
-	
-	
-	
-	/********* slider ********/
-	.celeb_slider {
-		/*width: 500px;*/
-		/*height: 600px;*/
-		width: 40%;
-		height: 40%;
-	}
-	
-	.celeb_slider img{
-		width: 100%;
-		height: 100%;
-		cursor: pointer;
-	}
-	
-	
-	.draggable {
-   		height: 100%;
-		width: 100%;
-	}
-	
-	.slick-track {
-		height: 100%;
-		width: 100%;
 	}
 </style>
 
@@ -141,8 +103,6 @@
 	<c:set var="imgs" value="${arrtokened }" />
 	<!-- 셀럽에 관련된 공지 & 이벤트 정보 리스트 -->
 	<c:set var="clist" value="${cList }" />
-	<!-- 그룹에 관련된 공지 & 이벤트 정보 리스트 -->
-	<c:set var="glist" value="${gList }" />
 	
 	<div class="admin_content_wrapper">
 	
@@ -151,74 +111,65 @@
 	
 		<div class="admin_content_container">
 		
-			<div class="celeb_slider">
+			<div class="admin_cont_imageBox">
 				<c:forEach items="${arrtokened }" var="imgs">
+					<div class="testImage">
 						<img alt="" src="./resources/upload/celeb/${imgs }">
+					</div>
 				</c:forEach>
 			</div>
 			
 			<div class="admin_content_box">
-				<div class="celeb_detail_box">
-					<div>
+				<ul>
+					<li>
 						<c:if test="${cont.celeb_group != 'solo' }">
-							${cont.celeb_group }
+							group: ${cont.celeb_group }
 						</c:if>
 						<c:if test="${cont.celeb_group == 'solo' }">
 						</c:if>
-					</div>
-					<div>
-						${cont.celeb_name } (${cont.celeb_realname })
-					</div>
-					<div>
+					</li>
+					<li>
+						NAME : ${cont.celeb_name } (${cont.celeb_realname })
+					</li>
+					<li>
 						AGENT : ${cont.celeb_agency }
-					</div>
-					<div>
+					</li>
+					<li>
 						BORN : ${cont.celeb_dateofbirth.substring(0, 10) }
-					</div>
-					<div>
+					</li>
+					<li>
 						YEARS ACTIVE : ${cont.celeb_debutdate.substring(0, 10) }
-					</div>
-				</div>	<!-- celeb_detail_box -->
-				
+					</li>
+					
+				</ul>
 				<div class="content_btns">
 					<input type="button" value="MODIFY"
-						onclick="location.href='admin_celeb_modify.do?no=${cont.celeb_no}'">
+					onclick="location.href='admin_celeb_modify.do?no=${cont.celeb_no}'">
 					<input type="button" value="DELETE"
-						onclick="if(confirm('삭제 하시겠습니까 ?? :(')){
-							location.href='<%=request.getContextPath()%>/celeb_delete.do?no=${cont.celeb_no }&img=${cont.celeb_pimage }'
-								}else {return}">
+					onclick="if(confirm('삭제 하시겠습니까 ?? :(')){
+						location.href='<%=request.getContextPath()%>/celeb_delete.do?no=${cont.celeb_no }&img=${cont.celeb_pimage }'
+					}else {return}">
 					<input type="button" value="BACK"
-						onclick = "location.href='admin_celeb_list.do'">
+					onclick = "location.href='admin_celeb_list.do'">
 				</div>
-				
-				<c:forEach items="${clist }" var="cNdto">
-					<c:if test="${!empty cNdto.celeb_name }">
-						<div class="celeb_noticeNevent_box">
-							<div class="notice_title">
-								[${cNdto.notice_title }]
-							</div>
-							<div>
-								${cNdto.notice_cont }
-							</div>
-						</div>
-					</c:if>
-				</c:forEach>
-				<c:forEach items="${glist }" var="gNdto">
-					<c:if test="${cont.celeb_group == gNdto.group_name }">
-						<div class="celeb_noticeNevent_box">
-							<div class="notice_title">
-								[${gNdto.notice_title }]
-							</div>
-							<div>
-								${gNdto.notice_cont }
-							</div>
-						</div>
-					</c:if>
-				</c:forEach>
-						
 			</div> <!-- admin_content_box -->
 			
-
+			<c:forEach items="${clist }" var="cNdto">
+				<c:if test="${!empty cNdto.celeb_name }">
+					<div class="celeb_noticeNevent_box">
+						<div>
+							TITLE [${cNdto.notice_title }]
+						</div>
+						<div>
+							${cNdto.notice_cont }
+						</div>
+						
+			
+					</div>
+				</c:if>
+			</c:forEach>
+			
+			
 			
 			
 		</div> <!-- the end of admin_content_container -->
@@ -226,7 +177,7 @@
 	
 <script type="text/javascript">
 
-	$('.celeb_slider').slick({
+	$('.admin_cont_imageBox').slick({
 		  dots: false,
 		  infinite: true,
 		  speed: 500,

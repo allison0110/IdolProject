@@ -234,39 +234,39 @@ public class AdminCelebController {
         
 		
 	}
-	
-	// 가수 등록 후 해당 가수 상세내역 불러오기 (오른쪽 파트로)
-	@RequestMapping("admin_insertCeleb_next.do")
-	public String insertCelebNext(@RequestParam("name") String celeb_name, Model model) {
-		
-		CelebDTO dto = this.dao.getCelebContByName(celeb_name);
-		
-		model.addAttribute("contByname", dto);
-		
-		String str = dto.getCeleb_pimage();
-				
-		System.out.println("-str : " + str);
-		
-		StringTokenizer tokened = new StringTokenizer(str, "|");
-		
-		String[] arrtokened = new String[tokened.countTokens()];
-		
-		for(int i = 0; i < arrtokened.length; i++) {
-			
-			arrtokened[i] = tokened.nextToken();
-			
-			System.out.println("-arrtokened.length : " + arrtokened.length);
-			
-			System.out.println("-" + arrtokened[i]);
-
-		}
-	
-		model.addAttribute("arrtokened", arrtokened);
-		
-		
-		
-		return "admin/admin_celeb_insert";
-	}
+//
+//	// 가수 등록 후 해당 가수 상세내역 불러오기 (오른쪽 파트로)
+//	@RequestMapping("admin_insertCeleb_next.do")
+//	public String insertCelebNext(@RequestParam("name") String celeb_name, Model model) {
+//		
+//		CelebDTO dto = this.dao.getCelebContByName(celeb_name);
+//		
+//		model.addAttribute("contByname", dto);
+//		
+//		String str = dto.getCeleb_pimage();
+//				
+//		System.out.println("-str : " + str);
+//		
+//		StringTokenizer tokened = new StringTokenizer(str, "|");
+//		
+//		String[] arrtokened = new String[tokened.countTokens()];
+//		
+//		for(int i = 0; i < arrtokened.length; i++) {
+//			
+//			arrtokened[i] = tokened.nextToken();
+//			
+//			System.out.println("-arrtokened.length : " + arrtokened.length);
+//			
+//			System.out.println("-" + arrtokened[i]);
+//
+//		}
+//	
+//		model.addAttribute("arrtokened", arrtokened);
+//		
+//		
+//		
+//		return "admin/admin_celeb_insert";
+//	}
 	
 	
 	
@@ -307,6 +307,9 @@ public class AdminCelebController {
 		return "admin/admin_celeb_list";
 	}
 	
+	
+	
+	
 	// 가수 상세 정보 페이지 이동 from list
 	@RequestMapping("admin_celeb_content.do")
 	public String celebContent(@RequestParam("no") int no, Model model) {
@@ -335,9 +338,15 @@ public class AdminCelebController {
 		
 		String cname = dto.getCeleb_name();
 		
+		String gname = dto.getCeleb_group();
+		
 		System.out.println("cname : " + cname);
 		
 		List<NoticeDTO> cList = this.dao.getCelebNotice(cname);
+								
+		List<NoticeDTO> gList = this.dao.getGroupNotice(gname);
+		
+		model.addAttribute("gList", gList);
 		
 		model.addAttribute("cList", cList);
 		
@@ -608,8 +617,23 @@ public class AdminCelebController {
 	@RequestMapping("test.do")
 	public String test(Model model) {
 		
+		String gName = "BLACKPINK";
 		
+		GroupDTO dto = this.dao.getGroupCont(gName);
 		
+		String img = dto.getGroup_image();
+		
+		StringTokenizer str = new StringTokenizer(img, "|");
+		
+		String[] array = new String[str.countTokens()];
+		
+		for(int i = 0; i < array.length; i++) {
+			array[i] = str.nextToken();
+		}
+		
+		model.addAttribute("arrayGrouImage", array);
+		
+		model.addAttribute("grouCont", dto);
 		
 		return "admin/test";
 	}

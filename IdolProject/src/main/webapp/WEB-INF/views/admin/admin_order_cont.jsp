@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ADMIN MEMBER ORDER INFO</title>
 <style type="text/css">
 	
 	html, body {
@@ -80,7 +80,6 @@
 	<jsp:include page="../include/admin_products_include.jsp" />
 	
 		<div class="order_container">
-			
 			 <div class="order_cont_wrapper">
 				<div class="order_cont_info_box">
 					<div>
@@ -133,11 +132,7 @@
 				</div> <!-- order_cont_info_box -->
 			</div><!-- order_cont_wrapper -->
 			
-			<div>
-			
-			
-			</div>
-			
+	
 			
 			
 		</div> <!-- order_container -->

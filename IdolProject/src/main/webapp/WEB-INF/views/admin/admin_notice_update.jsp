@@ -6,12 +6,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ADMIN NOTICE UPDATE</title>
 <style type="text/css">
 	html, body {
 		margin: 0px;
 		padding: 0px;
 		height: 100%;
+		background-color: black;
 	}
 	
 	.admin_notice_modify_wrapper {
@@ -25,28 +26,101 @@
 		height: 100%;
 		display: flex;
 		flex-direction: row;
+		justify-content: center;
 	}
 	
-	.notice_img_container {
+	
+	
+
+	
+	
+/***************************************/
+	
+	
+	.notice_cont_slider {
+		/*width: 500px;*/
+		/*height: 600px;*/
+		width: 40%;
+		height: 40%;
+		align-self: center;
+	}
+	
+	.notice_cont_slider img{
 		width: 100%;
-		flex: 50%;
+		height: 100%;
+		cursor: pointer;
+	}
+	
+	
+	.draggable {
+   		height: 100%;
+		width: 100%;
+	}
+	
+	.slick-track {
+		height: 100%;
+		width: 100%;
+	}
+	
+	.slick-dots {
+		display: flex;
+		color: white;
+		background-color: black;
+		font-family: 'Press Start 2P', cursive;
 		
 	}
 	
-	.notice_imgBoxes {
-		width: 300px;
-		height: 400px;
-	}
-	
-	.notice_imgBoxes img{
-		width: 100%;
-		height: 100%;
-	}
-	
+/***************************************/
+
+
 	.notice_modify_form {
-		flex: 50%;
+		color: white;
 		display: flex;
     	align-items: center;
+    	width: 30%;
+		margin-left: 10%;
+		font-family: 'Press Start 2P', 'Gugi', cursive;
+		line-height: 1.378;
+	}
+ 	
+ 	.notice_update_btn {
+ 		display: flex;
+   		justify-content: center;
+ 	
+ 	}
+ 
+ 	.update_btn {
+ 		font-family: 'Creepster', cursive;
+ 		color: white;
+ 		background-color: black;
+ 		font-size: 1.8em;
+ 		
+ 	}
+	
+	.update_btn:hover {
+		color: red;
+		cursor: pointer;
+	}
+	
+	.notice_modify_form textarea {
+		background-color: black;
+    	color: white;
+	}
+	
+	.notice_modify_form input {
+		background-color: black;
+    	color: white;
+    	
+	}
+	
+	.notice_modify_form select {
+		background-color: black;
+    	color: white;
+	}
+	
+	#title{
+		height: 24px;
+    	width: 280px;
 	}
 </style>
 </head>
@@ -59,16 +133,18 @@
 	
 	<div class="admin_notice_modify_wrapper">
 	
+	<jsp:include page="../include/admin_top_include.jsp" />
+	<jsp:include page="../include/admin_notice_include.jsp" />
+	
 		<div class="admin_notice_modify_container">
-		
-			<div class="notice_img_container">
+			
+			<div class="notice_cont_slider">
 				<c:forEach items="${arrayImgs }" var="imgs">
-					<div class="notice_imgBoxes">
-						<img alt="" src="./resources/upload/notice/${imgs }">
-					</div>
-				</c:forEach>
-			</div> <!-- notice_img_container -->
-		
+			    	<img alt="" src="./resources/upload/notice/${imgs }">
+			    </c:forEach>
+			 </div> <!-- notice_cont_slider -->
+			 
+			 	
 			<div class="notice_modify_form">
 			
 				<form enctype="multipart/form-data" method="post" 
@@ -80,9 +156,10 @@
 					<input type="hidden" value="${nCont.notice_date }" name="notice_date">
 					
 					<div>
-						<label for="title">제목</label> <input id="title" name="notice_title" value="${nCont.notice_title }" readonly>
+						TITLE<input id="title" name="notice_title" value="${nCont.notice_title }" readonly>
 					</div>
 					<div>
+					SELECT GROUP
 						<select name="group_name">
 							<option value="">
 								NONE
@@ -103,6 +180,7 @@
 						</select>
 					</div>
 					<div>
+					SELECT CELEB
 						<select name="celeb_name">
 							<option value="">
 								NONE
@@ -123,6 +201,7 @@
 						</select>
 					</div>
 					<div>
+						WHAT ABOUT
 						<select name="notice_type">
 							<c:if test="${nCont.notice_type == 'CELEB' }">
 								<option value="CELEB" selected>
@@ -143,19 +222,19 @@
 						</select>
 					</div>
 					<div>
-						<label for="cont">내용</label> <textarea rows="20" cols="50" id="cont" name="notice_cont">${nCont.notice_cont }</textarea>
+						<textarea rows="20" cols="50" id="cont" name="notice_cont">${nCont.notice_cont }</textarea>
 					</div>
 					
 					<div>
 						<input type="file" name="file1" multiple="multiple">
 					</div>
 					
-					<div>
-						<label for="enddate">종료일</label> <input id="enddate" type="date" name="notice_enddate" value="${nCont.notice_enddate.substring(0, 10) }">
+					<div style="margin-top: 10px">
+						END DATE <input id="enddate" type="date" name="notice_enddate" value="${nCont.notice_enddate.substring(0, 10) }">
 					</div>
-					<div class="update_btn">
-						<input type="submit" value="고!">
-						<input type="reset" value="다시작성">
+					<div class="notice_update_btn">
+						<input class="update_btn" type="submit" value="GO!!">
+						<input class="update_btn" type="reset" value="RESET">
 					</div>
 				</form>
 				
@@ -163,12 +242,29 @@
 			
 			
 			
-			
-			
-			
-			
 		</div> <!-- admin_notice_modify_container -->
 	</div> <!-- admin_notice_modify_wrapper -->
+
+<script type="text/javascript">
+
+	$('.notice_cont_slider').slick({
+		  dots: false,
+		  infinite: true,
+		  speed: 500,
+		  fade: true,
+		  cssEase: 'linear',
+		  autoplay: true,
+		  adaptiveHeight: true,
+		  arrows: false,
+		  pauseOnFocus: true
+		 
+		  
+		});
+							
+
+</script>
+
+
 
 </body>
 </html>

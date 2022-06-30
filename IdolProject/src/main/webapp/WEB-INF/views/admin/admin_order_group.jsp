@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ADMIN ORDER GROUP</title>
+<title>ADMIN MEMBER ORDER GROUP LIST</title>
 <style type="text/css">
 	
 	html, body {
@@ -55,6 +55,13 @@
 		color: white;
 	}
 
+
+
+
+	.member_order_address {
+		color: white;
+	
+	}
 </style>
 </head>
 <body>
@@ -125,15 +132,7 @@
 					<div>
 						주문날짜: ${odto.order_date.substring(0, 10) }
 					</div>
-					<div>
-						수취인: ${odto.order_receivername }
-					</div>
-					<div>
-						수취인 주소: ${odto.order_receiveraddress }
-					</div>
-					<div>
-						수취인 연락처: ${odto.order_receiverphone }
-					</div>
+				
 					
 				</div> <!-- order_cont_info_box -->
 				<c:set var="sumQty" value="${sumQty + odto.order_qty }" />
@@ -154,7 +153,22 @@
 			</ul> 
 				
 			</div>
-			
+		<div class="member_order_address">
+			<div>
+			[주소]
+			</div>
+			<c:forEach begin="0" end="0" items="${olist }" var="addr">
+				<div>			
+					수령인 : ${addr.order_receivername }
+				</div>
+				<div>
+					수령인 연락처: ${addr.order_receiverphone }
+				</div>
+				<div>
+					수령인 주소: ${addr.order_receiveraddress }
+				</div>
+			</c:forEach>
+		</div>
 			
 			
 		</div> <!-- order_container -->
