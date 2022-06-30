@@ -49,15 +49,17 @@ padding-bottom: 16px;
 	
 	<div class="sidenav">
 			<div class="sidenav_menu">
-				<a href="<%=request.getContextPath()%>/ranking_detail.do?key=point">Most points</a>
-  				<a href="<%=request.getContextPath()%>/ranking_detail.do?key=purchase">Most purchase</a>
-  				<a href="<%=request.getContextPath()%>/ranking_detail.do?key=message">Most message</a>
-  				<a href="<%=request.getContextPath()%>/ranking_detail.do?key=follower">Most follower</a>
+				<a href="<%=request.getContextPath()%>/whole_ranking.do">Overview</a>
+				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=point">Most points</a>
+  				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=purchase">Most purchase</a>
+  				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=message">Most message</a>
+  				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=comment">Most comment</a>
   				<!-- 게시글 추천수 많은 순.. community_recommend -->
-				<a href="<%=request.getContextPath()%>/ranking_detail.do?key=referrals">Most referrals</a>
-  				<a href="<%=request.getContextPath()%>/ranking_detail.do?key=birth">Today's birthdays</a>
+				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=referrals">Most referrals</a>
+  				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=birth">Today's birthdays</a>
+  				<a href="<%=request.getContextPath()%>/chat.do">chatting</a>
   			</div>
-  			<form method="get" action='<%=request.getContextPath()%>/ranking_detail.do'>
+  			<form method="get" action='<%=request.getContextPath()%>/detail_ranking.do'>
 
 				<div class="sidenav_container">
 					<h3 class="container_header">

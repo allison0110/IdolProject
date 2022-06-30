@@ -92,33 +92,7 @@ height:80px;
 	<%@include file="../include/user_top.jsp" %>	
 	
 	<div class="rankWrapper">
-	<div class="sidenav">
-			<div class="sidenav_menu">
-				<a href="<%=request.getContextPath()%>/whole_ranking.do">Overview</a>
-				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=point">Most points</a>
-  				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=purchase">Most purchase</a>
-  				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=message">Most message</a>
-  				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=comment">Most comment</a>
-  				<!-- 게시글 추천수 많은 순.. community_recommend -->
-				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=referrals">Most referrals</a>
-  				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=birth">Today's birthdays</a>
-  				<a href="<%=request.getContextPath()%>/chat.do">chatting</a>
-  			</div>
-  			<form method="get" action='<%=request.getContextPath()%>/detail_ranking.do'>
-
-				<div class="sidenav_container">
-					<h3 class="container_header">
-						Find member
-					</h3>
-					<div class="members_search_board">
-						<input type="hidden" value='<%=request.getParameter("key") %>' name="key">
-						<input type="text" class="input"name="keyword" placeholder="Nickname..">&nbsp;&nbsp;
-						<input type="submit" value="검색">
-					</div>
-				</div>
-			</form>
-			
-	</div>
+	<%@include file="../include/ranking_sidebar.jsp" %>
 		
 		<c:set var="title" value="${title }" />
 		<c:set var="list" value="${rankList }" />
@@ -146,9 +120,16 @@ height:80px;
 								</div>
 							</div>
 							
+							<c:if test="${dto.score <= 0 }">
+								<div>
+									
+								</div>
+							</c:if>
+							<c:if test="${dto.score > 0 }">
 							<div class="rankContent_row_score">
 								<fmt:formatNumber value="${dto.score }" />
 							</div>
+							</c:if>
 						</li>
 					</ul>
 				</c:forEach>

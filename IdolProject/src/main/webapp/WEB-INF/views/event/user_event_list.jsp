@@ -143,7 +143,7 @@
 					<ul>
 					<c:forEach items="${list}" var="dto">
 						<li>
-							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}&page=${paging.getPage()}&board_id=${bid}&category_id=${cid}" class="img_link"><img src="././resources/upload/images/${dto.notice_image }"></a>
+							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}&page=${paging.getPage()}&board_id=${bid}&category_id=${cid}" class="img_link"><img src="././resources/upload/notice/${dto.notice_image }"></a>
 							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}&page=${paging.getPage()}&board_id=${bid}&category_id=${cid}" class="img_link">${dto.notice_title }</a>
 						</li>					
 					</c:forEach>

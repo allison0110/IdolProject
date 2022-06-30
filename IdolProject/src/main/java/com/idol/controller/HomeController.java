@@ -1,12 +1,12 @@
 package com.idol.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 import org.omg.CORBA.Request;
 import org.slf4j.Logger;
@@ -16,10 +16,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.idol.model.EventDTO;
 import com.idol.model.ImagesDTO;
+import com.idol.model.PageDTO;
 import com.idol.model.ProductDAO;
 import com.idol.model.ProductDTO;
 import com.idol.model.UserEventDAO;
@@ -46,11 +46,12 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, Model model, HttpServletRequest request) {
 		
 		List<ImagesDTO> list= this.userImagesDAO.imagesList();
 		List<ProductDTO> mainplist = this.productDao.mainProductList();
 		List<EventDTO> elist = this.userEventDao.allList();
+		
 		
 		for(int i=0; i<10; i++) {
 			
@@ -71,7 +72,6 @@ public class HomeController {
 			String result = tokenizer.nextToken();
 			mainplist.get(i).setProduct_image(result);
 		}
-		
 		
 		
 		model.addAttribute("plist", mainplist);

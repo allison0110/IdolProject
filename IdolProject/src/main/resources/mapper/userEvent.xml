@@ -45,6 +45,6 @@
 	</select>
 	
 	<select id="all" resultType="eventDTO">
-		select * from notice where notice_enddate is null order by notice_no desc
+		select * from notice where notice_enddate is null order by notice_date desc
 	</select>
 </mapper>

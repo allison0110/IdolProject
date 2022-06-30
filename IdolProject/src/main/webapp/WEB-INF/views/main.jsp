@@ -49,6 +49,7 @@
         height: 575px;
         margin: 0 auto;
       }
+      
       .swiper-slide-img-wrap img {
         object-fit: cover;
         height: 100%;
@@ -98,7 +99,7 @@
       
       .main_section02{
       height: 500px;
-      width: 1100px;
+      width: 1200px;
       margin: 0 auto;
       }
       
@@ -153,9 +154,7 @@
         <!-- If we need pagination -->
         <div class="swiper-pagination"></div>
 
-        <!-- If we need navigation buttons -->
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+        
       </div>
     </main>
 
@@ -199,46 +198,27 @@
 	</div>
 		
 	<!-- 이슈swiper -->
+	<c:set var="paging" value="${Paging }"/>
+	<c:set var="cid" value="${cid }"/>
+	<c:set var="bid" value="${bid }"/>
 	<div class="main_section03">
 		<div>
 			<h1 align="center" id="mainH1">New Issue</h1>
 	 		<div class="swiper issueSwiper">
 	   			<div class="swiper-wrapper">
-	        		<div class="swiper-slide">
-	        			<div class="swiper-slide-issue-wrap">
-	        				<a href="#"><img src=""></a>
-	        			</div>
-	        		</div>
-	        		<div class="swiper-slide">
-	        			<div class="swiper-slide-issue-wrap">
-	        				<a href="#"><img src=""></a>
-	        			</div>
-	        		</div>
-	        		<div class="swiper-slide">
-	        			<div class="swiper-slide-issue-wrap">
-	        				<a href="#"><img src=""></a>
-	        			</div>
-	        		</div>
-	        		<div class="swiper-slide">
-	        			<div class="swiper-slide-issue-wrap">
-	        				<a href="#"><img src=""></a>
-	        			</div>
-	        		</div>
-	        		<div class="swiper-slide">
-	        			<div class="swiper-slide-issue-wrap">
-	        				<a href="#"><img src=""></a>
-	        			</div>
-	        		</div>
-	        		<div class="swiper-slide">
-	        			<div class="swiper-slide-issue-wrap">
-	        				<a href="#"><img src=""></a>
-	        			</div>
-	        		</div>
-	        	</div>
-	        	 <!-- If we need pagination -->
-		        <div class="swiper-pagination"></div>
-		
-			</div>
+	        		<c:forEach items="${elist }" var="edto">
+     	     		<div class="swiper-slide" id="main_img1">
+        	    		<div class="swiper-slide-issue-wrap" >
+        	    			<a href="<%=request.getContextPath()%>/event_list.do?no=${edto.notice_no}&board_id=1&category_id=1">
+            	  				<img src="./resources/upload/notice/${edto.notice_image }"/>
+            	  			</a>
+            			</div>
+          			</div>
+          			</c:forEach>
+        		</div>
+        		<!-- If we need pagination -->
+        		<div class="swiper-pagination"></div>
+      		</div>
 		</div>
 	</div>
 
@@ -293,6 +273,8 @@
   }
   
     const swiper = new Swiper("#mainSwiper", {
+   	  slidesPerView: 1,
+      spaceBetween: 20,
       loop: true,
       autoplay: {
         delay: 3000,
@@ -308,8 +290,8 @@
       },
     });
   	var itemSwiper = new Swiper(".productSwiper", {
-        slidesPerView: 3,
-        spaceBetween: 30,
+        slidesPerView: 4,
+        spaceBetween: 20,
         loop: true,
         autoplay: {
             delay: 4000,
@@ -318,10 +300,7 @@
             el: ".swiper-scrollbar",
             hide: true,
           },
-      navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
+      
       centeredSlides: true,
     });
   	

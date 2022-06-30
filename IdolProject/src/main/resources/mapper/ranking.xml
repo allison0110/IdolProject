@@ -87,4 +87,23 @@
 		order by score desc) where <![CDATA[rnum >= 1  and rnum <= #{rnum}]]>
 </select>
 
+<select id="comment" parameterType="HashMap" resultType="rankingDTO">
+	select * from (select
+		m.member_id, 
+		m.member_introduction, 
+		m.member_nickname, 
+		m.member_image, 
+		count(cc.comment_no) score,
+		row_number() over(order by m.member_id desc) rnum
+	from member m left join community_comment cc
+		on m.member_id=cc.comment_writer
+		where cc.comment_no is not null
+		<if test="keyword != null and !keyword.equals('')">
+			and m.member_nickname like '%'||#{keyword}||'%'
+		</if>
+		group by member_id, member_introduction, member_nickname, member_image
+		order by score desc) where <![CDATA[rnum >= 1  and rnum <= #{rnum}]]>
+	
+</select>
+
 </mapper>

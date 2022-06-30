@@ -82,95 +82,196 @@ padding-right: 16px;
 margin-bottom: 24px;
 color: #7082A7
 }
+
+.w_rank_cont_wrap{
+display: flex;
+
+}
+
+
 </style>
 </head>
 <body>
 <%@include file="../include/user_top.jsp" %>
-
+	
 	<div class="rankWrapper">	
-	<div class="sidenav">
-			<div class="sidenav_menu">
-				<a href="<%=request.getContextPath()%>/whole_ranking.do">Overview</a>
-				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=point">Most points</a>
-  				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=purchase">Most purchase</a>
-  				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=message">Most message</a>
-  				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=comment">Most comment</a>
-  				<!-- 게시글 추천수 많은 순.. community_recommend -->
-				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=referrals">Most referrals</a>
-  				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=birth">Today's birthdays</a>
-  			</div>
-  			<form method="get" action='<%=request.getContextPath()%>/detail_ranking.do'>
-
-				<div class="sidenav_container">
-					<h3 class="container_header">
-						Find member
-					</h3>
-					<div class="members_search_board">
-						<input type="hidden" value='<%=request.getParameter("key") %>' name="key">
-						<input type="text" class="input"name="keyword" placeholder="Nickname..">&nbsp;&nbsp;
-						<input type="submit" value="검색">
-					</div>
-				</div>
-			</form>
-	</div>
-		<c:set var="plist" value="${pList }"/>
-		<c:set var="melist" value="${meList }"/>
+<%@include file="../include/ranking_sidebar.jsp" %>
 		<c:set var="milist" value="${miList }"/>
-	<div class="w_ranking_title">
-		<h1 class="w_ranking_title_value">Notable members</h1>
+		<c:set var="plist" value="${puList }"/>
+		<c:set var="melist" value="${meList }"/>
+		<c:set var="biList" value="${birthList }"/>
+		<c:set var="reList" value="${reList }"/>
+		<c:set var="coList" value="${coList }"/>
 		
-		<div>
-		<a href="<%=request.getContextPath()%>/detail_ranking.do?key=point" id="w_ranking_cate_value">Most purchases</a>
-		<c:forEach items="${plist }" var="pdto">
-		<ol class="overview_blocks">
-			<li class="overview_block">
-				<h3 class="block_text_header">
-				</h3>
-				<ol>
-					<div class="member_block">
-						<img src="./resources/upload/${pdto.member_image }">
-						<div id="member_nickname_div">
-							<a href="<%=request.getContextPath()%>/myfeed.do">${pdto.member_nickname }</a>
-						</div>
-						<div id="member_score_div">
-							${pdto.score }
-						</div>
-					</div>
-				</ol>
-				<div class="overview_block_seemore">
-					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=point"></a>
-				</div>
-			</li>
-		
-		</ol>
-		</c:forEach>
-		<a href="<%=request.getContextPath()%>/detail_ranking.do?key=point" id="w_ranking_cate_value">Most messages</a>
-		<c:forEach items="${melist }" var="medto">
-		<ol class="overview_blocks">
-			<li class="overview_block">
-				<h3 class="block_text_header">
-				</h3>
-				<ol>
-					<div class="member_block">
-						<img src="./resources/upload/${medto.member_image }">
-						<div id="member_nickname_div">
-							<a href="<%=request.getContextPath()%>/myfeed.do">${medto.member_nickname }</a>
-						</div>
-						<div id="member_score_div">
-							${medto.score }
-						</div>
-					</div>
-				</ol>
-				<div class="overview_block_seemore">
-					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=point"></a>
-				</div>
-			</li>
-		
-		</ol>
-		</c:forEach>
+		<div class="w_rank_cont_wrap">
+		<div class="w_ranking_title">
+			<h1 class="w_ranking_title_value">Notable members</h1>
 		</div>
-	</div>
-	</div>
+		
+		
+		<div class="overview_wrap">
+			<ul class="overview_blocks">
+				<li class="overview_blocks.li">
+					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=point" id="w_ranking_cate_value">Most points</a>
+					<c:forEach items="${milist }" var="midto">
+						<li class="overview_block">
+							<h3 class="block_text_header"></h3>
+							<ol>
+								<li class="member_block">
+									<img src="./resources/upload/${midto.member_image }">
+									<div id="member_nickname_div">
+										<a href="<%=request.getContextPath()%>/myfeed.do?no=${midto.member_no}">${midto.member_nickname }</a>
+									</div>
+									<div id="member_score_div">
+										${midto.score }
+									</div>
+								</li>
+							</ol>
+						</li>
+					</c:forEach>
+					<div class="overview_block_seemore">
+						<a href="<%=request.getContextPath()%>/detail_ranking.do?key=point">See more</a>
+					</div>
+				</li>
+				
+				<li class="overview_blocks.li">
+					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=purchase" id="w_ranking_cate_value">Most purchases</a>
+					<c:forEach items="${plist }" var="pdto">
+						<li class="overview_block">
+							<h3 class="block_text_header"></h3>
+							<ol>
+								<li class="member_block">
+									<img src="./resources/upload/${pdto.member_image }">
+									<div id="member_nickname_div">
+										<a href="<%=request.getContextPath()%>/myfeed.do?no=${pdto.member_no}">${pdto.member_nickname }</a>
+									</div>
+									<div id="member_score_div">
+										${pdto.score }
+									</div>
+								</li>
+							</ol>
+						</li>
+					</c:forEach>
+					<div class="overview_block_seemore">
+						<a href="<%=request.getContextPath()%>/detail_ranking.do?key=purchase">See more</a>
+					</div>
+				</li>
+			
+			
+			
+				<li class="overview_blocks.li">
+					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=message" id="w_ranking_cate_value">Most messages</a>
+					<c:forEach items="${melist }" var="medto">
+					<li class="overview_block">
+						<h3 class="block_text_header"></h3>
+						<ol>
+							<li class="member_block">
+								<img src="./resources/upload/${medto.member_image }">
+								<div id="member_nickname_div">
+									<a href="<%=request.getContextPath()%>/myfeed.do?no=${medto.member_no}">${medto.member_nickname }</a>
+								</div>
+								<div id="member_score_div">
+									${medto.score }
+								</div>
+							</li>
+						</ol>
+					</li>
+				</c:forEach>
+				<div class="overview_block_seemore">
+					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=message">See more</a>
+				</div>
+				</li>
+				
+				
+				<li class="overview_blocks.li">
+					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=comment" id="w_ranking_cate_value">Most comment</a>
+					<c:forEach items="${coList }" var="cdto">
+					<li class="overview_block">
+						<h3 class="block_text_header"></h3>
+						<ol>
+							<li class="member_block">
+								<img src="./resources/upload/${cdto.member_image }">
+								<div id="member_nickname_div">
+									<a href="<%=request.getContextPath()%>/myfeed.do?no=${cdto.member_no}">${cdto.member_nickname }</a>
+								</div>
+								<div id="member_score_div">
+									${cdto.score }
+								</div>
+							</li>
+						</ol>
+					</li>
+				</c:forEach>
+				<div class="overview_block_seemore">
+					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=comment">See more</a>
+				</div>
+				</li>
+				
+				
+				<li class="overview_blocks.li">
+					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=referrals" id="w_ranking_cate_value">Most referrals</a>
+					<c:forEach items="${reList }" var="rdto">
+					<li class="overview_block">
+						<h3 class="block_text_header"></h3>
+						<ol>
+							<li class="member_block">
+								<img src="./resources/upload/${rdto.member_image }">
+								<div id="member_nickname_div">
+									<a href="<%=request.getContextPath()%>/myfeed.do?no=${rdto.member_no}">${rdto.member_nickname }</a>
+								</div>
+								<div id="member_score_div">
+									${rdto.score }
+								</div>
+							</li>
+						</ol>
+					</li>
+				</c:forEach>
+				<div class="overview_block_seemore">
+					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=referrals">See more</a>
+				</div>
+				</li>
+				
+				
+				<li class="overview_blocks.li">
+					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=birth" id="w_ranking_cate_value">Today's birthdays</a>
+					<c:forEach items="${biList }" var="bdto">
+					<li class="overview_block">
+						<h3 class="block_text_header"></h3>
+						<ol>
+							<li class="member_block">
+								<img src="./resources/upload/${bdto.member_image }">
+								<div id="member_nickname_div">
+									<a href="<%=request.getContextPath()%>/myfeed.do?no=${bdto.member_no}">${bdto.member_nickname }</a>
+								</div>
+								<c:if test="${bdto.score <= 0 }">
+									<div>
+										
+									</div>
+								</c:if>
+								<c:if test="${bdto.score > 0 }">
+									<div id="member_score_div">
+									${bdto.score }
+									</div>
+								</c:if>
+								
+							</li>
+						</ol>
+					</li>
+				</c:forEach>
+				<div class="overview_block_seemore">
+					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=birth">See more</a>
+				</div>
+				</li>
+				
+				
+				
+				
+				
+				
+			</ul>
+			</div>
+			</div>
+		</div>
+
 	
 	
 	
