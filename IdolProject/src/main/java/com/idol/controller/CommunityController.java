@@ -564,7 +564,7 @@ public class CommunityController {
 		int cno = Integer.parseInt(request.getParameter("cno").trim());
 		int bno = Integer.parseInt(request.getParameter("bno").trim());
 		
-		int result = boardCommentdao.deleteComment(cno);
+		 int result= boardCommentdao.deleteComment(cno);
 		
 		if(result>0) {
 			System.out.println("댓글삭제 성공");

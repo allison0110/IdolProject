@@ -48,13 +48,21 @@
                         <h3>${boardCont.community_title }</h3>
                     </div>
 
-                    <div class="user">
+                    <div class="writer">
                     	<c:if test="${!empty writerInfo.member_nickname }">
                         ${writerInfo.member_id } | ${writerInfo.member_nickname }
                         </c:if>
                         <c:if test="${empty writerInfo.member_nickname }">
                         ${writerInfo.member_id } 
                         </c:if>
+                    </div>
+                    
+                    <div class="writer-feed">
+	                   	<ul>
+	                   		 <li><a href="<%=request.getContextPath()%>/myfeed.do?id=${writerInfo.member_id }">회원 프로필</a></li> 
+	                   		 <li><a href="">1대1채팅</a></li> 
+	                   	</ul>
+	                   	<input type="hidden" class="writer-feed-OnOff" value="0">
                     </div>
 
                     <div class="info1">
@@ -100,7 +108,7 @@
                         <div class="input-group">
                             <span class="input-group-text">${loginInfo.member_id }</span>
                             <textarea class="form-control"  rows="1" aria-label="With textarea" placeholder="댓글을 남겨보세요"
-                            name="comment_cont"></textarea>
+                            name="comment_cont" required></textarea>
                             <button type="submit" class="btn btn-outline-secondary">댓글입력</button>
                         </div>
                         <input type="hidden" name="comment_writer" value="${loginInfo.member_id }">
@@ -126,7 +134,15 @@
                         <p class="commentUser">${cdto.comment_writer}</p>
                         </c:if>
                         
+                        <!-- 댓글내용이 삭제된 댓글로 표시된다면 색상으로 레드로 설정한다. -->
+                        <c:if test="${cdto.comment_cont eq '삭제된 댓글입니다.'}">
+                        <p class="commentdetail" style="color:red">${cdto.comment_cont}</p>
+                        </c:if>
+                        
+                        <c:if test="${cdto.comment_cont ne '삭제된 댓글입니다.'}">
                         <p class="commentdetail">${cdto.comment_cont}</p>
+                        </c:if>
+                        
                         <div class="commentBottom">
                         	<c:if test="${empty cdto.comment_update }">
                             <div class="commentInfo"><i class="fa-solid fa-clock"></i>&nbsp;${cdto.comment_date}작성</div>
@@ -155,7 +171,7 @@
                         <!-- 대댓글 write textfiled -->
                         <div class="comment-input-group">
                             <span class="input-group-text">${loginInfo.member_id }</span>
-                            <textarea class="form-control comment-text"  rows="1" aria-label="With textarea" name="comment_cont" maxlength="200"></textarea>
+                            <textarea class="form-control comment-text"  rows="1" aria-label="With textarea" name="comment_cont" maxlength="200" required></textarea>
                             <button type="submit" class="btn btn-outline-secondary">답글입력</button>
                         </div>
                         <!-- 대댓글 update textfiled -->
@@ -166,6 +182,14 @@
                             <textarea class="form-control update-text"  rows="1" aria-label="With textarea" maxlength="200"></textarea>
                             <button type="button" class="btn btn-outline-secondary commentUpBtn">수정</button>
                         </div>
+                    <div class="comment-feed">
+	                   	<ul>
+	                   		 <li><a href="<%=request.getContextPath()%>/myfeed.do?id=${cdto.comment_writer}">회원 프로필</a></li> 
+	                   		 <li><a href="">1대1채팅</a></li> 
+	                   	</ul>
+	                   	<input type="hidden" class="comment-feed-OnOff" value="0">
+                    </div>
+                    
                     </div>
                     </form>
                     </c:forEach>

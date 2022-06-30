@@ -52,9 +52,23 @@ public class BoardCommentDAOImpl implements BoardCommentDAO {
 		return sqlSession.delete("deleteComment", cno);
 	}
 	
+	
 	// 댓글 및 대댓글 수정
 	@Override
 	public int updateComment(BoardCommentDTO boardCommentdto) {
 		return sqlSession.update("updateComment", boardCommentdto);
-	} 
+	}
+
+	// 댓글 정보를 가져오는 메서드
+	@Override
+	public BoardCommentDTO getCommentDetail(int cno) {
+		return sqlSession.selectOne("CommentDetail", cno);
+	}
+
+	// 댓글이 속한 그룹의 스텝 갯수
+	@Override
+	public int stepCount(int gno) {
+		return sqlSession.selectOne("stepCount", gno);
+	}
+
 }

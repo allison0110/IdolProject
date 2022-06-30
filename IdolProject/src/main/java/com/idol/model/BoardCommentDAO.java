@@ -25,5 +25,11 @@ public interface BoardCommentDAO {
 	// 댓글 및 대댓글 수정
 	int updateComment(BoardCommentDTO boardCommentdto);
 	
+	// 댓글정보
+	BoardCommentDTO getCommentDetail(int cno);
+	
+	// 댓글 그룹이 속한 스텝 카운트
+	int stepCount(int gno);
+	
 
 }

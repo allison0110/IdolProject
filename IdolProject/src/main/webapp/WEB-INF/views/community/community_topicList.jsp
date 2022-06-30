@@ -78,6 +78,13 @@
                             	${topicdto.community_userid }
                             </div>
                             </c:if>
+                            <div class="user-feed">
+                            	<ul>
+                            		 <li><a href="<%=request.getContextPath()%>/myfeed.do?id=${topicdto.community_userid}">회원 프로필</a></li> 
+                            		 <li><a href="">1대1채팅</a></li> 
+                            	</ul>
+                            	<input type="hidden" class="feed-OnOff" value="0">
+                            </div>
                             </c:if>
                             </c:forEach>
                             
@@ -115,7 +122,7 @@
         <a id="back-to-top" href="#">Top</a>
         <a id="back-to-bottom" href="#">Bot</a>
     </div>  
-    <script src="js/community_topicList.js"></script>
+    <script src="js/community_topicList.js?ver=1"></script>
 <%@include file="../include/user_bottom.jsp" %>    
 </body>
 </html>

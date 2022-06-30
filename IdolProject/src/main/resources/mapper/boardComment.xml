@@ -50,8 +50,10 @@
  	<![CDATA[update community_comment set comment_cont = #{comment_cont}, comment_update = sysdate  where comment_no = #{comment_no}]]>
  </update>
  
- 
- 
+ <!-- 댓글 정보-->
+ <select id="CommentDetail" parameterType="int" resultType="BoardCommentDTO">
+ 	<![CDATA[select *from community_comment where comment_no = #{cno}]]>
+ </select>
  
  
  </mapper>

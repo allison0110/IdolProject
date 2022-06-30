@@ -191,12 +191,62 @@ for(let i=0;i<$('.comment').length;i++){
 	});
 }
 
-  
-  
-  
-  
-  
-  
+
+
+// 게시글 및 댓글 작성자 회원피드 
+let writerFeedOnOff = $('.writer-feed-OnOff');
+let commentFeedOnOff = $('.comment-feed-OnOff');
+
+
+// 게시글 작성자 회원피트 on-off
+$('.writer').click(function(){
+	writerFeed();
+});
+function writerFeed(){
+	
+	if(writerFeedOnOff.val() == 0){
+		$('.writer-feed').css("display","inline-block");
+		writerFeedOnOff.val(1);
+	}else{
+		$('.writer-feed').css("display","none");
+		writerFeedOnOff.val(0);
+	}
+	
+	// 작성자 클릭시 댓글작성자 피드는 off
+	for(let j=0;j<$('.comment').length;j++){
+		commentFeedOnOff.eq(j).val(0)
+		$('.comment-feed').eq(j).css("display","none");
+	}
+}
+
+// 게시글 댓글 회원피트 on-off
+for(let i=0;i<$('.comment').length;i++){
+	$('.commentUser').eq(i).click(function(){
+		if(commentFeedOnOff.eq(i).val() == 0){
+			for(let j=0;j<$('.comment').length;j++){
+				if(j==i){
+					let marginLeft = $('.comment_indent').eq(i).val()*20;
+					commentFeedOnOff.eq(j).val(1)
+					$('.comment-feed').eq(j).css("display","inline-block")
+					.css("margin-left",marginLeft+"px");
+				}else{
+					commentFeedOnOff.eq(j).val(0)
+					$('.comment-feed').eq(j).css("display","none");
+				}
+			}
+		}else{
+			for(let j=0;j<$('.comment').length;j++){
+				commentFeedOnOff.eq(j).val(0)
+				$('.comment-feed').eq(j).css("display","none");
+			}
+		}
+		
+		// 댓글작성자 클릭시 작성자 피드는 off
+		$('.writer-feed').css("display","none");
+		writerFeedOnOff.val(0);
+		
+	});
+}
   
   
   
