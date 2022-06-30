@@ -55,5 +55,10 @@
  	<![CDATA[select *from community_comment where comment_no = #{cno}]]>
  </select>
  
+ <!-- 게시글 삭제시 게시물에 등록된 댓글삭제 -->
+ <delete id="deleteBoardComment" parameterType="int">
+ 	<![CDATA[delete from community_comment where community_nofk = #{communityNo}]]>
+ </delete>
+ 
  
  </mapper>

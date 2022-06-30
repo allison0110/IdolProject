@@ -134,14 +134,7 @@
                         <p class="commentUser">${cdto.comment_writer}</p>
                         </c:if>
                         
-                        <!-- 댓글내용이 삭제된 댓글로 표시된다면 색상으로 레드로 설정한다. -->
-                        <c:if test="${cdto.comment_cont eq '삭제된 댓글입니다.'}">
-                        <p class="commentdetail" style="color:red">${cdto.comment_cont}</p>
-                        </c:if>
-                        
-                        <c:if test="${cdto.comment_cont ne '삭제된 댓글입니다.'}">
                         <p class="commentdetail">${cdto.comment_cont}</p>
-                        </c:if>
                         
                         <div class="commentBottom">
                         	<c:if test="${empty cdto.comment_update }">

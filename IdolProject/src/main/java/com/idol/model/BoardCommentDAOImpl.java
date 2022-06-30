@@ -71,4 +71,10 @@ public class BoardCommentDAOImpl implements BoardCommentDAO {
 		return sqlSession.selectOne("stepCount", gno);
 	}
 
+	// 커뮤니티 게시글 삭제시 댓글전체삭제
+	@Override
+	public int deleteBoardComment(int communityNo) {
+		return sqlSession.delete("deleteBoardComment", communityNo);
+	}
+
 }

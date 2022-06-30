@@ -22,6 +22,9 @@ public interface BoardCommentDAO {
 	// 댓글 및 대댓글 삭제
 	int deleteComment(int cno);
 	
+	// 커뮤니티 게시글 삭제시 댓글전체삭제
+	int deleteBoardComment(int communityNo);
+	
 	// 댓글 및 대댓글 수정
 	int updateComment(BoardCommentDTO boardCommentdto);
 	
