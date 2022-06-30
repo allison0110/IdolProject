@@ -134,6 +134,30 @@ for(let y=0;y<imgCount.length;y++){
 	}
 }
 
+// 회원피드 표시 
+for(let i=0;i<$('.user').length;i++){
+	$('.user').eq(i).click(function(){
+		
+		if($('.feed-OnOff').eq(i).val() == 0){
+			for(let j=0;j<$('.user').length;j++){
+				if(j==i){
+					$('.feed-OnOff').eq(j).val(1);
+					$('.user-feed').eq(j).css("display","inline-block");
+				}else{
+					$('.feed-OnOff').eq(j).val(0);
+					$('.user-feed').eq(j).css("display","none");
+				}
+			}
+		}else{
+			for(let j=0;j<$('.user').length;j++){
+					$('.feed-OnOff').eq(j).val(0);
+					$('.user-feed').eq(j).css("display","none");
+			}
+		}
+
+	});
+}
+
 
 
 

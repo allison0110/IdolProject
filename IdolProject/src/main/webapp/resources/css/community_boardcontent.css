@@ -62,12 +62,52 @@
     font-weight: 600;
 }
 
-#leftContent .user{
+#leftContent .writer{
     font-size: 15px;  
     opacity: 0.8;
+    position: relative;
+    cursor: pointer;
 }
 
+/* 게시글 작성자 피드 */
+.writer-feed{
+	display: inline-block;
+	position: absolute;
+	top: 120px;
+	left: 200px;
+	display: none;
+}
+
+.writer-feed ul{
+	padding: 0px;
+	width: 98px;
+    border: 1px solid #ccc;
+    background: #fff;
+    text-align: left;
+}
+
+.writer-feed ul li{
+	font-size: 13px;
+	height: 25px;
+    padding: 0 9px;
+    line-height: 27px;
+    font-weight: 300;
+    cursor: pointer;
+}
+
+.writer-feed ul li:hover{
+	font-weight: 600;
+	text-decoration: underline;
+}
+
+.writer-feed ul li:nth-of-type(1){
+	border-bottom: 1px solid #ccc;
+}
+
+
+
 #leftContent .info1{
+	top: 190px;
     margin: 10px 0px;
     font-size: 12px;
     opacity: 0.5;
@@ -108,7 +148,6 @@
 }
 
 #leftContent .info2 .UpdateAndDelete{
-	
 	display: none;
 }
 
@@ -128,6 +167,7 @@
 
 #leftContent .formContainer{
     padding: 20px 0px;
+    display: none;
 }
 
 
@@ -135,6 +175,9 @@
 #leftContent .comment{
     font-size: 13px;
     border-bottom: 1px solid lightgray;
+    width: 100%;
+    word-break:break-all;
+    position: relative;
 }
 
 /* #leftContent .comment:nth-child(odd){
@@ -143,26 +186,134 @@
 
 #leftContent .comment p{
     margin-bottom: 8px;
+    cursor: pointer;
+}
+
+
+#leftContent .comment .commentInfo{
+    opacity: 0.5;
 }
 
 #leftContent .comment .commentInfo{
     opacity: 0.5;
 }
-/* 대댓글  */
-#leftContent .comment-reply{
-    font-size: 13px;
-    border-bottom: 1px solid lightgray;
-    background-color: rgba(248, 248, 248);
-    padding-left: 10px;
+
+#leftContent .comment .commentBottom{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
 }
 
-#leftContent .comment-reply p{
-    margin-bottom: 8px;
+.commentBottom .btn{
+	font-size: 10px;
+	width: 40px;
+	height: 20px;
+	padding:0px;
+	
+}
+.comment .comment-input-group{
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 35px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    align-items: center;
+    display: none;
+}
+.comment-input-group .input-group-text{
+	font-size: 12px;
+	height: 37px;
 }
 
-#leftContent .comment-reply .comment-replyInfo{
-    opacity: 0.5;
+.comment-input-group .form-control{
+	
 }
+.comment-input-group .btn{
+	font-size: 12px;
+	padding: 0px;
+	width: 40px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+/* 댓글 및 대댓글 수정 필드 */
+.comment .update-input-group{
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 35px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    align-items: center;
+    display: none;
+}
+
+.update-input-group .input-group-text{
+	font-size: 12px;
+	height: 37px;
+}
+
+.update-input-group .btn{
+	font-size: 12px;
+	padding: 8px 0px;
+	width: 40px;
+    margin-left: 2px;
+    margin-right: 2px;
+    
+}
+
+
+
+/*댓글 수정 삭제버튼은 기본적으로 안보이게 처리*/
+.commentbtnGroup .comment-up{
+    display: none;
+}
+
+.commentbtnGroup .comment-del{
+    display: none;
+}
+
+
+/* 댓글작성자 피드 */
+.comment-feed{
+	display: inline-block;
+	position: absolute;
+	left: -100px;
+	top: 0px;
+	display: none;
+}
+
+.comment-feed ul{
+	padding: 0px;
+	width: 98px;
+    border: 1px solid #ccc;
+    background: #fff;
+    text-align: left;
+}
+
+.comment-feed ul li{
+	font-size: 13px;
+	height: 25px;
+    padding: 0 9px;
+    line-height: 27px;
+    font-weight: 300;
+    cursor: pointer;
+}
+
+.comment-feed ul li:hover{
+	font-weight: 600;
+	text-decoration: underline;
+}
+
+.comment-feed ul li:nth-of-type(1){
+	border-bottom: 1px solid #ccc;
+}
+
+
 
 
 

@@ -192,20 +192,60 @@
 .article .sub{
     margin-top: 15px;
     font-size: 13px;
+    cursor: pointer;
 }
 
 .article .content-info{
+	position: absolute;
+	width: 550px;
     margin-top: 5px;
     margin-bottom: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     color: gray;
+    bottom: 10px;
 }
 
 .article .content-info i{
    opacity: 0.5;
 }
+
+/* 회원 피드 */
+.article .sub .user-feed{
+	display: inline-block;
+	position: relative;
+	bottom: 25px;
+	left: 145px;
+	display: none;
+}
+
+.user-feed ul{
+	padding: 0px;
+	width: 98px;
+    border: 1px solid #ccc;
+    background: #fff;
+    text-align: left;
+}
+
+.user-feed ul li{
+	height: 25px;
+    padding: 0 9px;
+    line-height: 27px;
+    font-weight: 300;
+    cursor: pointer;
+}
+
+.user-feed ul li:hover{
+	font-weight: 600;
+	text-decoration: underline;
+}
+
+.user-feed ul li:nth-of-type(1){
+	border-bottom: 1px solid #ccc;
+}
+
+
 
 /*리스트 하단 더보기 버튼*/
 #article_more{

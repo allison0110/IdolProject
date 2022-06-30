@@ -4,6 +4,7 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.UUID;
 
@@ -21,6 +22,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.idol.model.BoardCategoryDAO;
 import com.idol.model.BoardCategoryDTO;
+import com.idol.model.BoardCommentDAO;
+import com.idol.model.BoardCommentDTO;
 import com.idol.model.BoardDAO;
 import com.idol.model.BoardDTO;
 import com.idol.model.MemberDAO;
@@ -43,6 +46,9 @@ public class CommunityController {
 	@Autowired
 	private MileageDAO Mileagedao;
 	
+	@Autowired
+	private BoardCommentDAO boardCommentdao;
+	
 	// 커뮤니티 게시물 전체리스트 페이지로 이동
 	@RequestMapping("community_boardList.do")
 	public String community_boardList(Model model) {
@@ -57,9 +63,17 @@ public class CommunityController {
 		// 게시글 카테고리 리스트를 가져옴
 		List<BoardCategoryDTO> categorylist = BoardCategorydao.getCategoryList();
 		
+		// 베스트 게시글 댓글 카운트 리스트
+		List<Integer> bestcomcountlist = new ArrayList<Integer>();
+		for(int i=0;i<bestlist.size();i++) {
+			int commentCount = boardCommentdao.getcommentCount(bestlist.get(i).getCommunity_no());
+			bestcomcountlist.add(commentCount);
+		}
+		
 		model.addAttribute("categoryList", categorylist);
 		model.addAttribute("bestList", bestlist);
 		model.addAttribute("baordList", baordlist);
+		model.addAttribute("bestcomcountList", bestcomcountlist);
 		
 		return "community/community_boardList";
 	}
@@ -119,12 +133,20 @@ public class CommunityController {
 			}
 			imgCountList.add(imgCount);
 		}
+		
+		// 게시글 댓글 카운트 리스트
+		List<Integer> comcountlist = new ArrayList<Integer>();
+		for(int i=0;i<list.size();i++) {
+			int commentCount = boardCommentdao.getcommentCount(list.get(i).getCommunity_no());
+			comcountlist.add(commentCount);
+		}
 				
 		
 		model.addAttribute("topicList", list);
 		model.addAttribute("memList", memlist);
 		model.addAttribute("tabNo", tabNo);
 		model.addAttribute("imgCountList", imgCountList);
+		model.addAttribute("comcountList", comcountlist);
 		
 		return "community/community_topicList";
 	}
@@ -143,9 +165,17 @@ public class CommunityController {
 		// 게시물 작성 회원 이름과 닉네임을 가져오기 위함
 		List<MemberDTO> memlist = Memberdao.getMemeberList();
 		
+		// 검색게시글 댓글 카운트 리스트
+		List<Integer> comcountlist = new ArrayList<Integer>();
+		for(int i=0;i<seatchlist.size();i++) {
+			int commentCount = boardCommentdao.getcommentCount(seatchlist.get(i).getCommunity_no());
+			comcountlist.add(commentCount);
+		}
+		
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("seatchList", seatchlist);
 		model.addAttribute("memList", memlist);
+		model.addAttribute("comcountList", comcountlist);
 		
 		
 		return "community/community_searchList";
@@ -257,13 +287,15 @@ public class CommunityController {
 	public String community_boardContent(HttpServletRequest request, Model model){
 		
 		HttpSession session = request.getSession();
+//		MemberDTO temporary = Memberdao.getMemberCont(1);
+//		session.setAttribute("loginInfo", temporary);
 
 		// 세션정보에 로그인정보가 있을 경우 페이지에 로그인정보를 전달
 		if(session.getAttribute("loginInfo") != null) {
 		MemberDTO loginInfo = (MemberDTO)session.getAttribute("loginInfo");
 		session.setAttribute("loginInfo", loginInfo);
 		model.addAttribute("loginInfo", loginInfo);
-		
+		System.out.println("세션정보 있음");
 		}else {
 			System.out.println("세션정보 없음");
 		}
@@ -296,6 +328,11 @@ public class CommunityController {
 		// 작성자 정보: 게시물 상세정보의 유저아이디를 통해 작성자 정보를 가져옴
 		MemberDTO writerInfo = Memberdao.getMemInfo(boardCont.getCommunity_userid());	
 		
+		// 게시물에 대한 댓글리스트
+		List<BoardCommentDTO> commentList = boardCommentdao.getCommentList(bno);
+		
+		// 게시물 댓글 갯수
+		int commentCount = commentList.size();
 		
 
 		
@@ -303,6 +340,8 @@ public class CommunityController {
 		model.addAttribute("writerInfo", writerInfo);
 		model.addAttribute("mList", mlist);
 		model.addAttribute("cList", clist);
+		model.addAttribute("commentList", commentList);
+		model.addAttribute("commentCount", commentCount);
 		
 		
 		return "community/community_boardcontent";
@@ -336,8 +375,10 @@ public class CommunityController {
 				}
 			}
 		}
+		// 게시물 삭제시 게시물에 등록된 댓글도 함께 삭제되어야 한다.
+		int commentDelResult = boardCommentdao.deleteBoardComment(bno);
 		
-		if(Boarddao.deleteBoard(bno) > 0) {
+		if(Boarddao.deleteBoard(bno) > 0 && commentDelResult >0) {
 			result = "1";
 		}
 		
@@ -475,7 +516,88 @@ public class CommunityController {
 	}//community_boardupdate_ok end
 	
 	
+	// 커뮤니티 게시판 댓글 작성
+	@RequestMapping("community_commentWrite.do")
+	public String community_commentWrite(BoardCommentDTO boardCommentdto) {
+		System.out.println(boardCommentdto.getComment_writer());
+		System.out.println(boardCommentdto.getCommunity_nofk());
+		System.out.println(boardCommentdto.getCategory_cnofk());
+		
+		int result = boardCommentdao.commentWrite(boardCommentdto);
+		
+		if(result>0) {
+			System.out.println("댓글 등록 성공!");
+		}else {
+			System.out.println("댓글 등록 실패!");
+		}
+		
+		return "redirect:community_boardContent.do?bno="+boardCommentdto.getCommunity_nofk();
+	}
 	
+	// 커뮤니티 게시판 댓글 답변글(대댓글) 등록
+	@RequestMapping("community_replyWrite.do")
+	public String community_replyWrite(HttpServletRequest request, BoardCommentDTO boardcommentdto) {
+		
+		// 댓글에 대한 답글(대댓글)을 달기위해 이전에 달려있던 답글의 순서는 뒤로 미루어 주어야 한다.
+		boardCommentdao.updateCommentStep(boardcommentdto.getComment_group(), boardcommentdto.getComment_step());
+		
+		// 댓글에 대한 답글(대댓글) 의 스텝, 인덴트 설정
+		boardcommentdto.setComment_step(boardcommentdto.getComment_step()+1);
+		boardcommentdto.setComment_indent(boardcommentdto.getComment_indent()+1);
+		
+		System.out.println(boardcommentdto.getComment_cont());
+		
+		// 댓글에 대한 답글등록
+		int result = boardCommentdao.replyWrite(boardcommentdto);
+		
+		if(result>0) {
+			System.out.println("대댓글 등록 성공!");
+		}else {
+			System.out.println("대댓글 등록 실패!");
+		}
+		
+		return "redirect:community_boardContent.do?bno="+boardcommentdto.getCommunity_nofk();
+	}
+	
+	// 커뮤니티 댓글,대댓글 삭제
+	@RequestMapping("community_commentDelete.do")
+	public String community_commentDelete(HttpServletRequest request) {
+		
+		int cno = Integer.parseInt(request.getParameter("cno").trim());
+		int bno = Integer.parseInt(request.getParameter("bno").trim());
+		
+		 int result= boardCommentdao.deleteComment(cno);
+		
+		if(result>0) {
+			System.out.println("댓글삭제 성공");
+		}else {
+			System.out.println("댓글삭제 실패");
+		}
+		
+		return "redirect:community_boardContent.do?bno="+bno;
+	}
+	
+	// 커뮤니티 댓글,대댓글 수정
+	@RequestMapping("community_commentUpdate.do")
+	public String community_commentUpdate(HttpServletRequest request) {
+		String ctext = request.getParameter("ctext").trim();
+		int cno = Integer.parseInt(request.getParameter("cno").trim());
+		int bno = Integer.parseInt(request.getParameter("bno").trim());
+		
+		BoardCommentDTO boardCommentdto = new BoardCommentDTO();
+		boardCommentdto.setComment_no(cno);
+		boardCommentdto.setComment_cont(ctext);
+		
+		int result = boardCommentdao.updateComment(boardCommentdto);
+		
+		if(result>0) {
+			System.out.println("댓글수정 성공");
+		}else {
+			System.out.println("댓글수정 실패");
+		}
+		
+		return "redirect:community_boardContent.do?bno="+bno;
+	}
 	
 	
 }

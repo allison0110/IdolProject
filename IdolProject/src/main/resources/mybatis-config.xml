@@ -34,6 +34,8 @@
 		<typeAlias type="com.idol.model.BoardDTO" alias="BoardDTO"/>
 		<typeAlias type="com.idol.model.BoardCategoryDAO" alias="BoardCategoryDAO"/>
 		<typeAlias type="com.idol.model.BoardCategoryDTO" alias="BoardCategoryDTO"/>
+		<typeAlias type="com.idol.model.BoardCommentDAO" alias="BoardCommentDAO"/>
+		<typeAlias type="com.idol.model.BoardCommentDTO" alias="BoardCommentDTO"/>
 		
 		 <typeAlias type="com.idol.model.MusicDTO" alias="musicDTO"/>
 		 

@@ -171,6 +171,9 @@
 .topit-list-best .likeAndComment a{
     color: lightgray;
     margin-right: 15px;
+    display: inline-block;
+    width: 50px;
+    text-align: right;
 }
 
 /*-------------------------일반 게시글---------------------------------------*/
@@ -264,15 +267,18 @@
 }
 
 
-/*일반 게시글 좋아요,댓글*/
+/*일반 게시글 좋아요,조회수*/
 .topit-list-topic .likeAndComment{
     display: inline-block;
 
 }
-/*일반 게시글 좋아요,댓글 a링크*/
+/*일반 게시글 좋아요,조회수 a링크*/
 .topit-list-topic .likeAndComment a{
     color: lightgray;
     margin-right: 15px;
+    display: inline-block;
+    width: 50px;
+    text-align: right;
 }
 
 
