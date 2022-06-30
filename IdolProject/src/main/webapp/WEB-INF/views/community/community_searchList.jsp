@@ -23,8 +23,9 @@
                 <div id="list-container">
                 <c:set var = "seatchlist" value="${seatchList }"/>
                 <c:set var = "memlist" value="${memList }"/>
+                <c:set var = "comcountlist" value="${comcountList }"/>
                 	<c:if test="${!empty seatchlist }">
-                	<c:forEach items="${seatchlist }" var="searchdto">
+                	<c:forEach items="${seatchlist }" var="searchdto" varStatus="status">
                     <div class="article">
                         <!-- <div class="new">new</div> -->
                         <!-- <div class="hot">Hot</div> -->
@@ -61,13 +62,20 @@
                             	${topicdto.community_userid }
                             </div>
                             </c:if>
+                            <div class="user-feed">
+                            	<ul>
+                            		 <li><a href="<%=request.getContextPath()%>/myfeed.do?id=${searchdto.community_userid }">회원 프로필</a></li> 
+                            		 <li><a href="">1대1채팅</a></li> 
+                            	</ul>
+                            	<input type="hidden" class="feed-OnOff" value="0">
+                            </div>
                             </c:if>
                             </c:forEach>
                             <div class="content-info">
                                 <div class="info-left">
                                     <i class="fa-solid fa-eye"></i>${searchdto.community_hit } &nbsp;&nbsp;
                                     <i class="fa-solid fa-thumbs-up"></i>${searchdto.community_recommend } &nbsp;&nbsp;
-                                    <i class="fa-solid fa-comment"></i>0 &nbsp;&nbsp;
+                                    <i class="fa-solid fa-comment"></i>${comcountlist[status.index]} &nbsp;&nbsp;
                                 </div>
                                 <div class="info-right">
                                     <i class="fa-solid fa-clock"></i>${searchdto.community_date.substring(0,10) }

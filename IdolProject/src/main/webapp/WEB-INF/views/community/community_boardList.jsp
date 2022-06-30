@@ -31,6 +31,8 @@
                 <c:set var="categorylist" value="${categoryList}"/>
                 <c:set var="bestlist" value="${bestList}"/>
                 <c:set var="baordlist" value="${baordList}"/>
+                <c:set var="bestcomcountlist" value="${bestcomcountList}"/>
+                <c:set var="boardcomcountlist" value="${boardcomcountList}"/>
 
                 <!-- 베스트 게시글 start  -->
                 <div class="topit-list-best">
@@ -43,7 +45,8 @@
                     </div>
                     <div class="topic-list">
                     	<c:if test="${!empty bestlist}">
-                    	<c:forEach items="${bestlist}" var="bestdto" begin="0" end="4" step="1">
+                    	<!-- 하나의 for문에서 두개의 리스트를 사용하기 위해 varStatus를 사용하여 준다. -->
+                    	<c:forEach items="${bestlist}" var="bestdto" begin="0" end="4" step="1" varStatus="status">
                         <div class="article">
                             <div class="topicAndtitle">
                             <c:forEach items="${categorylist }" var="cdto">
@@ -59,7 +62,9 @@
                             </div>
                             <div class="likeAndComment">
                                 <a href="#"><i class="fa-solid fa-thumbs-up"></i>${bestdto.community_recommend }</a> 
-                                <a href="#" class="#"><i class="fa-solid fa-comment"></i>20</a> 
+                                <a href="#" class="#"><i class="fa-solid fa-comment"></i>
+                                	${bestcomcountlist[status.index]}
+                                </a> 
                             </div>
                         </div>     
                         </c:forEach>
@@ -96,7 +101,7 @@
                             </div>
                             <div class="likeAndComment">
                                 <a href="#"><i class="fa-solid fa-thumbs-up 0.5x"></i>${boarddto.community_recommend }</a> 
-                                <a href="#" class="#"><i class="fa-solid fa-comment fa-0.5x"></i>20</a> 
+                                <a href="#"><i class="fa-solid fa-eye 0.5x"></i>${boarddto.community_hit }</a> 
                             </div>
                         </div>
                     </div>

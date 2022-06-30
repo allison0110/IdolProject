@@ -18,14 +18,7 @@
  <!-- 멤버번호를 파라메터 값으로 받아 남아있는 마일리지를 조회  -->
  <select id="reamining" parameterType="int" resultType="int">
  	<!-- <![CDATA[SELECT mileage_remaining from MILEAGE_MASTER where MILEAGE_DATE = (select max(MILEAGE_DATE) from MILEAGE_MASTER)and MILEAGE_MEMNO = #{mno}]]> -->
- 	<!-- <![CDATA[select mileage_remaining from MILEAGE_MASTER where MILEAGE_MNO = (SELECT max(MILEAGE_MNO) from MILEAGE_MASTER 
- 			where MILEAGE_DATE = (select max(MILEAGE_DATE) from MILEAGE_MASTER)and MILEAGE_MEMNO = #{mno})]]>
- 			 -->
- 			
- 	select mileage_remaining from MILEAGE_MASTER 
- 	where MILEAGE_MNO = (SELECT max(MILEAGE_MNO) from MILEAGE_MASTER where MILEAGE_MEMNO = #{mno})  
- 			
- 			
+ 	<![CDATA[select mileage_remaining from MILEAGE_MASTER where MILEAGE_MNO = (SELECT max(MILEAGE_MNO) from MILEAGE_MASTER where MILEAGE_MEMNO = #{mno})]]>
  </select>
  
  <!-- 추가될 마일리지 정보를 dto에 담아 마일리지 테이블에 정보를 추가한다.  -->
