@@ -15,13 +15,14 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./resources/js/member.js"></script>
-<link rel="stylesheet" href="./resources/css/member.css">
+<link rel="stylesheet" href="./resources/css/member.css?v=2022063010">
 <style type="text/css">
 	
 	/* ***********마이페이지 회원정보관리************* */
 	
 	.order_cont{
 		padding: 20px 30px;
+		margin-left:50px;
 	}
 	.orderCont_container{
 		width:80%;
@@ -114,6 +115,21 @@
 		color:white;
 	}
 	
+	.order_btns{
+		display:flex;
+		margin-top:15px;
+	}
+	
+	.order_btns input{
+	margin-right: 4px;
+    width: 70px;
+    height: 26px;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid #2a3a52;
+    cursor: pointer;
+    font-size: 0.8em;
+	}
 
 </style>
 
@@ -146,7 +162,6 @@
 		<div class="manage_top">
 		구매 상세 내역
 		</div>
-		<br>
 			<div class="order_cont">
 				<div class="orderCont_date">
 					${date } 주문
@@ -214,10 +229,14 @@
 						<img src="./resources/upload/product/<%=odto.getOrder_pimage()%>">
 						</div>
 						<div class="order_info">
-							<a href="<%=request.getContextPath() %>/product_detail.do?pno=<%=pdto.getProduct_no()%>">
+							<a href="<%=request.getContextPath() %>/product_detail.do?pno=<%=pdto.getProduct_no()%>" style="font-weight:bold;">
 							<%=odto.getOrder_pname() %></a> 
 							<br>
-							<span> <%=pprice %> 원  |  <%=odto.getOrder_qty() %> 개 </span>
+							<span style="font-size:0.9em;"> <%=pprice %> 원  |  <%=odto.getOrder_qty() %> 개 </span><br>
+							<div class="order_btns">
+								<input type="button" value="문의하기" onclick="location.href='inquiry_write.do?ono=<%=odto.getOrder_no()%>'"><br>
+								<input type="button" value="리뷰쓰기">
+							</div>
 						</div>
 					</div>
 				<% }%>	

@@ -91,4 +91,8 @@
 	<![CDATA[select *from member where member_no = #{mno}]]>
 	</select>
 	
+	<select id="MemAllList" resultType="memberDTO">
+	<![CDATA[select *from MEMBER order by MEMBER_NO desc]]>
+	</select>
+	
 </mapper>

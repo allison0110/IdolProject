@@ -30,6 +30,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.idol.model.AdminCelebDAO;
 import com.idol.model.AdminDTO;
+import com.idol.model.BoardCategoryDAO;
+import com.idol.model.BoardCategoryDTO;
 import com.idol.model.CelebDAO;
 import com.idol.model.CelebDTO;
 import com.idol.model.CommunityDAO;
@@ -82,6 +84,10 @@ public class MemberController {
 	//커뮤니티게시판
 	@Autowired
 	private CommunityDAO comDao;
+	
+	//커뮤니티 카테고리
+	@Autowired
+	private BoardCategoryDAO bcDao;
 	
 	//팔로워
 	@Autowired
@@ -408,13 +414,16 @@ public class MemberController {
 		//문의내역 - 답변대기중인 게시글 수
 		int waiting = this.idao.watingReply(dto.getMember_id());
 		
+		//최근 3일간 구매한 건수 
+		int ThreeDaysOrder = this.odao.get3daysOrder(dto.getMember_id());
+		
 		
 		//값전달
 		model.addAttribute("mileage", mileage); //회원에 대한 마일리지 정보
 		model.addAttribute("waiting", waiting);//답변대기 문의글
 		model.addAttribute("iList",iList); //문의내역
 		model.addAttribute("oList", oList);
-		
+		model.addAttribute("threedays", ThreeDaysOrder);
 		
 		return "member/mypage";
 	}
@@ -1431,7 +1440,21 @@ public class MemberController {
 		
 	}
 	
-	
+	//마일리지 내역 
+	@RequestMapping("mileage_list.do")
+	public String mileageList(HttpSession session, Model model) {
+		
+		//로그인한 회원정보
+		MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
+		
+		//마일리지 리스트 불러오기
+		List<MileageDTO> mileage = this.mdao.getMileageList(dto.getMember_no());
+		
+		
+		model.addAttribute("mileage", mileage);
+		
+		return "member/mypage_mileage";
+	}
 	
 	
 	
@@ -1452,6 +1475,17 @@ public class MemberController {
 		//누른 feed의 회원 게시글 리스트
 		List<CommunityDTO> commList = this.comDao.getCommunityList(id);
 		feedInfo.put("commList", commList);
+		if(commList != null) {
+			model.addAttribute("community", commList);
+			
+			// 게시글 카테고리 리스트를 가져옴
+			List<BoardCategoryDTO> categorylist = this.bcDao.getCategoryList();
+					
+			model.addAttribute("cList", categorylist);
+			
+		}
+		
+		
 		
 		//누른 feed의 회원의 팔로우,팔로워 정보
 		//내가 팔로우 하는 사람들 팔로잉 follow
@@ -1614,7 +1648,8 @@ public class MemberController {
 	
 	//회원 언팔 기능
 	@RequestMapping("unfollow.do")
-	public void unfollow(@RequestParam("id")String id, HttpServletResponse response, HttpSession session) throws IOException {
+	public void unfollow(@RequestParam("id")String id, @RequestParam("feed")String feed,
+			HttpServletResponse response, HttpSession session) throws IOException {
 		
 		String login = (String)session.getAttribute("login_id");
 		
@@ -1623,23 +1658,15 @@ public class MemberController {
 		param.put("id", id);
 		
 		
-		
 		int check = this.followDao.deleteFollow(param);
 		response.setContentType("text/html; charset=UTF-8");
-		
-		String redirect ="";
-		
-		if(login.equals(id)) {
-			redirect = login;
-		}else {
-			redirect = id;
-		}
-		
+
 		PrintWriter out = response.getWriter();
+		
 		if(check>0) {
 			out.println("<script>");
 			out.println("alert('언팔 완료')");
-			out.println("location.href='myfeed.do?id="+redirect+"'");
+			out.println("location.href='myfeed.do?id="+feed+"'");
 			out.println("</script>");
 			
 		}else {
@@ -1653,31 +1680,27 @@ public class MemberController {
 	
 	//회원 팔로우기능
 	@RequestMapping("follow.do")
-	public void follow(@RequestParam("id")String id, HttpServletResponse response, HttpSession session) throws IOException {
+	public void follow(@RequestParam("id")String id, @RequestParam("feed")String feed,HttpServletResponse response, HttpSession session) throws IOException {
 		
-		//피드아이디 정보
-		MemberDTO feed = this.dao.getMemInfo(id);
+		//id : 팔로우한 아이디 , feed : 누구의 feed에서 동작을 했는지 구분
+		
+		System.out.println("id:"+id +"feed:"+feed);
+		
+		//팔로우한 아이디 정보
+		MemberDTO followInfo = this.dao.getMemInfo(id);
 		
 		//로그인아이디 정보
 		MemberDTO login = this.dao.getMemInfo((String)session.getAttribute("login_id"));
 		
-		int check = this.followDao.insertFollow(login, feed);
+		int check = this.followDao.insertFollow(login, followInfo);
 		response.setContentType("text/html; charset=UTF-8");
 		
 		PrintWriter out = response.getWriter();
 		
-		String redirect ="";
-		
-		if(login.equals(id)) {
-			redirect = login.getMember_id();
-		}else {
-			redirect = id;
-		}
-		
 		if(check>0) {
 			out.println("<script>");
 			out.println("alert('팔로우 성공')");
-			out.println("location.href='myfeed.do?id="+redirect+"'");
+			out.println("location.href='myfeed.do?id="+feed+"'");
 			out.println("</script>");
 			
 		}else {
@@ -1750,4 +1773,23 @@ public class MemberController {
 		}
 		
 	}
-}
+	
+	
+	//마이피드 - 포스팅 
+	@RequestMapping("feed_posting.do")
+	public String feed_posting(@RequestParam("id")String id, Model model, HttpSession session) {
+		
+		//내가 쓴 커뮤니티게시판 글 리스트 가져오기  - myfeed.do에서 세션 저장해둠 
+//		List<CommunityDTO> commList = this.comDao.getCommunityList(id);
+//		feedInfo.put("commList", commList);
+		
+		// 게시글 카테고리 리스트를 가져옴
+		List<BoardCategoryDTO> categorylist = this.bcDao.getCategoryList();
+		
+		
+		model.addAttribute("cList", categorylist);
+		model.addAttribute("id", (String)session.getAttribute("login_id"));
+		return "member/feed_posting";
+	}
+	
+	}

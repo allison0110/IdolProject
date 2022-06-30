@@ -14,6 +14,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="./resources/css/member.css?v=2022062314">
 <style type="text/css">
 	a{
 		text-decoration: none;
@@ -47,7 +48,7 @@
 	}
 	
 	.feed_headOverlay table{
-		width:1000px;
+		width:100%;
 	}
 	
 	.feed_headOverlay img{
@@ -300,14 +301,14 @@
 										}
 									}
 									}
-									System.out.println("feed_top check:"+check);
+									/* System.out.println("feed_top check:"+check); */
 									if(check>0){//이미 팔로우중이라면
 								%>	
-										<input type="button" value="팔로잉" 
+										<input type="button" class="f_btn2" value="팔로잉" 
 											onclick="location.href='unfollow.do?id=${dto.getMember_id()}'">
 											<!-- 로그인한 아이디의 팔로우리스트에서 현재 피드의 id를 삭제하기 -->
 								<% 	}else{// 팔로우중이 아니라면 %>
-										<input type="button" value="팔로우" 
+										<input type="button" class="f_btn1" value="팔로우" 
 											onclick="location.href='follow.do?id=${dto.getMember_id()}'">
 											<!-- 로그인한 아이디의 팔로우리스트에 현재 피드의 id를 추가하기  -->	
 								<% }%>
@@ -404,7 +405,8 @@
 					<tr>
 						<td colspan="3" style="display:flex; justify-content: space-around; text-align: center;">
 							<div class="feed_sum" >게시물<br>
-							<a href="#"> <fmt:formatNumber value="${commList.size() }"/>   </a></div>
+							<a href="<%=request.getContextPath() %>/feed_posting.do?id=${dto.getMember_id()}"> 
+							<fmt:formatNumber value="${commList.size() }"/>   </a></div>
 							
 							<div class="feed_sum" >팔로워<br>
 							<a href="<%=request.getContextPath()%>/feed_follower.do?id=${dto.getMember_id()}">

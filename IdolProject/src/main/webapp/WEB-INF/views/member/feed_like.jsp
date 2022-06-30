@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${id }님의 피드 - like</title>
+<title>${id }님의 피드 - Like</title>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" ></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
@@ -107,7 +107,7 @@
 							</a>
 						</td>
 						<td >
-							<a href="#" style="color: gray;">POSTING</a>
+							<a href="<%=request.getContextPath() %>/feed_posting.do?id=${dto.getMember_id()}" style="color: gray;">POSTING</a>
 						</td >
 						<td style="border-bottom:1px solid #2a3a52">
 							<a href="<%=request.getContextPath() %>/feed_like.do?id=${dto.getMember_id()}" style="color: black;">LIKE♥</a>
