@@ -4,6 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,6 +89,7 @@
 	
 	.card_image {
 	width:100%;
+	height:269px;
 	display:block;
 }
 
@@ -206,7 +208,11 @@
 			</div><!-- class="feed_title"  end -->
 			<div class="feed_introduction" align="left">
 				<div class="introduction_cont">
-				<p>${dto.getMember_introduction() }</p>
+				<% pageContext.setAttribute("replaceChar", "\n"); %>
+				<p>
+				  	<c:set var="content" value="${fn:replace(dto.getMember_introduction(), replaceChar, '<br>') }"/>
+				  	${content }
+				</p>
 				</div>
 				<hr>
 				<table>
@@ -293,15 +299,23 @@
 							img = cdto.getCommunity_image().split("\\|");
 							//대표이미지는 맨처음 이미지 img[0]
 									
-							String str = "Aespa LOVE LETTER EARRINGSdetail1.jpg";
+							/* String str = "Aespa LOVE LETTER EARRINGSdetail1.jpg";
 							if(str.equals(img[0])){
 								System.out.println("동일");
-							}
+							} */
+							System.out.println("img[0]:"+img[0]);
 						}
 						
 				%>		
 					<div class="card">
-				<img alt="" src="./resources/upload/community/<%=img[0] %>" class="card_image">
+					<%if(cdto.getCommunity_image() != null ){
+				%>
+					<img alt="" src="./resources/upload/community/<%=img[0] %>" class="card_image"> 
+					<% }else{//올린 이미지가 없을 경우 %>
+					
+					 <img alt="" src="./resources/upload/logo.png" class="card_image">
+					<% }%>
+				
 				
 				<%
 					List<BoardCategoryDTO> cList = (List<BoardCategoryDTO>)request.getAttribute("cList");

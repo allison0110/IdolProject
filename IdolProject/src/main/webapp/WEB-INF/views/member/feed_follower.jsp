@@ -54,7 +54,7 @@
 </style>
 </head>
 <body>
-	<c:set var="dto" value="${feedInfo.get('memInfo') }"/> <!-- 회원정보 -->
+	<c:set var="dto" value="${feedInfo.get('mInfo') }"/> <!-- 회원정보 -->
 	<c:set var="cont" value="${followerCont }" /> <!-- 팔로워들 회원정보 -->
 	<c:set var="login_f" value="${feedInfo.get('login_follow') }"/> <!-- 팔로워 -->
 	
@@ -92,36 +92,31 @@
 					</div>
 					<div class="fList_btn">
 						<c:if test="${!empty login_f }"> <!-- 로그인회원에게 팔로우리스트 데이터가 있다면 -->
+						<c:set var="check" value="0"/>
 						<c:forEach items="${login_f }" var="login">
-							
 							<!-- 팔로우가 되어있는 경우 -->
 							<c:if test="${cont.getMember_id() == login.getFollow_name()}">
 								<c:set var="check" value="1"/>
 							</c:if>
-							<!-- 팔로우 안되어 있는 경우  -->
-							<c:if test="${cont.getMember_id() != login.getFollow_name()}">
-								<c:set var="check" value="0"/>
-							</c:if>
-							<!-- 나 자신인 경우 -->
-							<c:if test="${cont.getMember_id() == login_id}">
-								<c:set var="check" value="-1"/>
-							</c:if>
-							
 						</c:forEach>
 						</c:if>
 						<c:if test="${empty login_f }"> <!-- 로그인회원에게 팔로우리스트 데이터가 없으면 -->
 							<c:set var="check" value="0"/>
 						</c:if>
-						<c:if test="${empty login_id }"> <!-- 비회원일 경우 -->
+						<c:if test="${empty login_id}"> <!-- 비회원일 경우 -->
 							<c:set var="check" value="-1"/>
 						</c:if>
+						<!-- 나 자신인 경우 -->
+						<c:if test="${cont.getMember_id() == login_id}">
+								<c:set var="check" value="-1"/>
+						</c:if>
 						
-						<%-- ${check } --%>
+						
 						<c:if test="${check == '1' }">
-								<input class="f_btn2" type="button" value="팔로잉" onclick="location.href='unfollow.do?id=${cont.getMember_id()}'">
+								<input class="f_btn2" type="button" value="팔로잉" onclick="location.href='unfollow.do?id=${cont.getMember_id()}&feed=${dto.getMember_id()}'">
 							</c:if>
 						<c:if test="${check == '0' }">
-								<input class="f_btn1" type="button" value="팔로우" onclick="location.href='follow.do?id=${cont.getMember_id()}'">
+								<input class="f_btn1" type="button" value="팔로우" onclick="location.href='follow.do?id=${cont.getMember_id()}&feed=${dto.getMember_id()}'">
 						</c:if>
 						<c:if test="${check == '-1' }">
 							

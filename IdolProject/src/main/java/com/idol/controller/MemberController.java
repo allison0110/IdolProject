@@ -1644,7 +1644,8 @@ public class MemberController {
 	
 	//회원 언팔 기능
 	@RequestMapping("unfollow.do")
-	public void unfollow(@RequestParam("id")String id, HttpServletResponse response, HttpSession session) throws IOException {
+	public void unfollow(@RequestParam("id")String id, @RequestParam("feed")String feed,
+			HttpServletResponse response, HttpSession session) throws IOException {
 		
 		String login = (String)session.getAttribute("login_id");
 		
@@ -1653,23 +1654,15 @@ public class MemberController {
 		param.put("id", id);
 		
 		
-		
 		int check = this.followDao.deleteFollow(param);
 		response.setContentType("text/html; charset=UTF-8");
-		
-		String redirect ="";
-		
-		if(login.equals(id)) {
-			redirect = login;
-		}else {
-			redirect = id;
-		}
-		
+
 		PrintWriter out = response.getWriter();
+		
 		if(check>0) {
 			out.println("<script>");
 			out.println("alert('언팔 완료')");
-			out.println("location.href='myfeed.do?id="+redirect+"'");
+			out.println("location.href='myfeed.do?id="+feed+"'");
 			out.println("</script>");
 			
 		}else {
@@ -1683,31 +1676,27 @@ public class MemberController {
 	
 	//회원 팔로우기능
 	@RequestMapping("follow.do")
-	public void follow(@RequestParam("id")String id, HttpServletResponse response, HttpSession session) throws IOException {
+	public void follow(@RequestParam("id")String id, @RequestParam("feed")String feed,HttpServletResponse response, HttpSession session) throws IOException {
 		
-		//피드아이디 정보
-		MemberDTO feed = this.dao.getMemInfo(id);
+		//id : 팔로우한 아이디 , feed : 누구의 feed에서 동작을 했는지 구분
+		
+		System.out.println("id:"+id +"feed:"+feed);
+		
+		//팔로우한 아이디 정보
+		MemberDTO followInfo = this.dao.getMemInfo(id);
 		
 		//로그인아이디 정보
 		MemberDTO login = this.dao.getMemInfo((String)session.getAttribute("login_id"));
 		
-		int check = this.followDao.insertFollow(login, feed);
+		int check = this.followDao.insertFollow(login, followInfo);
 		response.setContentType("text/html; charset=UTF-8");
 		
 		PrintWriter out = response.getWriter();
 		
-		String redirect ="";
-		
-		if(login.equals(id)) {
-			redirect = login.getMember_id();
-		}else {
-			redirect = id;
-		}
-		
 		if(check>0) {
 			out.println("<script>");
 			out.println("alert('팔로우 성공')");
-			out.println("location.href='myfeed.do?id="+redirect+"'");
+			out.println("location.href='myfeed.do?id="+feed+"'");
 			out.println("</script>");
 			
 		}else {
@@ -1799,5 +1788,4 @@ public class MemberController {
 		return "member/feed_posting";
 	}
 	
-	
-}
+	}
