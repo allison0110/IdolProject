@@ -53,6 +53,12 @@ public class MileageDAOImpl implements MileageDAO {
 		return null;
 	}
 
+	//마일리지 리스트 가져오기
+	@Override
+	public List<MileageDTO> getMileageList(int member_no) {
+		return this.sqlSession.selectList("mileageList",member_no);
+	}
+
 	
 
 }
