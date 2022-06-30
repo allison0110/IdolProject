@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
     
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -144,25 +147,26 @@
 						${dto.product_name }
 					</div>
 					<div>
-						수량 : ${dto.product_qty }
+						QUATITY: ${dto.product_qty }
 					</div>
-					<div>
-						가격: ${dto.product_price }
+					<div> 
+						PRICE: <fmt:formatNumber value="${dto.product_price }" />원
 					</div>
 					<c:if test="${dto.product_size != null }">
-						사이즈 : ${dto.product_size }
+						SIZE : ${dto.product_size }
 					</c:if>
 					<c:if test="${dto.product_color != null }">
-						색상 : ${dto.product_color }
+						COLOR: ${dto.product_color }
 					</c:if>
 					<div>
-						상세정보 : ${dto.product_detail }
+						INFO: ${dto.product_detail }
 					</div>
 					<div>
-						마일리지:  ${dto.product_mileage }
+						MILEAGE: <fmt:formatNumber value="${dto.product_mileage }" /> POINT
+						
 					</div>
 					<div>
-						입고일 : ${dto.product_input.substring(0, 10) }
+						INPUT DATE: ${dto.product_input.substring(0, 10) }
 					</div>
 					
 				

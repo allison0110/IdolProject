@@ -43,7 +43,7 @@
 	.music_list {
 		color: white;
 		font-family: 'Press Start 2P', 'Gugi', cursive;
-		
+		line-height: 1.5;
 	
 	}
 	

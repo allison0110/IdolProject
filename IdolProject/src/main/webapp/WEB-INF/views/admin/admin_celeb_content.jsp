@@ -229,7 +229,7 @@
 	$('.celeb_slider').slick({
 		  dots: false,
 		  infinite: true,
-		  speed: 500,
+		  speed: 250,
 		  fade: true,
 		  cssEase: 'linear',
 		  autoplay: true,
