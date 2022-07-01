@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,7 +82,10 @@
                     <div class="borderLine"></div>
 
                     <div class="detail">
-                        	${boardCont.community_cont }
+                    <% pageContext.setAttribute("replaceChar", "\n"); %>
+                    	<c:set var="content" value="${fn:replace(boardCont.community_cont, replaceChar, '<br>') }"/>
+				  	${content }
+                    	<%-- ${boardCont.community_cont } --%>
                     </div>
                     
                     
