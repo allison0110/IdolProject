@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
-<link rel="stylesheet" href="./resources/css/member.css?v=2022062315">
+<link rel="stylesheet" href="./resources/css/member.css?v=2022063010">
 <style type="text/css">
 
 	.profile_image_wrap{

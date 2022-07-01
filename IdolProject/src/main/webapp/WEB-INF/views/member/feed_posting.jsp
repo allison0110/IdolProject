@@ -20,11 +20,7 @@
       rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
-<link rel="stylesheet" href="./resources/css/member.css?v=2022062212">
-
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
+<link rel="stylesheet" href="./resources/css/member.css?v=2022063010">
 
 <style type="text/css">
 
@@ -47,6 +43,7 @@
 
 .card_image {
 	width:100%;
+	height:269px;
 	display:block;
 }
 
@@ -167,7 +164,7 @@
 			
 			
 			
-			<div class="posting_cards" data-aos="fade-down" >
+			<div class="posting_cards" >
 			<c:if test="${empty comm }">
 			<p> 작성한 게시글이 없습니다.</p>
 			</c:if>
@@ -192,11 +189,18 @@
 				
 		%>
 				<div class="card" >
-				<img class="card_image" src="./resources/upload/community/<%=upload%>" > 
 				<!-- 이미지 값을 넣으면 java.lang.NullPointerException + checked_encoding 에러
 					 net::ERR_INCOMPLETE_CHUNKED_ENCODING ===> 파일명 길이를 수정하니까 오류 해결
-					 ******병합할때 수정하기******
 				 -->
+				<%if(cdto.getCommunity_image() != null ){
+				%>
+					<img alt="" src="./resources/upload/community/<%=img[0] %>" class="card_image"> 
+					<% }else{//올린 이미지가 없을 경우 %>
+					
+					 <img alt="" src="./resources/upload/logo.png" class="card_image">
+					<% }%> 
+				 
+				
 		 <%
 					List<BoardCategoryDTO> cList = (List<BoardCategoryDTO>)request.getAttribute("cList");
 					String categoryName = "";
@@ -262,10 +266,7 @@
 	
 	</div><!-- class="myfeed_container" end -->
 	</div>
-	
-		<script>
-    AOS.init();
-  </script>
+
 	
 	<%@include file="../include/user_bottom.jsp" %>
 </body>

@@ -1,5 +1,6 @@
 package com.idol.model;
 
+
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -38,20 +39,7 @@ public class MileageDAOImpl implements MileageDAO {
 
 	
 
-	/* **********************희원님 *************************/
 	
-	@Override
-	public List<MileageDTO> mostMessages() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public List<MileageDTO> mostMileage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	//마일리지 리스트 가져오기
 	@Override

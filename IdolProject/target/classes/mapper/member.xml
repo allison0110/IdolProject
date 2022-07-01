@@ -35,6 +35,7 @@
 	</select>
 	
 	
+
 	<!-- 아이디,비밀번호 찾기 -->
 	<select id="findid" parameterType="HashMap" resultType="String">
 		select member_id from member 

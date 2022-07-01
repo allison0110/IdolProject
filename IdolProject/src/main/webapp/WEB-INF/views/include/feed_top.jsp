@@ -301,7 +301,7 @@
 										}
 									}
 									}
-									System.out.println("feed_top check:"+check);
+									/* System.out.println("feed_top check:"+check); */
 									if(check>0){//이미 팔로우중이라면
 								%>	
 										<input type="button" class="f_btn2" value="팔로잉" 
