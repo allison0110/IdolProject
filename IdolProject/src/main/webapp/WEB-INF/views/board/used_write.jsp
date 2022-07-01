@@ -180,7 +180,7 @@
 				
 				<div class="submit">
 					<div class="submit_left">
-						<a href="location.history.back()" style="text-decoration:none; color:red;">돌아가기</a>
+						<a href="<%=request.getContextPath() %>/used_list.do" style="text-decoration:none; color:red;">돌아가기</a>
 					</div>
 					
 					<div class="submit_right">
