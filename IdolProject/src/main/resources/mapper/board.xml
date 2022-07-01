@@ -63,5 +63,15 @@
   			 where community_no = #{community_no} ]]>
   </update>
   
+  <!-- 게시물 추천수 증가-->
+  <update id="recommendtAdd" parameterType="int">
+  	<![CDATA[update community_board set community_recommend = community_recommend + 1 where community_no = #{bno}]]>
+  </update>
+  
+  <!-- 게시물 추천수 감소 -->
+  <update id="recommendtMinus" parameterType="int">
+  	<![CDATA[update community_board set community_recommend = community_recommend - 1 where community_no = #{bno}]]>
+  </update>
+  
   
   </mapper>

@@ -25,8 +25,10 @@
                 <c:set var="commentlist" value="${commentList}"/>  
                 <c:set var="mlist" value="${mList}"/>  
                 <input type="hidden" id="loginId" value="${loginInfo.member_id }">
+                <input type="hidden" id="loginNo" value="${loginInfo.member_no }">
                 <input type="hidden" id="writerId" value="${boardCont.community_userid }">
                 <input type="hidden" id="bno" value="${boardCont.community_no }">
+                <input type="hidden" id="recommendStatus" value="${recommendStatus}">
                     <div class="topic">
                                            
                         <c:if test="${!empty clist}">
@@ -94,7 +96,7 @@
 
                     <div class="info2">
                     	<div class="HitandComment">
-                        <i class="fa-solid fa-thumbs-up"></i>&nbsp;${boardCont.community_recommend } &nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fa-solid fa-thumbs-up"></i>&nbsp; <span id="recommendCount">${boardCont.community_recommend }</span> &nbsp;&nbsp;&nbsp;&nbsp;
                         <i class="fa-solid fa-comment"></i>&nbsp;${commentCount } &nbsp;&nbsp;&nbsp;&nbsp;
                         </div>
                         <div class="UpdateAndDelete">
@@ -197,6 +199,8 @@
                 </div>
             </div> <!-- contnet -->
         </div>
+        <a id="back-to-top" href="#">Top</a>
+        <a id="back-to-bottom" href="#">Bot</a>
     </div>  
 	
 <%@include file="../include/user_bottom.jsp" %>

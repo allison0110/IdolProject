@@ -9,6 +9,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/community_searchList.css">
 </head>
 <body>
@@ -24,8 +25,13 @@
                 <c:set var = "seatchlist" value="${seatchList }"/>
                 <c:set var = "memlist" value="${memList }"/>
                 <c:set var = "comcountlist" value="${comcountList }"/>
+                <c:set var = "recommentStslist" value="${recommentStsList }"/>
+                <input type="hidden" id="loginId" value="${loginInfo.member_id }">
+                <input type="hidden" id="loginNo" value="${loginInfo.member_no }">
                 	<c:if test="${!empty seatchlist }">
                 	<c:forEach items="${seatchlist }" var="searchdto" varStatus="status">
+                	<input type="hidden" class="recommendStatus" value="${recommentStslist.get(status.index)}">
+                	<input type="hidden" class="bno" value="${searchdto.community_no}">
                     <div class="article">
                         <!-- <div class="new">new</div> -->
                         <!-- <div class="hot">Hot</div> -->
@@ -34,7 +40,7 @@
                         <c:if test="${searchdto.community_title.length() > 25 }">
                         <h3>${searchdto.community_title.substring(0,25) }...</h3>
                         </c:if>
-                        <c:if test="${searchdto.community_title.length() < 25 }">
+                        <c:if test="${searchdto.community_title.length() <= 25 }">
                         <h3>${searchdto.community_title }</h3> 
                         </c:if>                     
                         </a> 
@@ -44,7 +50,7 @@
                             	<c:if test="${searchdto.community_cont.length() > 70 }">
                             	${searchdto.community_cont.substring(0,70)}....
                             	</c:if>
-                            	<c:if test="${searchdto.community_cont.length() < 70 }">
+                            	<c:if test="${searchdto.community_cont.length() <= 70 }">
                             	${searchdto.community_cont}
                             	</c:if>
                             </a>
@@ -74,7 +80,7 @@
                             <div class="content-info">
                                 <div class="info-left">
                                     <i class="fa-solid fa-eye"></i>${searchdto.community_hit } &nbsp;&nbsp;
-                                    <i class="fa-solid fa-thumbs-up"></i>${searchdto.community_recommend } &nbsp;&nbsp;
+                                    <i class="fa-solid fa-thumbs-up"></i><span class="recommendCount">${searchdto.community_recommend }</span> &nbsp;&nbsp;
                                     <i class="fa-solid fa-comment"></i>${comcountlist[status.index]} &nbsp;&nbsp;
                                 </div>
                                 <div class="info-right">
