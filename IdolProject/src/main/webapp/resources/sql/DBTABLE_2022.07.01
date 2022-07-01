@@ -1,4 +1,4 @@
-2022-06-27일(최신)
+2022-07-01일(최신)
 
 --회원 테이블(수정:DATEOFBIRTH 컬럼 TYPE DATE로 수정,MEMBER_PWD,MEMBER_PHONE 컬럼추가, MEMBER_IMAGE컬럼 타입 글자수 1000으로 변경  )
 --회원 테이블(수정: 회원 닉네임 컬럼 추가)
@@ -144,8 +144,8 @@ CREATE TABLE COMMUNITY_BOARD
 (
     COMMUNITY_NO           NUMBER           PRIMARY KEY,        -- 게시판 글번호
     COMMUNITY_USERID       VARCHAR2(20)     NOT NULL,           -- 회원아이디
-    COMMUNITY_TITLE        VARCHAR2(100)     NOT NULL,           -- 게시판 제목
-    COMMUNITY_CONT         VARCHAR2(2000)    ,                   -- 게시판 내용
+    COMMUNITY_TITLE        VARCHAR2(4000)     NOT NULL,           -- 게시판 제목
+    COMMUNITY_CONT         VARCHAR2(4000)    ,                   -- 게시판 내용
     COMMUNITY_HIT          NUMBER           DEFAULT 0 NOT NULL, -- 게시판 조회수
     COMMUNITY_DATE         DATE             NOT NULL,           -- 게시판 작성일
     COMMUNITY_UPDATE       DATE             ,                   -- 게시판 수정일
@@ -167,6 +167,15 @@ CREATE TABLE COMMUNITY_COMMENT
     COMMENT_INDENT    NUMBER           NOT NULL,    -- 대댓글 
     COMMUNITY_NOFK    NUMBER           NOT NULL,    -- 게시판 글번호
     CATEGORY_CNOFK    NUMBER           NOT NULL     -- 카테고리번호
+);
+
+-- 커뮤니티 추천
+CREATE TABLE COMMUNITY_RECOMMEND
+(
+    RECOMMEND_NO    NUMBER     PRIMARY KEY, -- 추천번호
+    MEMBER_NO       NUMBER     NOT NULL,    -- 추천한 회원번호
+    COMMUNITY_NO    NUMBER     NOT NULL,    -- 추천 커뮤니티게시글 번호
+    RECOMMEND_DATE  DATE       NOT NULL     -- 게시물 추천일자
 );
 
 
