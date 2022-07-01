@@ -1358,6 +1358,15 @@ public class MemberController {
 		//문의글 내용
 		InquiryDTO dto = this.idao.getInquirycont(no);
 		
+		//상품 정보가 있는 경우 
+				if(dto.getProduct_no() != 0) {
+					
+					ProductDTO pdto = this.pdao.getProductDetail(dto.getProduct_no());
+					model.addAttribute("pCont", pdto);
+		}
+		
+		
+		
 		model.addAttribute("Cont", dto);
 		model.addAttribute("page", page);
 		

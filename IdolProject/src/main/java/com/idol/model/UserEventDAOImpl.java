@@ -38,7 +38,7 @@ public class UserEventDAOImpl implements UserEventDAO{
 
 	@Override
 	public EventDTO eventCont(int no) {
-		return this.sqlSession.selectOne("cont", no);
+		return this.sqlSession.selectOne("event_cont", no);
 	}
 
 	@Override

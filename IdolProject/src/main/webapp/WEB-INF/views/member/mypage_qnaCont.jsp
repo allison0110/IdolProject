@@ -201,7 +201,8 @@
 				</tr>
 				<tr>
 					<td colspan="2" class="qnaCont_contTD">
-						<p>${reply.getInquiry_cont() }</p>
+					<c:set var="admin_reply" value="${fn:replace(reply.getInquiry_cont(), replaceChar, '<br>') }"/>
+						<p>${admin_reply }</p>
 					</td>
 				</tr>
 			</table>

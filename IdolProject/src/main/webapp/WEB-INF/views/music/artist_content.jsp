@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="../include/user_top.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -148,7 +148,7 @@
 </style>
 </head>
 <body>
-
+	<%@include file="../include/user_top.jsp" %>
 	<div class="wrapper" align="center">
 		
 		<div class="music_search">
@@ -374,6 +374,6 @@
 		</div>
 		
 	</div>
-	
+		<%@include file="../include/user_bottom.jsp" %>
 </body>
 </html>

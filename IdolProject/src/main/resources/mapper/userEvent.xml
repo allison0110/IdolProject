@@ -40,7 +40,7 @@
 		update notice set notice_hit = notice_hit +1 where notice_no=#{no}
 	</update>
 	
-	<select id="cont" parameterType="int" resultType="eventDTO">
+	<select id="event_cont" parameterType="int" resultType="eventDTO">
 		select * from notice where notice_no=#{no}
 	</select>
 	
