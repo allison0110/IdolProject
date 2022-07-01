@@ -20,10 +20,6 @@
 			select admin_pwd from admin where admin_id = #{member_id}
 		</select>
 		
- 		<select id="test3" resultType="adminDTO">
- 			select * from admin 
- 		</select>
- 		
     	<!-- 가수 등록 -->
     	<insert id="insertCeleb" parameterType="celebDTO">
     		<selectKey resultType="int" keyProperty="celeb_no" order="BEFORE"> 

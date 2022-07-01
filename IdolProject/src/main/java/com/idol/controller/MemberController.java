@@ -1,4 +1,4 @@
-package com.idol.controller;
+﻿package com.idol.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -101,12 +101,13 @@ public class MemberController {
 	@Autowired
 	private OrderDAO odao;
 	
+	@Autowired
+	private AdminCelebDAO acdao;
+
 	//MUSIC테이블
 	@Autowired
 	private MusicDAO musicDao;
 	
-	@Autowired
-	private AdminCelebDAO acdao;
 	
 	
 	//게시판 페이지 관련 
@@ -138,7 +139,7 @@ public class MemberController {
 		
 		return "member/join";
 	}
-	
+
 //	//회원가입폼페이지 아이디중복체크 메서드
 //		@ResponseBody
 //		@RequestMapping(value="/idCheck.do", method=RequestMethod.POST, produces="application/json")
@@ -155,15 +156,16 @@ public class MemberController {
 	
 	
 	//회원가입폼페이지 아이디중복체크 메서드
-	@ResponseBody
-	@RequestMapping(value="/idCheck.do", method=RequestMethod.POST)
-	public String idCheck(HttpServletRequest request){
+
+   @ResponseBody
+   @RequestMapping(value="/idCheck.do", method=RequestMethod.POST)
+   public String idCheck(HttpServletRequest request){
 		
 
 		String id = request.getParameter("member_id");
 		System.out.println("중복확인 id:"+id);
 		
-		String result1 = "";
+	    String result1 = "";
 		
 		if(this.dao.idcheck(id) == 1) {
 			
@@ -172,7 +174,7 @@ public class MemberController {
 			result1 ="0";
 		}
 		
-		return result1;
+	   return result1;
 	}
 	
 	
@@ -268,8 +270,8 @@ public class MemberController {
 		PrintWriter out = response.getWriter();
 		
 		HttpSession session = request.getSession();
-		
-		if(check == 1 ) {
+	
+	    if(check == 1 ) {
 			
 			MemberDTO login = this.dao.getMemInfo(dto.getMember_id());
 			
@@ -292,9 +294,10 @@ public class MemberController {
 			out.println("alert('비밀번호가 틀렸습니다. 다시 확인해주세요')");
 			out.println("history.back()");
 			out.println("</script>");
+			
 		}else if(check == 99) {//정환님코드 추가
 			
-			AdminDTO adto = this.acdao.getAdminCont(dto.getMember_id());
+		 AdminDTO adto = this.acdao.getAdminCont(dto.getMember_id());
 			
 			session.setAttribute("admin_id", adto.getAdmin_id());
 			session.setAttribute("admin_pwd", adto.getAdmin_pwd());
@@ -759,7 +762,7 @@ public class MemberController {
 		return"member/mypage_orderList" ;
 	}
 	
-	//마이페이지 - 문의게시글 날짜검색
+        //마이페이지 - 문의게시글 날짜검색
 		@RequestMapping("order_date.do")
 		public String order_date(HttpServletRequest request, Model model,
 				HttpSession session) throws ParseException {
@@ -1125,7 +1128,7 @@ public class MemberController {
 		//문의게시판 카테고리 리스트
 		List<Inquiry_CategoryDTO> cList = this.idao.getInquiryCategory();
 		
-		int pno = 0; 
+	    int pno = 0; 
 		
 		if(request.getParameter("pno") == null && request.getParameter("ono") == null) {
 			
@@ -1134,10 +1137,10 @@ public class MemberController {
 		}else if( request.getParameter("ono") != null && request.getParameter("pno") == null){
 			//주문정보가 있는 경우 , 주문관련 문의
 			
-			//주문 정보
+		    //주문 정보
 			OrderDTO odto = this.odao.getOrderCont(Integer.parseInt(request.getParameter("ono")));
 			
-			//주문한 제품정보 가져오기 (이름으로 찾기)
+		    //주문한 제품정보 가져오기 (이름으로 찾기)
 			ProductDTO product = this.pdao.getProductDetail(odto.getOrder_pname());
 			
 			//제품정보 넘기기
@@ -1152,6 +1155,7 @@ public class MemberController {
 		}
 		
 		
+	
 		model.addAttribute("cList", cList);
 		
 		
