@@ -194,10 +194,7 @@
 							</c:forEach>
 						</c:if>
 						<c:if test="${dto.getMember_id().length() > 4 }">
-						${dto.getMember_id().substring(0,4) }
-						<c:forEach begin="1" end="${dto.getMember_id().substring(4).length() }">
-									*
-						</c:forEach>
+						${dto.getMember_id().substring(0,(dto.getMember_id().length()-2)) }**
 						</c:if>
 					</span>
 					</div>
