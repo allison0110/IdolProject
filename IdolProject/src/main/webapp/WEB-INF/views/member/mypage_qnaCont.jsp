@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -151,7 +152,11 @@
 				<tr class="qnaCont_contTR">
 					<!-- <th>내용</th> -->
 					<td colspan="2" class="qnaCont_contTD">
-						<p>${cont.getInquiry_cont() }</p>
+					<% pageContext.setAttribute("replaceChar", "\n"); %>
+						<p>
+						<c:set var="content" value="${fn:replace(cont.getInquiry_cont(), replaceChar, '<br>') }"/>
+				  		${content }
+						</p>
 					</td>
 				</tr>
 				<tr>

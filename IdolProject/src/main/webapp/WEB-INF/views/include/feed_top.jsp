@@ -305,11 +305,11 @@
 									if(check>0){//이미 팔로우중이라면
 								%>	
 										<input type="button" class="f_btn2" value="팔로잉" 
-											onclick="location.href='unfollow.do?id=${dto.getMember_id()}'">
+											onclick="location.href='unfollow.do?id=${dto.getMember_id()}&feed=${dto.getMember_id()}'">
 											<!-- 로그인한 아이디의 팔로우리스트에서 현재 피드의 id를 삭제하기 -->
 								<% 	}else{// 팔로우중이 아니라면 %>
 										<input type="button" class="f_btn1" value="팔로우" 
-											onclick="location.href='follow.do?id=${dto.getMember_id()}'">
+											onclick="location.href='follow.do?id=${dto.getMember_id()}&feed=${dto.getMember_id()}'">
 											<!-- 로그인한 아이디의 팔로우리스트에 현재 피드의 id를 추가하기  -->	
 								<% }%>
 								

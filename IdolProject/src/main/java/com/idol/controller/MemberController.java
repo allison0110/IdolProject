@@ -1132,7 +1132,7 @@ public class MemberController {
 			System.out.println("제품정보 및 주문정보 없음");
 			
 		}else if( request.getParameter("ono") != null && request.getParameter("pno") == null){
-			//주문정보가 있는 경우 
+			//주문정보가 있는 경우 , 주문관련 문의
 			
 			//주문 정보
 			OrderDTO odto = this.odao.getOrderCont(Integer.parseInt(request.getParameter("ono")));
@@ -1144,7 +1144,7 @@ public class MemberController {
 			model.addAttribute("pCont", product);
 			model.addAttribute("ono", odto.getOrder_no());
 			
-		}else if(request.getParameter("pno") != null) {
+		}else if(request.getParameter("pno") != null && request.getParameter("ono") == null) { //제품정보만 있다면 상품문의
 			
 			pno = Integer.parseInt(request.getParameter("pno"));
 			ProductDTO product = this.pdao.getProductDetail(pno);
