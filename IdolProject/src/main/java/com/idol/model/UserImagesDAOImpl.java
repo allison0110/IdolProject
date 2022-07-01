@@ -16,7 +16,7 @@ public class UserImagesDAOImpl implements UserImagesDAO {
 	
 	@Override
 	public List<ImagesDTO> imagesList() {
-		return null;
+		return this.sqlSession.selectList("list");
 	}
 	
 	

@@ -1,10 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
+<!-- 환경설정하는 곳 -->
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   
 <configuration>
+	<!-- 타입별칭을 주는 태그 -->
 	<typeAliases>
 		<typeAlias type="com.idol.model.MemberDTO" alias="memberDTO"/>
 		<typeAlias type="com.idol.model.MemberDAO" alias="memberDAO"/>
@@ -24,12 +26,13 @@
  		<typeAlias type="com.idol.model.OrderDTO" alias="OrderDTO"/>
  		<typeAlias type="com.idol.model.CartDAO" alias="CartDAO"/>
  		<typeAlias type="com.idol.model.CartDTO" alias="CartDTO"/>
+ 		
  		<typeAlias type="com.idol.model.PopupDTO" alias="popupDTO"/>
  		<typeAlias type="com.idol.model.MusicDTO" alias="musicDTO"/>
- 		<typeAlias type="com.idol.model.ImagesDTO" alias="imagesDTO"/>
  		<typeAlias type="com.idol.model.GroupDTO" alias="groupDTO"/>
  		<typeAlias type="com.idol.model.NoticeDTO" alias="noticeDTO"/>
  		<typeAlias type="com.idol.model.AdminDTO" alias="adminDTO"/>
+
  		<typeAlias type="com.idol.model.EventDTO" alias="eventDTO"/>
 		<typeAlias type="com.idol.model.PageDTO" alias="pageDTO"/>
 		<typeAlias type="com.idol.model.ProductCategoryDTO" alias="pCategoryDTO"/>
@@ -40,7 +43,9 @@
 		<typeAlias type="com.idol.model.UsedCommDTO" alias="usedCommDTO"/>
 		<typeAlias type="com.idol.model.Comm_CommentDTO" alias="CommCommDTO"/>
 		<typeAlias type="com.idol.model.DateRangeDTO" alias="dRangeDTO"/>
-		
+		<typeAlias type="com.idol.model.ImagesDTO" alias="imagesDTO"/>
+
+		<typeAlias type="com.idol.model.RankingDTO" alias="rankingDTO"/>
 
 		<typeAlias type="com.idol.model.BoardDAO" alias="BoardDAO"/>
 		<typeAlias type="com.idol.model.BoardDTO" alias="BoardDTO"/>
