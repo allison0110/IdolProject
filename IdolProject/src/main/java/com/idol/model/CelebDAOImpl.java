@@ -44,6 +44,13 @@ public class CelebDAOImpl implements CelebDAO{
 		return sqlSession.selectOne("Cdetail", cno);
 		
 	}
+
+	//-------------------경연----------------------------
+	@Override
+	public List<CelebDTO> getArtistList(String group) {
+		
+		return sqlSession.selectList("artistList", group);
+	}
 	
 	
 	

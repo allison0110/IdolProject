@@ -43,7 +43,7 @@
 		<typeAlias type="com.idol.model.Comm_CommentDTO" alias="CommCommDTO"/>
 		<typeAlias type="com.idol.model.DateRangeDTO" alias="dRangeDTO"/>
 		<typeAlias type="com.idol.model.ImagesDTO" alias="imagesDTO"/>
-
+		<typeAlias type="com.idol.model.UserImagesDAO" alias="imagedao"/>
 		<typeAlias type="com.idol.model.RankingDTO" alias="rankingDTO"/>
 
 		<typeAlias type="com.idol.model.BoardDAO" alias="BoardDAO"/>

@@ -91,7 +91,7 @@
                 <a href="#">SHINEE</a>
               </li>
               <li>
-                <a href="#">싸이</a>
+                <a href="<%=request.getContextPath()%>/artist_content.do?no=22">싸이</a>
               </li>
               <li>
                 <a href="#">(여자)아이들</a>
