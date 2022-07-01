@@ -9,17 +9,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	div{
-	display: block;
+
 	
-	}
 	.event_wrap{
-	width: 980px;
-	height: 800px;
-	margin: 0 auto;
-	margin-top: 40px;
-	
+		width: 980px;
+		min-height: 100%;
+		margin: 0 auto;
+		margin-top: 40px;
 	}
+	
 	#event_h2{
 		text-align: center;
 		font-size: 40px;
@@ -31,19 +29,25 @@
 		text-decoration: none;
 	}
 	
+	.event_title ul{
+		display: flex;
+	}
+	
 	.event_title ul li{
 		border-bottom: 2px solid lightgray;
-		float:left;
 		width: 50%;
 		margin: 70px auto;
 		height: 45px;
 		line-height:45px;
-		
 	}
 	
 	.event_title ul li.active{
 		border-bottom-color: red;
 		color: red;
+	}
+	
+	.event_menu_wrap .event_menu ul{
+		display: flex;
 	}
 	
 	.event_menu ul li{
@@ -62,9 +66,41 @@
 		
 	}
 	
-	.event_menu ul li{
-		float:left;
-				
+	.event_menu ul li { 
+		height: 20px;
+	    line-height: 20px;
+	    margin-right: 16px;
+	}
+	
+	.event_list_wrap{
+		width: 100%;
+	    min-width: 1216px;
+	    font-size: 0;
+	    line-height: 0;
+	    margin: 0 auto;
+	    padding-top: 20px;
+	}
+	
+	.event_list_wrap ul li{
+		display:inline-block;
+		width: 470px;
+		margin: 20px 0 40px 16px;
+		font-size: 12px;
+		color: #757575;
+		ling-height: 16px;
+		vertical-align: top;
+	}
+	
+	.event_list_wrap img{
+		width:460px;
+		height:300px;
+		margin: 0 auto 20px;
+		display: block;
+	
+	}
+	
+	.event_page_section{
+	text-align:center;
 	}
 </style>
 </head>
@@ -82,6 +118,7 @@
 
 			</div>
 			
+		<div class="event_menu_wrap">
 			<div class="event_menu">	
 				<ul>
 					<li class="event_category_li">
@@ -93,34 +130,25 @@
 					</li>
 				</ul>
 			</div>
+			</div>
+
 			
 			<c:set var="list" value="${noticeList }"/>
-			<%-- <c:set var="paging" value="${Paging }"/> --%>
-			
+			<c:set var="paging" value="${Paging }"/>
+			<c:set var="cid" value="${cid }"/>
+			<c:set var="bid" value="${bid }"/>
 			
 			<c:if test="${list.size() > 0}">
-				<c:forEach items="${list}" var="dto">
-				<div>
+				<div class="event_list_wrap">
 					<ul>
+					<c:forEach items="${list}" var="dto">
 						<li>
-							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link"><img src=""><!-- ${i.notice_image} --></a>
-							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link">${dto.notice_title }</a>
+							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}&page=${paging.getPage()}&board_id=${bid}&category_id=${cid}" class="img_link"><img src="././resources/upload/notice/${dto.notice_image }"></a>
+							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}&page=${paging.getPage()}&board_id=${bid}&category_id=${cid}" class="img_link">${dto.notice_title }</a>
 						</li>					
-						<li>
-							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link"><img src=""><!-- ${i.notice_image} --></a>
-							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link">${dto.notice_title }</a>
-						</li>					
-						<li>
-							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link"><img src=""><!-- ${i.notice_image} --></a>
-							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link">${dto.notice_title }</a>
-						</li>					
-						<li>
-							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link"><img src=""><!-- ${i.notice_image} --></a>
-							<a href="<%=request.getContextPath() %>/event_cont.do?no=${dto.notice_no}" class="img_link">${dto.notice_title }</a>
-						</li>					
+					</c:forEach>
 					</ul>
 				</div>
-				</c:forEach>
 			</c:if> 
 			
 			<c:if test="${list.size() == 0}">
@@ -135,7 +163,30 @@
 			
 			
 			<div class="event_page_section">
-				
+			
+			<c:if test="${paging.getPage() > paging.getBlock() }">
+				<a href="event_list.do?page=1&board_id=${bid }&category_id=${cid}">[처음으로]</a>
+				<a href="event_list.do?page=${paging.getStartBlock()-1 }&board_id=${bid }&category_id=${cid}">◀</a>
+			</c:if>	
+
+			<c:forEach begin="${paging.getStartBlock() }"
+							end="${paging.getEndBlock() }" var="i">
+			<c:if test="${i == paging.getPage() }">
+				<b><a href="event_list.do?page=${i }&board_id=${bid }&category_id=${cid}">[${i }]</a></b>
+			</c:if>
+			
+			<c:if test="${i != paging.getPage() }">
+				<a href="event_list.do?page=${i }&board_id=${bid }&category_id=${cid}">[${i }]</a>
+			</c:if>
+		
+			</c:forEach>
+
+	
+			<c:if test="${paging.getEndBlock() < paging.getAllPage() }">
+				<a href="board_list.do?page=${paging.getEndBlock()+1 }&board_id=${bid }&category_id=${cid}">▶</a>
+				<a href="board_list.do?page=${paging.getAllPage() }&board_id=${bid }&category_id=${cid}">[마지막으로]</a>
+			</c:if>	
+		
 			</div>
 		</div>
 	</div>

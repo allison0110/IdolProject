@@ -83,6 +83,13 @@ public class ProductDAOImpl implements ProductDAO{
 		return this.sqlSession.selectList("productListPage", maps);
 	}
 
+	//메인 슬라이더용 리스트 -희원
+	@Override
+	public List<ProductDTO> mainProductList() {
+		return this.sqlSession.selectList("mainProductList");
+	}
+	
+	
 	//제품명으로 제품정보 찾기
 	@Override
 	public ProductDTO getProductDetail(String order_pname) {

@@ -41,7 +41,7 @@
               </li>
               <li><a href="<%=request.getContextPath()%>/community_boardList.do">FORUM</a></li>
               <li><a href="<%=request.getContextPath()%>/event_list.do?board_id=1&category_id=1">EVENT</a></li>
-              <li><a href="<%=request.getContextPath()%>/member_ranking_list.do">MEMBERS</a></li>
+              <li><a href="<%=request.getContextPath()%>/whole_ranking.do">MEMBERS</a></li>
               <li><a href="#">MARKET</a></li>
             </ul>
             

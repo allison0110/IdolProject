@@ -26,10 +26,13 @@
  		<typeAlias type="com.idol.model.OrderDTO" alias="OrderDTO"/>
  		<typeAlias type="com.idol.model.CartDAO" alias="CartDAO"/>
  		<typeAlias type="com.idol.model.CartDTO" alias="CartDTO"/>
- 		
+
  		<typeAlias type="com.idol.model.EventDTO" alias="eventDTO"/>
 		<typeAlias type="com.idol.model.PageDTO" alias="pageDTO"/>
-		
+		<typeAlias type="com.idol.model.ImagesDTO" alias="imagesDTO"/>
+
+		<typeAlias type="com.idol.model.RankingDTO" alias="rankingDTO"/>
+
 		<typeAlias type="com.idol.model.BoardDAO" alias="BoardDAO"/>
 		<typeAlias type="com.idol.model.BoardDTO" alias="BoardDTO"/>
 		<typeAlias type="com.idol.model.BoardCategoryDAO" alias="BoardCategoryDAO"/>
