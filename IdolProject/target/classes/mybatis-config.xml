@@ -27,7 +27,6 @@
  		<typeAlias type="com.idol.model.CartDAO" alias="CartDAO"/>
  		<typeAlias type="com.idol.model.CartDTO" alias="CartDTO"/>
  		
- 		<typeAlias type="com.idol.model.PopupDTO" alias="popupDTO"/>
  		<typeAlias type="com.idol.model.MusicDTO" alias="musicDTO"/>
  		<typeAlias type="com.idol.model.GroupDTO" alias="groupDTO"/>
  		<typeAlias type="com.idol.model.NoticeDTO" alias="noticeDTO"/>
