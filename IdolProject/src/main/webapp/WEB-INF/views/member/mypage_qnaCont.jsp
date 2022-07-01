@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./resources/js/member.js"></script>
-<link rel="stylesheet" href="./resources/css/member.css">
+<link rel="stylesheet" href="./resources/css/member.css?v=2022063010">
 <style type="text/css">
 	
 	/* ***********마이페이지 회원정보관리************* */
@@ -151,7 +152,11 @@
 				<tr class="qnaCont_contTR">
 					<!-- <th>내용</th> -->
 					<td colspan="2" class="qnaCont_contTD">
-						<p>${cont.getInquiry_cont() }</p>
+					<% pageContext.setAttribute("replaceChar", "\n"); %>
+						<p>
+						<c:set var="content" value="${fn:replace(cont.getInquiry_cont(), replaceChar, '<br>') }"/>
+				  		${content }
+						</p>
 					</td>
 				</tr>
 				<tr>

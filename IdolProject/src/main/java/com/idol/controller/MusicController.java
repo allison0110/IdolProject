@@ -67,7 +67,7 @@ public class MusicController {
 		return "music/artist_content";
 	}
 	
-	@RequestMapping("music_content.do")
+	@RequestMapping("user_music_content.do")
 	public String music_content(
 			@RequestParam("no") int no, Model model) {
 		

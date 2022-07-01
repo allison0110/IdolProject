@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./resources/js/member.js"></script>
-<link rel="stylesheet" href="./resources/css/member.css?v=2022062118">
+<link rel="stylesheet" href="./resources/css/member.css?v=2022063010">
 <style type="text/css">
 	
 	.qnaCont_table input{
@@ -80,7 +80,7 @@
 		<br>
 		
 			<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/inquiry_write_ok.do">
-			<input type="hidden" name="order_no" value="${ono }">
+			<c:if test="${!empty ono }"><input type="hidden" name="order_no" value="${ono }"></c:if>
 			<table class="qnaCont_table">
 				<tr>
 					<th>작성자</th>

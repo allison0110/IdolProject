@@ -13,7 +13,7 @@
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-<link rel="stylesheet" href="./resources/css/member.css">
+<link rel="stylesheet" href="./resources/css/member.css?v=2022063010">
 <style type="text/css">
 	
 	
@@ -117,19 +117,19 @@
 	.order_photo img{
 		width:100%;
 		height:100%;
-		border: 1px solid #8b8989;
-	}
+		}
 	
 	.order_item .order_info{
 		line-height: 1.5;
 	}
 	
 	.qna_item{
-		margin: 20px 0;
-		line-height: 1.5
+		margin: 10px;
+		padding: 10px 0;
+		line-height: 1.5;
 	}
 	.qna_item:hover, .order_item:hover {
-		background-color:#ececec;
+		background-color:rgba(236,236,236,0.5);
 		opaciy: 50%
 	}
 	
@@ -154,11 +154,11 @@
 			<div class="mypage_main_top" algin="center">
 			
 				<div class="top_item" align="center">
-				 <a href="#">
+				 <a href="<%=request.getContextPath()%>/mileage_list.do">
 					<div class="main_top_icon icon_point">
 						<label for="icon_point" class="bi bi-wallet2"></label>
 					</div>
-				포인트
+				마일리지
 				<br>
 				
 				<span>
@@ -168,11 +168,15 @@
 				</div>
 				
 				<div class="top_item" align="center">
-				<a href="#">
+				<a href="<%=request.getContextPath()%>/order_list.do">
 					<div class="main_top_icon icon_delivery">
 						<label for="icon_delivery" class="bi bi-truck"></label>
 					</div>
 				주문/배송
+				<br>
+				<span>
+					<fmt:formatNumber value="${threedays}" /> 
+				</span>
 				</a>
 				</div>
 				
@@ -211,7 +215,12 @@
 			<% 
 				List<OrderDTO> oList = (List<OrderDTO>)request.getAttribute("oList");
 			
-				for(int i=0; i<3; i++){
+				int size =0;
+				
+				if(oList.size()<=3){ size = oList.size();}
+				else{size = 3 ;}
+			
+				for(int i=0; i<size; i++){
 					OrderDTO odto = oList.get(i);
 					
 					DecimalFormat format = new DecimalFormat("###,###");
@@ -237,8 +246,7 @@
 					</div> <!-- class="order_item" -->
 					</a>
 				
-			<% 	}
-			%>
+			<% 	}//for문 %>
 			</c:if>
 			</div><!-- class="recent_order_content" end -->
 			
@@ -252,7 +260,13 @@
 			<!-- 문의내역 최신 3개만 보이기 -->
 			<%
 				List<InquiryDTO> inquiry = (List<InquiryDTO>)request.getAttribute("iList");
-				for(int i=0; i<3; i++){
+				
+				int isize = 0;
+				
+				if(inquiry.size()<=3){ isize = inquiry.size();}
+				else{isize = 3 ;}
+				
+				for(int i=0; i<isize; i++){
 					
 					InquiryDTO idto = inquiry.get(i);
 					
@@ -295,6 +309,9 @@
 				</a>
 			<%	}
 			%>
+			</c:if>
+			<c:if test="${empty iList }">
+			<span>문의내역 없음</span>
 			</c:if>
 			</div><!-- class="recent_qna_content" end -->
 			

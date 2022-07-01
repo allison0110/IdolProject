@@ -1,4 +1,4 @@
-package com.idol.model;
+﻿package com.idol.model;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -46,6 +46,7 @@ public class MemberDAOImpl implements MemberDAO{
 			}else {
 				result = -1;
 			}
+		
 		}else {//정환님코드 추가
 			System.out.println("admin_start");
 			
@@ -114,6 +115,12 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public MemberDTO getMemberCont(int mno) {
 		return sqlSession.selectOne("mCont", mno);
+	}
+
+	// 전체 회원 리스트 출력 메서드
+	@Override
+	public List<MemberDTO> getMemeberList() {
+		return sqlSession.selectList("MemAllList");
 	}
 
 	

@@ -39,10 +39,10 @@
               <li>
                 <a href="<%=request.getContextPath()%>/product_list.do?cno=${100}" class="active-link" id="product">PRODUCT</a>
               </li>
-              <li><a href="#">FORUM</a></li>
+              <li><a href="<%=request.getContextPath()%>/community_boardList.do">FORUM</a></li>
               <li><a href="<%=request.getContextPath()%>/event_list.do?board_id=1&category_id=1">EVENT</a></li>
-              <li><a href="<%=request.getContextPath()%>/member_ranking_list.do">MEMBERS</a></li>
-              <li><a href="<%=request.getContextPath()%>/used_list.do">MARKET</a></li>
+              <li><a href="<%=request.getContextPath()%>/whole_ranking.do">MEMBERS</a></li>
+              <li><a href="#">MARKET</a></li>
             </ul>
             
           </div>
@@ -86,7 +86,7 @@
                 <a href="#">SHINEE</a>
               </li>
               <li>
-                <a href="<%=request.getContextPath()%>/artist_content.do?no=2">싸이</a>
+                <a href="<%=request.getContextPath()%>/artist_content.do?no=22">싸이</a>
               </li>
               <li>
                 <a href="#">(여자)아이들</a>

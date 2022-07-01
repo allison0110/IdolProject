@@ -336,7 +336,7 @@
 					
 						<div class="music_row">
 							<div class="music_image">
-								<a href="<%=request.getContextPath() %>/music_content.do?no=${i.music_no }">
+								<a href="<%=request.getContextPath() %>/user_music_content.do?no=${i.music_no }">
 								<img src="resources\\upload\\music/${i.music_coverimage.substring(0, i.music_coverimage.length()-1) }"
 											width="100" height="100">
 								</a>

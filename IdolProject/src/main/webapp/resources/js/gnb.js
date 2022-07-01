@@ -68,7 +68,7 @@ var albumList = [
   {
     singer: "SHINEE",
     title: "Don't Call Me",
-    img: "https://w.namu.la/s/1b7f1c1234031f5789d5c5c690a5f7cce0078ed91f5b05f92933f0786a53584772de4e16a272484630e854e84f0a74d3482d3aa9f6a5f94c9e1d21f28e8e0f501d4b02a1c06dec48e182fd7f674997cd3bc9f8fbfa6bd870faf1557c02e2f484",
+    img: "./resources/upload/group/1655171607721SHINEE_GOURP1.jpg",
   },
   {
     singer: "싸이(PSY)",
@@ -78,22 +78,22 @@ var albumList = [
   {
     singer: "(여자)아이들",
     title: "TOMBOY",
-    img: "https://cdnimg.melon.co.kr/cm2/album/images/108/90/384/10890384_20220314111504_500.jpg?4b9dba7aeba43a4e0042eedb6b9865c1/melon/resize/282/quality/80/optimize",
+    img: "https://image.bugsm.co.kr/album/images/200/40724/4072414.jpg?version=20220315063707.0",
   },
   {
     singer: "AESPA",
     title: "Girls",
-    img: "https://w.namu.la/s/29f19b3fba345c1d899341ea2cfa6d9e85680e9d2657c3f4614b421d85d37c6b9fcd7b82b012d08025f8f31f7895a86b804180b17f5f66024b4ce7596e1601e87e436565f75e871717bcec6bc2d3b55be193fac8d104048feb62bc813a0e93aa385cee930700087df17883adb4675879",
+    img: "./resources/upload/group/1655170280995AESPA_GROUP1.jpg",
   },
   {
     singer: "BTS",
     title: "Yet To Come",
-    img: "https://w.namu.la/s/8e5afeb82cc93fedca172df95524ba8b615c05f49efea0e5089bee26cfa60ecdca4949060da4c6294e3698e61ae08a5b80681c61c258f46870a720268c818c43b9af0343834edd21e95e58d310e88155208b219eb194768a3f40c2945e7cd9d8",
+    img: "./resources/upload/group/1655170032483BTS_GROUP1.png",
   },
   {
     singer: "BLACK PINK",
     title: "How You Like That",
-    img: "https://w.namu.la/s/b831d9d84a7b597fafde39f4c7de76f28709aa0b27b58e03f7814a472abf0fc82999c7c1eb92d07d83fb01cb23bc5d136f40c4b4fce5ab0065eb01257c3814f68dfed0ad49c65282aed7eb1bde9ea15eb7a36726a3c812bfafa2e1e79c4767c05db8393c3c4df2db3d331b4cff2178d8",
+    img: "./resources/upload/group/1655183364336BLACKPINK_GROUP1.jpg",
   },
   {
     singer: "RED VELVET",
@@ -103,27 +103,27 @@ var albumList = [
   {
     singer: "박재범(JAY PARK)",
     title: "GANADARA (Feat. 아이유)",
-    img: "https://w.namu.la/s/92b0306c328a8ae5a76212ed9846dbf2a50ac1b7e9e0895e5294e9469755e28b67190f7bf901fff36c75ff57c2503550708d62ddd36c7a7ffabcd2849e1e9dc8d81bb083dbbdced44f281d16d5fc12bf3f70f1591e259d8279648db504d8b88ce419d4f92616a6beac86c2d769eb3a8d",
+    img: "https://image.bugsm.co.kr/album/images/200/40723/4072354.jpg?version=20220312065959.0",
   },
   {
     singer: "STAYC",
     title: "RUN2U",
-    img: "https://w.namu.la/s/c399267b13ecf57673b3d417574cb386e9290857a859fc6df4fee8fe2a281f293bd8d6167c38041b89962ff15d85b992abc9b155f936b5d34dfff30987d06017f7bb3e67894fe8afcfbff9ae501e6633e0a4963ab6ef9bd577d3ede8baa3eab521848a4ca6f22562e21e0da32cfaf6ed",
+    img: "./resources/upload/group/1655172037878STAYC_GROUP1.jpg",
   },
   {
     singer: "BEAST",
     title: "DAYDREAM",
-    img: "https://w.namu.la/s/06c104022fe972a6a0489bded09d166d4b7632bc87d433f418e4d42369fe5164a92c61ecf068f19c7feff64e6295df3b87e683bcfe6fb1747a82a4c20a521942521f3569a708b788084be96b63fa21ad0fcc2039cf31f89563323d94204750a368aa1d3ea11bcabd7e20f86a5cc43d2d",
+    img: "https://image.bugsm.co.kr/album/images/200/40729/4072984.jpg?version=20220322063253.0",
   },
   {
     singer: "IVE",
     title: "LOVE DIVE",
-    img: "https://w.namu.la/s/bf7e863174130b908c71d79fdda7f2e2d6e09b217fcd209d61730021a1af2d09bee7b2987a8148198604c7e47d768526e3213a529a6a37428caeb6214843c9d6ef79fa8580ab94c4a90941db13033e025f97b26e75daa22c5bd153c67ed24325ff39a703fe975082a8b2efa341a7a282",
+    img: "./resources/upload/group/1655170890582IVE_GROUP1.jpg",
   },
   {
     singer: "LE SSERAFIM",
     title: "FEARLESS",
-    img: "https://w.namu.la/s/46e09f1a080006620dbf2e553b672677a3336dd37bf6238f7cab44e7a90ed061108b7b82ef45e2709df31f5eabacd2629c4adccc1e9b99741aee532767d1d3cd41826d610668b02d0aaf834cc84b59883dbe518fcf024cc2dcc73bd3a61325abc96a163b62a748dc84b9eb16773a29fe",
+    img: "https://image.bugsm.co.kr/album/images/200/40751/4075173.jpg?version=20220503063751.0",
   },
 ];
 

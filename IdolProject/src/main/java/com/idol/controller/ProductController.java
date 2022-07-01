@@ -104,7 +104,7 @@ public class ProductController {
 		
 		// 첫번째 대표이미지를 첫번째로 저장한다.
 		String mainImage = st.nextToken();
-		
+
 		//첫번째 대표이미지 이후 제품디테일 이미지 를 리스트로 저장
 		List<String> dmList = new ArrayList<String>();
 		

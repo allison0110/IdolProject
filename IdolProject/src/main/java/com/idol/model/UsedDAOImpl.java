@@ -15,31 +15,31 @@ public class UsedDAOImpl implements UsedDAO{
 	@Override
 	public int getListCount() {
 		
-		return this.sqlSession.selectOne("count");
+		return this.sqlSession.selectOne("used_count");
 	}
 
 	@Override
 	public List<UsedDTO> getUsedList(PageDTO dto) {
 
-		return this.sqlSession.selectList("list", dto);
+		return this.sqlSession.selectList("used_list", dto);
 	}
 
 	@Override
 	public int insertUsed(UsedDTO dto) {
 		
-		return this.sqlSession.insert("add", dto);
+		return this.sqlSession.insert("used_add", dto);
 	}
 
 	@Override
 	public void readCount(int no) {
 		
-		this.sqlSession.update("read", no);
+		this.sqlSession.update("used_read", no);
 	}
 
 	@Override
 	public UsedDTO usedCont(int no) {
 		
-		return this.sqlSession.selectOne("content", no);
+		return this.sqlSession.selectOne("used_content", no);
 	}
 
 	@Override

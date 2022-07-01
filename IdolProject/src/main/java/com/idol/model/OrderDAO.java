@@ -23,5 +23,7 @@ public interface OrderDAO {
 
 	int deleteOgno(int ogno);
 
+	int get3daysOrder(String member_id);
+
 	
 }

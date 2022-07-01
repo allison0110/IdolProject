@@ -6,7 +6,7 @@
 
 <mapper namespace="usedCommentDAO">
 	
-	<insert id="used_comment_add" parameterType="usedCommentDTO">
+	<insert id="used_comment_add" parameterType="usedCommDTO">
 		<selectKey resultType="int" keyProperty="comment_no" order="BEFORE">
 			select nvl(max(comment_no), 0) from used_comment
 		</selectKey>
@@ -15,7 +15,7 @@
 				#{comment_no} + 1, 0, 0, #{used_nofk})
 	</insert>
 	
-	<select id="used_comment_list" parameterType="int" resultType="usedCommentDTO">
+	<select id="used_comment_list" parameterType="int" resultType="usedCommDTO">
 			select * from used_comment 
 			where used_nofk = #{no} 
 			order by comment_group, comment_step

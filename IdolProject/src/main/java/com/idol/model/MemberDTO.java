@@ -24,6 +24,4 @@ public class MemberDTO {
 	private String member_introduction;
 	private String member_cover;
 	
-	
-	
 }

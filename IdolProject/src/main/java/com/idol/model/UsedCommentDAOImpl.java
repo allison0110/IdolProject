@@ -13,13 +13,13 @@ public class UsedCommentDAOImpl implements UsedCommentDAO{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public int insertUsedComment(UsedCommentDTO dto) {
+	public int insertUsedComment(UsedCommDTO dto) {
 	
 		return this.sqlSession.insert("used_comment_add", dto);
 	}
 
 	@Override
-	public List<UsedCommentDTO> getUsedCommentList(int no) {
+	public List<UsedCommDTO> getUsedCommentList(int no) {
 		
 		return this.sqlSession.selectList("used_comment_list", no);
 	}

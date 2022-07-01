@@ -79,4 +79,10 @@
   
   </select>
   
+  <!-- 최근 3일간 구매한 건수 -->
+  <select id="3daysOrder" resultType="int" parameterType="String">
+  	 select count(*) from order_product where  order_userid= #{member_id} and 
+  	 	TO_CHAR(order_date,'YY/MM/DD') between TO_CHAR(SYSDATE-2 ,'yy/mm/dd') and TO_CHAR(SYSDATE ,'yy/mm/dd')
+  </select>
+  
   </mapper>

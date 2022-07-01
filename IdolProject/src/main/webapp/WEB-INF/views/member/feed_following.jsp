@@ -8,7 +8,7 @@
 <title>${id }님의 피드 - 팔로잉</title>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" ></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
-<link rel="stylesheet" href="./resources/css/member.css?v=2022062212">
+<link rel="stylesheet" href="./resources/css/member.css?v=2022062314">
 <script type="text/javascript">
 
 
@@ -48,43 +48,11 @@
 		text-align:left;
 	}
 	
-	.f_btn1{
-		background-color: #2a3a52;
-		color:white;
-	    border: 1px solid #2a3a52;
-	    padding: 3px 15px;
-	    border-radius: 10px;
-	    cursor: pointer;
-	    margin: 30px 2px;
-	    font-size: 0.9em;
-	}
-	
-	.f_btn1:hover {
-		background-color: #17202d;
-	    border: 1px solid #2a3a52;
-	}
-	
-	
-	
-	.f_btn2{
-		background-color: white;
-	    border: 1px solid #2a3a52;
-	    padding: 3px 15px;
-	    border-radius: 10px;
-	    cursor: pointer;
-	    margin: 30px 2px;
-	    font-size: 0.9em;
-	}
-	
-	.f_btn2:hover {
-		background-color: #ececec;
-	}
-	
 
 </style>
 </head>
 <body>
-	<c:set var="dto" value="${feedInfo.get('memInfo') }"/> <!-- 회원정보 -->
+	<c:set var="dto" value="${feedInfo.get('mInfo') }"/> <!-- 피드 회원정보 -->
 	<c:set var="cont" value="${followingCont }" /> <!-- 팔로잉들 회원정보 -->
 	<c:set var="login_f" value="${feedInfo.get('login_follow') }"/> <!-- 팔로워 -->
 	
@@ -122,18 +90,11 @@
 					</div>
 					<div class="fList_btn">
 						<c:if test="${!empty login_f }"><!-- 로그인회원의 팔로우 리스트 데이터가 있다면  -->
+						<c:set var="check" value="0"/>
 						<c:forEach items="${login_f }" var="login">
 							<!-- 팔로우가 되어있는 경우 -->
 							<c:if test="${cont.getMember_id() == login.getFollow_name()}">
 								<c:set var="check" value="1"/>
-							</c:if>
-							<!-- 팔로우 안되어 있는 경우  -->
-							<c:if test="${cont.getMember_id() != login.getFollow_name()}">
-								<c:set var="check" value="0"/>
-							</c:if>
-							<!-- 나 자신인 경우 -->
-							<c:if test="${cont.getMember_id() == login_id}">
-								<c:set var="check" value="-1"/>
 							</c:if>
 							
 						</c:forEach>
@@ -144,13 +105,16 @@
 						<c:if test="${empty login_id }"> <!-- 비회원일 경우 -->
 							<c:set var="check" value="-1"/>
 						</c:if>
-						
+						<!-- 나 자신인 경우 -->
+							<c:if test="${cont.getMember_id() == login_id}">
+								<c:set var="check" value="-1"/>
+							</c:if>
 						
 						<c:if test="${check == '1' }">
-								<input class="f_btn2" type="button" value="팔로잉" onclick="location.href='unfollow.do?id=${cont.getMember_id()}'">
+								<input class="f_btn2" type="button" value="팔로잉" onclick="location.href='unfollow.do?id=${cont.getMember_id()}&feed=${dto.getMember_id()}'">
 							</c:if>
 						<c:if test="${check == '0' }">
-								<input class="f_btn1" type="button" value="팔로우" onclick="location.href='follow.do?id=${cont.getMember_id()}'">
+								<input class="f_btn1" type="button" value="팔로우" onclick="location.href='follow.do?id=${cont.getMember_id()}&feed=${dto.getMember_id()}'">
 						</c:if>
 						<c:if test="${check == '-1' }">
 						</c:if>

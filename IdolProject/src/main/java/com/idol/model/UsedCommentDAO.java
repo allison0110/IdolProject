@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface UsedCommentDAO {
 
-	public int insertUsedComment(UsedCommentDTO dto);
+	public int insertUsedComment(UsedCommDTO dto);
 
-	public List<UsedCommentDTO> getUsedCommentList(int no);
+	public List<UsedCommDTO> getUsedCommentList(int no);
 
 	public int usedCommentDelete(int no);
 

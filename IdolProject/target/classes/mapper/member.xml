@@ -35,6 +35,7 @@
 	</select>
 	
 	
+
 	<!-- 아이디,비밀번호 찾기 -->
 	<select id="findid" parameterType="HashMap" resultType="String">
 		select member_id from member 
@@ -88,6 +89,10 @@
 	<!-- 원석 -->
 	<select id="mCont" parameterType="int" resultType="memberDTO">
 	<![CDATA[select *from member where member_no = #{mno}]]>
+	</select>
+	
+	<select id="MemAllList" resultType="memberDTO">
+	<![CDATA[select *from MEMBER order by MEMBER_NO desc]]>
 	</select>
 	
 </mapper>

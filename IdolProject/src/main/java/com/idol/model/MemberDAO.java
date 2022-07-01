@@ -18,5 +18,6 @@ public interface MemberDAO {
 	
 	//원석
 	MemberDTO getMemberCont(int mno);
+	List<MemberDTO> getMemeberList();
 	
 }

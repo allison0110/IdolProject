@@ -73,7 +73,7 @@ function idCheck(){
         border-radius: 30px ;
        	border:1px solid #c2c0c0;
        	background-color:white;
-       	padding: 8px 10px;
+       	padding: 5px 8px;
        	margin-left: 10px;
        	cursor: pointer;
         

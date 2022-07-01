@@ -285,7 +285,7 @@
 	.profile_box{
 		
 		padding:20px;
-		background-color:#dadbdb;
+		background-color:#ececec;
 		
 	}
 	
@@ -302,7 +302,8 @@
 	.profile_image >img{
 		display:block;
 		width:auto;
-		height:100%
+		height:100%;
+		width:100%;
 	}
 	
 	.info{
@@ -314,7 +315,7 @@
 	.info_cont{
 		padding:10px;
 		font-weight: bold;
-		color:white;
+		color:black;
 		
 		
 	}
@@ -351,6 +352,7 @@
 	.mypage, .mypage_main{
 		width:90%;
 		margin-bottom:100px;
+		min-height: 100vh;
 	}
 	.mypage_main{
 		margin-left:30px;
@@ -519,5 +521,39 @@
 	
 	.feed_title a{
 		text-decoration: none;
+		
+	}
+	
+	
+		.f_btn1{
+		background-color: #2a3a52;
+		color:white;
+	    border: 1px solid #2a3a52;
+	    padding: 3px 15px;
+	    border-radius: 10px;
+	    cursor: pointer;
+	    margin: 30px 2px;
+	    font-size: 0.9em;
+	}
+	
+	.f_btn1:hover {
+		background-color:#17202d;
+	    border: 1px solid #2a3a52;
+	}
+	
+	
+	
+	.f_btn2{
+		background-color: white;
+	    border: 1px solid #2a3a52;
+	    padding: 3px 15px;
+	    border-radius: 10px;
+	    cursor: pointer;
+	    margin: 30px 2px;
+	    font-size: 0.9em;
+	}
+	
+	.f_btn2:hover {
+		background-color: #ececec;
 		
 	}

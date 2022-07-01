@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.idol.model.MemberDTO;
 import com.idol.model.PageDTO;
 import com.idol.model.UsedCommentDAO;
-import com.idol.model.UsedCommentDTO;
+import com.idol.model.UsedCommDTO;
 import com.idol.model.UsedDAO;
 import com.idol.model.UsedDTO;
 
@@ -117,7 +117,7 @@ public class IdolController {
 		UsedDTO dto = this.usedDAO.usedCont(no);
 		
 		// 게시글 댓글 리스트 조회
-		List<UsedCommentDTO> comment_list = this.usedCommentDAO.getUsedCommentList(no);
+		List<UsedCommDTO> comment_list = this.usedCommentDAO.getUsedCommentList(no);
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("comment_list", comment_list);
@@ -154,7 +154,7 @@ public class IdolController {
 	}
 	
 	@RequestMapping("used_comment_write.do")
-	public void used_comment_write(UsedCommentDTO dto,
+	public void used_comment_write(UsedCommDTO dto,
 			@RequestParam("page") int nowPage,
 			HttpServletResponse response) throws IOException {
 		

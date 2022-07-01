@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
-<link rel="stylesheet" href="./resources/css/member.css">
+<link rel="stylesheet" href="./resources/css/member.css?v=2022063010">
 <style type="text/css">
 
 	.profile_image_wrap{
@@ -79,16 +79,6 @@
 		font-size: 0.9em;
 	}
 	
-/* 	.editProfile .popup_close {
-		
-		position: absolute;
-		right: 0 ; top:0;
-		width: 20px;
-		height: 20px;
-		background: url(..image/close.png) no-repeat;
-		/* color:transparent; */
-	
-	} */
 	
 	.edit_dim {
 		display:none;
@@ -204,10 +194,7 @@
 							</c:forEach>
 						</c:if>
 						<c:if test="${dto.getMember_id().length() > 4 }">
-						${dto.getMember_id().substring(0,4) }
-						<c:forEach begin="1" end="${dto.getMember_id().substring(4).length() }">
-									*
-						</c:forEach>
+						${dto.getMember_id().substring(0,(dto.getMember_id().length()-2)) }**
 						</c:if>
 					</span>
 					</div>
@@ -219,8 +206,9 @@
 					<ul>
 						<li><a href="<%=request.getContextPath()%>/mypage.do">마이페이지</a></li>
 						<li><a href="<%=request.getContextPath()%>/mySettings.do">회원정보관리</a></li>
-						<li><a href="<%=request.getContextPath()%>/order_list.do">주문내역</a></li>
-						<li><a href="<%=request.getContextPath()%>/inquiry_list.do">문의내역</a></li>
+						<li><a href="<%=request.getContextPath()%>/mileage_list.do">마일리지 내역</a></li>
+						<li><a href="<%=request.getContextPath()%>/order_list.do">주문 내역</a></li>
+						<li><a href="<%=request.getContextPath()%>/inquiry_list.do">문의 내역</a></li>
 						<li><a href="<%=request.getContextPath()%>/logout.do">로그아웃</a></li>
 					</ul>
 			

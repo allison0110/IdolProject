@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="./resources/js/member.js"></script>
-<link rel="stylesheet" href="./resources/css/member.css?v=2022062209">
+<link rel="stylesheet" href="./resources/css/member.css?v=2022063010">
 <style type="text/css">
 	
 	
@@ -46,6 +46,9 @@
 		width:100%;
 		height:100%;
 		border: 1px solid #8b8989;
+	}
+	.order_item a:hover{
+		text-decoration: underline;
 	}
 	
 	.order_item .order_info{
@@ -265,11 +268,6 @@
 		</div>	<!-- class="order_main"  -->
 		<br><br>
 		<div id="load">더 보기 +</div>
- 	 		<!-- <a href="#" id="load">더 보기 +</a>  -->
-		<!-- <div id="more_btn_div" align="center">
-			
-			<a id="more_btn_a" href="javascript:moreContent('order_item', 6)"> 더보기(more)</a>
-		</div> -->
 		</form>
 	
 		
