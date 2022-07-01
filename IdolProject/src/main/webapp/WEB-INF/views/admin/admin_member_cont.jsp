@@ -40,6 +40,7 @@
 </style>
 </head>
 <body>
+<!-- 멤서 상세 내용 및 맴버가 좋아하는 셀럽 리스트 -->
 <c:set var="mdto" value="${mdto }" />
 <c:set var="mceleb" value="${celebs }" />
 
@@ -229,6 +230,7 @@
 			<c:forEach items="${inquirylist }" var="i">
 				<c:if test="${i.inquiry_status =='1' }">
 					<div class="member_inquiry_box">
+						<a href="<%=request.getContextPath() %>/admin_member_inquiryCont.do?no=${i.inquiry_no}">
 						<ul>
 							<li>
 								No. ${i.inquiry_no }
@@ -272,6 +274,7 @@
 								GROUP : ${i.inquiry_group }
 							</li>		
 						</ul>
+						</a>
 					</div>
 				</c:if>
 			</c:forEach>
@@ -280,6 +283,13 @@
 			</c:if>
 			
 			</div> <!-- member_inquiry -->
+			
+			
+			<div>
+			[COMMUNITY BOARD]
+			</div>
+			
+			
 			
 			
 			

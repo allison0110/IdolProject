@@ -1,3 +1,7 @@
+<%@page import="com.idol.model.CelebDTO"%>
+<%@page import="java.util.StringTokenizer"%>
+<%@page import="com.idol.model.GroupDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -6,27 +10,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ADMIN GROUP LIST</title>
 <style type="text/css">
 	html, body {
 		padding: 0px;
 		margin: 0px;
 		height: 100%;
 		background-color: black;
-	}
-	
-	.admin_group_wrapper {
-		display: flex;
-		flex-direction: column;
-		height: 100vh;
-		
-	}
-	
-	.admin_group_Container {
-		display: flex;
-		flex-direction: column;
-		color: white;
-		
 	}
 	
 	li {
@@ -38,26 +28,39 @@
 		text-decoration: none;
 	}
 	
-	.admin_container {
+	.admin_group_wrapper {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+		
+	}
+	
+	.admin_group_Container {
 		display: flex;
 	    flex-direction: row;
 	    flex-wrap: wrap;
-	    gap: 10px;
-	    flex: 50%;
-	    
+		color: white;
 	}
-	
-	
-	
-	
-	
-	
+
 	.admin_group_boxes {
 		border: 2px solid red;
 		width: 200px;
 		height: 200px;
 		color: white;
+		background-color: white;
 	}
+	
+	.group_img {
+		width: 100%;
+		height: 100%;
+	}
+	
+	.group_name {
+		display: none;
+	}
+	
+	
+	
 	
 	.admin_solo_boxes {
 		border: 2px solid blue;
@@ -66,9 +69,7 @@
 		color: white;
 	}
 	
-	.tempBtn {
-		
-	}
+	
 </style>
 </head>
 <body>
@@ -80,53 +81,50 @@
 		<jsp:include page="../include/admin_top_include.jsp" />
 		<jsp:include page="../include/admin_group_include.jsp" />
 	
+		<div style="color: white">
+			<h2>GROUP</h2>
+		</div>
 		<div class="admin_group_Container">
 			
 			<!-- 그룹 파트 -->
 			
-			<div>
-				<h2>그룹</h2>
-			</div>
-			<div class="admin_container">
-				<c:forEach items="${glist }" var="gdto">
-					<c:if test="${gdto.group_name != 'solo' }">
-						<a href="<%=request.getContextPath()%>/admin_groupMember_list.do?gName=${gdto.group_name}">
-							<div class="admin_group_boxes">
-								<ul>
-									<li>
-										<label>그룹 이름 : </label>${gdto.group_name }
-									</li>
-									
-								</ul>
-							</div>
-						</a>
-					</c:if>	
-				</c:forEach>
-			</div> <!-- admin_group_container end -->
+			<%
+				List<GroupDTO> gList = (List<GroupDTO>)request.getAttribute("groupList");
+				
 			
-			<!-- 솔로 가수 파트 -->
+				for(int i=0; i < gList.size(); i++){
+					
+					GroupDTO gdto = gList.get(i);
+					
+					String gimgs = gdto.getGroup_image();
+					
+					StringTokenizer tokenizer = new StringTokenizer(gimgs, "|");
+					
+					String[] arrayToekn = new String[tokenizer.countTokens()];
+					
+					for(int j =0; j < arrayToekn.length; j++ ) {
+						arrayToekn[j] = tokenizer.nextToken();
+						
+					}
+				%>
 			
-			<div>
-				<h2>솔로</h2>
-			</div>
-			<div class="admin_container">
-				<c:forEach items="${slist }" var="sdto">
-					<a href="<%=request.getContextPath()%>/admin_celeb_content.do?no=${sdto.celeb_no}">
-						<div class="admin_solo_boxes">
-							<ul>
-								<li>
-									<label> 이름 : </label>${sdto.celeb_name }
-								</li>
-								
-							</ul>
-						</div>
+				<%if(gdto.getGroup_name().equals("solo")){
+					%>
+				
+				<%}else {%>
+					<a class="admin_group_boxes" href="<%=request.getContextPath()%>/admin_groupMember_list.do?gName=<%=gdto.getGroup_name()%>">
+						<img class="group_img" alt="" src="./resources/upload/group/<%=arrayToekn[0]%>">
+						<div class="group_name"><%=gdto.getGroup_name()%></div>		
 					</a>
-				</c:forEach>
-			
-			
-			</div> <!-- admin_solo_container end -->
+				
+				<%}%>
+				
+				
+			<%}%>
+		
 			
 		</div> <!-- admin_group_Container end -->
+		
 		
 		
 		
