@@ -258,5 +258,22 @@
                 </configuration>
             </plugin>
         </plugins>
+        <!-- 7월1일 오류나서 정환 추가 -->
+        <pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.4</version>
+					<configuration>
+						<warSourceDirectory>src/main/webapp</warSourceDirectory>
+						<warName>IdolProject</warName>
+						<failOnMissingWebXml>false</failOnMissingWebXml>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+        
+        
     </build>
 </project>
