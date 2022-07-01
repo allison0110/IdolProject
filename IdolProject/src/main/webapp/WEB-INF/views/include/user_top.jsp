@@ -13,6 +13,11 @@
 	    <link rel="stylesheet" href="./resources/css/gnb.css" />
 	    <link rel="stylesheet" href="./resources/css/main.css" />
 		<title>YOUR CELEB</title>
+		<script type="text/javascript">
+		function loginAlert() {
+		      alert("사용 권한이 없습니다. 로그인 해주세요");
+		  } 
+		</script>
 	</head>
 	<body>
 		<!-- include header -->

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -152,7 +153,9 @@
 					</tr>
 					<tr id="event_cont_tr">
 						<td id="notice_cont_area">
-							${dto.notice_cont }
+						<% pageContext.setAttribute("replaceChar", "\n"); %>
+				  			<c:set var="content" value="${fn:replace(dto.notice_cont, replaceChar, '<br>') }"/>
+				  			${content }
 						</td>
 					</tr>
 

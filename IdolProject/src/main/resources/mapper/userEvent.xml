@@ -15,7 +15,7 @@
 	<select id="eventList" parameterType="HashMap" resultType="eventDTO">
 		select * from (
 			select n.*, row_number() over(order by notice_no desc) rnum from notice n
-			where notice_type='celeb'
+			where notice_type='CELEB' <!-- celeb 대문자로 수정 -->
 			<if test="category_type==1">and notice_enddate is null</if>
 			<if test="category_type==2">and notice_enddate is not null</if>
 		) 
@@ -27,7 +27,7 @@
 	<select id="concertList" parameterType="HashMap" resultType="eventDTO">
 		select * from (
 			select n.*, row_number() over(order by notice_no desc) rnum from notice n
-			where notice_type='concert'
+			where notice_type='CONCERT' <!-- concert 대문자로 수정 -->
 			<if test="category_type==1">and notice_enddate is null</if>
 			<if test="category_type==2">and notice_enddate is not null</if>
 		) 
