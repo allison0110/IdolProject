@@ -114,3 +114,63 @@ for(let i=0;i<$('.user').length;i++){
 
 	});
 }
+
+
+// 로그인 상태라면 회원이 추천한 게시물의 추천여부 확인
+let recommendStatus = $('.recommendStatus');
+for(let i=0;i<recommendStatus.length;i++){
+	if(recommendStatus.eq(i).val() == 1){
+		$('.fa-thumbs-up').eq(i).css("color","blue");
+	}
+}
+
+// 로그인한 상태에서 게시물 추천버튼 클릭시 추천이벤트
+for(let i=0;i<recommendStatus.length;i++){
+	$('.fa-thumbs-up').eq(i).click(function(){
+		if($('#loginId').val() != ""){
+			$.ajax({
+			type: "POST",
+			url: "community_recommend.do",
+			data:{
+					recommendStatus : recommendStatus.eq(i).val(),
+					bno:$(".bno").eq(i).val(),
+					memno:$("#loginNo").val()
+					},
+			datatype: "text",
+			success: function(data){
+				let recommendCount = $('.recommendCount').eq(i).text();
+				if(Number(data) == 1){
+					recommendStatus.eq(i).val(1);
+					$('.fa-thumbs-up').eq(i).css("color","blue")
+					.css("opacity","1");
+					$('.recommendCount').eq(i).text(Number(recommendCount)+1);
+				}else{
+					recommendStatus.eq(i).val(0);
+					$('.fa-thumbs-up').eq(i).css("color","gray")
+					.css("opacity","0.5");
+					$('.recommendCount').eq(i).text(Number(recommendCount)-1);
+				}
+				
+			},
+			error: function(data){
+			  Swal.fire({
+			  icon: 'error',
+			  title: '통신에러 발생!.',
+			  })
+			}
+			});
+		// 로그인이 안되어 있으면 로그인 페이지로 이동 경고창
+		}else{
+			Swal.fire({
+		    icon: 'error',
+		    title: '로그인을 진행해 주세요!.',
+		    footer: '<a href="login.do"><로그인 페이지로 이동></a>'
+		    })
+		}
+	
+	});
+}
+
+
+
+
