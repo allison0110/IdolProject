@@ -9,5 +9,7 @@ public interface MileageDAO {
 	MileageDTO getMileageDetail(int mno);
 	int insertMileageInfo(MileageDTO mdto);
 	
+
+	List<MileageDTO> getMileageList(int member_no);
 	
 }

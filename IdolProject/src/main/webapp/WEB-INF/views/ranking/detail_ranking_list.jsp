@@ -101,7 +101,9 @@ height:80px;
 			<div class="rank_header">
 			<c:if test="${list.size() <= 0 }">
 				<div>
-					
+					<ul class="no_user">
+						<li>No users match the specified criteria</li>
+					</ul>
 				</div>
 			</c:if>
 			<c:if test="${list.size() > 0}">
