@@ -20,14 +20,14 @@
 	 			<input type="hidden" name="inquiry_step" value="${icont.inquiry_step }">
 	 			<input type="hidden" name="inquiry_indent" value="${icont.inquiry_indent }">
 	 			<input type="hidden" name="inquiry_status" value="1">
-	 			<input type="hidden" name="inquiry_userid" value="${admin_id }">
+	 			<input type="hidden" name="inquiry_userid" value="${icont.inquiry_userid }">
 	 			<input type="hidden" name="product_no" value="${icont.product_no }">
 	 			<input type="hidden" name="order_no" value="${icont.order_no }">
 	 			<input type="hidden" name="inquiry_image" value="${icont.inquiry_image }">
 	 			<input type="hidden" name="category_inofk" value="${icont.category_inofk }">
 	 			<input type="hidden" name="originNo" value="${oldNo }">
 				<div>
-					<input name="inquiry_title" value="(RE임시)${icont.inquiry_title }">
+					<input name="inquiry_title" value="(RE)${icont.inquiry_title }">
 				</div>
 		 		<div>
 		 			<textarea name="inquiry_cont" rows="20" cols="33"></textarea>

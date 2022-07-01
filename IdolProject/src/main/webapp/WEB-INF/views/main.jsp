@@ -142,13 +142,15 @@
           <!-- Slides -->
           
      		<c:forEach items="${images }" var="dto">
+     		<c:if test="${dto.image_visible == 1 }">
      	     <div class="swiper-slide" id="main_img1">
         	    <div class="swiper-slide-img-wrap" >
-        	    <a href="<%=request.getContextPath()%>/${dto.getImage_link()}">
+        	    <a href="${dto.getImage_link()}">
             	  <img
                 	src="./resources/upload/images/${dto.getImage_path() }"/></a>
             	</div>
           	 </div>
+          	 </c:if>
           </c:forEach>
         </div>
         <!-- If we need pagination -->

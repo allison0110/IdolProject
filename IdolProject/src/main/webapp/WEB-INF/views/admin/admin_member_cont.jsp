@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ADMIN MEMBER CONTENT</title>
 
 <style type="text/css">
 	html, body {
@@ -122,7 +122,7 @@
 				</div>
 			</div> <!-- member_content -->
 			
-			<div class="member_favorite_celeb">
+		<div class="member_favorite_celeb">
 			
 			<div>
 			[FAVORITE CELEB]
@@ -154,11 +154,11 @@
 			<c:if test="${empty celebs }">
 				[좋아하는 셀럽이 아직 없습니다 :( ]
 			</c:if>
-			</div> <!-- member_favorite_celeb -->
+		</div> <!-- member_favorite_celeb -->
 			
 			
 			
-			<div class="member_inquiry">
+		<div class="member_inquiry_wrapper">
 			
 			<div>
 			[INQUIRY BOARD]
@@ -280,21 +280,113 @@
 			</c:forEach>
 			</c:if>
 			<c:if test="${empty inquirylist }">
+			<div>이 멤버의 문의 게시글이 없습니다.</div>
 			</c:if>
+		</div> <!-- member_inquiry -->
+		
 			
-			</div> <!-- member_inquiry -->
-			
-			
+		<div class="community_board_wrapper">
 			<div>
 			[COMMUNITY BOARD]
 			</div>
+			<c:if test="${!empty commlist }">
+				<c:forEach items="${commCategory }" var="comCate">
+					<div class="member_commnuity_container" style="border:1px solid black">
+					<span>${comCate.category_cno }. [${comCate.category_cname }]</span>
+							<c:forEach items="${commlist }" var="comdto">
+								<c:if test="${comdto.category_cnofk == comCate.category_cno }">
+									<div class="member_community_boxes" style="border:1px solid red">
+										<div>
+											${comdto.community_no }
+										</div>
+										<div>
+											${comdto.community_userid }
+										</div>
+										<div>
+											${comdto.community_title }
+										</div>
+										<div>
+											${comdto.community_cont }
+										</div>
+										<div>
+											${comdto.community_hit }
+										</div>
+										<c:if test="${comdto.community_update != null }">
+											<div>
+												${comdto.community_update.substring(0, 10) }
+											</div>
+										</c:if>
+										<c:if test="${comdto.community_update == null }">
+											<div>
+												${comdto.community_date.substring(0, 10) }
+											</div>
+										</c:if>
+										<div>
+											${comdto.community_recommend }
+										</div>
+									</div> <!-- member_community_boxes -->
+								</c:if>
+							</c:forEach>
+						</div> <!-- member_commnuity_container -->
+				</c:forEach>
+			</c:if>
+			<c:if test="${empty commlist }">
+				<span>아직 커뮤니티 게시판 첫글을 작성하지 않았습니다.</span>
+			</c:if>
+			
+			
+			<div style="color: blue">[커뮤니티 게시판 댓글]</div>
+			<c:if test="${!empty commCommlist }">
+				<c:forEach items="${commCategory }" var="cCate">
+					<div class="member_commu_reply_boxes">
+					<span>${cCate.category_cno }. [${cCate.category_cname }]</span>
+						<c:forEach items="${commCommlist }" var="ccdto">
+							<c:if test="${ccdto.category_cnofk == cCate.category_cno}">
+								<div class="member_comm_reply_box" style="border: 2px solid red">
+									<div>
+										No. ${ccdto.comment_no }
+									</div>
+									<div>
+										작성자: ${ccdto.comment_writer }
+									</div>
+									<div>
+										내용: ${ccdto.comment_cont }
+									</div>
+									<div>
+										<c:if test="${!empty ccdto.comment_update }">
+											작성일: ${ccdto.comment_update.substring(0, 10) }
+										</c:if>
+										<c:if test="${empty ccdto.comment_update }">
+											수정일: ${ccdto.comment_date.substring(0, 10) }
+										</c:if>
+									</div>
+									<div>
+										그룹: ${ccdto.comment_group }
+									</div>
+									<div>
+										스탭: ${ccdto.comment_step }
+									</div>
+									<div>
+										indent: ${ccdto.comment_indent }
+									</div>
+									
+								</div>
+							</c:if>
+						</c:forEach>
+					</div> <!-- member_commu_reply_boxes -->
+				</c:forEach>
+			</c:if>
+			<c:if test="${empty commCommlist }">
+				<div>아직 첫 게시판 댓글이 없습니다.</div>
+			</c:if>
+		</div>	<!-- community_board_wrapper -->
 			
 			
 			
 			
 			
 			
-		</div> <!-- member_cont_container -->
+	</div> <!-- member_cont_container -->
 		
 		
 	</div> <!-- member_cont_wrapper -->

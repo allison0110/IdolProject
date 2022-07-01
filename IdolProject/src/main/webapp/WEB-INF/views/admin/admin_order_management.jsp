@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ADMIN ORDER MANAGEMENT</title>
 
 
 <style type="text/css">
@@ -40,7 +40,8 @@
 	}
 	
 	.order_boxes_tag {
-		
+		width: 147px;
+    	height: 147px;
 	}
 	.order_boxes {
 		border: 1px solid pink;
@@ -58,10 +59,12 @@
 	.order_img {
 		flex: 10%;
 		height: 100%;
+		width: 100%;
+		border-right: 1px solid pink;
 	}
 	.order_img img {
-		width: 147px;
-		height: 147px;
+		width: 100%;
+		height: 100%;
 	}
 	
 	.order_detail {

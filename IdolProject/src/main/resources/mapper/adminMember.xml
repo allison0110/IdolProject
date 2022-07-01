@@ -91,6 +91,8 @@
    			select * from order_product where order_userid = #{id}
    		</select>
    		
+   		
+   		
    		<!-- 맴버 중고 거래 리스트 불러오기 by used_userid -->
    		<select id="getMemberUsedList" parameterType="String" resultType="usedDTO">
    			select * from used_board where used_userid = #{id}
@@ -106,6 +108,8 @@
    			select * from used_category order by category_uno
    		</select>
    		
+   		
+   		
    		<!--맴버 커뮤니티 게시글 리스트 불러오기-->
    		<select id="getMemberCommList" parameterType="String" resultType="communityDTO">
    		 	select * from community_board where community_userid = #{id}	
@@ -113,19 +117,23 @@
    		
    		 <!--커뮤니티 답글 불러오기-->
    		<select id="getMemberCommCommList" parameterType="String" resultType="CommCommDTO">
-   			select * from community_comment where comment_writer = #{id}	
+   			select * from community_comment where comment_writer = #{id} order by comment_date desc, comment_update desc, comment_group asc	
    		</select>
+   		
+   			<!--커뮤니티 카테고리 가져오기 -->	
+		<select id="getCommunityCommList" resultType="cCategoryDTO">
+		 	select * from community_category order by category_cno
+		</select>
+   		
+   		
+   		
    	<!-- 2차 -->	
    		<!--맴버 문의 게시판 리스트 가져오기-->	
    		<select id="getMemberInquiryLsit" parameterType="String" resultType="inquiryDTO">
    			select * from inquiry_board where inquiry_userid = #{id}
    		</select>
 
-	 		<!--커뮤니티 카테고리 가져오기 -->	
-		<select id="getCommunityCommList" resultType="cCategoryDTO">
-		 	select * from community_category order by category_cno
-		</select>
-
+	 	
 		<select id="getCelebListFromMember" resultType="celebDTO"> 
 			select * from celeb 
 		</select>

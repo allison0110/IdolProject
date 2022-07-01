@@ -109,48 +109,55 @@ public class AdminMemberDAOImpl implements AdminMemberDAO{
 		return this.sqlSession.selectList("getMemberOrderList", id);
 	}
 
+	
+	
 	// 맴버 중고거래 리스트 불러오기 by used_userid
 	@Override
 	public List<UsedDTO> getUsedListById(String id) {
 		return this.sqlSession.selectList("getMemberUsedList", id);
 	}
-
 	// 맴버 중고거래 게시글 불러오기 
 	@Override
 	public List<UsedCommDTO> getUsedCommByid(String id) {
 		return this.sqlSession.selectList("getMemberUsedCommList", id);
 	}
-
 	// 중고거래 카테고리 가져오기 
 	@Override
 	public List<Used_CategoryDTO> getUsedCategory() {
 		return this.sqlSession.selectList("getUsedCategoryList");
 	}
 
+	
+	
+	
 	// 맴버 아이디로 조회 하여 커뮤니티 게시글 리스트 불러오기
 	@Override
 	public List<CommunityDTO> getCommunityListById(String id) {
 		return this.sqlSession.selectList("getMemberCommList", id);
 	}
-
 	// 맴버 아이디로 조회하여 커뮤니티 답글 불러오기
 	@Override
 	public List<Comm_CommentDTO> getCommunityCommById(String id) {
 		return this.sqlSession.selectList("getMemberCommCommList", id);
 	}
-
-	// 문의 게시판 리스트 가져오기 
-	@Override
-	public List<InquiryDTO> getinquiryListById(String id) {
-		return this.sqlSession.selectList("getMemberInquiryLsit", id);
-	}
-
 	// 커뮤니티 카테고리 가져오기
 	@Override
 	public List<Comm_CategoryDTO> getCommunityCategory() {
 		return this.sqlSession.selectList("getCommunityCommList");
 		
 	}
+	
+	
+	
+	
+	// 문의 게시판 리스트 가져오기 
+	@Override
+	public List<InquiryDTO> getinquiryListById(String id) {
+		return this.sqlSession.selectList("getMemberInquiryLsit", id);
+	}
+
+	
+	
 	
 	// 셀럽 리스트 가져오기
 	@Override

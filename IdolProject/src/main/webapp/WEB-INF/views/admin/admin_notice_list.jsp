@@ -49,7 +49,7 @@
 	    flex-wrap: wrap;
 	    width: 80%;
     	align-self: center;
-	    
+	    justify-content: center;
 	}
 	
 	.admin_notice_content{

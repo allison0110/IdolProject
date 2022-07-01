@@ -13,9 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.idol.model.AdminCelebDAO;
 import com.idol.model.AdminMemberDAO;
 import com.idol.model.AdminProductDAO;
+import com.idol.model.BoardCategoryDTO;
+import com.idol.model.BoardCommentDTO;
+import com.idol.model.BoardDTO;
 import com.idol.model.CelebDTO;
 import com.idol.model.Comm_CategoryDTO;
 import com.idol.model.Comm_CommentDTO;
@@ -225,6 +227,7 @@ public class AdminMemberController {
 		PrintWriter out = response.getWriter();
 		
 		if(check > 0) {
+			
 			System.out.println("originNo2 : " + originNo);
 			out.println("<script>");
 			out.println("alert('답변 글 작성 성공 :)')");
@@ -326,6 +329,10 @@ public class AdminMemberController {
 	@RequestMapping("admin_member_cont.do")
 	public String getMemberAlldate(@RequestParam("no") int no, @RequestParam("id") String id, Model model) {
 		
+		System.out.println("NO. : " + no);
+		
+		System.out.println("id : "  + id);
+		
 		MemberDTO dto = this.dao.getMemberCont(no);
 		
 		String mCeleb = dto.getMember_favorite_celeb();
@@ -354,9 +361,11 @@ public class AdminMemberController {
 		
 		List<UsedDTO> usedList = this.dao.getUsedListById(id);
 		
+		
 		List<UsedCommDTO> usedCommList = this.dao.getUsedCommByid(id);
 		
 		List<Used_CategoryDTO> used_category = this.dao.getUsedCategory();
+		
 		
 		List<CommunityDTO> commList = this.dao.getCommunityListById(id);
 		
@@ -364,13 +373,18 @@ public class AdminMemberController {
 		
 		List<Comm_CategoryDTO> comm_category = this.dao.getCommunityCategory();
 		
+		
 		List<InquiryDTO> inquiryList = this.dao.getinquiryListById(id);
 		
 		List<Inquiry_CategoryDTO> inquiry_category = this.dao.getInquiryCategoryList();
 		
+		
 		List<CelebDTO> celebList = this.dao.getCelebList();
 		
 		List<GroupDTO> groupList = this.dao.getGroupList();
+		
+		
+		System.out.println("commList  " + commList.size());
 		
 		model.addAttribute("mdto", dto);
 		model.addAttribute("orderList", orderList);

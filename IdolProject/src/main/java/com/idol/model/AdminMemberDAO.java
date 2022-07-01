@@ -35,16 +35,21 @@ public interface AdminMemberDAO {
 //////////// 맴버 아이디로 검색해서 각 테이블 리스트 불러오기 (맴버 상세 페이지로 이동 )///////////
 	// 맵버 상세 정보 가져오기 by member_no
 	public MemberDTO getMemberCont(int no);
+	
+	
 	// 맴버 아이디 검색 으로 오더리스트 불러오기 by order_userid
-	
 	public List<OrderDTO> getMemberOrderListByID(String id);
-	// 맴버 아이디 검색해서 중고게시판 리스트 불러오기 by used_userid
 	
+	
+	
+	// 맴버 아이디 검색해서 중고게시판 리스트 불러오기 by used_userid
 	public List<UsedDTO> getUsedListById(String id);
 	// 맴버 아이디 검색해서 중고게시판 답변 게시물 리스트 불러오기
 	public List<UsedCommDTO> getUsedCommByid(String id);
 	// 중고 게시판 카테고리 가져오기
 	public List<Used_CategoryDTO> getUsedCategory();
+	
+	
 	
 	// 맴버 아이디 검색해서 커뮤니티 리스트 불러오기 by comment_writer
 	public List<CommunityDTO> getCommunityListById(String id);
@@ -53,11 +58,14 @@ public interface AdminMemberDAO {
 	// 커뮤니티 게시판 카테고리 가져오기
 	public List<Comm_CategoryDTO> getCommunityCategory();
 	
+	
+	
 	// 맴버 아이디 검색해서 문의 게시판 리스트 불러오기 by inquiry_id
 	public List<InquiryDTO> getinquiryListById(String id);
 	
+	// 셀럽리스트 불러오기
 	public List<CelebDTO> getCelebList();
-	
+	// 그룹 리스트 불러오기
 	public List<GroupDTO> getGroupList();
 
 //////////////////////////////////////////////////////////////////////	
