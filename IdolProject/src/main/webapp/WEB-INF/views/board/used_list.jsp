@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
+<%@ include file="../include/user_top.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -26,7 +26,7 @@
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
-		width: 70%;
+		width: 65%;
 		text-align: left;
 		font-size: 12px;
 	}
@@ -119,7 +119,7 @@
 		
 			<div class="used_category">
 				<button class="gray" style="color:red;"
-				onclick="location.href='<%=request.getContextPath() %>/used_list.do?id=${id }'">판매</button>
+				onclick="location.href='<%=request.getContextPath() %>/used_list.do">판매</button>
 				<button class="gray">구매</button>
 				<button class="gray">교환</button>
 				<hr>
@@ -153,8 +153,8 @@
 				</div>
 				
 				<div class="used_right">
-					<button class="navy" onclick="location.href='<%=request.getContextPath() %>/used_write.do?id=${id }'">쓰기</button>&nbsp;&nbsp;
-					<button class="navy" onclick="location.href='<%=request.getContextPath() %>/used_list.do?id=${id }'">목록</button><br><br>
+					<button class="navy" onclick="location.href='<%=request.getContextPath() %>/used_write.do?id=${loginInfo.member_id }'">쓰기</button>&nbsp;&nbsp;
+					<button class="navy" onclick="location.href='<%=request.getContextPath() %>/used_list.do?id=${loginInfo.member_id }'">목록</button><br><br>
 					
 					<form method="post" action="<%=request.getContextPath() %>/used_search.do">
 				   	    <input type="hidden" name="page" value="${paging.getPage() }">
@@ -179,7 +179,7 @@
 					
 					<c:forEach items="${list }" var="i">
 					
-						<a href="<%=request.getContextPath() %>/used_content.do?no=${i.used_no }&id=${id}&page=${paging.page }">
+						<a href="<%=request.getContextPath() %>/used_content.do?no=${i.used_no }&id=${loginInfo.member_id}&page=${paging.page }">
 						<div class="used_one">
 						
 							<div class="used_up">

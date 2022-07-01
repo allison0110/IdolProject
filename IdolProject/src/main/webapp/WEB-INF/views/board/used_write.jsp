@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../include/user_top.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +18,7 @@
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
-		width: 70%;
+		width: 65%;
 		text-align: left;
 		font-size: 12px;
 	}

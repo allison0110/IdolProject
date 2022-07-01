@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.idol.model.MemberDTO;
 import com.idol.model.PageDTO;
 import com.idol.model.UsedCommentDAO;
 import com.idol.model.UsedCommentDTO;
@@ -35,11 +37,14 @@ public class IdolController {
 	// 페이징 처리 작업
 	public String used_list(HttpServletRequest request, Model model) {
 		
-		// 임시 //
-		String id = request.getParameter("id").trim();
-		// 임시 //
+		int page;   // 현재 페이지 변수'
 		
-		int page;   // 현재 페이지 변수
+		HttpSession sesstion = request.getSession();
+		
+		MemberDTO loginInfo = (MemberDTO)sesstion.getAttribute("loginInfo");
+		if(loginInfo != null) {
+			model.addAttribute("loginInfo", loginInfo);
+		}
 		
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
@@ -57,7 +62,6 @@ public class IdolController {
 		
 		model.addAttribute("List", list);
 		model.addAttribute("Paging", dto);
-		model.addAttribute("id", id);
 		
 		return "board/used_list";
 	}

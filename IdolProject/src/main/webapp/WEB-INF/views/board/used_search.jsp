@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
+<%@ include file="../include/user_top.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -26,7 +27,7 @@
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
-		width: 70%;
+		width: 65%;
 		text-align: left;
 		font-size: 12px;
 	}
@@ -61,7 +62,6 @@
 	.used_list {
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr 1fr;
-		grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
 		grid-gap: 10px;
 	}
 	
