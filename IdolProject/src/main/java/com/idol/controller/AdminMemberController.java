@@ -62,6 +62,10 @@ public class AdminMemberController {
 		
 		List<Inquiry_CategoryDTO> iclist = this.dao.getInquiryCategoryList();
 		
+		List<MemberDTO> mlist = this.dao.getMemberList();
+		
+		model.addAttribute("mList", mlist);
+		
 		model.addAttribute("iList", list);
 		
 		model.addAttribute("icList", iclist);
@@ -335,6 +339,7 @@ public class AdminMemberController {
 		
 		MemberDTO dto = this.dao.getMemberCont(no);
 		
+		// 맴버가 좋아하는 셀럽 번호를 쪼개서 보내자 !
 		String mCeleb = dto.getMember_favorite_celeb();
 		
 		System.out.println("mCeleb : " + mCeleb);
@@ -356,11 +361,21 @@ public class AdminMemberController {
 			
 		}
 		
+		// 맴버 주소를 토크나져로 조지쟈! 
+		String address = dto.getMember_address();
+		
+		StringTokenizer addressToken = new StringTokenizer(address, "|");
+		
+		String[] addressList = new String[addressToken.countTokens()];
+		
+		for(int i = 0; i < addressList.length; i++) {
+			addressList[i] = addressToken.nextToken();
+		}
 		
 		List<OrderDTO> orderList = this.dao.getMemberOrderListByID(id);
 		
-		List<UsedDTO> usedList = this.dao.getUsedListById(id);
 		
+		List<UsedDTO> usedList = this.dao.getUsedListById(id);
 		
 		List<UsedCommDTO> usedCommList = this.dao.getUsedCommByid(id);
 		
@@ -387,17 +402,24 @@ public class AdminMemberController {
 		System.out.println("commList  " + commList.size());
 		
 		model.addAttribute("mdto", dto);
+		
 		model.addAttribute("orderList", orderList);
+		
 		model.addAttribute("usedList", usedList);
 		model.addAttribute("usedCommList", usedCommList);
 		model.addAttribute("used_category", used_category);
+		
 		model.addAttribute("commList", commList);
 		model.addAttribute("commCommList", commCommList);
 		model.addAttribute("comm_category", comm_category);
+		
 		model.addAttribute("inquiryList", inquiryList);
 		model.addAttribute("inquiry_category", inquiry_category);
+		
 		model.addAttribute("celebList", celebList);
 		model.addAttribute("groupList", groupList);
+		
+		model.addAttribute("address", addressList);
 		
 		return "admin/admin_member_cont";
 	}

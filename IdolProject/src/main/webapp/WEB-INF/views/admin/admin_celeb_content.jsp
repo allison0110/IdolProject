@@ -17,7 +17,7 @@
 		padding: 0px;
 		height: 100%;
 		background-color: black;
-		
+		font-family: 'VT323', 'Jua', monospace;
 	}
 	
 	a {
