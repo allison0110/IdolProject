@@ -10,7 +10,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ADMIN MUSIC ALBUM</title>
+
+ <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 <style type="text/css">
 	
@@ -86,7 +88,7 @@
 			}
 		%>
 			
-			<div class="album_box">
+			<div data-aos="fade-in" class="album_box">
 				<a href="<%=request.getContextPath()%>/admin_musicList_intAlbum.do?aname=<%=mdto.getMusic_aname()%>">
 					<div class="album_img">
 						<img alt="" src="./resources/upload/music/<%=tokenList[0]%>">
@@ -107,7 +109,10 @@
 			
 	</div> <!-- album_wrapper -->
 
-
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
 
 </body>
 </html>

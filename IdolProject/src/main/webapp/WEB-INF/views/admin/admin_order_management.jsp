@@ -13,6 +13,7 @@
 <meta charset="UTF-8">
 <title>ADMIN ORDER MANAGEMENT</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Creepster&family=East+Sea+Dokdo&family=Gamja+Flower&family=Gugi&family=Jua&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kirang+Haerang&family=Nosifer&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Press+Start+2P&family=VT323&family=Wallpoet&display=swap" rel="stylesheet">
 
 <style type="text/css">
 	
@@ -50,6 +51,7 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
+		font-family: 'Press Start 2P', 'Jua', monospace;
 	}
 	
 	.order_boxes a {
@@ -67,6 +69,10 @@
 		height: 100%;
 	}
 	
+	.order_img:hover{
+		opacity: 0.5;
+	}
+	
 	.order_detail {
 		flex: 90%;
 		color: white;
@@ -78,9 +84,13 @@
 	    margin: 0px 20px;
 	}
 	
+	.order_id:hover{
+		color: gold;
+	}
 	
-	
-	
+	.order_no:hover{
+		color: skyblue;
+	}
 </style>
 
 	
@@ -133,37 +143,37 @@
 					<div class="order_detail">
 				
 						<div>
-							<a href="<%=request.getContextPath()%>/admin_memeber_purchaseInfo.do?name=<%=dto.getOrder_userid()%>">
-								주문자 ID: <%=dto.getOrder_userid() %>
+							<a class="order_id" href="<%=request.getContextPath()%>/admin_memeber_purchaseInfo.do?name=<%=dto.getOrder_userid()%>">
+								ID:<%=dto.getOrder_userid() %>
 							</a>
 						</div>
 				
 						<div>
-							<a href="<%=request.getContextPath()%>/admin_order_groupCont.do?no=<%=dto.getOrder_group()%>">
-								주문 번호: <%=dto.getOrder_group() %>
+							<a class="order_no" href="<%=request.getContextPath()%>/admin_order_groupCont.do?no=<%=dto.getOrder_group()%>">
+								주문번호:<%=dto.getOrder_group() %>
 							</a>
 						</div>
 						<div>
-							수량: <%=dto.getOrder_qty() %>
+							수량:<%=dto.getOrder_qty() %>
 						</div>
 						<div>
-							총금액: <%=String.format("%,d", dto.getOrder_total()) %> 원
+							총금액:<%=String.format("%,d", dto.getOrder_total()) %> 원
 						</div>
 						<div>
-							운송비 : <%=String.format("%,d", dto.getOrder_pprice()) %> 원
+							운송비 :<%=String.format("%,d", dto.getOrder_pprice()) %> 원
 						</div>
 						
 						<div>
-							수취인 : <%=dto.getOrder_receivername() %>
+							수취인 :<%=dto.getOrder_receivername() %>
 						</div>
+<!-- 						<div> -->
+<%-- 							수취인 연락처: <%=dto.getOrder_receiverphone() %> --%>
+<!-- 						</div> -->
+<!-- 						<div> -->
+<%-- 							수취인 주소 : <%=dto.getOrder_receiveraddress() %> --%>
+<!-- 						</div> -->
 						<div>
-							수취인 연락처: <%=dto.getOrder_receiverphone() %>
-						</div>
-						<div>
-							수취인 주소 : <%=dto.getOrder_receiveraddress() %>
-						</div>
-						<div>
-							주문 날짜 : <%=dto.getOrder_date().substring(0, 10) %>
+							 <%=dto.getOrder_date().substring(0, 10) %>
 						</div>
 					
 					

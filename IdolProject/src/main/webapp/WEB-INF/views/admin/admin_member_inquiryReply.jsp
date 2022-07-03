@@ -20,7 +20,7 @@
 	 			<input type="hidden" name="inquiry_step" value="${icont.inquiry_step }">
 	 			<input type="hidden" name="inquiry_indent" value="${icont.inquiry_indent }">
 	 			<input type="hidden" name="inquiry_status" value="1">
-	 			<input type="hidden" name="inquiry_userid" value="${icont.inquiry_userid }">
+	 			<input type="hidden" name="inquiry_userid" value="${admin_id}">
 	 			<input type="hidden" name="product_no" value="${icont.product_no }">
 	 			<input type="hidden" name="order_no" value="${icont.order_no }">
 	 			<input type="hidden" name="inquiry_image" value="${icont.inquiry_image }">

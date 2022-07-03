@@ -80,25 +80,40 @@
 	.member_communi_text {
 		flex: 80%;
 		max-width: 80%;
+		/*
 		display: flex;
 	    flex-direction: column;
+	    */
 	    font-size: 0.8em;
     	justify-content: center;
     	margin: 10px;
+    	display: grid;
+   		grid-template-columns: 80% 20%;
 	}
 	
 	
-	.content_text {
-		font-size: 0.8em;
+	.content_left {
+		grid-column: 1;
+		display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    align-items: center;
 	}
 	.content_title {
 		font-weight: bold;
-		font-size: 1.3em;
+		font-size: 1.2em;
+		
 	}
 	.content_id {
 		
 	}
-	
+	.content_right{
+		grid-column: 2;
+		font-size: 0.9em;
+		justify-content: center;
+	    display: flex;
+	    align-items: center;
+	}
 	.categoryNshowMore{
 		display: flex;
     	justify-content: space-between;
@@ -132,6 +147,7 @@
 <c:set var="ilist" value="${iList }" />
 <!-- 문의게시판 카테고리 리스트 -->
 <c:set var="iclist" value="${icList }" />
+<!-- 맴버 리스트 -->
 <c:set var="mlist" value="${mList }" />
 
 	<div class="admin_member_contact_wrapper">
@@ -143,6 +159,8 @@
 		
 	<div class="admin_member_contact_container">
 	
+	
+	<!-- 커뮤니티 리스트 -->
 		<div class="member_inquiry_category">
 			<c:forEach items="${iclist }" var="ic"> <!-- 문의게시판 카테고리 리스트 -->
 				<div class="categoryNshowMore">
@@ -153,10 +171,11 @@
 				</div>
 				
 				<div class="inquiry_box">
-					<c:forEach items="${ilist }" var="i"> <!-- 문의게시판 리스트 -->
-						<c:if test="${ic.category_ino == i.category_inofk }"> <!-- c:if 카테고리가 같은  분류 뽑아내기 -->
-							<c:if test="${i.inquiry_status == '0' }"> <!-- c:if 답변 대기만 표시하기  -->
+					<c:forEach items="${ilist }" var="i"> 
+						<c:if test="${ic.category_ino == i.category_inofk }"> 
+							<c:if test="${i.inquiry_status == '0' }">
 								<c:forEach items="${mlist }" var="mdto">
+								<!-- 맴버리스트 아이디와 문의게시판 아이디가 같은 경우 리스트 뽑기 -->
 								<c:if test="${mdto.member_id == i.inquiry_userid }">
 								<div class="border_radius">
 									<a class="member_box_link" href="<%=request.getContextPath()%>/admin_member_inquiryCont.do?no=${i.inquiry_no}
@@ -165,17 +184,36 @@
 												<img class="member_img" alt="" src="./resources/upload/member_image/${mdto.member_no }/${mdto.member_image}">
 											</div>
 											<div class="member_communi_text">
-												<c:if test="${i.inquiry_indent > 0 }">
-													<c:forEach begin="1" end="${i.inquiry_indent }">
-														 <div class="content_title"> (RE) ${i.inquiry_title }</div>
-													</c:forEach>
-												</c:if>
-												<c:if test="${i.inquiry_indent == 0 }">
-													<div class="content_title">${i.inquiry_title }</div>	
-												</c:if>
-												<div class="content_id">${i.inquiry_userid }</div>
-													
-												<div class="content_text">${i.inquiry_cont }</div>		
+												<div class="content_left">
+													<!-- 대댓글 문의인 경우 -->
+													<c:if test="${i.inquiry_indent > 0 }">
+														 <div class="content_title"> (대댓글) ${i.inquiry_title }</div>
+													<!-- 
+														<c:forEach begin="1" end="${i.inquiry_indent }">
+															
+														</c:forEach>
+														 -->
+													</c:if>
+													<!-- 원글인 경우 -->
+													<c:if test="${i.inquiry_indent == 0 }">
+														<div class="content_title">${i.inquiry_title }</div>	
+													</c:if>
+													<div class="content_id">
+														${i.inquiry_userid }
+													</div>
+												</div>
+												
+												<!--  	
+												<div class="content_text">${i.inquiry_cont }</div>
+												-->	
+												<div class="content_right">
+													<c:if test="${empty i.inquiry_update }">
+														${i.inquiry_date.substring(0, 10) }
+													</c:if>
+													<c:if test="${!empty i.inquiry_update }">
+														${i.inquiry_update.substring(0, 10) }
+													</c:if>
+												</div>	
 											</div>
 										</a> <!-- member_box_link -->
 									</div> <!-- border_radius -->
@@ -190,7 +228,7 @@
 		
 		
 		
-	
+	<!-- 답변 완료  -->
 		<div class="member_inquiry_category">
 			<div class="categoryNshowMore">
 				<div style="color:gold">[답변완료] </div>
@@ -199,7 +237,8 @@
 				</a>
 			</div>
 			<div class="inquiry_box"> 
-				<c:forEach items="${ilist }" var="i"> <!-- 문의게시판 리스트 -->
+				<!-- 문의게시판 리스트 -->
+				<c:forEach items="${ilist }" var="i"> 
 				<c:if test="${i.inquiry_status == '1' && i.inquiry_step == '0' }"> <!-- c:if 답변 완료만 뽑아내기 -->
 					<c:forEach items="${mlist }" var="mdto">
 					<c:if test="${mdto.member_id == i.inquiry_userid }">
@@ -210,9 +249,42 @@
 								<img class="member_img" alt="" src="./resources/upload/member_image/${mdto.member_no }/${mdto.member_image}">
 							</div>
 							<div class="member_communi_text">
+								<div class="content_left">
+									<!-- 대댓글 문의인 경우 -->
+									<c:if test="${i.inquiry_indent > 0 }">
+										 <div class="content_title"> (대댓글) ${i.inquiry_title }</div>
+									<!-- 
+										<c:forEach begin="1" end="${i.inquiry_indent }">
+											
+										</c:forEach>
+										 -->
+									</c:if>
+									<!-- 원글인 경우 -->
+									<c:if test="${i.inquiry_indent == 0 }">
+										<div class="content_title">${i.inquiry_title }</div>	
+									</c:if>
+									<div class="content_id">
+										${i.inquiry_userid }
+									</div>
+								</div>
+								
+								<!--  	
+								<div class="content_text">${i.inquiry_cont }</div>
+								-->	
+								<div class="content_right">
+									<c:if test="${empty i.inquiry_update }">
+										${i.inquiry_date.substring(0, 10) }
+									</c:if>
+									<c:if test="${!empty i.inquiry_update }">
+										${i.inquiry_update.substring(0, 10) }
+									</c:if>
+								</div>	
+							
+							
+							<!--
 								<div class="content_title">${i.inquiry_title }</div>
 								<div class="content_id">${i.inquiry_userid }</div>
-								<div class="content_text">${i.inquiry_cont }</div>
+							<div class="content_text">${i.inquiry_cont }</div> -->
 							</div>
 						</a> <!-- member_box_link -->
 					</div> <!-- border_radius -->

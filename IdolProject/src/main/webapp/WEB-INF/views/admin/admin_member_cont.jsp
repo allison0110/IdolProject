@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <title>ADMIN MEMBER CONTENT</title>
 
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
+
+
 <style type="text/css">
 	html, body {
 		padding: 0px;
@@ -282,8 +285,29 @@
 	}
 	/******** cummunity board ******/
 	
+	.comm_inside {
+		display: none;
+	}
+	
+	.inside2{
+		display: none;
+	}
 	
 </style>
+
+<script type="text/javascript">
+	
+
+	$(function(){
+		$('.comm_top').click(function(){
+			$(this).next().slideToggle().siblings('.comm_inside').slideUp();
+		});
+		
+	});
+	
+
+</script>
+
 </head>
 <body>
 <!-- 멤서 상세 내용 및 맴버가 좋아하는 셀럽 리스트 -->
@@ -326,7 +350,7 @@
 						<img alt="" src="./resources/upload/member_image/${mdto.member_no }/${mdto.member_image} ">
 					</div>
 					
-					<div>
+					<div style="margin-top: 20px">
 					No. ${mdto.member_no }
 					</div>
 					<div>
@@ -451,10 +475,13 @@
 														${i.inquiry_title }
 													</div>
 													<div class="right_side">
-														<c:if test="${i.inquiry_step == '1'}">
+														<c:if test="${i.inquiry_step == '0'}">
 															원글 
 														</c:if>
-														<c:if test="${i.inquiry_step != '1'}">
+														<c:if test="${i.inquiry_step == '1'}">
+															댓글 
+														</c:if>
+														<c:if test="${i.inquiry_step > '1'}">
 															대댓글 
 														</c:if>
 													</div>
@@ -490,7 +517,8 @@
 						[답변완료]
 					</div>
 						<div class="member_inquiry_box">
-							<a style="width: 100%" href="<%=request.getContextPath() %>/admin_member_inquiryCont.do?no=${i.inquiry_no}">
+							<a style="width: 100%" href="<%=request.getContextPath() %>/admin_member_inquiryCont.do?no=${i.inquiry_no}
+										&pno=${i.product_no}&ono=${i.order_no}&gno=${i.inquiry_group}">
 							<div class="member_inquiry_link">
 								<div class="left_side_div">
 									<div class="left_side board_no">
@@ -510,10 +538,13 @@
 									</span>
 									
 									<span class="right_side">
-										<c:if test="${i.inquiry_step == '1'}">
+										<c:if test="${i.inquiry_step == '0'}">
 											원글 
 										</c:if>
-										<c:if test="${i.inquiry_step != '1'}">
+										<c:if test="${i.inquiry_step == '1'}">
+											댓글 
+										</c:if>
+										<c:if test="${i.inquiry_step > '1'}">
 											대댓글 
 										</c:if>
 									</span>
@@ -556,31 +587,35 @@
 								<!-- 커뮤니티 카테고리랑 게시판 카테고리 번호가 같은 경우 리스트 뽑기 -->
 								<c:if test="${comdto.category_cnofk == comCate.category_cno }">
 									<div class="member_community_boxes">
-										<div class="comm_text no">
-											NO. ${comdto.community_no }
+										 <div class="comm_top">
+											<div class="comm_text no">
+												NO. ${comdto.community_no }
+											</div>
+											<div class="comm_text id">
+												ID: ${comdto.community_userid }
+											</div>
+											<div class="comm_text title">
+												TITLE [${comdto.community_title }]
+											</div>
 										</div>
-										<div class="comm_text id">
-											ID: ${comdto.community_userid }
-										</div>
-										<div class="comm_text title">
-											TITLE [${comdto.community_title }]
-										</div>
-										<div class="comm_text cont">
-											${comdto.community_cont }
-										</div>
-										<div class="comm_text hit">
-											조회수: ${comdto.community_hit }
-										</div>
-										<div class="comm_text recomm">
-											추천수: ${comdto.community_recommend }
-										</div>
-										<div class="comm_text date">
-											<c:if test="${comdto.community_update != null }">
-												수정일: ${comdto.community_update.substring(0, 10) }
-											</c:if>
-											<c:if test="${comdto.community_update == null }">
-												작성일: ${comdto.community_date.substring(0, 10) }
-											</c:if>
+										<div class="comm_inside">
+											<div class="comm_text cont">
+												${comdto.community_cont }
+											</div>
+											<div class="comm_text hit">
+												조회수: ${comdto.community_hit }
+											</div>
+											<div class="comm_text recomm">
+												추천수: ${comdto.community_recommend }
+											</div>
+											<div class="comm_text date">
+												<c:if test="${comdto.community_update != null }">
+													수정일: ${comdto.community_update.substring(0, 10) }
+												</c:if>
+												<c:if test="${comdto.community_update == null }">
+													작성일: ${comdto.community_date.substring(0, 10) }
+												</c:if>
+											</div>
 										</div>
 									</div> <!-- member_community_boxes -->
 								</c:if>
