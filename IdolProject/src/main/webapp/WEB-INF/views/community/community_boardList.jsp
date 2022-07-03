@@ -33,6 +33,7 @@
                 <c:set var="baordlist" value="${baordList}"/>
                 <c:set var="bestcomcountlist" value="${bestcomcountList}"/>
                 <c:set var="boardcomcountlist" value="${boardcomcountList}"/>
+                <c:set var="recommendlist" value="${recommendList}"/>
 
                 <!-- 베스트 게시글 start  -->
                 <div class="topit-list-best">
@@ -57,7 +58,12 @@
                             </c:if>
                             </c:forEach> 
                             <a href="<%=request.getContextPath()%>/community_boardContent.do?bno=${bestdto.community_no}" class="article-title">
-                            ${bestdto.community_title }
+                            <c:if test="${bestdto.community_title.length() > 20 }">
+                            ${bestdto.community_title.substring(0,20) }...
+                            </c:if>
+                            <c:if test="${bestdto.community_title.length() <= 20 }">
+                            ${bestdto.community_title}
+                            </c:if>
                             </a> 
                             </div>
                             <div class="likeAndComment">
@@ -97,7 +103,14 @@
                         <div class="article">
                             <div class="topicAndtitle">
                             <!-- <span class="topic"><a href="#" class="">TV·연예</a></span>  -->
-                            <a href="<%=request.getContextPath()%>/community_boardContent.do?bno=${boarddto.community_no}" class="article-title">${boarddto.community_title }</a> 
+                            <a href="<%=request.getContextPath()%>/community_boardContent.do?bno=${boarddto.community_no}" class="article-title">
+                            <c:if test="${boarddto.community_title.length() > 20 }">
+                            ${boarddto.community_title.substring(0,20)}...
+                            </c:if>
+                            <c:if test="${boarddto.community_title.length() <= 20 }">
+                            ${boarddto.community_title}
+                            </c:if>
+                            </a> 
                             </div>
                             <div class="likeAndComment">
                                 <a href="#"><i class="fa-solid fa-thumbs-up 0.5x"></i>${boarddto.community_recommend }</a> 

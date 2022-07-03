@@ -79,7 +79,7 @@
 									<a href="<%=request.getContextPath()%>/product_list.do?cno=${130}"><li class="product_detail_category">etc.</li></a>
 								</ul>
 							</li>
-                            <li class="product_main_category"><a href="<%=request.getContextPath()%>/product_list.do?cno=${200}">PHOTH</a>
+                            <li class="product_main_category"><a href="<%=request.getContextPath()%>/product_list.do?cno=${200}">PHOTO</a>
                             	<i class="fa-solid fa-chevron-down"></i><i class="fa-solid fa-chevron-up"></i>
 								<ul>
 									<a href="<%=request.getContextPath()%>/product_list.do?cno=${210}"><li class="product_detail_category">Printed</li></a>

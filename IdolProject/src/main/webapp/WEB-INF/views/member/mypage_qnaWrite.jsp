@@ -80,7 +80,7 @@
 		<br>
 		
 			<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/inquiry_write_ok.do">
-			<input type="hidden" name="order_no" value="${ono }">
+			<c:if test="${!empty ono }"><input type="hidden" name="order_no" value="${ono }"></c:if>
 			<table class="qnaCont_table">
 				<tr>
 					<th>작성자</th>

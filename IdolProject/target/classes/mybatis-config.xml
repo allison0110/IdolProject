@@ -26,7 +26,10 @@
  		<typeAlias type="com.idol.model.OrderDTO" alias="OrderDTO"/>
  		<typeAlias type="com.idol.model.CartDAO" alias="CartDAO"/>
  		<typeAlias type="com.idol.model.CartDTO" alias="CartDTO"/>
-  		<typeAlias type="com.idol.model.MusicDTO" alias="musicDTO"/>
+ 		
+ 		<typeAlias type="com.idol.model.PopupDTO" alias="popupDTO"/>
+ 		<typeAlias type="com.idol.model.MusicDTO" alias="musicDTO"/>
+ 		
  		<typeAlias type="com.idol.model.GroupDTO" alias="groupDTO"/>
  		<typeAlias type="com.idol.model.NoticeDTO" alias="noticeDTO"/>
  		<typeAlias type="com.idol.model.AdminDTO" alias="adminDTO"/>
@@ -42,6 +45,7 @@
 		<typeAlias type="com.idol.model.Comm_CommentDTO" alias="CommCommDTO"/>
 		<typeAlias type="com.idol.model.DateRangeDTO" alias="dRangeDTO"/>
 		<typeAlias type="com.idol.model.ImagesDTO" alias="imagesDTO"/>
+		<typeAlias type="com.idol.model.UserImagesDAO" alias="imagedao"/>
 
 		<typeAlias type="com.idol.model.RankingDTO" alias="rankingDTO"/>
 
@@ -51,6 +55,7 @@
 		<typeAlias type="com.idol.model.BoardCategoryDTO" alias="BoardCategoryDTO"/>
 		<typeAlias type="com.idol.model.BoardCommentDAO" alias="BoardCommentDAO"/>
 		<typeAlias type="com.idol.model.BoardCommentDTO" alias="BoardCommentDTO"/>
+	
 		
 
 		
@@ -65,5 +70,5 @@
 				 
 		 
 	</typeAliases>  	
-	
+
 </configuration>

@@ -29,7 +29,4 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.idol" />
-	
-	
-	
 </beans:beans>

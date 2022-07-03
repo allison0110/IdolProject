@@ -247,7 +247,108 @@ for(let i=0;i<$('.comment').length;i++){
 		
 	});
 }
-  
+ 
+ 
+ // 로그인한 회원이 게시물의 추천여부확인
+ let recommendStatus = $('#recommendStatus').val();
+if(recommendStatus == 1){
+	$('.fa-thumbs-up').css("color","blue")
+	.css("opacity","1");
+}
+
+$('.fa-thumbs-up').click(function(){
+	// 로그인이 되어있으면 추천 가능
+	if($('#loginId').val() != ""){
+		$.ajax({
+			type: "POST",
+			url: "community_recommend.do",
+			data:{
+					recommendStatus : recommendStatus,
+					bno:$("#bno").val(),
+					memno:$("#loginNo").val()
+					},
+			datatype: "text",
+			success: function(data){
+				let recommendCount = $('#recommendCount').text();
+				if(Number(data) == 1){
+					recommendStatus = 1;
+					$('.fa-thumbs-up').css("color","blue")
+					.css("opacity","1");
+					$('#recommendCount').text(Number(recommendCount)+1);
+				}else{
+					recommendStatus = 0;
+					$('.fa-thumbs-up').css("color","black")
+					.css("opacity","0.5");
+					$('#recommendCount').text(Number(recommendCount)-1);
+				}
+			},
+			error: function(data){
+			  Swal.fire({
+			  icon: 'error',
+			  title: '통신에러 발생!.',
+			  })
+			}
+			});
+		
+	// 현재 로그인이 안되어 있으면 로그인페이지로 이동 경고창	
+	}else{
+	  Swal.fire({
+	  icon: 'error',
+	  title: '로그인을 진행해 주세요!.',
+	  footer: '<a href="login.do"><로그인 페이지로 이동></a>'
+	  })
+	}
+});
+
+
+
+
+
+ /*  backToTopBottom
+* - 변수 지정하기
+* - 문서의 높이를 계산하고 원하는 부분이 상단에서 얼마큼 떨어져 있는지 offset 값을 계산하기
+* - 스크롤과 클릭 이벤트 작성하기
+*/
+let btt = document.getElementById("back-to-top"),
+btb = document.getElementById("back-to-bottom"),
+docElem = document.querySelector("body"),  
+offset,
+scroPos,
+doHeight;
+doHeight = Math.max(docElem.offsetHeight,docElem.scrollHeight);
+//console.log('문서길이'+doHeight);
+scroPos = docElem.scrollTop;
+//console.log('스크롤길이길이'+scroPos);
+if(doHeight != 0){
+offset = doHeight/15;
+//console.log('오프셋 길이'+offset);
+}
+
+// 스크롤 이벤트 추가
+docElem.addEventListener("scroll",function(){
+scroPos = docElem.scrollTop;
+//console.log('스크롤길이길이 실시간'+scroPos);
+btt.className=(scroPos>offset) ? 'visible':'';
+btb.className=(scroPos>offset) ? 'visible':'';
+});
+
+// top-button클릭 이벤트 추가
+btt.addEventListener("click",function(event){
+event.preventDefault(); // 링크의 본연의 기능을 막는다.
+//console.log(event.defaultPrevented); //Event 인터페이스 의 defaultPrevented 읽기 전용 속성은 Event.preventDefault() 호출 이 이벤트를 취소 했는지 여부를 나타내는 부울 값을 반환합니다 .
+docElem.scrollTo({ left: 0, top: 0, behavior: "smooth" });
+});
+
+// bottom-button클릭 이벤트 추가
+btb.addEventListener("click",function(event){
+event.preventDefault(); // 링크의 본연의 기능을 막는다.
+//console.log(event.defaultPrevented); //Event 인터페이스 의 defaultPrevented 읽기 전용 속성은 Event.preventDefault() 호출 이 이벤트를 취소 했는지 여부를 나타내는 부울 값을 반환합니다 .
+let docElem2 = document.querySelector("body"),   
+doHeight2;
+doHeight2 = Math.max(docElem2.offsetHeight,docElem2.scrollHeight);
+
+docElem.scrollTo({ left: 0, top: doHeight2, behavior: "smooth" });
+});
   
   
   

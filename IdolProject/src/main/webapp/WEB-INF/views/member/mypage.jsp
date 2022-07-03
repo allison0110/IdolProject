@@ -215,7 +215,12 @@
 			<% 
 				List<OrderDTO> oList = (List<OrderDTO>)request.getAttribute("oList");
 			
-				for(int i=0; i<3; i++){
+				int size =0;
+				
+				if(oList.size()<=3){ size = oList.size();}
+				else{size = 3 ;}
+			
+				for(int i=0; i<size; i++){
 					OrderDTO odto = oList.get(i);
 					
 					DecimalFormat format = new DecimalFormat("###,###");
@@ -241,8 +246,7 @@
 					</div> <!-- class="order_item" -->
 					</a>
 				
-			<% 	}
-			%>
+			<% 	}//for문 %>
 			</c:if>
 			</div><!-- class="recent_order_content" end -->
 			
@@ -256,7 +260,13 @@
 			<!-- 문의내역 최신 3개만 보이기 -->
 			<%
 				List<InquiryDTO> inquiry = (List<InquiryDTO>)request.getAttribute("iList");
-				for(int i=0; i<3; i++){
+				
+				int isize = 0;
+				
+				if(inquiry.size()<=3){ isize = inquiry.size();}
+				else{isize = 3 ;}
+				
+				for(int i=0; i<isize; i++){
 					
 					InquiryDTO idto = inquiry.get(i);
 					
@@ -299,6 +309,9 @@
 				</a>
 			<%	}
 			%>
+			</c:if>
+			<c:if test="${empty iList }">
+			<span>문의내역 없음</span>
 			</c:if>
 			</div><!-- class="recent_qna_content" end -->
 			

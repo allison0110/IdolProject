@@ -76,6 +76,8 @@
 	<c:set var="dto" value="${loginInfo }"/> <!--로그인회원 정보 저장 -->
 	<c:set var="cont" value="${Cont }"/>
 	<c:set var="page" value="${page }"/>
+	<c:set var="pCont" value="${pCont }"/> <!-- 제품 정보 -->
+	
 	
 	
 	<%@include file="../include/user_top.jsp" %>
@@ -106,7 +108,7 @@
 					<th>상품 정보</th>
 					<td>
 					<c:if test="${cont.getProduct_no() != 0 }">
-							상품사진? or 상품이름
+							${pCont.getProduct_name() }
 					</c:if>
 					</td>
 				</tr>

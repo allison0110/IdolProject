@@ -34,5 +34,11 @@ public interface BoardDAO {
 	// 게시물 업데이트
 	int boardUpdate(BoardDTO boarddto);
 	
+	// 게시물 추천수 증가
+	void boardRecommendAdd(int bno);
+	
+	// 게시물 추천수 감소
+	void boardRecommendMinus(int bno);
+	
 	
 }

@@ -13,6 +13,11 @@
 	    <link rel="stylesheet" href="./resources/css/gnb.css" />
 	    <link rel="stylesheet" href="./resources/css/main.css" />
 		<title>YOUR CELEB</title>
+		<script type="text/javascript">
+		function loginAlert() {
+		      alert("사용 권한이 없습니다. 로그인 해주세요");
+		  } 
+		</script>
 	</head>
 	<body>
 		<!-- include header -->
@@ -42,7 +47,7 @@
               <li><a href="<%=request.getContextPath()%>/community_boardList.do">FORUM</a></li>
               <li><a href="<%=request.getContextPath()%>/event_list.do?board_id=1&category_id=1">EVENT</a></li>
               <li><a href="<%=request.getContextPath()%>/whole_ranking.do">MEMBERS</a></li>
-              <li><a href="#">MARKET</a></li>
+              <li><a href="<%=request.getContextPath()%>/used_list.do">MARKET</a></li>
             </ul>
             
           </div>
@@ -86,7 +91,7 @@
                 <a href="#">SHINEE</a>
               </li>
               <li>
-                <a href="#">싸이</a>
+                <a href="<%=request.getContextPath()%>/artist_content.do?no=22">싸이</a>
               </li>
               <li>
                 <a href="#">(여자)아이들</a>

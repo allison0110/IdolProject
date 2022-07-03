@@ -11,4 +11,8 @@ public interface CelebDAO {
 	// 원석
 	List<CelebDTO> getCelebList();
 	CelebDTO getCelebDetail(int cno);
+	
+	// 경연
+	List<CelebDTO> getArtistList(String group);
+	
 }

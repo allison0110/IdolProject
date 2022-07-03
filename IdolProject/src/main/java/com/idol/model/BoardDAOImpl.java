@@ -73,5 +73,19 @@ public class BoardDAOImpl implements BoardDAO {
 	public int boardUpdate(BoardDTO boarddto) {
 		return sqlSession.update("boardUpdate", boarddto);
 	}
+	
+	// 게시물 추천수 증가
+	@Override
+	public void boardRecommendAdd(int bno) {
+		sqlSession.update("recommendtAdd", bno);
+		
+	}
+	
+	// 게시물 추천수 감소
+	@Override
+	public void boardRecommendMinus(int bno) {
+		sqlSession.update("recommendtMinus", bno);
+		
+	}
 
 }
