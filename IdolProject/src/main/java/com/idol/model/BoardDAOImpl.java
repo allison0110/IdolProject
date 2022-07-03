@@ -94,5 +94,11 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.selectList("rangkingList");
 	}
 	
+	// 게시물 카테고리에 따른 날짜 및 추천수에 따른 게시물 리스트
+	@Override
+	public List<BoardDTO> boardDateRecommendList(int cno) {
+		return sqlSession.selectList("boardDateRecommendList", cno);
+	}
+	
 
 }

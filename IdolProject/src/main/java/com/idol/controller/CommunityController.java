@@ -447,6 +447,10 @@ public class CommunityController {
 			}
 		}
 		
+		// 해당하는 카테고리의 게시물 리스트를 최신날짜와 추천수 순으로 가져온다.
+		List<BoardDTO> boardList = Boarddao.boardDateRecommendList(boardCont.getCategory_cnofk());
+		
+		
 		
 		model.addAttribute("boardCont", boardCont);
 		model.addAttribute("writerInfo", writerInfo);
@@ -455,6 +459,7 @@ public class CommunityController {
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("recommendStatus", recommendStatus);
+		model.addAttribute("boardList", boardList);
 		
 		
 		return "community/community_boardcontent";

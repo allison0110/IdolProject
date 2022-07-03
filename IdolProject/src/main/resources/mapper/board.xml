@@ -79,4 +79,9 @@
 			group by COMMUNITY_USERID, MEMBER_NO order by count(COMMUNITY_USERID) desc]]>
   </select>  
   
+  <!-- 게시물 리스트를 카테고리별로 최신날짜 및 추천수 순으로 가져온다. -->
+  <select id="boardDateRecommendList" parameterType="int" resultType="BoardDTO">
+  	<![CDATA[select * from community_board where CATEGORY_CNOFK = #{cno} order by community_date desc, COMMUNITY_RECOMMEND desc]]>
+  </select>
+  
   </mapper>

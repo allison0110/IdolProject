@@ -156,7 +156,9 @@
 					        </figure>
 					      </div>
 					      <div class="media-content">
+					        <a href="<%=request.getContextPath()%>/myfeed.do?id=${topMember.member_id}">
 					        <p class="title is-4">${topMember.member_id}</p>
+					        </a>
 					        <p class="subtitle is-6">${topMember.member_nickname}</p>
 					      </div>
 					    </div>
@@ -182,7 +184,12 @@
 					  	<c:set var="j" value="${j+1 }"/>
 					    <tr>
 					      <th class="ranking-count" scope="row">${j }</th>
-					      <td>${rankingdto.member_id }</td>
+					      <td>
+					      <a href="<%=request.getContextPath()%>/myfeed.do?id=${rankingdto.member_id }">
+					      ${rankingdto.member_id }
+					      </a>
+					      </td>
+					      
 					      <td class="ranking-boardcount">${rankingdto.boardcount }</td>
 					    </tr>
 						    <c:if test="${j == 5 }">
