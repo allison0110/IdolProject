@@ -40,5 +40,7 @@ public interface BoardDAO {
 	// 게시물 추천수 감소
 	void boardRecommendMinus(int bno);
 	
+	// 게시물 작성갯수에 따른 유저랭킹
+	List<BoardrankingDTO> boardrankingList();
 	
 }

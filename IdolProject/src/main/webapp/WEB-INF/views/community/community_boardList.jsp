@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +11,9 @@
     <script src="https://kit.fontawesome.com/3de1cbcb05.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/community_boardList.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
 <%@include file="../include/user_top.jsp" %>
@@ -34,6 +36,8 @@
                 <c:set var="bestcomcountlist" value="${bestcomcountList}"/>
                 <c:set var="boardcomcountlist" value="${boardcomcountList}"/>
                 <c:set var="recommendlist" value="${recommendList}"/>
+                <c:set var="topicCountlist" value="${topicCountList}"/>
+                <c:set var="memRankinglist" value="${memRankingList}"/>
 
                 <!-- 베스트 게시글 start  -->
                 <div class="topit-list-best">
@@ -131,15 +135,71 @@
                 <!-- 일반 게시글 end -->
             </div>  <!-- 베스트, 일반 게시글 end -->
 
+            <div id="right-container">
+            
+				<div id="member-ranking">
+				<div id="topMember-title">
+						<img alt="" src="community/top1.png">
+						&nbsp;&nbsp;<span>게시글수</span>
+				</div>
+				<div class="card">
+					  <div class="card-image">
+					    <figure class="image is-4by1">
+					      <img src="upload/member_image/${topMember.member_no}/${topMember.member_cover}" alt="Placeholder image">
+					    </figure>
+					  </div>
+					  <div class="card-content">
+					    <div class="media">
+					      <div class="media-left">
+					        <figure class="image is-48x48">
+					          <img src="upload/member_image/${topMember.member_no}/${topMember.member_image}" alt="Placeholder image">
+					        </figure>
+					      </div>
+					      <div class="media-content">
+					        <p class="title is-4">${topMember.member_id}</p>
+					        <p class="subtitle is-6">${topMember.member_nickname}</p>
+					      </div>
+					    </div>
+					  </div>
+				</div>
 
-
-
-            <div id="ranking-container">
+					<table class="table">
+					  <thead>
+					    <tr>
+					      <th scope="col">순위</th>
+					      <th scope="col">아이디</th>
+					      <th scope="col">게시글 수</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  <!-- 유저순위를 top5순위까지 반복 -->
+					  <c:set var="j" value="${0 }"/>
+					  <c:set var="doneLoop2" value="false"/>
+					  <c:if test="${!empty memRankinglist }">
+					  	<c:forEach items="${memRankinglist }" var="rankingdto" varStatus="status">
+					  	<c:if test="${not doneLoop2}">
+					  	
+					  	<c:set var="j" value="${j+1 }"/>
+					    <tr>
+					      <th class="ranking-count" scope="row">${j }</th>
+					      <td>${rankingdto.member_id }</td>
+					      <td class="ranking-boardcount">${rankingdto.boardcount }</td>
+					    </tr>
+						    <c:if test="${j == 5 }">
+							<c:set var="doneLoop2" value="true"/>
+	  						</c:if>
+	  						
+					    </c:if>
+					    </c:forEach>
+					  </c:if>
+					  </tbody>
+					</table>
+				</div>
+				
 
             </div>
         </div>
     </div>  
-		
 <%@include file="../include/user_bottom.jsp" %>
 </body>
 </html>
