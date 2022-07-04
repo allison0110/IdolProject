@@ -308,7 +308,7 @@ public class CommunityController {
 		List<String> testlist = new ArrayList<String>();
 		System.out.println("testListSize:"+testlist.size());
 
-        String path = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\community\\";
+        String path = "C:\\NCS\\IdolProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\community\\";
         
         // 등록된 이미지수만큼의 이미지가 반복적으로 저장될 String 변수
         String images = "";
@@ -472,7 +472,7 @@ public class CommunityController {
 	public String product_cartSelectedDelete(HttpServletRequest request,Model model) {
 		
 		
-		String path = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\community\\";
+		String path = "C:\\NCS\\IdolProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\community";
 		String result = "";
 		int bno = Integer.parseInt(request.getParameter("bno").trim());
 		
@@ -496,7 +496,7 @@ public class CommunityController {
 		// 게시물 삭제시 게시물에 등록된 댓글도 함께 삭제되어야 한다.
 		int commentDelResult = boardCommentdao.deleteBoardComment(bno);
 		
-		if(Boarddao.deleteBoard(bno) > 0 && commentDelResult >0) {
+		if(Boarddao.deleteBoard(bno) > 0) {
 			result = "1";
 		}
 		
@@ -557,7 +557,7 @@ public class CommunityController {
 		
 		int boardNo = Integer.parseInt(request.getParameter("boardNo").trim());
 		
-		String path = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\community";
+		String path = "C:\\NCS\\IdolProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\community";
 		
 		// 삭제할 이미지 파일명이 ,구분자를 통해 파라메터값으로 들어온다.
 		String delimages = request.getParameter("delImages").trim();
