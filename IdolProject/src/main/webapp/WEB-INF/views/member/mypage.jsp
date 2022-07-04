@@ -215,7 +215,12 @@
 			<% 
 				List<OrderDTO> oList = (List<OrderDTO>)request.getAttribute("oList");
 			
-				for(int i=0; i<3; i++){
+				int size =0;
+				
+				if(oList.size()<=3){ size = oList.size();}
+				else{size = 3 ;}
+			
+				for(int i=0; i<size; i++){
 					OrderDTO odto = oList.get(i);
 					
 					DecimalFormat format = new DecimalFormat("###,###");
@@ -241,8 +246,7 @@
 					</div> <!-- class="order_item" -->
 					</a>
 				
-			<% 	}
-			%>
+			<% 	}//for문 %>
 			</c:if>
 			</div><!-- class="recent_order_content" end -->
 			
@@ -256,7 +260,13 @@
 			<!-- 문의내역 최신 3개만 보이기 -->
 			<%
 				List<InquiryDTO> inquiry = (List<InquiryDTO>)request.getAttribute("iList");
-				for(int i=0; i<3; i++){
+				
+				int isize = 0;
+				
+				if(inquiry.size()<=3){ isize = inquiry.size();}
+				else{isize = 3 ;}
+				
+				for(int i=0; i<isize; i++){
 					
 					InquiryDTO idto = inquiry.get(i);
 					
@@ -282,10 +292,13 @@
 					}
 					//답변상태
 					String status = "";
+					String color ="";
 					if(idto.getInquiry_status() == 0){
 						status ="답변대기";
+						color = "#ff5722";
 					}else{
 						status="답변완료";
+						color="black";
 					}
 			%>
 				<a href="<%=request.getContextPath()%>/inquiry_cont.do?no=<%=idto.getInquiry_no()%>&page=1">
@@ -294,11 +307,14 @@
 					&nbsp;<span><%=idto.getInquiry_title() %></span><br>
 					<span style="color: #858080;font-size: 0.9em; font-weight:normal;">
 					<%=idto.getInquiry_date().substring(0, 10) %></span>│ 
-					<span style="color:#ff5722;font-size: 0.9em;"><%=status %> </span>
+					<span style="color:<%=color %>;font-size: 0.9em;"><%=status %> </span>
 				</div><!-- class="qna_item" end -->
 				</a>
 			<%	}
 			%>
+			</c:if>
+			<c:if test="${empty iList }">
+			<span>문의내역 없음</span>
 			</c:if>
 			</div><!-- class="recent_qna_content" end -->
 			

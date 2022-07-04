@@ -11,6 +11,7 @@ public class CommunityDTO {
 	private String community_cont;
 	private int community_hit;
 	private String community_date;
+	private String community_update;
 	private int community_recommend;
 	private int category_cnofk;
 	private String community_image;

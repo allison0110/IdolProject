@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -177,7 +178,9 @@
 							<c:forEach items="${dto.notice_images }" var="filename">
 								<img src="./resources/upload/notice/${filename }">
 							</c:forEach>
-							${dto.notice_cont }
+						<% pageContext.setAttribute("replaceChar", "\n"); %>
+				  			<c:set var="content" value="${fn:replace(dto.notice_cont, replaceChar, '<br>') }"/>
+				  			${content }
 						</td>
 						
 					</tr>

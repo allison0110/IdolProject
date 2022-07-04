@@ -135,7 +135,7 @@
 					<img src="./resources/upload/member_image/${dto.getMember_no() }/${dto.getMember_image() }" alt="member_image">
 					</c:if>
 					<c:if test="${empty dto.getMember_image() }">
-						<i class="bi bi-card-image" style="font-size: 5em;text-align: center;margin-left: 25px;"></i>
+						<img src="./resources/upload/celeb/프사없음.jpeg" alt="member_image">
 					</c:if>
 				</div>
 				<a href="#editProfile" class="image_setting"><i class="bi bi-gear-fill"></i></a>
@@ -194,10 +194,7 @@
 							</c:forEach>
 						</c:if>
 						<c:if test="${dto.getMember_id().length() > 4 }">
-						${dto.getMember_id().substring(0,4) }
-						<c:forEach begin="1" end="${dto.getMember_id().substring(4).length() }">
-									*
-						</c:forEach>
+						${dto.getMember_id().substring(0,(dto.getMember_id().length()-2)) }**
 						</c:if>
 					</span>
 					</div>

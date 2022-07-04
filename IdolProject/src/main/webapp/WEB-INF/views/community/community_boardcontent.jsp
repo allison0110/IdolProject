@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,9 +25,12 @@
                 <c:set var="clist" value="${cList}"/>  
                 <c:set var="commentlist" value="${commentList}"/>  
                 <c:set var="mlist" value="${mList}"/>  
+                <c:set var="boardlist" value="${boardList}"/>  
                 <input type="hidden" id="loginId" value="${loginInfo.member_id }">
+                <input type="hidden" id="loginNo" value="${loginInfo.member_no }">
                 <input type="hidden" id="writerId" value="${boardCont.community_userid }">
                 <input type="hidden" id="bno" value="${boardCont.community_no }">
+                <input type="hidden" id="recommendStatus" value="${recommendStatus}">
                     <div class="topic">
                                            
                         <c:if test="${!empty clist}">
@@ -79,7 +83,10 @@
                     <div class="borderLine"></div>
 
                     <div class="detail">
-                        	${boardCont.community_cont }
+                    <% pageContext.setAttribute("replaceChar", "\n"); %>
+                    	<c:set var="content" value="${fn:replace(boardCont.community_cont, replaceChar, '<br>') }"/>
+				  	${content }
+                    	<%-- ${boardCont.community_cont } --%>
                     </div>
                     
                     
@@ -94,7 +101,7 @@
 
                     <div class="info2">
                     	<div class="HitandComment">
-                        <i class="fa-solid fa-thumbs-up"></i>&nbsp;${boardCont.community_recommend } &nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="fa-solid fa-thumbs-up"></i>&nbsp; <span id="recommendCount">${boardCont.community_recommend }</span> &nbsp;&nbsp;&nbsp;&nbsp;
                         <i class="fa-solid fa-comment"></i>&nbsp;${commentCount } &nbsp;&nbsp;&nbsp;&nbsp;
                         </div>
                         <div class="UpdateAndDelete">
@@ -191,12 +198,56 @@
                 </div> <!-- leftContent end --> 
 
 
-                <!-- 유저랭킹 or 인기게시물 순위 -->
+                <!-- 인기게시물 -->
                 <div id="rightContent">
-
+					<div id="topic-recommendList">
+						<div id="recommendTopicTitle">
+							<c:if test="${!empty clist}">
+	                        	<c:forEach items="${clist }" var="cdto">
+	                        		<c:if test="${cdto.category_cno == boardCont.category_cnofk }">
+	                        			<span>
+	                        			 <a href="<%=request.getContextPath()%>/community_topicList.do?cno=${cdto.category_cno}">
+	                        			 	${cdto.category_cname }
+	                        			 </a> 추천글
+	                        			</span>
+	                        		</c:if>
+	                        	</c:forEach>
+                        	</c:if>
+						</div>
+						<!-- 추천 게시글 리스트를 10개 출력한다.(최신날짜의 추천순으로) -->
+						<c:if test="${!empty boardlist }">
+							<c:set var="i" value="${0 }"/>
+					  		<c:set var="doneLoop" value="false"/>
+							<c:forEach items="${boardlist }" var="boarddto">
+							<c:if test="${not doneLoop }">
+							<c:set var="i" value="${i+1 }"/>
+							<div class="recommendBoardTitle">
+							<c:if test="${boarddto.community_title.length() > 15 }">
+							
+							<span class="delimiter">.</span>
+							<a href="<%=request.getContextPath()%>/community_boardContent.do?bno=${boarddto.community_no}">
+							${boarddto.community_title.substring(0,15) }...
+							</a>
+							</c:if>
+							<c:if test="${boarddto.community_title.length() <= 15 }">
+							<span class="delimiter">.</span>
+							<a href="<%=request.getContextPath()%>/community_boardContent.do?bno=${boarddto.community_no}">
+							${boarddto.community_title }
+							</a>
+							</c:if>
+							</div>
+								<c:if test="${i == 10 }">
+								<c:set var="doneLoop" value="true"/>
+		  						</c:if>
+							</c:if>
+							</c:forEach>
+						</c:if>
+					</div>
                 </div>
             </div> <!-- contnet -->
         </div>
+        <a id="back-to-top" href="#">Top</a>
+        <a id="back-to-bottom" href="#">Bot</a>
     </div>  
 	
 <%@include file="../include/user_bottom.jsp" %>

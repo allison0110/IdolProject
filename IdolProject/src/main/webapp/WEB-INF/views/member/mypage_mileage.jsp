@@ -117,8 +117,7 @@
 	    font-size: 16px;
 	    border-top: 1.5px solid #d9d8de;
 	}
-
-
+	
 </style>
 
 
@@ -302,7 +301,6 @@
  	});
  	
 		</script> 
-		
 		</div><!-- class="mypage_main" end -->
 	</div><!-- class="mypage_container" end -->
 	<%@include file="../include/user_bottom.jsp" %>

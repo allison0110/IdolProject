@@ -48,5 +48,6 @@
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>*.do</url-pattern> <!-- /뒤에 아무거나 들어오면 한글인코딩 설정하라는 의미 -->
+		<url-pattern>/</url-pattern>
 	</filter-mapping>
 </web-app>

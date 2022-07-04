@@ -50,7 +50,7 @@
 				<c:forEach items="${elist }" var="edto">
 					<div class="swiper-slide">
 						<div class="swiper-slide-popup-wrap" >
-							<a href="">
+							<a href="<%=request.getContextPath()%>/">
 					 		<img src="./resources/upload/notice/${edto.notice_image }">
 							</a>
 						</div>

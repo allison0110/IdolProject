@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,16 +21,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.idol.model.AdminNoticeDAO;
 import com.idol.model.BoardCategoryDAO;
 import com.idol.model.BoardCategoryDTO;
 import com.idol.model.BoardCommentDAO;
 import com.idol.model.BoardCommentDTO;
 import com.idol.model.BoardDAO;
 import com.idol.model.BoardDTO;
+import com.idol.model.BoardRecommendDAO;
+import com.idol.model.BoardRecommendDTO;
+import com.idol.model.BoardrankingDTO;
+import com.idol.model.EventDTO;
 import com.idol.model.MemberDAO;
 import com.idol.model.MemberDTO;
 import com.idol.model.MileageDAO;
 import com.idol.model.MileageDTO;
+import com.idol.model.NoticeDTO;
 
 @Controller
 public class CommunityController {
@@ -49,10 +56,15 @@ public class CommunityController {
 	@Autowired
 	private BoardCommentDAO boardCommentdao;
 	
+	@Autowired
+	private BoardRecommendDAO boardRecommenddao;
+	
+	@Autowired 
+	private AdminNoticeDAO Nonicedao;
+	
 	// 커뮤니티 게시물 전체리스트 페이지로 이동
 	@RequestMapping("community_boardList.do")
-	public String community_boardList(Model model) {
-		
+	public String community_boardList(Model model,HttpServletRequest request) {
 		
 		// 게시글의 추천수가 10개 이상인 게시글의 리스트를 가져오는 메서드
 		List<BoardDTO> bestlist = Boarddao.getBestList();
@@ -70,10 +82,40 @@ public class CommunityController {
 			bestcomcountlist.add(commentCount);
 		}
 		
+		// 각 토픽리스트 게시물의 갯수를 구한다.
+		List<Integer> topicCountList = new ArrayList<Integer>();
+		for(int i=0;i<categorylist.size();i++) {
+			int count = 0;
+			count = Boarddao.getTopicList(categorylist.get(i).getCategory_cno()).size();
+			topicCountList.add(count);
+		}
+		
+		
+		// 유저 게시물작성 랭킹 리스트
+		List<BoardrankingDTO> memRankingList = Boarddao.boardrankingList();
+		
+		// 가장많은 게시물을 작성한 회원
+		MemberDTO topMember = Memberdao.getMemberCont(memRankingList.get(0).getMember_no());
+		
+		// top1회원의 이미지 구분자 제거
+		if(topMember.getMember_cover() != null) {
+		StringTokenizer st1 = new StringTokenizer(topMember.getMember_cover(), "|");
+		String root1 = st1.nextToken();
+		topMember.setMember_cover(root1);
+		
+		StringTokenizer st2 = new StringTokenizer(topMember.getMember_image(), "|");
+		String root2 = st2.nextToken();
+		topMember.setMember_image(root2);
+		}
+
+		
 		model.addAttribute("categoryList", categorylist);
 		model.addAttribute("bestList", bestlist);
 		model.addAttribute("baordList", baordlist);
 		model.addAttribute("bestcomcountList", bestcomcountlist);
+		model.addAttribute("topicCountList", topicCountList);
+		model.addAttribute("memRankingList", memRankingList);
+		model.addAttribute("topMember", topMember);
 		
 		return "community/community_boardList";
 	}
@@ -83,15 +125,15 @@ public class CommunityController {
 	public String community_topicList(Model model, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
+		MemberDTO loginInfo = null;
 		// 세션정보에 로그인정보가 있을 경우 페이지에 로그인정보를 전달
 		if(session.getAttribute("loginInfo") != null) {
-		MemberDTO loginInfo = (MemberDTO)session.getAttribute("loginInfo");
+		loginInfo = (MemberDTO)session.getAttribute("loginInfo");
 		session.setAttribute("loginInfo", loginInfo);
 		model.addAttribute("loginInfo", loginInfo);
 		
 		}else {
 			System.out.println("세션정보 없음");
-			//path ="redirect:login.do";
 		}
 		
 		
@@ -140,13 +182,34 @@ public class CommunityController {
 			int commentCount = boardCommentdao.getcommentCount(list.get(i).getCommunity_no());
 			comcountlist.add(commentCount);
 		}
-				
+		
+		// 각 게시물의 회원의 추천여부를 확인할 수 있는 statusList를 생성한다.
+		List<Integer> recommentStsList = new ArrayList<Integer>();
+		// 초기 추천상태 리스트를 모두 0으로 초기화 해 준다.
+		for(int i=0;i<list.size();i++) {
+			recommentStsList.add(0); 
+		}
+		
+		// 로그인 정보가 있다면 게시물 리스트를 활용하여 해당 게시물이 추천상태인지를 확인한다.
+		if(loginInfo != null) {
+			List<BoardRecommendDTO> recommendList = boardRecommenddao.getRecommendList(loginInfo.getMember_no());
+			// 게시물 리스트의 게시물번호와 추천상태 리스트의 게시물번호를 비교하여 추천게시물이 있는 경우 추천상태리스트의 값을 1로 변경하여 준다.
+			for(int i=0; i<list.size();i++) {
+				for(int j=0;j<recommendList.size();j++) {
+					if(list.get(i).getCommunity_no() == recommendList.get(j).getCommunity_no()) {
+						recommentStsList.set(i, 1);
+						break;
+					}
+				}
+			}
+		}
 		
 		model.addAttribute("topicList", list);
 		model.addAttribute("memList", memlist);
 		model.addAttribute("tabNo", tabNo);
 		model.addAttribute("imgCountList", imgCountList);
 		model.addAttribute("comcountList", comcountlist);
+		model.addAttribute("recommentStsList", recommentStsList);
 		
 		return "community/community_topicList";
 	}
@@ -154,6 +217,18 @@ public class CommunityController {
 	// 커뮤니티 검색 게시물 리스트 페이지로 이동
 	@RequestMapping("community_searchList.do")
 	public String community_searchList(HttpServletRequest request,Model model) {
+		
+		HttpSession session = request.getSession();
+		MemberDTO loginInfo = null;
+		// 세션정보에 로그인정보가 있을 경우 페이지에 로그인정보를 전달
+		if(session.getAttribute("loginInfo") != null) {
+		loginInfo = (MemberDTO)session.getAttribute("loginInfo");
+		session.setAttribute("loginInfo", loginInfo);
+		model.addAttribute("loginInfo", loginInfo);
+		
+		}else {
+			System.out.println("세션정보 없음");
+		}
 		
 		String keyword = request.getParameter("search_keyword").trim();
 		
@@ -172,10 +247,32 @@ public class CommunityController {
 			comcountlist.add(commentCount);
 		}
 		
+		// 각 게시물의 회원의 추천여부를 확인할 수 있는 statusList를 생성한다.
+		List<Integer> recommentStsList = new ArrayList<Integer>();
+		// 초기 추천상태 리스트를 모두 0으로 초기화 해 준다.
+		for(int i=0;i<seatchlist.size();i++) {
+			recommentStsList.add(0); 
+		}
+		
+		// 로그인 정보가 있다면 게시물 리스트를 활용하여 해당 게시물이 추천상태인지를 확인한다.
+		if(loginInfo != null) {
+			List<BoardRecommendDTO> recommendList = boardRecommenddao.getRecommendList(loginInfo.getMember_no());
+			// 게시물 리스트의 게시물번호와 추천상태 리스트의 게시물번호를 비교하여 추천게시물이 있는 경우 추천상태리스트의 값을 1로 변경하여 준다.
+			for(int i=0; i<seatchlist.size();i++) {
+				for(int j=0;j<recommendList.size();j++) {
+					if(seatchlist.get(i).getCommunity_no() == recommendList.get(j).getCommunity_no()) {
+						recommentStsList.set(i, 1);
+						break;
+					}
+				}
+			}
+		}
+		
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("seatchList", seatchlist);
 		model.addAttribute("memList", memlist);
 		model.addAttribute("comcountList", comcountlist);
+		model.addAttribute("recommentStsList", recommentStsList);
 		
 		
 		return "community/community_searchList";
@@ -211,7 +308,7 @@ public class CommunityController {
 		List<String> testlist = new ArrayList<String>();
 		System.out.println("testListSize:"+testlist.size());
 
-        String path = "C:\\NCS\\IdolProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\community";
+        String path = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\community\\";
         
         // 등록된 이미지수만큼의 이미지가 반복적으로 저장될 String 변수
         String images = "";
@@ -291,8 +388,9 @@ public class CommunityController {
 //		session.setAttribute("loginInfo", temporary);
 
 		// 세션정보에 로그인정보가 있을 경우 페이지에 로그인정보를 전달
+		MemberDTO loginInfo = null;
 		if(session.getAttribute("loginInfo") != null) {
-		MemberDTO loginInfo = (MemberDTO)session.getAttribute("loginInfo");
+		loginInfo = (MemberDTO)session.getAttribute("loginInfo");
 		session.setAttribute("loginInfo", loginInfo);
 		model.addAttribute("loginInfo", loginInfo);
 		System.out.println("세션정보 있음");
@@ -334,7 +432,25 @@ public class CommunityController {
 		// 게시물 댓글 갯수
 		int commentCount = commentList.size();
 		
-
+		// 게시물 상세페이지에 로그인한 회원이 해당 게시물을 추천하였는지에 대한 여부를 확인한다.
+		// 추천한 게시물이 존재하면 1 없으면 을 저장하여 상세페이지로 이동한다.
+		int recommendStatus = 0;
+		
+		// 게시물 상세페이지 진입 이전 로그인한 상태라면  회원이 해당 게시물을 추천 여부를 확인한다.
+		if(loginInfo != null) {
+			List<BoardRecommendDTO> recommendList = boardRecommenddao.getRecommendList(loginInfo.getMember_no());
+			for (int i = 0; i < recommendList.size(); i++) {
+				if(recommendList.get(i).getCommunity_no() == bno) {
+					recommendStatus = 1;
+					break;
+				}
+			}
+		}
+		
+		// 해당하는 카테고리의 게시물 리스트를 최신날짜와 추천수 순으로 가져온다.
+		List<BoardDTO> boardList = Boarddao.boardDateRecommendList(boardCont.getCategory_cnofk());
+		
+		
 		
 		model.addAttribute("boardCont", boardCont);
 		model.addAttribute("writerInfo", writerInfo);
@@ -342,6 +458,8 @@ public class CommunityController {
 		model.addAttribute("cList", clist);
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("commentCount", commentCount);
+		model.addAttribute("recommendStatus", recommendStatus);
+		model.addAttribute("boardList", boardList);
 		
 		
 		return "community/community_boardcontent";
@@ -354,7 +472,7 @@ public class CommunityController {
 	public String product_cartSelectedDelete(HttpServletRequest request,Model model) {
 		
 		
-		String path = "C:\\NCS\\IdolProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\community";
+		String path = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\community\\";
 		String result = "";
 		int bno = Integer.parseInt(request.getParameter("bno").trim());
 		
@@ -439,7 +557,7 @@ public class CommunityController {
 		
 		int boardNo = Integer.parseInt(request.getParameter("boardNo").trim());
 		
-		String path = "C:\\NCS\\IdolProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\community";
+		String path = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\community";
 		
 		// 삭제할 이미지 파일명이 ,구분자를 통해 파라메터값으로 들어온다.
 		String delimages = request.getParameter("delImages").trim();
@@ -597,6 +715,38 @@ public class CommunityController {
 		}
 		
 		return "redirect:community_boardContent.do?bno="+bno;
+	}
+	
+	// ajax 게시물 추천 이벤트
+	@RequestMapping(value="/community_recommend.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String community_recommend(HttpServletRequest request,Model model) {
+		
+		int recommendStatus = Integer.parseInt(request.getParameter("recommendStatus").trim());
+		int bno = Integer.parseInt(request.getParameter("bno").trim());
+		int memno = Integer.parseInt(request.getParameter("memno").trim());
+		String result = "";
+		
+		BoardRecommendDTO recommenddto = new BoardRecommendDTO();
+		recommenddto.setMember_no(memno);
+		recommenddto.setCommunity_no(bno);
+		
+		
+		// 게시물의 status가 0이면 게시물의 추천수를 증가시키고 recommend 테이블의 정보를 추가한다.
+		if(recommendStatus==0) {
+			Boarddao.boardRecommendAdd(bno);
+			boardRecommenddao.insertRecommend(recommenddto);
+			result = "1";
+			
+		// 게시물의 status가 1이면 게시물의 추천수를 감소시키고 recommend 테이블의 정보를 추가한다.
+		}else {
+			Boarddao.boardRecommendMinus(bno);
+			boardRecommenddao.deleteRecommend(bno);
+			result = "0";
+		}
+		
+		return result;
+		
 	}
 	
 	

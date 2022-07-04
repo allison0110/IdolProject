@@ -185,7 +185,7 @@
 					img = cdto.getCommunity_image().split("\\|");
 					System.out.println(img[0]);
 				}
-				String upload = "Aespa earing.jpg";
+				/* String upload = "Aespa earing.jpg"; */
 				
 		%>
 				<div class="card" >

@@ -34,5 +34,17 @@ public interface BoardDAO {
 	// 게시물 업데이트
 	int boardUpdate(BoardDTO boarddto);
 	
+	// 게시물 추천수 증가
+	void boardRecommendAdd(int bno);
+	
+	// 게시물 추천수 감소
+	void boardRecommendMinus(int bno);
+	
+	// 게시물 작성갯수에 따른 유저랭킹
+	List<BoardrankingDTO> boardrankingList();
+	
+	// 게시물 카테고리에 따른 날짜 및 추천수에 따른 게시물 리스트
+	List<BoardDTO> boardDateRecommendList(int cno); 
+	
 	
 }

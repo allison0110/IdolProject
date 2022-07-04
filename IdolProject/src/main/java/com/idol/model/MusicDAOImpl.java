@@ -20,17 +20,22 @@ public class MusicDAOImpl implements MusicDAO {
 	}
 
 	@Override
+
 	public List<MusicDTO> getAllList() {
 		return this.sqlSession.selectList("mainAllList");
 	}
 	
 	
+	public List<MusicDTO> getMusicList_group(String group) {
+		
+		return sqlSession.selectList("musicList_group", group);
+	}
 
-	
-	
-	
-	
-	
+	@Override
+	public List<MusicDTO> getMusicList_solo(String name) {
+		
+		return sqlSession.selectList("musicList_solo", name);
+	}
 	
 	
 	
