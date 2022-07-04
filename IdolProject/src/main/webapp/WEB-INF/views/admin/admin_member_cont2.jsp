@@ -333,7 +333,6 @@
 <c:set var="grouplist" value="${groupList }" />
 
 <c:set var="addr" value="${address }" />
-<c:set var="phone" value="${phoneNumber }" />
 
 
 	<div class="member_cont_wrapper">
@@ -374,12 +373,9 @@
 					E-MAIL: ${mdto.member_email }
 					</div>
 					<div>
+					PHONE:
 					
-					<c:set var="first" value="${mdto.member_phone.substring(0, 3) }" />
-					<c:set var="second" value="${mdto.member_phone.substring(3, 7) }" />
-					<c:set var="third" value="${mdto.member_phone.substring(7) }" />
-						PHONE: ${first }-${second }-${third }  
-					
+					 ${mdto.member_phone }
 					</div>
 					<div>
 					DATE OF BIRTH: ${mdto.member_dateofbirth.substring(0, 10) }
@@ -607,9 +603,6 @@
 											</div>
 										</div>
 										<div class="comm_inside">
-<!-- 											<div> -->
-<%-- 												<img alt="" src="./resources/upload/community/${comdto.community_image }"> --%>
-<!-- 											</div> -->
 											<div class="comm_text cont">
 												${comdto.community_cont }
 											</div>

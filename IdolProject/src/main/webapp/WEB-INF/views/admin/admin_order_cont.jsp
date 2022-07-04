@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ADMIN MEMBER ORDER CONTENT</title>
+<title>ADMIN ORDER CONTENT</title>
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
 
@@ -153,7 +153,11 @@
 							수취인: ${odto.order_receivername }
 						</div>
 						<div>
-							연락처: ${odto.order_receiverphone }
+							
+						<c:set var="first" value="${odto.order_receiverphone.substring(0, 3) }" />
+						<c:set var="second" value="${odto.order_receiverphone.substring(3, 7) }" />
+						<c:set var="third" value="${odto.order_receiverphone.substring(7) }" />
+						연락처: ${first }-${second }-${third }
 						</div>
 						주소:
 						<div class="addr_box">

@@ -8,6 +8,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Creepster&family=East+Sea+Dokdo&family=Gamja+Flower&family=Gugi&family=Jua&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kirang+Haerang&family=Nosifer&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Press+Start+2P&family=VT323&family=Wallpoet&display=swap" rel="stylesheet">
+
+
 	<style type="text/css">
 		html, body {
 			padding: 0px;
@@ -33,6 +37,9 @@
 	
 		.insert_product_form{
 			color: white;
+			
+			font-family: 'Jua', sans-serif;
+			
 		}
 	
 		.product_category_list a{
@@ -55,7 +62,22 @@
 			color: red;
 		}
 		
-	</style>
+		.product_insert_btn {
+		
+		}
+		
+		.btn {
+			background-color: black;
+			color: white;
+			font-family: 'Creepster', cursive;
+			font-size: 1.9em;
+			cursor: pointer;
+		}
+		
+		.btn:hover {
+			color: red;
+		}
+</style>
 	
 
 </head>
@@ -71,54 +93,56 @@
 	
 		<div class="admin_product_insert_container">
 			
-			<div class="insert_category_form">
-				<form method="post" action="<%=request.getContextPath()%>/admin_productCategory_insert_ok.do">
-						<h4>카테고리 추가 하기 [임시]</h4>
-					<div class="insert_category_no">
-						번호 : <input name="category_pno">
-					</div>
-					<div class="insert_category_name">
-						카테고리 네임<input name="category_name">
-					</div>
-					<div>
-						<input type="submit" value="GO!!">
-						<input type="reset" value="RESET">
-					</div>
-				</form>
-				<c:if test="${!empty pclist}">
-					<div class="product_category_list">
-						<div>
-							<ul>
-								<c:forEach items="${pclist }" var="pcdto">
-									<li>
-										<a href="<%=request.getContextPath()%>/admin_product_categotry.do?no=${pcdto.category_pno}">
-											${pcdto.category_name }</a> <input name="category_name"> <span>수정</span> <span>X</span>
+<!-- 			<div class="insert_category_form"> -->
+<%-- 				<form method="post" action="<%=request.getContextPath()%>/admin_productCategory_insert_ok.do"> --%>
+<!-- 						<h4>카테고리 추가 하기 [임시]</h4> -->
+<!-- 					<div class="insert_category_no"> -->
+<!-- 						번호 : <input name="category_pno"> -->
+<!-- 					</div> -->
+<!-- 					<div class="insert_category_name"> -->
+<!-- 						카테고리 네임<input name="category_name"> -->
+<!-- 					</div> -->
+<!-- 					<div> -->
+<!-- 						<input type="submit" value="GO!!"> -->
+<!-- 						<input type="reset" value="RESET"> -->
+<!-- 					</div> -->
+<!-- 				</form> -->
+<%-- 				<c:if test="${!empty pclist}"> --%>
+<!-- 					<div class="product_category_list"> -->
+<!-- 						<div> -->
+<!-- 							<ul> -->
+<%-- 								<c:forEach items="${pclist }" var="pcdto"> --%>
+<!-- 									<li> -->
+<%-- 										<a href="<%=request.getContextPath()%>/admin_product_categotry.do?no=${pcdto.category_pno}"> --%>
+<%-- 											${pcdto.category_name }</a> <input name="category_name"> <span>수정</span> <span>X</span> --%>
 										
-									</li>
-								</c:forEach>
-							</ul>
-						</div>
-					</div> <!-- product_category_list -->
-				</c:if>
-				<c:if test="${empty pclist}">
-					<h3>THERE ARE NO AVAILABLE ..</h3>
-				</c:if>
+<!-- 									</li> -->
+<%-- 								</c:forEach> --%>
+<!-- 							</ul> -->
+<!-- 						</div> -->
+<!-- 					</div> product_category_list -->
+<%-- 				</c:if> --%>
+<%-- 				<c:if test="${empty pclist}"> --%>
+<!-- 					<h3>THERE ARE NO AVAILABLE ..</h3> -->
+<%-- 				</c:if> --%>
 				
-			</div> <!-- insert_category_form -->
+<!-- 			</div> insert_category_form -->
 			
 			
 			
 			
 			
 			<div class="insert_product_form">
-				<h4>상품 추가 하기 [임시]</h4>
-				<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/admin_product_insert_ok.do">
-					<div>
-						상품명 :<input name="product_name">
-					</div>
-					<div>
-						CELEB NO :
+			
+				<form method="post" enctype="multipart/form-data" 
+					action="<%=request.getContextPath()%>/admin_product_insert_ok.do">
 					
+					<span>상품명</span>
+					<div>
+						<input name="product_name">
+					</div>
+					<span>CELEB NO</span>
+					<div>
 						<select name="celeb_no">	
 							<option value="0">
 								NONE
@@ -130,29 +154,37 @@
 							</c:forEach>
 						</select>
 					</div>
+					<span>수량</span>
 					<div>
-						수량:<input name="product_qty" type="number" min="1" max="100">
+						<input name="product_qty" type="number" min="1" max="100">
 					</div>
+					<span>가격</span>
 					<div>
-						가격 :<input name="product_price">
+						<input name="product_price">
 					</div>
+					<span>사이즈</span>
 					<div>
-						사이즈 :<input name="product_size">
+						<input name="product_size">
 					</div>
+					<span>컬러</span>
 					<div>
-						컬러 :<input name="product_color">
+						<input name="product_color">
 					</div>
+					<span>상세내용</span>
 					<div>
-						설명 : <textarea name="product_detail" rows="20" cols="30"></textarea>
+						<textarea name="product_detail" rows="20" cols="30"></textarea>
 					</div>
+					<span>마일리지</span>
 					<div>
-						마일리지:<input name="product_mileage">
+						<input name="product_mileage">
 					</div>
+					<span>입고일 </span>
 					<div>
-						입고일 :<input name="product_input" type="date">
+						<input name="product_input" type="date">
 					</div>
+					<span>카테고리 </span>
 					<div>
-						카테고리 
+						
 						<select name="category_pnofk">
 							<c:forEach items="${pclist }" var="pcdto">
 								<option value="${pcdto.category_pno }">
@@ -162,12 +194,12 @@
 						</select>
 					</div>
 					<div>
-						<input type="file" multiple="multiple" name="file">
+						<input style="margin: 5px 0px" type="file" multiple="multiple" name="file">
 					</div>
 					
-					<div>
-						<input type="submit" value="GO!!">
-						<input type="reset" value="RESET">
+					<div class="product_insert_btn">
+						<input class="btn" type="submit" value="GO!!">
+						<input class="btn" type="reset" value="RESET">
 					
 					</div>
 					

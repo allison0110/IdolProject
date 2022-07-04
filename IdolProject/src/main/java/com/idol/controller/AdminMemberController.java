@@ -372,6 +372,7 @@ public class AdminMemberController {
 			addressList[i] = addressToken.nextToken();
 		}
 		
+
 		List<OrderDTO> orderList = this.dao.getMemberOrderListByID(id);
 		
 		
@@ -420,6 +421,7 @@ public class AdminMemberController {
 		model.addAttribute("groupList", groupList);
 		
 		model.addAttribute("address", addressList);
+		
 		
 		return "admin/admin_member_cont";
 	}

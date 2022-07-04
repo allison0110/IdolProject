@@ -14,6 +14,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Creepster&family=East+Sea+Dokdo&family=Gamja+Flower&family=Gugi&family=Jua&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kirang+Haerang&family=Nosifer&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Press+Start+2P&family=VT323&family=Wallpoet&display=swap" rel="stylesheet">
 
+
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 <style type="text/css">
@@ -66,8 +67,8 @@
 		height: 100%;
 		display: grid;
 		grid-template-rows: 70% 30%;
-		font-family: 'Gamja Flower', cursive;
-		font-size: 1.3em;
+		font-family: 'Jua', monospace;
+		font-size: 1.1em;
 	}
 	
 	
@@ -145,6 +146,7 @@
 				<a class="admin_notice_content" data-aos="fade-up" data-aos-anchor=".other-element" href="<%=request.getContextPath()%>/admin_notice_content.do?no=<%=dto.getNotice_no()%>">
 					<div class="notice_boxes">
 						<div class="notice_img">
+							
 							<img alt="" src="./resources/upload/notice/<%=array[0]%>">
 							<div class="notice_list_date">
 								<div class="date">

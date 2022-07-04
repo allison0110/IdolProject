@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ADMIN MEMBER ORDER LIST</title>
+<title>ADMIN ORDER MEMBER_INFO</title>
 
  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
@@ -176,7 +176,11 @@
 						수령인 : <%=dto.getOrder_receivername() %>
 						</div>
 						<div>
-							수령인 연락처: <%=dto.getOrder_receiverphone() %>
+						수령인 연락처: 	
+						<%=dto.getOrder_receiverphone().substring(0, 3) %>-
+						<%=dto.getOrder_receiverphone().substring(3, 7) %>-
+						<%=dto.getOrder_receiverphone().substring(7) %>
+						
 						</div>
 						<div class="addr">
 							<div>[<%=addrArray[0] %>]</div>

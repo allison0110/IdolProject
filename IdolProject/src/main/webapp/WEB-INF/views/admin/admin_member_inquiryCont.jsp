@@ -9,7 +9,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ADMIN INQUIRY CONTENT</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Creepster&family=East+Sea+Dokdo&family=Gamja+Flower&family=Gugi&family=Jua&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kirang+Haerang&family=Nosifer&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Press+Start+2P&family=VT323&family=Wallpoet&display=swap" rel="stylesheet">
+
 
 <style type="text/css">
 	
@@ -17,6 +20,7 @@
 		padding: 0px;
 		margin: 0px;
 		height: 100%;
+		background-color: black;
 	}
 	.admin_member_inquiry_cont_wrapper {
 		display: flex;
@@ -24,14 +28,100 @@
 		min-height: 100vh;
 	}
 	
+	.admin_member_inquiry_container {
+		display: flex;
+		align-items: center;
+	}
+	.right_side {
+		flex: 50%;
+		max-width: 50%;
+	}
+	.left_side {
+		flex: 50%;
+		max-width: 50%;
+	}
 	
 	
+	
+	.inquiry_images_box{
+		font-family: 'Jua', sans-serif;
+    	color: white;
+    	display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    align-items: center;
+	    position: sticky;
+	    top: 50px;
+	}
+	
+	.inquiry_img {
+		display: flex;
+    	flex-direction: column;
+    	width: 400px;
+    	height: 400px;
+    	
+	}
+	.inquiry_img img {
+		width: 100%;
+		height: 100%;
+	}
+	
+	.member_order_imgageBox {
+		display: flex;
+    	flex-direction: column;
+    	width: 400px;
+    	height: 400px;
+	}
+	.member_order_imgageBox img {
+		width: 100%;
+		height: 100%;
+	}
+	
+	
+	.member_inquiry_box{
+		font-family: 'Jua', sans-serif;
+		color: white;
+		display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    font-size: 1.5em;
+	}
+	
+	.btn{
+		background-color: black;
+		color: white;
+		font-family: 'Bungee Shade', cursive;
+		font-size: 1.5em;
+		cursor: pointer;
+	}
+	
+	.btn:hover{
+		color: gold;
+	}
+	
+	.member_inquiry_reply_box {
+		color: white;
+		font-family: 'Jua', sans-serif;
+		margin-bottom: 80px;
+	}
 	
 	.inquiry_reply_boxes {
-		border: 1px solid gold;
+		margin: 20px 0px;
+	}
+	.reply_btn_box{
 	
 	}
-
+	.rbtn{
+		color: white;
+		background-color: black;
+		font-family: 'Bungee Shade', cursive;
+		font-size: 1.3em;
+		cursor: pointer
+	}
+	
+	.rbtn:hover{
+		color: gold;
+	}
 </style>
 
 </head>
@@ -55,54 +145,63 @@
 	<div class="admin_member_inquiry_cont_wrapper">
 	
 	<jsp:include page="../include/admin_top_include.jsp" />
+	<jsp:include page="../include/admin_member_include.jsp" />
 	
 		<div class="admin_member_inquiry_container">
 		
-			<div class="inquiry_img">
-			[임시 : 문의 게시판 이미지]
-				<c:forEach items="${imgsList }" var="imgs">
-					<img alt="" src="./resources/upload/inquiry_board/${imgs }">
-				</c:forEach>
-			</div> <!-- inquiry_img -->
+		<div class="left_side">
+			<div class="inquiry_images_box">
+				<c:if test="${!empty imgsList }">
+					<div class="inquiry_img">
+						<c:forEach items="${imgsList }" var="imgs">
+							<img alt="" src="./resources/upload/inquiry_board/${imgs }">
+						</c:forEach>
+						<span style="font-size: 1.3em">[문의 게시판 이미지]</span>
+					</div> <!-- inquiry_img -->
+				</c:if>
+				<c:if test="${empty imgsList }">
+					<div style="font-size: 1.3em">[첨부 파일이 없습니다].</div>
+				</c:if>
+				<!-- 주문 번호를 통한 이미지 불러오기 -->
+				<c:if test="${!empty ocont.order_no }">
+					<c:if test="${ocont.order_no == idto.order_no }">
+						<div class="member_order_imgageBox">
+							<a href="<%=request.getContextPath()%>/admin_order_productCont.do?no=${idto.order_no}">
+								<img alt="" src="./resources/upload/product/${olist[0] }">
+							</a>
+							<span style="font-size: 1.3em">[주문 상품 이미지]</span>
+						</div> <!-- member_inquiry_order -->
+					</c:if><!-- member_order_productInfo -->
+				</c:if>
+				<c:if test="${empty ocont.order_no }">
+					<div style="font-size: 1.3em">[주문 상품 첨부 파일이 없습니다].</div>
+				</c:if>
+			</div> <!-- inquiry_images_box -->
+		</div> <!-- left_side -->
 		
+		<div class="right_side">
 			<div class="member_inquiry_box">
 			
-				<c:if test="${!empty pcont.product_no }">
-					<div class="member_inquiry_productInfo">
-						<c:if test="${pcont.product_no == idto.product_no }">
-							<div class="member_inquiry_product">
-								<a href="<%=request.getContextPath() %>/admin_product_content.do?no=${idto.product_no}">
-									[임시 상품 이미지]
-									<img alt="" src="./resources/upload/product/${plist[0] }">
-									<div>
-										상품 이름 : ${pcont.product_name}
-									</div>
-								</a>
-							</div>
-						</c:if>
-					</div><!-- member_inquiry_productInfo -->
-				</c:if>	
-				<c:if test="${!empty ocont.order_no }">
-					<div class="member_order_orderInfo">
-						<c:if test="${ocont.order_no == idto.order_no }">
-							<div class="member_inquiry_order">
-								<a href="<%=request.getContextPath()%>/admin_order_productCont.do?no=${idto.order_no}">
-									[임시 주문 이미지]
-									<img alt="" src="./resources/upload/product/${olist[0] }">
-									<div>
-										주문 번호 : ${ocont.order_no} / ${ocont.order_group }
-									</div>
-								</a>
-							</div> <!-- member_inquiry_order -->
-							
-						</c:if><!-- member_order_productInfo -->
-					</div>
-				</c:if>
+				<!-- 상품 넘버를 통한 상품 이미지 -->
+	<%-- 				<c:if test="${!empty pcont.product_no }"> --%>
+	<!-- 					<div class="member_inquiry_productInfo"> -->
+	<%-- 						<c:if test="${pcont.product_no == idto.product_no }"> --%>
+	<!-- 							<div class="member_inquiry_product"> -->
+	<%-- 								<a href="<%=request.getContextPath() %>/admin_product_content.do?no=${idto.product_no}"> --%>
+	<!-- 									[임시 상품 이미지] -->
+	<%-- 									<img alt="" src="./resources/upload/product/${plist[0] }"> --%>
+	<!-- 									<div> -->
+	<%-- 										상품 이름 : ${pcont.product_name} --%>
+	<!-- 									</div> -->
+	<!-- 								</a> -->
+	<!-- 							</div> -->
+	<%-- 						</c:if> --%>
+	<!-- 					</div>member_inquiry_productInfo -->
+	<%-- 				</c:if>	 --%>
 				
-				<div>
-					<img alt="" src="./resources/upload/member/">
-				</div>
 				
+				
+			
 				<div>
 					NO. ${idto.inquiry_no }
 				</div>
@@ -112,58 +211,62 @@
 				<div>
 					TITLE: ${idto.inquiry_title }
 				</div>
-				<div>
-					CONTENT: ${idto.inquiry_cont }
+				<div style="color: #ffd600">
+					${idto.inquiry_cont }
 				</div>
 				<div>
-					views: ${idto.inquiry_hit }
+					VIEWS: ${idto.inquiry_hit }
 				</div>
-				<div>
-					<c:if test="${idto.inquiry_update == null}">
-						DATE: ${idto.inquiry_date.substring(0, 10) }
-					</c:if>
-					<c:if test="${idto.inquiry_update != null}">
-						UPDATE: ${idto.inquiry_update.substring(0, 10) }
-					</c:if>
-				</div>
+<!-- 				<div> -->
+<%-- 					<c:if test="${idto.inquiry_update == null}"> --%>
+<%-- 						DATE: ${idto.inquiry_date.substring(0, 10) } --%>
+<%-- 					</c:if> --%>
+<%-- 					<c:if test="${idto.inquiry_update != null}"> --%>
+<%-- 						UPDATE: ${idto.inquiry_update.substring(0, 10) } --%>
+<%-- 					</c:if> --%>
+<!-- 				</div> -->
 				<div>
 					PRODUCT No. ${idto.product_no }
 				</div>
 				<div>
 					ORDER No. ${idto.order_no }
 				</div>
-				<div>
+				
 					<c:if test="${idto.inquiry_status == '0' }">
-						답변대기 [${idto.inquiry_status}]
+						<div style="color: red">
+							답변대기
+						</div>
 					</c:if>
 					<c:if test="${idto.inquiry_status == '1' }">
-						답변완료 [${idto.inquiry_status}]
+						<div style="color: gold">
+							답변완료 
+						</div>
 					</c:if>
-				</div>
+				
 				<div>
 					GROUP No. ${idto.inquiry_group }
 				</div>
-				<div>
-					STEP No. ${idto.inquiry_step }
-				</div>
-				<div>
-					INDENT. ${idto.inquiry_indent }
-				</div>
+<!-- 				<div> -->
+<%-- 					STEP No. ${idto.inquiry_step } --%>
+<!-- 				</div> -->
+<!-- 				<div> -->
+<%-- 					INDENT. ${idto.inquiry_indent } --%>
+<!-- 				</div> -->
 				<div>
 					<c:if test="${!empty idto.inquiry_update }">
-						${idto.inquiry_update.substring(0, 10) }
+						UPDATE: ${idto.inquiry_update.substring(0, 10) }
 					</c:if>
 					<c:if test="${empty idto.inquiry_update }">
-						${idto.inquiry_date.substring(0, 10) }
+						DATE: ${idto.inquiry_date.substring(0, 10) }
 					</c:if>
 				</div>
-				<div>
-					<input type="button" value="REPLY"
+				<div class="reply_btn">
+					<input class="btn" type="button" value="REPLY"
 					onclick="location.href='admin_inquiry_reply.do?no=${idto.inquiry_no}'">
 				</div>
 			</div> <!-- member_inquiry_box -->
-			
-			
+				
+				
 			<div class="member_inquiry_reply_box">
 				<c:forEach items="${glist }" var="gdto">
 					<c:if test="${idto.inquiry_no != gdto.inquiry_no }">
@@ -187,10 +290,10 @@
 							COTENT: ${gdto.inquiry_cont }
 						</div>
 							<c:if test="${gdto.inquiry_status == '0' }">
-								<span style="color: red">답변대기 [${gdto.inquiry_status }]</span>
+								<span style="color: red">답변대기 </span>
 							</c:if>
 							<c:if test="${gdto.inquiry_status == 1 }">
-								답변완료 [${gdto.inquiry_status }]
+								답변완료 
 							</c:if>
 						<div>
 							<c:if test="${!empty gdto.inquiry_update }">
@@ -200,13 +303,15 @@
 								${gdto.inquiry_date.substring(0, 10) }
 							</c:if>
 						</div>
-						<div>
-						<input type="button" value="REPLY"
-						onclick="location.href='admin_inquiry_reply.do?no=${gdto.inquiry_no}&originNo=${idto.inquiry_no }'">
-						<input type="button" value="DOMIFY"
-						onclick="location.href='admin_inquiry_modify.do?no=${gdto.inquiry_no}&originNo=${idto.inquiry_no }'">
-						<input type="button" value="DELETE"
-						onclick="if(confirm('정말 레알 삭제 하시렵니까 ? :(')){
+						<div class="reply_btn_box">
+						<input class="rbtn" type="button" value="REPLY"
+							onclick="location.href='admin_inquiry_reply.do?no=${gdto.inquiry_no}&originNo=${idto.inquiry_no }'">
+						
+						<input class="rbtn" type="button" value="DOMIFY"
+							onclick="location.href='admin_inquiry_modify.do?no=${gdto.inquiry_no}&originNo=${idto.inquiry_no }'">
+						
+						<input class="rbtn" type="button" value="DELETE"
+							onclick="if(confirm('정말 레알 삭제 하시렵니까 ? :(')){
 							location.href='admin_reply_delete.do?no=${gdto.inquiry_no}'
 						}else {return; }">
 						</div>
@@ -214,8 +319,10 @@
 					</c:if>
 				</c:forEach>
 			</div> <!-- member_inquiry_reply_box -->
-			
+		</div>
+		
 		</div> <!-- admin_member_inquiry_container -->
+		
 	</div> <!-- admin_member_inquiry_cont_wrapper -->
 
 

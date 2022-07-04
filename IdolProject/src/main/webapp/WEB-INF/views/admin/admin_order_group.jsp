@@ -222,7 +222,11 @@
 						수령인 : ${addr.order_receivername }
 					</div>
 					<div>
-						수령인 연락처: ${addr.order_receiverphone }
+						 
+						<c:set var="first" value="${addr.order_receiverphone.substring(0, 3) }" />
+						<c:set var="second" value="${addr.order_receiverphone.substring(3, 7) }" />
+						<c:set var="third" value="${addr.order_receiverphone.substring(7) }" />
+						수령인 연락처: ${first }-${second }-${third }
 					</div>
 					<div>
 						<span>수령인 주소:</span>
