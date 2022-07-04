@@ -14,4 +14,26 @@
   </select>
   
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <select id="mainAllList" resultType="musicDTO">
+  	select *
+	from(
+    select a.*,
+    row_number() over(order by a.music_release_date desc) rnum
+    from(
+        select distinct m.music_aname, m.music_coverimage, m.music_release_date
+        from music m
+        ) a
+    )
+	<![CDATA[where rnum >= 1 and rnum <= 10;]]>
+  </select>
+  
   </mapper>

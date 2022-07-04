@@ -42,20 +42,21 @@
 	
 		
 	<c:set var="elist" value="${elist }"/>
-	 <div class="swiper popupSwiper" id="popup">
-	 	<div class="swiper-wrapper">
-			<div class="popup-image-area">
+	
+	 <div id="popup">
+	 	<div class="swiper popupSwiper">
+	 		<div class="swiper-wrapper">
+			
 				<c:forEach items="${elist }" var="edto">
 					<div class="swiper-slide">
 						<div class="swiper-slide-popup-wrap" >
 							<a href="">
-					 		<img src="./resources/upload/images/${edto.notice_image }">
-							<span>${edto.notice_title }</span>
+					 		<img src="./resources/upload/notice/${edto.notice_image }">
 							</a>
 						</div>
 					</div>
 				</c:forEach>
-			</div>
+			</div>	
 		</div>
 		<div class="popup-row">
 			<label class="today-done-label">
@@ -75,13 +76,12 @@ var todayIsDone = document.querySelector("#today-done-checkbox");
 var closeBtn = document.querySelector("#popup-close-btn");
 var popupCookieKey = "today-done";
 
-const swiper = new Swiper(".popupSwiper", {
+const popupSwiper = new Swiper(".popupSwiper", {
     loop: true,
     autoplay: {
       delay: 3000,
     },
   });
-  
 closeBtn.addEventListener("click", function(){
 	close();
 });

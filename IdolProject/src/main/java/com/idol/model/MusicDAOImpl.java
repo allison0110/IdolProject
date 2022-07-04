@@ -1,5 +1,7 @@
 package com.idol.model;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,6 +18,19 @@ public class MusicDAOImpl implements MusicDAO {
 		
 		return this.sqlSession.selectOne("musicCont", no);
 	}
+
+	@Override
+	public List<MusicDTO> getAllList() {
+		return this.sqlSession.selectList("mainAllList");
+	}
+	
+	
+
+	
+	
+	
+	
+	
 	
 	
 	

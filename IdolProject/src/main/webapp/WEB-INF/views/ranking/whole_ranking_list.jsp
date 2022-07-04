@@ -83,12 +83,71 @@ margin-bottom: 24px;
 color: #7082A7
 }
 
-.w_rank_cont_wrap{
+.overview_blocks{
 display: flex;
+flex-wrap: wrap;
 
 }
 
+.overview_block{
+	width: 33.33%;
+	padding: 16px;
+}
 
+.overview_block img{
+	width:24px;
+	height:24px;
+}
+
+.overview_block .overview_title {
+	font-size: 18px;
+	font-weight: 600;
+	display: block;
+}
+
+.overview_block ul {
+	padding: 14px 0;
+}
+
+.overview_block .overview_item {
+	display: flex;
+	align-items: center;
+	height: 36px;
+}
+
+.overview_block .overview_item .overview_img_wrap {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.overview_block .overview_item .overview_img_wrap img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.overview_block .overview_item .member_nickname {
+	flex: 1;
+	margin-left: 10px;
+}
+
+.overview_block .overview_item + .overview_item {
+	margin-top: 10px;
+}
+
+.overview_block .overview_block_seemore {
+	text-align: center;
+	font-size: 14px;
+	padding: 4px 0;
+	background-color: #ccc;
+	color: #242424;
+}
+
+.w_rank_cont_wrap{
+	width: 100%;
+}
 </style>
 </head>
 <body>
@@ -99,182 +158,179 @@ display: flex;
 		<c:set var="milist" value="${miList }"/>
 		<c:set var="plist" value="${puList }"/>
 		<c:set var="melist" value="${meList }"/>
-		<c:set var="biList" value="${birthList }"/>
-		<c:set var="reList" value="${reList }"/>
-		<c:set var="coList" value="${coList }"/>
+		<c:set var="bilist" value="${birthList }"/>
+		<c:set var="relist" value="${reList }"/>
+		<c:set var="colist" value="${coList }"/>
 		
 		<div class="w_rank_cont_wrap">
-		<div class="w_ranking_title">
-			<h1 class="w_ranking_title_value">Notable members</h1>
-		</div>
-		
-		
-		<div class="overview_wrap">
-			<ul class="overview_blocks">
-				<li class="overview_blocks.li">
-					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=point" id="w_ranking_cate_value">Most points</a>
-					<c:forEach items="${milist }" var="midto">
-						<li class="overview_block">
-							<h3 class="block_text_header"></h3>
-							<ol>
-								<li class="member_block">
-									<img src="./resources/upload/${midto.member_image }">
-									<div id="member_nickname_div">
-										<a href="<%=request.getContextPath()%>/myfeed.do?no=${midto.member_no}">${midto.member_nickname }</a>
-									</div>
-									<div id="member_score_div">
-										${midto.score }
-									</div>
-								</li>
-							</ol>
-						</li>
-					</c:forEach>
+			<div class="w_ranking_title">
+				<h1 class="w_ranking_title_value">Notable members</h1>
+			</div>
+			
+			
+			<div class="overview_blocks">
+				<div class="overview_block">
+					<a class="overview_title" href="<%=request.getContextPath()%>/detail_ranking.do?key=point">Most point</a>
+					<ul>
+						<c:forEach items="${milist }" var="midto">
+							<li class="overview_item">
+								<div class="overview_img_wrap">
+									<img src="./resources/upload/member_image/${midto.member_no }/${midto.member_image }">
+								</div>
+								<span class="member_nickname">
+									<a href="<%=request.getContextPath()%>/myfeed.do?no=${midto.member_no}">${midto.member_nickname }</a>
+								</span>
+								<span class="member_score">
+									<fmt:formatNumber value="${midto.score }" />
+								</span>
+							</li>
+						</c:forEach>
+					</ul>
 					<div class="overview_block_seemore">
 						<a href="<%=request.getContextPath()%>/detail_ranking.do?key=point">See more</a>
 					</div>
-				</li>
+				</div>
 				
-				<li class="overview_blocks.li">
-					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=purchase" id="w_ranking_cate_value">Most purchases</a>
-					<c:forEach items="${plist }" var="pdto">
-						<li class="overview_block">
-							<h3 class="block_text_header"></h3>
-							<ol>
-								<li class="member_block">
-									<img src="./resources/upload/${pdto.member_image }">
-									<div id="member_nickname_div">
-										<a href="<%=request.getContextPath()%>/myfeed.do?no=${pdto.member_no}">${pdto.member_nickname }</a>
-									</div>
-									<div id="member_score_div">
-										${pdto.score }
-									</div>
-								</li>
-							</ol>
-						</li>
-					</c:forEach>
+				<div class="overview_block">
+					<a class="overview_title" href="<%=request.getContextPath()%>/detail_ranking.do?key=purchase">Most purchase</a>
+					<ul>
+						<c:forEach items="${plist }" var="pdto">
+							<li class="overview_item">
+								<div class="overview_img_wrap">
+								<img src="./resources/upload/member_image/${pdto.member_no }/${pdto.member_image }">
+								</div>
+								<span class="member_nickname">
+									<a href="<%=request.getContextPath()%>/myfeed.do?no=${pdto.member_no}">${pdto.member_nickname }</a>
+								</span>
+								<span class="member_score">
+									<fmt:formatNumber value="${pdto.score }" />
+								</span>
+							</li>
+						</c:forEach>
+					</ul>
 					<div class="overview_block_seemore">
 						<a href="<%=request.getContextPath()%>/detail_ranking.do?key=purchase">See more</a>
 					</div>
-				</li>
-			
-			
-			
-				<li class="overview_blocks.li">
-					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=message" id="w_ranking_cate_value">Most messages</a>
-					<c:forEach items="${melist }" var="medto">
-					<li class="overview_block">
-						<h3 class="block_text_header"></h3>
-						<ol>
-							<li class="member_block">
-								<img src="./resources/upload/${medto.member_image }">
-								<div id="member_nickname_div">
+				</div>
+				
+				<div class="overview_block">
+					<a class="overview_title" href="<%=request.getContextPath()%>/detail_ranking.do?key=message">Most message</a>
+					<ul>
+						<c:forEach items="${melist }" var="medto">
+							<li class="overview_item">
+								<div class="overview_img_wrap">
+								<img src="./resources/upload/member_image/${medto.member_no }/${medto.member_image }">
+								</div>
+								<span class="member_nickname">
 									<a href="<%=request.getContextPath()%>/myfeed.do?no=${medto.member_no}">${medto.member_nickname }</a>
-								</div>
-								<div id="member_score_div">
-									${medto.score }
-								</div>
+								</span>
+								<span class="member_score">
+									<fmt:formatNumber value="${medto.score }" />
+								</span>
 							</li>
-						</ol>
-					</li>
-				</c:forEach>
-				<div class="overview_block_seemore">
-					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=message">See more</a>
+						</c:forEach>
+					</ul>
+					<div class="overview_block_seemore">
+						<a href="<%=request.getContextPath()%>/detail_ranking.do?key=message">See more</a>
+					</div>
 				</div>
-				</li>
 				
 				
-				<li class="overview_blocks.li">
-					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=comment" id="w_ranking_cate_value">Most comment</a>
-					<c:forEach items="${coList }" var="cdto">
-					<li class="overview_block">
-						<h3 class="block_text_header"></h3>
-						<ol>
-							<li class="member_block">
-								<img src="./resources/upload/${cdto.member_image }">
-								<div id="member_nickname_div">
-									<a href="<%=request.getContextPath()%>/myfeed.do?no=${cdto.member_no}">${cdto.member_nickname }</a>
+				
+				<div class="overview_block">
+					<a class="overview_title"href="<%=request.getContextPath()%>/detail_ranking.do?key=referrals">Most referrals</a>
+					<ul>
+						<c:forEach items="${relist }" var="rdto">
+							<li class="overview_item">
+								<div class="overview_img_wrap">
+								<img src="./resources/upload/member_image/${rdto.member_no }/${rdto.member_image }">
 								</div>
-								<div id="member_score_div">
-									${cdto.score }
-								</div>
-							</li>
-						</ol>
-					</li>
-				</c:forEach>
-				<div class="overview_block_seemore">
-					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=comment">See more</a>
-				</div>
-				</li>
-				
-				
-				<li class="overview_blocks.li">
-					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=referrals" id="w_ranking_cate_value">Most referrals</a>
-					<c:forEach items="${reList }" var="rdto">
-					<li class="overview_block">
-						<h3 class="block_text_header"></h3>
-						<ol>
-							<li class="member_block">
-								<img src="./resources/upload/${rdto.member_image }">
-								<div id="member_nickname_div">
+								<span class="member_nickname">
 									<a href="<%=request.getContextPath()%>/myfeed.do?no=${rdto.member_no}">${rdto.member_nickname }</a>
-								</div>
-								<div id="member_score_div">
-									${rdto.score }
-								</div>
+								</span>
+								<span class="member_score">
+									<fmt:formatNumber value="${rdto.score }" />
+								</span>
 							</li>
-						</ol>
-					</li>
-				</c:forEach>
-				<div class="overview_block_seemore">
-					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=referrals">See more</a>
+						</c:forEach>
+					</ul>
+					<div class="overview_block_seemore">
+						<a href="<%=request.getContextPath()%>/detail_ranking.do?key=referrals">See more</a>
+					</div>
 				</div>
-				</li>
 				
-				
-				<li class="overview_blocks.li">
-					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=birth" id="w_ranking_cate_value">Today's birthdays</a>
-					<c:forEach items="${biList }" var="bdto">
-					<li class="overview_block">
-						<h3 class="block_text_header"></h3>
-						<ol>
-							<li class="member_block">
-								<img src="./resources/upload/${bdto.member_image }">
-								<div id="member_nickname_div">
-									<a href="<%=request.getContextPath()%>/myfeed.do?no=${bdto.member_no}">${bdto.member_nickname }</a>
+				<div class="overview_block">
+					<a class="overview_title" href="<%=request.getContextPath()%>/detail_ranking.do?key=comment">Most comment</a>
+					<ul>
+						<c:forEach items="${colist }" var="cdto">
+							<li class="overview_item">
+								<div class="overview_img_wrap">
+								<img src="./resources/upload/member_image/${cdto.member_no }/${cdto.member_image }">
 								</div>
+								<span class="member_nickname">
+									<a href="<%=request.getContextPath()%>/myfeed.do?no=${cdto.member_no}">${cdto.member_nickname }</a>
+								</span>
+								<span class="member_score">
+									<fmt:formatNumber value="${cdto.score }" />
+								</span>
+							</li>
+						</c:forEach>
+					</ul>
+					<div class="overview_block_seemore">
+						<a href="<%=request.getContextPath()%>/detail_ranking.do?key=comment">See more</a>
+					</div>
+				</div>
+				
+				<div class="overview_block">
+					<a class="overview_title" href="<%=request.getContextPath()%>/detail_ranking.do?key=birth">Today's birthdays</a>
+					<ul>
+						<c:forEach items="${bilist }" var="bdto">
+						<c:if test="${biList.size() <=0}">
+							<div>
+							
+							</div>
+						</c:if>
+						<c:if test="${biList.size() > 0 }">
+							<li class="overview_item">
+								<div class="overview_img_wrap">
+								<img src="./resources/upload/member_image/${bdto.member_no }/${bdto.member_image }">
+								</div>
+								<span class="member_nickname">
+									<a href="<%=request.getContextPath()%>/myfeed.do?no=${bdto.member_no}">${bdto.member_nickname }</a>
+								</span>
+								
 								<c:if test="${bdto.score <= 0 }">
-									<div>
+									<span>
 										
-									</div>
+									</span>
 								</c:if>
 								<c:if test="${bdto.score > 0 }">
-									<div id="member_score_div">
-									${bdto.score }
-									</div>
+								<span class="member_score">
+									<fmt:formatNumber value="${bdto.score }" />
+								</span>
 								</c:if>
-								
 							</li>
-						</ol>
-					</li>
-				</c:forEach>
-				<div class="overview_block_seemore">
-					<a href="<%=request.getContextPath()%>/detail_ranking.do?key=birth">See more</a>
+						</c:if>
+						</c:forEach>
+					</ul>
+					<c:if test="${biList.size() <=0}">
+							<div>
+							
+							</div>
+					</c:if>
+					<c:if test="${biList.size() > 0 }">
+					<div class="overview_block_seemore">
+						<a href="<%=request.getContextPath()%>/detail_ranking.do?key=birth">See more</a>
+					</div>
+					</c:if>
 				</div>
-				</li>
-				
-				
-				
-				
-				
-				
-			</ul>
-			</div>
 			</div>
 		</div>
-
-	
-	
-	
+		
+		
+		
+	</div>	
+		
 	
 	<%@include file="../include/user_bottom.jsp" %>
 </body>

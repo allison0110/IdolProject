@@ -5,7 +5,6 @@ var body = document.querySelector("body");
 var menu = document.querySelector("#menu");
 
 body.addEventListener("scroll", function(event){
-	console.log("scroll");
 	if(event.target.scrollTop > 30){
 		header.classList.add("scroll");
 	}else{

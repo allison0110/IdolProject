@@ -84,6 +84,20 @@ width:550px;
 height:80px;
 }
 
+.rank_no_user li{
+padding-bottom: 16px;
+}
+
+#rank_title{
+padding: 0;
+    margin: 0 0 3px;
+    font-size: 2.6rem;
+    font-weight: 400;
+    margin-right: auto;
+    min-width: 0;
+    color: #384764;
+    margin-bottom: 24px;
+}
 </style>
 </head>
 <body>
@@ -97,11 +111,11 @@ height:80px;
 		<c:set var="title" value="${title }" />
 		<c:set var="list" value="${rankList }" />
 		<div class="rank_wrapper">
-			<h2>${title }</h2>
+			<h2 id="rank_title">${title }</h2>
 			<div class="rank_header">
 			<c:if test="${list.size() <= 0 }">
-				<div>
-					<ul class="no_user">
+				<div class="rank_no_user">
+					<ul>
 						<li>No users match the specified criteria</li>
 					</ul>
 				</div>
@@ -111,7 +125,7 @@ height:80px;
 					<ul>
 						<li>
 							<div class="rankContent_row_image">
-								<img src="./resources/upload/member_image/1/${dto.member_image }">
+								<img src="./resources/upload/member_image/*/${dto.member_image }">
 							</div>
 							<div class="rankContent_wrap">
 								<div class="rankContent_row_header">

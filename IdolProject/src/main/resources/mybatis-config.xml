@@ -27,10 +27,16 @@
  		<typeAlias type="com.idol.model.CartDAO" alias="CartDAO"/>
  		<typeAlias type="com.idol.model.CartDTO" alias="CartDTO"/>
 
+
+		<typeAlias type="com.idol.model.UserEventDAO" alias="eventDAO"/>
  		<typeAlias type="com.idol.model.EventDTO" alias="eventDTO"/>
+ 		
 		<typeAlias type="com.idol.model.PageDTO" alias="pageDTO"/>
 		<typeAlias type="com.idol.model.ImagesDTO" alias="imagesDTO"/>
-
+		
+		<typeAlias type="com.idol.model.UserImagesDAO" alias="imagedao"/>
+		
+		
 		<typeAlias type="com.idol.model.RankingDTO" alias="rankingDTO"/>
 
 		<typeAlias type="com.idol.model.BoardDAO" alias="BoardDAO"/>
@@ -46,6 +52,9 @@
 		 <typeAlias type="com.idol.model.AdminDTO" alias="adminDTO"/>
 		 <typeAlias type="com.idol.model.GroupDTO" alias="groupDTO"/>
 		 
+		 
+		 
+		 <typeAlias type="com.idol.model.RankingDAO" alias="RankingDAO"/>
 	</typeAliases>  	
 	
 </configuration>

@@ -142,13 +142,15 @@
           <!-- Slides -->
           
      		<c:forEach items="${images }" var="dto">
+     		<c:if test="${dto.image_visible == 1 }">
      	     <div class="swiper-slide" id="main_img1">
         	    <div class="swiper-slide-img-wrap" >
-        	    <a href="<%=request.getContextPath()%>/${dto.getImage_link()}">
+        	    <a href="${dto.getImage_link()}">
             	  <img
                 	src="./resources/upload/images/${dto.getImage_path() }"/></a>
             	</div>
           	 </div>
+          	 </c:if>
           </c:forEach>
         </div>
         <!-- If we need pagination -->
@@ -229,37 +231,16 @@
 			<h1 align="center" id="mainH1">New Album</h1>
   	 		<div class="swiper albumSwiper">
      			<div class="swiper-wrapper">
-	        		<div class="swiper-slide">
-	        			<div class="swiper-slide-album-wrap">
-	        				<a href="#"><img src=""></a>
-	        			</div>
-	        		</div>
-	        		<div class="swiper-slide">
-	        			<div class="swiper-slide-album-wrap">
-	        				<a href="#"><img src=""></a>
-	        			</div>
-	        		</div>
-	        		<div class="swiper-slide">
-	        			<div class="swiper-slide-album-wrap">
-	        				<a href="#"><img src=""></a>
-	        			</div>
-	        		</div>
-	        		<div class="swiper-slide">
-	        			<div class="swiper-slide-album-wrap">
-	        				<a href="#"><img src=""></a>
-	        			</div>
-	        		</div>
-	        		<div class="swiper-slide">
-	        			<div class="swiper-slide-album-wrap">
-	        				<a href="#"><img src=""></a>
-	        			</div>
-	        		</div>
-	        		<div class="swiper-slide">
-	        			<div class="swiper-slide-album-wrap">
-	        				<a href="#"><img src=""></a>
-	        			</div>
-	        		</div>
-	        	</div>
+	        		<c:forEach items="${mlist }" var="mdto">
+		     	     <div class="swiper-slide">
+		        	    <div class="swiper-slide-album-wrap" >
+		        	    <a href="<%=request.getContextPath()%>/do?no=${mdto.music_no}">
+		            	  <img
+		                	src="./resources/upload/music/${mdto.getMusic_coverimage() }"/></a>
+		            	</div>
+		          	 </div>
+		          </c:forEach>
+		        </div>
 	        	 <!-- If we need pagination -->
 		        <div class="swiper-scrollbar"></div>
 		

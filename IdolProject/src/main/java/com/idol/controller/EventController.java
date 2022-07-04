@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -32,8 +33,7 @@ public class EventController {
 	
 	@RequestMapping("event_list.do")
 	public String list(HttpServletRequest request, Model model) {
-		
-		int page; //현재 페이지 변수
+int page; //현재 페이지 변수
 		
 		if(request.getParameter("page")!=null) {
 			page = Integer.parseInt(request.getParameter("page"));
@@ -49,9 +49,9 @@ public class EventController {
 		String notice_type = "";
 		
 		if(bid.equals("1")) {
-			notice_type="celeb";
+			notice_type="CELEB";
 		}else if(bid.equals("1001")) {
-			notice_type="concert";
+			notice_type="CONCERT";
 		}
 		
 		total.put("notice_type", notice_type);
@@ -64,8 +64,10 @@ public class EventController {
 		List<EventDTO> noticeList = new ArrayList<EventDTO>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
+		
 		map.put("category_type", cid);
 		map.put("pageDto", pageDto); 
+		
 		
 		
 		if (bid.equals("1")) {
@@ -74,6 +76,12 @@ public class EventController {
 			noticeList.addAll(this.userEventDao.concertList(map));
 			
 		}
+		
+		for(int i=0; i<noticeList.size(); i++) {
+			StringTokenizer eventTokenizer = new StringTokenizer(noticeList.get(i).getNotice_image(),"|");
+			String st = eventTokenizer.nextToken();
+			noticeList.get(i).setNotice_image(st);
+		}	
 		
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("bid", bid);
@@ -93,8 +101,17 @@ public class EventController {
 		
 		EventDTO dto = this.userEventDao.eventCont(no);
 		
-		model.addAttribute("Cont", dto);
+		String image = dto.getNotice_image();
+		String[] images = image.split("\\|");
+		List<String> temp_images = new ArrayList<String>();
 		
+		for (int i = 1; i < images.length; i++) {
+			temp_images.add(images[i]);
+		}
+		
+		dto.setNotice_images(temp_images);
+		
+		model.addAttribute("Cont", dto);
 		model.addAttribute("Page", nowPage);
 		
 		return "event/user_event_cont";

@@ -95,7 +95,7 @@
 	.event_cont_wrap{
 	margin: 0 auto;
 	width: 980px;
-	height: 100%;
+	height: auto;
 	}
 	
 	#notice_cont_area{
@@ -107,6 +107,28 @@
 	outline: none;
 	text-align: center;
 	}
+	
+	.cont_to_list{
+    padding-top: 24px;
+	padding-bottom: 24px;
+    float: right;
+	}
+	.cont_to_list a{
+	margin: 0 auto;
+	margin-top: 16px;
+    width: 170px;
+    height: 48px;
+    background-color: #fff;
+    color: #2d2f43;
+    font-size: 14px;
+    font-weight: 400;
+    display: block;
+    text-align: center;
+    line-height: 48px;
+    border-radius: 50px;
+    border: 1px solid #b4b5c1;
+	}
+	
 	
 </style>
 </head>
@@ -152,34 +174,43 @@
 					</tr>
 					<tr id="event_cont_tr">
 						<td id="notice_cont_area">
+							<c:forEach items="${dto.notice_images }" var="filename">
+								<img src="./resources/upload/notice/${filename }">
+							</c:forEach>
 							${dto.notice_cont }
 						</td>
+						
 					</tr>
+					
+					<tr class="event_btn">
+						<td class="cont_to_list">
+							<a href="<%=request.getContextPath()%>/event_list.do?board_id=1&category_id=1">전체 목록</a>
+						</td>
+					</tr>
+					
 
 					<c:if test="${dto.notice_update==null }">
 						<tr>
-							<td id="event_cont_td">
+							<td id="event_cont_td" align=left>
 								${dto.notice_date }
 							</td>
-							
-							<th id="event_cont_th">조회수</th>
-								<td>
-									${dto.notice_hit }
-								</td>
+							<td id="event_cont_hit" align=right>
+								조회수 ${dto.notice_hit }
+							</td>
 							
 						</tr>
 					</c:if>
 					
 					<c:if test="${dto.notice_update!=null }">
 						<tr>
-							<td id="event_cont_td">
+							<td>
 								${dto.notice_update }
 							</td>
 							
-							<th>조회수</th>
-								<td>
-									${dto.notice_hit }
-								</td>
+							<td id="event_cont_hit">
+							조회수 
+								${dto.notice_hit }
+							</td>
 						</tr>
 					</c:if>
 					

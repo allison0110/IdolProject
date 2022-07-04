@@ -63,45 +63,49 @@
 </select>
 
 <select id="birth" parameterType="HashMap" resultType="memberDTO">
-	SELECT * FROM member WHERE to_char(sysdate, 'mm/dd') = to_char(member_dateofbirth, 'mm/dd')
+	select * from (select 
+		m.*,
+		row_number() over(order by m.member_id desc) rnum
+		from member m
+		WHERE to_char(sysdate, 'mm/dd') = to_char(m.member_dateofbirth, 'mm/dd')
 		<if test="keyword != null and !keyword.equals('')">
 			and m.member_nickname like '%'||#{keyword}||'%'
-		</if>
+		</if>) where <![CDATA[rnum >= 1  and rnum <= #{rnum}]]>
 </select>
 
 <select id="referrals" parameterType="HashMap" resultType="rankingDTO">
 	select * from (select
-		m.member_id, 
+		m.member_no, 
 		m.member_introduction, 
 		m.member_nickname, 
 		m.member_image, 
 		max(cb.community_recommend) score,
-		row_number() over(order by m.member_id desc) rnum
+		row_number() over(order by m.member_no desc) rnum
 	from member m left join community_board cb 
 		on m.member_id=cb.community_userid 
 		where community_recommend is not null
 		<if test="keyword != null and !keyword.equals('')">
 			and m.member_nickname like '%'||#{keyword}||'%'
 		</if>
-		group by member_id, member_introduction, member_nickname, member_image
+		group by member_no, member_introduction, member_nickname, member_image
 		order by score desc) where <![CDATA[rnum >= 1  and rnum <= #{rnum}]]>
 </select>
 
 <select id="comment" parameterType="HashMap" resultType="rankingDTO">
 	select * from (select
-		m.member_id, 
+		m.member_no, 
 		m.member_introduction, 
 		m.member_nickname, 
 		m.member_image, 
 		count(cc.comment_no) score,
-		row_number() over(order by m.member_id desc) rnum
+		row_number() over(order by m.member_no desc) rnum
 	from member m left join community_comment cc
 		on m.member_id=cc.comment_writer
 		where cc.comment_no is not null
 		<if test="keyword != null and !keyword.equals('')">
 			and m.member_nickname like '%'||#{keyword}||'%'
 		</if>
-		group by member_id, member_introduction, member_nickname, member_image
+		group by member_no, member_introduction, member_nickname, member_image
 		order by score desc) where <![CDATA[rnum >= 1  and rnum <= #{rnum}]]>
 	
 </select>
