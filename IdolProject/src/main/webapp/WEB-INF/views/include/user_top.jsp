@@ -80,8 +80,10 @@
 			  <!-- CART -->
 			  <%
 			  	MemberDTO memberdto = (MemberDTO)session.getAttribute("loginInfo");
+			  	if(memberdto != null){
 			  	int memno = memberdto.getMember_no();
 			  	pageContext.setAttribute("memno", memno);
+			  	}
 			  %>
               <li><a href="<%=request.getContextPath()%>/product_cartList.do?memno=${memno}">
               <i class="fa-solid fa-cart-shopping"></i></a></li>
