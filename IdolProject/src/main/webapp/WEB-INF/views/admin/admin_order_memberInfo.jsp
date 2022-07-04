@@ -161,16 +161,16 @@
 					<div class="right_side">
 						
 						<div>
-							수량 : <%=dto.getOrder_qty() %>
+							수량 : <%=String.format("%,d", dto.getOrder_qty()) %>개
 						</div>
 						<div>
-							개당 구매 금액 : <%=dto.getOrder_pprice() %>
+							개당 구매 금액 : <%=String.format("%,d", dto.getOrder_pprice()) %>원
 						</div>
 						<div>	
-							마일리지: <%=dto.getOrder_mileage() %>
+							마일리지: <%=String.format("%,d", dto.getOrder_mileage()) %>
 						</div>
 						<div>
-							총 구매금액 : <%=dto.getOrder_total() %>
+							총 구매금액 : <%=String.format("%,d", dto.getOrder_total()) %>원
 						</div>
 						<div>			
 						수령인 : <%=dto.getOrder_receivername() %>

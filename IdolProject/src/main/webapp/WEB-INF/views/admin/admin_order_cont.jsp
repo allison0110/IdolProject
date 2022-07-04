@@ -121,19 +121,19 @@
 						${odto.order_pname }
 					</div>
 					<div>
-						수량: ${odto.order_qty }
+						수량: <fmt:formatNumber value="${odto.order_qty }" />개
+					</div>
+					<div> 
+						가격: <fmt:formatNumber value="${odto.order_pprice }" />원
 					</div>
 					<div>
-						가격: <fmt:parseNumber value="${odto.order_pprice }" />
+						운송비: <fmt:formatNumber value="${odto.order_tcost }" />원
 					</div>
 					<div>
-						운송비: <fmt:parseNumber value="${odto.order_tcost }" />
+						총 금액: <fmt:formatNumber value="${odto.order_total }" />원
 					</div>
 					<div>
-						총 금액: <fmt:parseNumber value="${odto.order_total }" />
-					</div>
-					<div>
-						마일리지: <fmt:parseNumber value="${odto.order_mileage }" />
+						마일리지: <fmt:formatNumber value="${odto.order_mileage }" />
 					</div>
 					<div>
 						<c:if test="${odto.order_type == '1' }">
