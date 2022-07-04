@@ -55,6 +55,7 @@
 		<typeAlias type="com.idol.model.BoardCommentDTO" alias="BoardCommentDTO"/>
 		<typeAlias type="com.idol.model.BoardRecommendDAO" alias="BoardRecommendDAO"/>
 		<typeAlias type="com.idol.model.BoardRecommendDTO" alias="BoardRecommendDTO"/>
+		<typeAlias type="com.idol.model.BoardrankingDTO" alias="BoardrankingDTO"/>
 		
 
 		

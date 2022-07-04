@@ -10,7 +10,8 @@
 <link rel="stylesheet" href="css/product_detail.css">
 <script src="https://kit.fontawesome.com/3de1cbcb05.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" /> -->
+<link rel="stylesheet" href="css/product_detail_swiper.css" />
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </head>
 <body>
@@ -287,7 +288,7 @@
 					<div class="swiper-introduce">
 					함께하면 좋은상품
                     </div>
-					<div class="swiper-container">
+					<div class="swiper-container1">
                         <!-- 보여지는 영역 -->
                         <div class="swiper-wrapper">
                           <!-- <div class="swiper-slide">내용</div> 를 추가하면된다 -->
@@ -346,7 +347,7 @@
     </div>
         <a id="bclose"><i class="fa-solid fa-xmark fa-2x"></i></a>
     </div>
-<%@include file="../include/user_bottom.jsp" %>
+<%@include file="../include/user_bottom.jsp" %> 
 <script src="js/product_detail.js"></script>
 </body>
 </html>

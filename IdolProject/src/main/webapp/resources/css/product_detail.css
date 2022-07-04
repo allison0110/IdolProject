@@ -421,8 +421,8 @@ body {
   margin: 0;
   padding: 0;
 }
-/* //.swiper-container 설정  */
-.swiper-container {
+/* //.swiper-container1 설정  */
+.swiper-container1 {
   /* background: #eee; */
   background: white;
   width: 350px;
@@ -498,14 +498,14 @@ body {
 }
 
 /* //swiper.css에서 수정을 해야 되지만 cdn으로 불러와서 여기서 중복 설정 + !important로 제어 하였음 */
-.swiper-container-vertical>.swiper-pagination-bullets{
+.swiper-container1-vertical>.swiper-pagination-bullets{
     top: unset !important;
     bottom: 10px;
     left: 0;
     width: 100%;
 }
 /* //swiper.css에서 수정을 해야 되지만 cdn으로 불러와서 여기서 중복 설정 + !important로 제어 하였음 */
-.swiper-container-vertical>.swiper-pagination-bullets .swiper-pagination-bullet{
+.swiper-container1-vertical>.swiper-pagination-bullets .swiper-pagination-bullet{
       display : inline-block !important;
       margin: 6px 2px !important;
 }

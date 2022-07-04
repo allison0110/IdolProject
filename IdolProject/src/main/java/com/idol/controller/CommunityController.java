@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.idol.model.AdminNoticeDAO;
 import com.idol.model.BoardCategoryDAO;
 import com.idol.model.BoardCategoryDTO;
 import com.idol.model.BoardCommentDAO;
@@ -29,10 +30,13 @@ import com.idol.model.BoardDAO;
 import com.idol.model.BoardDTO;
 import com.idol.model.BoardRecommendDAO;
 import com.idol.model.BoardRecommendDTO;
+import com.idol.model.BoardrankingDTO;
+import com.idol.model.EventDTO;
 import com.idol.model.MemberDAO;
 import com.idol.model.MemberDTO;
 import com.idol.model.MileageDAO;
 import com.idol.model.MileageDTO;
+import com.idol.model.NoticeDTO;
 
 @Controller
 public class CommunityController {
@@ -55,6 +59,9 @@ public class CommunityController {
 	@Autowired
 	private BoardRecommendDAO boardRecommenddao;
 	
+	@Autowired 
+	private AdminNoticeDAO Nonicedao;
+	
 	// 커뮤니티 게시물 전체리스트 페이지로 이동
 	@RequestMapping("community_boardList.do")
 	public String community_boardList(Model model,HttpServletRequest request) {
@@ -75,12 +82,40 @@ public class CommunityController {
 			bestcomcountlist.add(commentCount);
 		}
 		
+		// 각 토픽리스트 게시물의 갯수를 구한다.
+		List<Integer> topicCountList = new ArrayList<Integer>();
+		for(int i=0;i<categorylist.size();i++) {
+			int count = 0;
+			count = Boarddao.getTopicList(categorylist.get(i).getCategory_cno()).size();
+			topicCountList.add(count);
+		}
 		
+		
+		// 유저 게시물작성 랭킹 리스트
+		List<BoardrankingDTO> memRankingList = Boarddao.boardrankingList();
+		
+		// 가장많은 게시물을 작성한 회원
+		MemberDTO topMember = Memberdao.getMemberCont(memRankingList.get(0).getMember_no());
+		
+		// top1회원의 이미지 구분자 제거
+		if(topMember.getMember_cover() != null) {
+		StringTokenizer st1 = new StringTokenizer(topMember.getMember_cover(), "|");
+		String root1 = st1.nextToken();
+		topMember.setMember_cover(root1);
+		
+		StringTokenizer st2 = new StringTokenizer(topMember.getMember_image(), "|");
+		String root2 = st2.nextToken();
+		topMember.setMember_image(root2);
+		}
+
 		
 		model.addAttribute("categoryList", categorylist);
 		model.addAttribute("bestList", bestlist);
 		model.addAttribute("baordList", baordlist);
 		model.addAttribute("bestcomcountList", bestcomcountlist);
+		model.addAttribute("topicCountList", topicCountList);
+		model.addAttribute("memRankingList", memRankingList);
+		model.addAttribute("topMember", topMember);
 		
 		return "community/community_boardList";
 	}
@@ -412,6 +447,10 @@ public class CommunityController {
 			}
 		}
 		
+		// 해당하는 카테고리의 게시물 리스트를 최신날짜와 추천수 순으로 가져온다.
+		List<BoardDTO> boardList = Boarddao.boardDateRecommendList(boardCont.getCategory_cnofk());
+		
+		
 		
 		model.addAttribute("boardCont", boardCont);
 		model.addAttribute("writerInfo", writerInfo);
@@ -420,6 +459,7 @@ public class CommunityController {
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("recommendStatus", recommendStatus);
+		model.addAttribute("boardList", boardList);
 		
 		
 		return "community/community_boardcontent";

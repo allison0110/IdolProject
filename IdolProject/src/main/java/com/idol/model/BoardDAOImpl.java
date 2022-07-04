@@ -87,5 +87,18 @@ public class BoardDAOImpl implements BoardDAO {
 		sqlSession.update("recommendtMinus", bno);
 		
 	}
+	
+	// 게시물 작성갯수에 따른 유저랭킹
+	@Override
+	public List<BoardrankingDTO> boardrankingList() {
+		return sqlSession.selectList("rangkingList");
+	}
+	
+	// 게시물 카테고리에 따른 날짜 및 추천수에 따른 게시물 리스트
+	@Override
+	public List<BoardDTO> boardDateRecommendList(int cno) {
+		return sqlSession.selectList("boardDateRecommendList", cno);
+	}
+	
 
 }
