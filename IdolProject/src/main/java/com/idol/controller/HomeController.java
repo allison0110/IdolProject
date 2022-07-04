@@ -83,6 +83,13 @@ public class HomeController {
 			elist.get(i).setNotice_image(st);
 
 			}
+
+		for(int i=0; i<mainmlist.size(); i++) {
+			StringTokenizer eventTokenizer = new StringTokenizer(mainmlist.get(i).getMusic_coverimage(),"|");
+			String st = eventTokenizer.nextToken();
+			mainmlist.get(i).setMusic_coverimage(st);
+			
+		}
 		
 		model.addAttribute("mlist", mainmlist);
 		model.addAttribute("plist", mainplist);
