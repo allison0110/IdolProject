@@ -292,10 +292,13 @@
 					}
 					//답변상태
 					String status = "";
+					String color ="";
 					if(idto.getInquiry_status() == 0){
 						status ="답변대기";
+						color = "#ff5722";
 					}else{
 						status="답변완료";
+						color="black";
 					}
 			%>
 				<a href="<%=request.getContextPath()%>/inquiry_cont.do?no=<%=idto.getInquiry_no()%>&page=1">
@@ -304,7 +307,7 @@
 					&nbsp;<span><%=idto.getInquiry_title() %></span><br>
 					<span style="color: #858080;font-size: 0.9em; font-weight:normal;">
 					<%=idto.getInquiry_date().substring(0, 10) %></span>│ 
-					<span style="color:#ff5722;font-size: 0.9em;"><%=status %> </span>
+					<span style="color:<%=color %>;font-size: 0.9em;"><%=status %> </span>
 				</div><!-- class="qna_item" end -->
 				</a>
 			<%	}
