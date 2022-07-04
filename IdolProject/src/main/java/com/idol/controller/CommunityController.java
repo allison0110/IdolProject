@@ -496,7 +496,7 @@ public class CommunityController {
 		// 게시물 삭제시 게시물에 등록된 댓글도 함께 삭제되어야 한다.
 		int commentDelResult = boardCommentdao.deleteBoardComment(bno);
 		
-		if(Boarddao.deleteBoard(bno) > 0 || commentDelResult >0) {
+		if(Boarddao.deleteBoard(bno) > 0) {
 			result = "1";
 		}
 		
