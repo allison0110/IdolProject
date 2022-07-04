@@ -25,6 +25,7 @@
                 <c:set var="clist" value="${cList}"/>  
                 <c:set var="commentlist" value="${commentList}"/>  
                 <c:set var="mlist" value="${mList}"/>  
+                <c:set var="boardlist" value="${boardList}"/>  
                 <input type="hidden" id="loginId" value="${loginInfo.member_id }">
                 <input type="hidden" id="loginNo" value="${loginInfo.member_no }">
                 <input type="hidden" id="writerId" value="${boardCont.community_userid }">
@@ -197,9 +198,51 @@
                 </div> <!-- leftContent end --> 
 
 
-                <!-- 유저랭킹 or 인기게시물 순위 -->
+                <!-- 인기게시물 -->
                 <div id="rightContent">
-
+					<div id="topic-recommendList">
+						<div id="recommendTopicTitle">
+							<c:if test="${!empty clist}">
+	                        	<c:forEach items="${clist }" var="cdto">
+	                        		<c:if test="${cdto.category_cno == boardCont.category_cnofk }">
+	                        			<span>
+	                        			 <a href="<%=request.getContextPath()%>/community_topicList.do?cno=${cdto.category_cno}">
+	                        			 	${cdto.category_cname }
+	                        			 </a> 추천글
+	                        			</span>
+	                        		</c:if>
+	                        	</c:forEach>
+                        	</c:if>
+						</div>
+						<!-- 추천 게시글 리스트를 10개 출력한다.(최신날짜의 추천순으로) -->
+						<c:if test="${!empty boardlist }">
+							<c:set var="i" value="${0 }"/>
+					  		<c:set var="doneLoop" value="false"/>
+							<c:forEach items="${boardlist }" var="boarddto">
+							<c:if test="${not doneLoop }">
+							<c:set var="i" value="${i+1 }"/>
+							<div class="recommendBoardTitle">
+							<c:if test="${boarddto.community_title.length() > 15 }">
+							
+							<span class="delimiter">.</span>
+							<a href="<%=request.getContextPath()%>/community_boardContent.do?bno=${boarddto.community_no}">
+							${boarddto.community_title.substring(0,15) }...
+							</a>
+							</c:if>
+							<c:if test="${boarddto.community_title.length() <= 15 }">
+							<span class="delimiter">.</span>
+							<a href="<%=request.getContextPath()%>/community_boardContent.do?bno=${boarddto.community_no}">
+							${boarddto.community_title }
+							</a>
+							</c:if>
+							</div>
+								<c:if test="${i == 10 }">
+								<c:set var="doneLoop" value="true"/>
+		  						</c:if>
+							</c:if>
+							</c:forEach>
+						</c:if>
+					</div>
                 </div>
             </div> <!-- contnet -->
         </div>
