@@ -1222,7 +1222,7 @@ public class MemberController {
 		List<MultipartFile> fileList = multi.getFiles(uploadFileName);
 
 		
-		String path = "C:\\Users\\ayss3\\Documents\\FinalProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\inquiry_board";
+		String path = "C:\\NCS\\IdolProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\inquiry_board";
 
 		String dbFileName = "";
 

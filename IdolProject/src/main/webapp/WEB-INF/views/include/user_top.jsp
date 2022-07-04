@@ -1,3 +1,4 @@
+<%@page import="com.idol.model.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -77,7 +78,15 @@
               <!-- SEARCH -->
               <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
 			  <!-- CART -->
-              <li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
+			  <%
+			  	MemberDTO memberdto = (MemberDTO)session.getAttribute("loginInfo");
+			  	if(memberdto != null){
+			  	int memno = memberdto.getMember_no();
+			  	pageContext.setAttribute("memno", memno);
+			  	}
+			  %>
+              <li><a href="<%=request.getContextPath()%>/product_cartList.do?memno=${memno}">
+              <i class="fa-solid fa-cart-shopping"></i></a></li>
             </ul> 
             <%} %>
           </div>

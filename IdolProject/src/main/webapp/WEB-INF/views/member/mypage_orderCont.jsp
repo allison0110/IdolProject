@@ -160,7 +160,7 @@
 		
 		<div class="mypage_main">
 		<div class="manage_top">
-		구매 상세 내역
+		주문 상세 내역
 		</div>
 			<div class="order_cont">
 				<div class="orderCont_date">
