@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.idol.model.CelebDTO"%>
 <%@page import="java.util.StringTokenizer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -123,6 +126,16 @@
 		flex: 3;
 	}
 	
+	.photo_grid{
+		margin: 20px 0;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+		grid-gap: 24px;
+	}
+	
+	.photo{
+	}
+	
 	select.green{
 		padding: 10px;
 		font-size: 12px;
@@ -148,16 +161,17 @@
 </style>
 </head>
 <body>
-	<%@include file="../include/user_top.jsp" %>
+	<%@ include file="../include/user_top.jsp" %>
+	
 	<div class="wrapper" align="center">
 		
 		<div class="music_search">
-			<form method="post" action="<%=request.getContextPath() %>/artist_search.do">
+			<form method="post" action="<%=request.getContextPath() %>/music_search.do">
 			      
 		      	<select class="green" name="field">
 				    <option value="artist">가수</option>
 				    <option value="group">그룹</option>
-				    <option value="writer">곡</option>
+				    <option value="music">곡</option>
 			    </select>
 			    
 		      	<input class="green" name="keyword">&nbsp;
@@ -176,7 +190,7 @@
 			<div class="celeb_info">
 			
 				<div class="celeb_left">
-					<img src="resources\\upload\\celeb/${dto.celeb_pimage }"
+					<img src="resources\\upload\\celeb/${imageList.get(0) }"
 					width="200" height="200">
 				</div>
 				
@@ -199,7 +213,7 @@
 							 ${dto.celeb_dateofbirth.substring(0,10) }<br><br>
 							
 							 <c:if test="${dto.celeb_group != 'solo' }">
-							 	${dto.celeb_group }(그룹)
+							 	<a href="<%=request.getContextPath()%>/group_content.do?group=${dto.celeb_group}">${dto.celeb_group }(그룹)</a>
 							 </c:if>
 							 
 							 <c:if test="${dto.celeb_group == 'solo' }">
@@ -234,7 +248,7 @@
 					</div>
 					
 					<div class="menu_gray">
-						포토/스토리
+						<a href="<%=request.getContextPath() %>/artist_content.do?no=${dto.celeb_no}&type=photo">포토/스토리</a>
 					</div>
 					
 					<div class="menu_gray">
@@ -250,28 +264,40 @@
 					</div>
 				</div>
 				
-				<br><br>
-				<h2>&nbsp;&nbsp;아티스트 소개</h2><br>	
-				<hr width="100%" color="lightgray">
-				
-				<div class="detail">
-					asd
-				</div>
-				
-				<c:if test="${dto.celeb_group != solo }">
+				<c:if test="${dto.celeb_group != 'solo' }">
 					<br><br>
-					<h2>&nbsp;&nbsp;연관 아티스트</h2><br>	
+					<h2>&nbsp;&nbsp;아티스트 소개</h2><br>	
+					<hr width="100%" color="lightgray">
+					
+					<div class="detail">
+						${gdto.group_info }
+					</div>
+				</c:if>
+				
+				<c:if test="${dto.celeb_group != 'solo' }">
+					<br><br>
+					<h2>&nbsp;&nbsp;그룹 멤버</h2><br>
 					<hr width="100%" color="lightgray">
 				
 					<div class="detail_like">
-					
-						<c:forEach items="${artistList }" var="i">
+						
+						<c:forEach items="${groupMember }" var="i">
 						
 							<c:if test="${dto.celeb_name !=  i.celeb_name}">
 							
 								<div class="like_row">
 									<div class="like">
-										<img src="resources\\upload\\celeb/${i.celeb_pimage }"
+										<%	CelebDTO i = (CelebDTO)pageContext.getAttribute("i");
+											String image = i.getCeleb_pimage();
+											StringTokenizer st = new StringTokenizer(image, "|");
+											String[] array = new String[st.countTokens()];
+											
+											for(int j=0; j<array.length; j++){
+												array[j] = st.nextToken();
+											}
+											pageContext.setAttribute("image", array[0]);
+										%>
+										<img src="resources\\upload\\celeb/${image }"
 											width="100" height="100">
 									</div>
 									
@@ -284,6 +310,55 @@
 								
 							</c:if>
 							
+						</c:forEach>
+						
+					</div>
+		
+				</c:if>
+				
+				<c:if test="${agencyMember.size() != 0 }">
+					<br><br>
+					<h2>&nbsp;&nbsp;같은 소속사 아티스트</h2><br>
+					<hr width="100%" color="lightgray">
+				
+					<div class="detail_like">
+						
+						<c:forEach items="${agencyMember }" var="i">
+						
+							<div class="like_row">
+								<div class="like">
+									<%	CelebDTO i = (CelebDTO)pageContext.getAttribute("i");
+										String image = i.getCeleb_pimage();
+										StringTokenizer st = new StringTokenizer(image, "|");
+										String[] array = new String[st.countTokens()];
+										
+										for(int j=0; j<array.length; j++){
+											array[j] = st.nextToken();
+										}
+										pageContext.setAttribute("image", array[0]);
+									%>
+									<a href="<%=request.getContextPath()%>/artist_content.do?no=${i.celeb_no}">
+									<img src="resources\\upload\\celeb/${image }"
+										width="100" height="100">
+									</a>
+								</div>
+								
+								<div class="like">
+									<a href="<%=request.getContextPath()%>/artist_content.do?no=${i.celeb_no}">
+									<b>${i.celeb_name }</b></a><br><br>
+									
+									<c:if test="${i.celeb_group != 'solo'}">
+										<a href="<%=request.getContextPath()%>/group_content.do?group=${i.celeb_group}">
+									</c:if>
+									${i.celeb_group }
+									<c:if test="${i.celeb_group != 'solo'}">
+										</a>
+									</c:if><br><br>
+									
+									${i.celeb_agency }
+								</div>
+							</div>
+								
 						</c:forEach>
 						
 					</div>
@@ -310,7 +385,7 @@
 					</div>
 					
 					<div class="menu_gray">
-						포토/스토리
+						<a href="<%=request.getContextPath() %>/artist_content.do?no=${dto.celeb_no}&type=photo">포토/스토리</a>
 					</div>
 					
 					<div class="menu_gray">
@@ -371,9 +446,59 @@
 			</c:if>
 			<!-- 곡 End -->
 			
+			<c:if test="${type == 'photo' }">
+				
+				<div class="menu">
+					<div class="menu_gray">
+						<a href="<%=request.getContextPath() %>/artist_content.do?no=${dto.celeb_no}">상세정보</a>
+					</div>
+					
+					<div class="menu_gray">
+						<a href="<%=request.getContextPath() %>/artist_content.do?no=${dto.celeb_no}&type=music">곡</a>
+					</div>
+					
+					<div class="menu_gray">
+						앨범
+					</div>
+					
+					<div class="menu_white">
+						포토/스토리
+					</div>
+					
+					<div class="menu_gray">
+						비디오
+					</div>
+					
+					<div class="menu_gray">
+						팬
+					</div>
+					
+					<div class="menu_gray">
+						Hi-Fi
+					</div>
+				</div>
+				
+				<br><br><br>
+				<div style="text-align: right;"><b>최신순</b>&nbsp;&nbsp;|&nbsp;&nbsp;인기순</div><br>
+				<hr width="100%" color="lightgray">
+				
+				<div class="photo_grid">
+				
+					<c:forEach items="${imageList }" var="i">
+				
+						<div class="photo">
+							<img src="resources\\upload\\celeb/${i }"
+										width="148" height="148">
+						</div>
+						
+					</c:forEach>
+					
+				</div>
+				
+			</c:if>
 		</div>
 		
 	</div>
-		<%@include file="../include/user_bottom.jsp" %>
+	<%@ include file="../include/user_bottom.jsp" %>
 </body>
 </html>
