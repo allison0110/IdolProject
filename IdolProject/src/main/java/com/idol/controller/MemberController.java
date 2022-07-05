@@ -280,7 +280,7 @@ public class MemberController {
 			
 			out.println("<script>");
 			out.println("alert('로그인 성공')");
-			out.println("location.href='/controller/'");
+			out.println("location.href='"+request.getContextPath()+"/'");
 			out.println("</script>");
 			
 		}else if(check == 0) {

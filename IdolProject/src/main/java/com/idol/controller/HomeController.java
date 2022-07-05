@@ -86,8 +86,8 @@ public class HomeController {
 
 		for(int i=0; i<mainmlist.size(); i++) {
 			StringTokenizer eventTokenizer = new StringTokenizer(mainmlist.get(i).getMusic_coverimage(),"|");
-			String st = eventTokenizer.nextToken();
-			mainmlist.get(i).setMusic_coverimage(st);
+			String str = eventTokenizer.nextToken();
+			mainmlist.get(i).setMusic_coverimage(str);
 			
 		}
 		

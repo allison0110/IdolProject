@@ -1,5 +1,6 @@
 package com.idol.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,15 +8,19 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.util.UrlPathHelper;
 
+import com.google.gson.Gson;
 import com.idol.model.EventDTO;
 import com.idol.model.PageDTO;
 import com.idol.model.UserEventDAO;
@@ -33,7 +38,7 @@ public class EventController {
 	
 	@RequestMapping("event_list.do")
 	public String list(HttpServletRequest request, Model model) {
-int page; //현재 페이지 변수
+		int page; //현재 페이지 변수
 		
 		if(request.getParameter("page")!=null) {
 			page = Integer.parseInt(request.getParameter("page"));
@@ -95,8 +100,11 @@ int page; //현재 페이지 변수
 	
 	@RequestMapping("event_cont.do")
 	
-	public String cont(@RequestParam("no")int no, @RequestParam("page")int nowPage, Model model ) {
+	public String cont(HttpServletRequest request, Model model ) {
 		
+		String page = request.getParameter("page");
+		int no = Integer.parseInt(request.getParameter("no"));
+
 		this.userEventDao.readCount(no);
 		
 		EventDTO dto = this.userEventDao.eventCont(no);
@@ -112,11 +120,34 @@ int page; //현재 페이지 변수
 		dto.setNotice_images(temp_images);
 		
 		model.addAttribute("Cont", dto);
-		model.addAttribute("Page", nowPage);
+		model.addAttribute("Page", page.equals(null) ? 1 : page);
 		
 		return "event/user_event_cont";
 	}
 	
-	
-	
+	@RequestMapping("event_popup_items.do")
+	@ResponseBody
+	public void popupItems (HttpServletResponse response) throws Exception {
+		
+		Gson gson = new Gson();
+		
+		List<EventDTO> items = this.userEventDao.allList();
+		List<HashMap<String, Object>> result = new ArrayList<HashMap<String, Object>>();
+		
+		for (int i = 0; i < items.size(); i++) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			EventDTO item = items.get(i);
+			
+			StringTokenizer eventTokenizer = new StringTokenizer(item.getNotice_image(),"|");
+			String st = eventTokenizer.nextToken();
+			
+			map.put("no", item.getNotice_no());
+			map.put("bid", item.getNotice_type() == "CELEB" ? 1 : 2);
+			map.put("image", st);
+			
+			result.add(map);
+		}
+		
+		response.getWriter().print(gson.toJson(result));
+	}
 }

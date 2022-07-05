@@ -2,11 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="./include/user_top.jsp" %>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
-    />
-    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    
     <style>
     
     main{
@@ -92,8 +88,8 @@
       }
       
       .swiper-slide .swiper-slide-album-wrap a img{
-      width: 300px;
-      height: 300px;
+      width: 260px;
+      height: 260px;
       margin: 0 auto;
       }
       
@@ -115,10 +111,11 @@
       margin: 0 auto;
       background-color: #CCE5FF;
       }
-      
+      .albumSwiper{
+      width:95%;
+      }
       .albumSwiper-wrap{
-      width: 1100px;
-      height: 500px;
+      min-height: 100%;
       margin: 0 auto;
       padding-top: 20px;
       padding-bottom: 40px;
@@ -130,6 +127,21 @@
       color: gray;
       }
       
+     .new_album_text{
+     text-align: center;
+     
+     }
+     
+    .new_album_text span{
+     font-size: 16px;
+    color: #2d2f43;
+    line-height: 25px;
+    text-align: center;
+    display: block;
+    font-weight: 400;
+
+     
+     }
      
     </style>
     
@@ -173,7 +185,7 @@
 	        		<c:forEach items="${plist }" var="pdto">
 		     	     	<div class="swiper-slide">
 		        	    	<div class="swiper-slide-items-wrap" >
-	        	    			<a href="<%=request.getContextPath()%>/product_list.do?id=${pdto.product_no}">
+	        	    			<a href="<%=request.getContextPath()%>/product_detail.do?pno=${pdto.product_no}">
 	            	  				<img src="./resources/upload/product/${pdto.product_image }"/>
 	            	  			</a>
 	            	  			<div class="card_overlay">
@@ -211,7 +223,7 @@
 	        		<c:forEach items="${elist }" var="edto">
      	     		<div class="swiper-slide" id="main_img1">
         	    		<div class="swiper-slide-issue-wrap" >
-        	    			<a href="<%=request.getContextPath()%>/event_list.do?no=${edto.notice_no}&board_id=1&category_id=1">
+        	    			<a href="<%=request.getContextPath()%>/event_cont.do?no=${edto.notice_no}&page=1&category_id=1&board_id=${edto.notice_type=='CELEB'?1:2}">
             	  				<img src="./resources/upload/notice/${edto.notice_image }"/>
             	  			</a>
             			</div>
@@ -225,7 +237,6 @@
 	</div>
 
 
-
 	<div class="main_section04">
 		<div class="albumSwiper-wrap">
 			<h1 align="center" id="mainH1">New Album</h1>
@@ -234,25 +245,35 @@
 	        		<c:forEach items="${mlist }" var="mdto">
 		     	     <div class="swiper-slide">
 		        	    <div class="swiper-slide-album-wrap" >
-		        	    <a href="<%=request.getContextPath()%>/do?no=${mdto.music_no}">
+		        	    <a href="<%=request.getContextPath()%>/user_music_content.do?no=${mdto.music_no}">
 		            	  <img
-		                	src="./resources/upload/music/${mdto.getMusic_coverimage() }"/></a>
+		                	src="./resources/upload/music/${mdto.music_coverimage }"/>
+		                	
+		                	<div class="new_album_text">
+		                	<c:if test="${mdto.celeb_name ==null }">
+		                		<span>${mdto.group_name }</span>
+		                	</c:if>
+		                	<c:if test="${mdto.group_name=='solo' }">
+		                		<span>${mdto.celeb_name }</span>
+		                	</c:if>
+		                	<strong>${mdto.music_aname }</strong>
+		                	</div>
+		                	</a>
 		            	</div>
 		          	 </div>
 		          </c:forEach>
 		        </div>
 	        	 <!-- If we need pagination -->
-		        <div class="swiper-scrollbar"></div>
-		
+				<div class="swiper-scrollbar"></div>
 			</div>
 		</div>
 	</div>
 		
   <script>
-/*   function loginAlert() {
+ /*  function loginAlert() {
       alert("사용 권한이 없습니다. 로그인 해주세요");
-  }  */
-  
+  }
+ */  
     const swiper = new Swiper("#mainSwiper", {
    	  slidesPerView: 1,
       spaceBetween: 20,
@@ -296,14 +317,19 @@
           },
     });
   	var albumSwiper = new Swiper(".albumSwiper", {
-        slidesPerView: 3,
+        slidesPerView: 4,
         spaceBetween: 30,
 		loop: true,
         grabCursor: true,
-        pagination: {
-            el: ".swiper-scrollbar",
-            clickable: true,
+        autoplay: {
+            delay: 4000,
           },
+        scrollbar: {
+            el: ".swiper-scrollbar",
+            hide: true,
+          },
+      
+      centeredSlides: true,
         navigation: {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
@@ -324,9 +350,8 @@
   	
   	function changeBackground(activeIndex){
   		const index = Math.floor(Math.random() * colors.length);
-  		console.log(index)
   		mainBG.style = "background-color:" + colors[index];
-  		console.log(mainBG)
+
   	}
   	
   	changeBackground(1);

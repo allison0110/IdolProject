@@ -6,6 +6,7 @@
 <head>
 		<link rel="stylesheet" href="./resources/css/global.css" />
 	    <link rel="stylesheet" href="./resources/css/main.css" />
+	    <link rel="stylesheet" href="./resources/css/event_cont.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
@@ -91,9 +92,13 @@
 		vertical-align: top;
 	}
 	
+	.event_list_wrap li {
+	text-align: center;
+	}
+	
 	.event_list_wrap img{
-		width:460px;
-		height:300px;
+		width:470px;
+		height:360px;
 		margin: 0 auto 20px;
 		display: block;
 	

@@ -150,7 +150,13 @@ a {
 }
 
 #popup .popupSwiper .swiper-slide-popup-wrap a{
-display: flex;
-width: 100%;
-height: 100%;
+	display: flex;
+	width: 100%;
+	height: 100%;
+}
+
+#popup .popupSwiper .swiper-slide-popup-wrap a img {
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
 }
