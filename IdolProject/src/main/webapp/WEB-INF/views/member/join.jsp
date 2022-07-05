@@ -465,7 +465,7 @@ function idCheck(){
 		<div class="join_btn">
 		<input class="join_submit" type="submit" value="JOIN">
 		<!-- 취소누르면 메인페이지 이동 -->
-		<input class="join_cancel" type="button" value="CANCEL" onclick="location.href='/controller/'"> 
+		<input class="join_cancel" type="button" value="CANCEL" onclick="location.href='<%=request.getContextPath()%>/'"> 
 		</div>
 		
 		</div> <!-- class="lojo_body" -->

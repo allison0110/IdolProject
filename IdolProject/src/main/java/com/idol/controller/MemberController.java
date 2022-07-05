@@ -236,7 +236,7 @@ public class MemberController {
 			
 			out.println("<script>");
 			out.println("alert('회원가입 완료되었습니다')");
-			out.println("location.href='/controller/'"); //회원가입완료 후 메인화면으로 이동하기
+			out.println("location.href='"+request.getContentType()+"/'"); //회원가입완료 후 메인화면으로 이동하기
 			out.println("</script>");
 		}else {
 			out.println("<script>");
@@ -557,7 +557,7 @@ public class MemberController {
 		
 		//요청을 넘기는 곳의 정보  - mypage_*.jsp 또는 feed_*.jsp
 		String uri = request.getParameter("uri");
-		String path = "/controller/WEB-INF/views/member";
+		String path = request.getContextPath()+"/WEB-INF/views/member";
 		System.out.println("uri"+uri);
 		System.out.println("path"+path);
 		
@@ -1222,7 +1222,7 @@ public class MemberController {
 		List<MultipartFile> fileList = multi.getFiles(uploadFileName);
 
 		
-		String path = "C:\\Users\\ayss3\\Documents\\FinalProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\inquiry_board";
+		String path = "C:\\NCS\\IdolProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\inquiry_board";
 
 		String dbFileName = "";
 

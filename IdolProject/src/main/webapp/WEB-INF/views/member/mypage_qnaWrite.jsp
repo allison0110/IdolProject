@@ -98,10 +98,19 @@
 					<c:if test="${empty pCont }">
 					<input name="product_name" size="20"> <!-- 상품정보 있는 경우 상품 이름이 들어가기 -->
 					</c:if>
+					<c:if test="${!empty ono }">
+					<button class="search_btn" type="button" class="product_search" disabled="disabled" style="background-color:#ececec; color:white; border:#ececec; cursor:auto;"
+					onclick="window.open( '<%=request.getContextPath()%>/inquiry_product.do', '', 'width=500,height=400, scrollbars=yes,directories=no') ">
+					상품 검색
+					</button>
+					</c:if>
+					<c:if test="${empty ono }">
 					<button class="search_btn" type="button" class="product_search" 
 					onclick="window.open( '<%=request.getContextPath()%>/inquiry_product.do', '', 'width=500,height=400, scrollbars=yes,directories=no') ">
 					상품 검색
-					</button></td>
+					</button>
+					</c:if>
+					</td>
 				</tr>
 				<tr>
 					<th>분류</th>
