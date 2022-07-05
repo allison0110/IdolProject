@@ -71,8 +71,10 @@ public interface AdminMemberDAO {
 //////////////////////////////////////////////////////////////////////	
 	
 	
-	
-	
+	// 문의 게시판 카테고리별 게시판 가져오기 
+	public List<InquiryDTO> getInquiryListByCategory(int no);
+	//완료  문의 게시판 리스트 가져오기
+	public List<InquiryDTO> getInquiryOkList();
 	
 	
 	

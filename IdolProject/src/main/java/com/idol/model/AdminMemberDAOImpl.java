@@ -169,6 +169,16 @@ public class AdminMemberDAOImpl implements AdminMemberDAO{
 	public List<GroupDTO> getGroupList() {
 		return this.sqlSession.selectList("getGroupListFromMember");
 	}
+
+	@Override
+	public List<InquiryDTO> getInquiryListByCategory(int no) {
+		return this.sqlSession.selectList("inquiryListByCate", no);
+	}
+
+	@Override
+	public List<InquiryDTO> getInquiryOkList() {
+		return this.sqlSession.selectList("inquiryOkList");
+	}
 	
 		
 	

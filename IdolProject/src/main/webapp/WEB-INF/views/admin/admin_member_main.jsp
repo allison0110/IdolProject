@@ -59,8 +59,8 @@
 		height: 100%;
 	}
 
-	.member_info_box {
-	
+	.member_info_box:hover {
+		opacity: 0.4;
 	
 	}
 	

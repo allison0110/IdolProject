@@ -150,6 +150,18 @@
 <!-- 맴버 리스트 -->
 <c:set var="mlist" value="${mList }" />
 
+<c:set var="returnlist" value="${returnList }" />
+<c:set var="itemslist" value="${itemsList }" />
+<c:set var="translist" value="${transList }" />
+<c:set var="exchangelist" value="${exchangeList }" />
+<c:set var="etclist" value="${etcList }" />
+<c:set var="Oklist" value="${OkList }" />
+
+
+
+
+
+
 	<div class="admin_member_contact_wrapper">
 	
 	<jsp:include page="../include/admin_top_include.jsp" />
@@ -158,141 +170,375 @@
 		
 		
 	<div class="admin_member_contact_container">
-	
-	
-	<!-- 커뮤니티 리스트 -->
-		<div class="member_inquiry_category">
-			<c:forEach items="${iclist }" var="ic"> <!-- 문의게시판 카테고리 리스트 -->
-				<div class="categoryNshowMore">
-					<div>[${ic.category_iname }]</div> 
-					<a href="./resources/upload/member">
-						<div class="showAll">Show ALL></div>
-					</a>
-				</div>
-				
-				<div class="inquiry_box">
-					<c:forEach items="${ilist }" var="i"> 
-						<c:if test="${ic.category_ino == i.category_inofk }"> 
-							<c:if test="${i.inquiry_status == '0' }">
-								<c:forEach items="${mlist }" var="mdto">
-								<!-- 맴버리스트 아이디와 문의게시판 아이디가 같은 경우 리스트 뽑기 -->
-								<c:if test="${mdto.member_id == i.inquiry_userid }">
-								<div class="border_radius">
-									<a class="member_box_link" href="<%=request.getContextPath()%>/admin_member_inquiryCont.do?no=${i.inquiry_no}
-										&pno=${i.product_no}&ono=${i.order_no}&gno=${i.inquiry_group}">
-											<div class="member_img_box">
-												<img class="member_img" alt="" src="./resources/upload/member_image/${mdto.member_no }/${mdto.member_image}">
-											</div>
-											<div class="member_communi_text">
-												<div class="content_left">
-													<!-- 대댓글 문의인 경우 -->
-													<c:if test="${i.inquiry_indent > 0 }">
-														 <div class="content_title"> (대댓글) ${i.inquiry_title }</div>
-													<!-- 
-														<c:forEach begin="1" end="${i.inquiry_indent }">
-															
-														</c:forEach>
-														 -->
-													</c:if>
-													<!-- 원글인 경우 -->
-													<c:if test="${i.inquiry_indent == 0 }">
-														<div class="content_title">${i.inquiry_title }</div>	
-													</c:if>
-													<div class="content_id">
-														${i.inquiry_userid }
-													</div>
-												</div>
-												
-												<!--  	
-												<div class="content_text">${i.inquiry_cont }</div>
-												-->	
-												<div class="content_right">
-													<c:if test="${empty i.inquiry_update }">
-														${i.inquiry_date.substring(0, 10) }
-													</c:if>
-													<c:if test="${!empty i.inquiry_update }">
-														${i.inquiry_update.substring(0, 10) }
-													</c:if>
-												</div>	
-											</div>
-										</a> <!-- member_box_link -->
-									</div> <!-- border_radius -->
-								</c:if>
-							</c:forEach>
-							</c:if><!-- 답변 대기만 표시하기  -->
-						</c:if> <!-- c:if 카테고리가 같은  분류 뽑아내기 -->
-					</c:forEach> <!-- 문의게시판 리스트 -->
-				</div> <!-- inquiry_box -->
-			</c:forEach> <!-- 문의게시판 카테고리 리스트 -->
-		</div> <!-- member_inquiry_category -->	
 		
+		
+		<div class="member_inquiry_category">
+		
+		<!-- 1. 취소 /환불  -->
+			<div class="categoryNshowMore">
+				<div>[취소/환불]</div> 
+				<a href="<%=request.getContextPath()%>/admin_inquiry_showMore.do?no=1">
+					<div class="showAll">Show ALL></div>
+				</a>
+			</div>
+			<div class="inquiry_box">
+				<c:forEach begin="0" end="2" items="${returnlist }" var="re"> 
+						<c:forEach items="${mlist }" var="mdto">
+							<!-- 맴버리스트 아이디와 문의게시판 아이디가 같은 경우 리스트 뽑기 -->
+							<c:if test="${mdto.member_id == re.inquiry_userid }">
+							<div class="border_radius">
+								<a class="member_box_link" href="<%=request.getContextPath()%>/admin_member_inquiryCont.do?no=${re.inquiry_no}
+									&pno=${re.product_no}&ono=${re.order_no}&gno=${re.inquiry_group}">
+										<div class="member_img_box">
+											<img class="member_img" alt="" src="./resources/upload/member_image/${mdto.member_no }/${mdto.member_image}">
+										</div>
+										<div class="member_communi_text">
+											<div class="content_left">
+												<!-- 대댓글 문의인 경우 -->
+												<c:if test="${re.inquiry_indent > 0 }">
+													 <div class="content_title"> (대댓글) ${re.inquiry_title }</div>
+												<!-- 
+													<c:forEach begin="1" end="${i.inquiry_indent }">
+														
+													</c:forEach>
+													 -->
+												</c:if>
+												<!-- 원글인 경우 -->
+												<c:if test="${re.inquiry_indent == 0 }">
+													<div class="content_title">${re.inquiry_title }</div>	
+												</c:if>
+												<div class="content_id">
+													${re.inquiry_userid }
+												</div>
+											</div>
+											
+											<!--  	
+											<div class="content_text">${i.inquiry_cont }</div>
+											-->	
+											<div class="content_right">
+												<c:if test="${empty re.inquiry_update }">
+													${re.inquiry_date.substring(0, 10) }
+												</c:if>
+												<c:if test="${!empty re.inquiry_update }">
+													${re.inquiry_update.substring(0, 10) }
+												</c:if>
+											</div>	
+										</div>
+									</a> <!-- member_box_link -->
+								</div> <!-- border_radius -->
+							</c:if>
+						</c:forEach>
+				</c:forEach> <!-- 문의게시판 리스트 -->
+			</div> <!-- inquiry_box -->
+			
+		<!-- 2. 상품 문의  -->
+			<div class="categoryNshowMore">
+				<div>[상품문의]</div> 
+				<a href="<%=request.getContextPath()%>/admin_inquiry_showMore.do?no=2">
+					<div class="showAll">Show ALL></div>
+				</a>
+			</div>
+			<div class="inquiry_box">
+				<c:forEach begin="0" end="2" items="${itemslist }" var="it"> 
+					<c:if test="${it.inquiry_status == '0' }">
+						<c:forEach items="${mlist }" var="mdto">
+							<!-- 맴버리스트 아이디와 문의게시판 아이디가 같은 경우 리스트 뽑기 -->
+							<c:if test="${mdto.member_id == it.inquiry_userid }">
+							<div class="border_radius">
+								<a class="member_box_link" href="<%=request.getContextPath()%>/admin_member_inquiryCont.do?no=${it.inquiry_no}
+									&pno=${it.product_no}&ono=${it.order_no}&gno=${it.inquiry_group}">
+										<div class="member_img_box">
+											<img class="member_img" alt="" src="./resources/upload/member_image/${mdto.member_no }/${mdto.member_image}">
+										</div>
+										<div class="member_communi_text">
+											<div class="content_left">
+												<!-- 대댓글 문의인 경우 -->
+												<c:if test="${it.inquiry_indent > 0 }">
+													 <div class="content_title"> (대댓글) ${it.inquiry_title }</div>
+												<!-- 
+													<c:forEach begin="1" end="${i.inquiry_indent }">
+														
+													</c:forEach>
+													 -->
+												</c:if>
+												<!-- 원글인 경우 -->
+												<c:if test="${it.inquiry_indent == 0 }">
+													<div class="content_title">${it.inquiry_title }</div>	
+												</c:if>
+												<div class="content_id">
+													${it.inquiry_userid }
+												</div>
+											</div>
+											
+											<!--  	
+											<div class="content_text">${i.inquiry_cont }</div>
+											-->	
+											<div class="content_right">
+												<c:if test="${empty it.inquiry_update }">
+													${it.inquiry_date.substring(0, 10) }
+												</c:if>
+												<c:if test="${!empty it.inquiry_update }">
+													${it.inquiry_update.substring(0, 10) }
+												</c:if>
+											</div>	
+										</div>
+									</a> <!-- member_box_link -->
+								</div> <!-- border_radius -->
+							</c:if>
+						</c:forEach>
+					</c:if><!-- 답변 대기만 표시하기  -->
+				</c:forEach> <!-- 문의게시판 리스트 -->
+			</div> <!-- inquiry_box -->
+			
+			<!-- 3. 배송 -->
+			<div class="categoryNshowMore">
+				<div>[배송]</div> 
+				<a href="<%=request.getContextPath()%>/admin_inquiry_showMore.do?no=3">
+					<div class="showAll">Show ALL></div>
+				</a>
+			</div>
+			<div class="inquiry_box">
+				<c:forEach begin="0" end="2" items="${translist }" var="tr"> 
+					<c:if test="${tr.inquiry_status == '0' }">
+						<c:forEach items="${mlist }" var="mdto">
+							<!-- 맴버리스트 아이디와 문의게시판 아이디가 같은 경우 리스트 뽑기 -->
+							<c:if test="${mdto.member_id == tr.inquiry_userid }">
+							<div class="border_radius">
+								<a class="member_box_link" href="<%=request.getContextPath()%>/admin_member_inquiryCont.do?no=${tr.inquiry_no}
+									&pno=${tr.product_no}&ono=${tr.order_no}&gno=${tr.inquiry_group}">
+										<div class="member_img_box">
+											<img class="member_img" alt="" src="./resources/upload/member_image/${mdto.member_no }/${mdto.member_image}">
+										</div>
+										<div class="member_communi_text">
+											<div class="content_left">
+												<!-- 대댓글 문의인 경우 -->
+												<c:if test="${tr.inquiry_indent > 0 }">
+													 <div class="content_title"> (대댓글) ${tr.inquiry_title }</div>
+												<!-- 
+													<c:forEach begin="1" end="${i.inquiry_indent }">
+														
+													</c:forEach>
+													 -->
+												</c:if>
+												<!-- 원글인 경우 -->
+												<c:if test="${tr.inquiry_indent == 0 }">
+													<div class="content_title">${tr.inquiry_title }</div>	
+												</c:if>
+												<div class="content_id">
+													${tr.inquiry_userid }
+												</div>
+											</div>
+											
+											<!--  	
+											<div class="content_text">${i.inquiry_cont }</div>
+											-->	
+											<div class="content_right">
+												<c:if test="${empty tr.inquiry_update }">
+													${tr.inquiry_date.substring(0, 10) }
+												</c:if>
+												<c:if test="${!empty tr.inquiry_update }">
+													${tr.inquiry_update.substring(0, 10) }
+												</c:if>
+											</div>	
+										</div>
+									</a> <!-- member_box_link -->
+								</div> <!-- border_radius -->
+							</c:if>
+						</c:forEach>
+					</c:if><!-- 답변 대기만 표시하기  -->
+				</c:forEach> <!-- 문의게시판 리스트 -->
+			</div> <!-- inquiry_box -->
+			
+			<!-- 4. 교환 -->
+			<div class="categoryNshowMore">
+				<div>[교환]</div> 
+				<a href="<%=request.getContextPath()%>/admin_inquiry_showMore.do?no=4">
+					<div class="showAll">Show ALL></div>
+				</a>
+			</div>
+			<div class="inquiry_box">
+				<c:forEach begin="0" end="2" items="${exchangelist }" var="ex"> 
+					<c:if test="${ex.inquiry_status == '0' }">
+						<c:forEach items="${mlist }" var="mdto">
+							<!-- 맴버리스트 아이디와 문의게시판 아이디가 같은 경우 리스트 뽑기 -->
+							<c:if test="${mdto.member_id == ex.inquiry_userid }">
+							<div class="border_radius">
+								<a class="member_box_link" href="<%=request.getContextPath()%>/admin_member_inquiryCont.do?no=${ex.inquiry_no}
+									&pno=${ex.product_no}&ono=${ex.order_no}&gno=${ex.inquiry_group}">
+										<div class="member_img_box">
+											<img class="member_img" alt="" src="./resources/upload/member_image/${mdto.member_no }/${mdto.member_image}">
+										</div>
+										<div class="member_communi_text">
+											<div class="content_left">
+												<!-- 대댓글 문의인 경우 -->
+												<c:if test="${ex.inquiry_indent > 0 }">
+													 <div class="content_title"> (대댓글) ${ex.inquiry_title }</div>
+												<!-- 
+													<c:forEach begin="1" end="${i.inquiry_indent }">
+														
+													</c:forEach>
+													 -->
+												</c:if>
+												<!-- 원글인 경우 -->
+												<c:if test="${ex.inquiry_indent == 0 }">
+													<div class="content_title">${ex.inquiry_title }</div>	
+												</c:if>
+												<div class="content_id">
+													${ex.inquiry_userid }
+												</div>
+											</div>
+											
+											<!--  	
+											<div class="content_text">${i.inquiry_cont }</div>
+											-->	
+											<div class="content_right">
+												<c:if test="${empty ex.inquiry_update }">
+													${ex.inquiry_date.substring(0, 10) }
+												</c:if>
+												<c:if test="${!empty ex.inquiry_update }">
+													${ex.inquiry_update.substring(0, 10) }
+												</c:if>
+											</div>	
+										</div>
+									</a> <!-- member_box_link -->
+								</div> <!-- border_radius -->
+							</c:if>
+						</c:forEach>
+					</c:if><!-- 답변 대기만 표시하기  -->
+				</c:forEach> <!-- 문의게시판 리스트 -->
+			</div> <!-- inquiry_box -->
+			
+			<!-- 5. 기타 -->
+			<div class="categoryNshowMore">
+				<div>[기타]</div> 
+				<a href="<%=request.getContextPath()%>/admin_inquiry_showMore.do?no=5">
+					<div class="showAll">Show ALL></div>
+				</a>
+			</div>
+			<div class="inquiry_box">
+				<!-- 리스트 가져오기 3개만 -->
+				<c:forEach begin="0" end="2" items="${etclist }" var="etc"> 
+					<!-- 답변 대기 상태만 가져오기 -->
+					<c:if test="${etc.inquiry_status == '0' }">
+						<!-- 맴버리스트 불러오기 -->
+						<c:forEach items="${mlist }" var="mdto">
+							<!-- 맴버리스트 아이디와 문의게시판 아이디가 같은 경우  -->
+							<c:if test="${mdto.member_id == etc.inquiry_userid }">
+							<div class="border_radius">
+								<a class="member_box_link" href="<%=request.getContextPath()%>/admin_member_inquiryCont.do?no=${etc.inquiry_no}
+									&pno=${etc.product_no}&ono=${etc.order_no}&gno=${etc.inquiry_group}">
+										<div class="member_img_box">
+											<img class="member_img" alt="" src="./resources/upload/member_image/${mdto.member_no }/${mdto.member_image}">
+										</div>
+										<div class="member_communi_text">
+											<div class="content_left">
+												<!-- 대댓글 문의인 경우 -->
+												<c:if test="${etc.inquiry_indent > 0 }">
+													 <div class="content_title"> (대댓글) ${etc.inquiry_title }</div>
+												<!-- 
+													<c:forEach begin="1" end="${i.inquiry_indent }">
+														
+													</c:forEach>
+													 -->
+												</c:if>
+												<!-- 원글인 경우 -->
+												<c:if test="${etc.inquiry_indent == 0 }">
+													<div class="content_title">${etc.inquiry_title }</div>	
+												</c:if>
+												<div class="content_id">
+													${etc.inquiry_userid }
+												</div>
+											</div>
+											
+											<!--  	
+											<div class="content_text">${i.inquiry_cont }</div>
+											-->	
+											<div class="content_right">
+												<c:if test="${empty etc.inquiry_update }">
+													${etc.inquiry_date.substring(0, 10) }
+												</c:if>
+												<c:if test="${!empty etc.inquiry_update }">
+													${etc.inquiry_update.substring(0, 10) }
+												</c:if>
+											</div>	
+										</div>
+									</a> <!-- member_box_link -->
+								</div> <!-- border_radius -->
+							</c:if>
+						</c:forEach>
+					</c:if><!-- 답변 대기만 표시하기  -->
+				</c:forEach> <!-- 문의게시판 리스트 -->
+			</div> <!-- inquiry_box -->
+			
+		</div> <!-- member_inquiry_category -->
+		
+		
+	
+	
 		
 		
 	<!-- 답변 완료  -->
 		<div class="member_inquiry_category">
 			<div class="categoryNshowMore">
-				<div style="color:gold">[답변완료] </div>
-				<a href="#">
+				<div>[답변완료]</div> 
+				<a href="<%=request.getContextPath()%>/admin_inquiry_showMore.do?no=0">
 					<div class="showAll">Show ALL></div>
 				</a>
 			</div>
-			<div class="inquiry_box"> 
-				<!-- 문의게시판 리스트 -->
-				<c:forEach items="${ilist }" var="i"> 
-				<c:if test="${i.inquiry_status == '1' && i.inquiry_step == '0' }"> <!-- c:if 답변 완료만 뽑아내기 -->
-					<c:forEach items="${mlist }" var="mdto">
-					<c:if test="${mdto.member_id == i.inquiry_userid }">
-					<div class="border_radius">
-						<a class="member_box_link" href="<%=request.getContextPath()%>/admin_member_inquiryCont.do?no=${i.inquiry_no}
-							&pno=${i.product_no}&ono=${i.order_no}&gno=${i.inquiry_group}">
-							<div class="member_img_box">
-								<img class="member_img" alt="" src="./resources/upload/member_image/${mdto.member_no }/${mdto.member_image}">
-							</div>
-							<div class="member_communi_text">
-								<div class="content_left">
-									<!-- 대댓글 문의인 경우 -->
-									<c:if test="${i.inquiry_indent > 0 }">
-										 <div class="content_title"> (대댓글) ${i.inquiry_title }</div>
-									<!-- 
-										<c:forEach begin="1" end="${i.inquiry_indent }">
+			<div class="inquiry_box">
+				<!-- 리스트 가져오기 3개만 -->
+				<c:forEach begin="0" end="2" items="${Oklist }" var="ok"> 
+					<!-- 답변 대기 상태만 가져오기 -->
+<%-- 					<c:if test="${ok.inquiry_status == '1' }"> --%>
+						<!-- 맴버리스트 불러오기 -->
+						<c:forEach items="${mlist }" var="mdto">
+							<!-- 맴버리스트 아이디와 문의게시판 아이디가 같은 경우  -->
+							<c:if test="${mdto.member_id == ok.inquiry_userid }">
+							<div class="border_radius">
+								<a class="member_box_link" href="<%=request.getContextPath()%>/admin_member_inquiryCont.do?no=${ok.inquiry_no}
+									&pno=${ok.product_no}&ono=${ok.order_no}&gno=${ok.inquiry_group}">
+										<div class="member_img_box">
+											<img class="member_img" alt="" src="./resources/upload/member_image/${mdto.member_no }/${mdto.member_image}">
+										</div>
+										<div class="member_communi_text">
+											<div class="content_left">
+												<!-- 대댓글 문의인 경우 -->
+												<c:if test="${ok.inquiry_indent > 0 }">
+													 <div class="content_title"> (대댓글) ${ok.inquiry_title }</div>
+												<!-- 
+													<c:forEach begin="1" end="${i.inquiry_indent }">
+														
+													</c:forEach>
+													 -->
+												</c:if>
+												<!-- 원글인 경우 -->
+												<c:if test="${ok.inquiry_indent == 0 }">
+													<div class="content_title">${ok.inquiry_title }</div>	
+												</c:if>
+												<div class="content_id">
+													${ok.inquiry_userid }
+												</div>
+											</div>
 											
-										</c:forEach>
-										 -->
-									</c:if>
-									<!-- 원글인 경우 -->
-									<c:if test="${i.inquiry_indent == 0 }">
-										<div class="content_title">${i.inquiry_title }</div>	
-									</c:if>
-									<div class="content_id">
-										${i.inquiry_userid }
-									</div>
-								</div>
-								
-								<!--  	
-								<div class="content_text">${i.inquiry_cont }</div>
-								-->	
-								<div class="content_right">
-									<c:if test="${empty i.inquiry_update }">
-										${i.inquiry_date.substring(0, 10) }
-									</c:if>
-									<c:if test="${!empty i.inquiry_update }">
-										${i.inquiry_update.substring(0, 10) }
-									</c:if>
-								</div>	
-							
-							
-							<!--
-								<div class="content_title">${i.inquiry_title }</div>
-								<div class="content_id">${i.inquiry_userid }</div>
-							<div class="content_text">${i.inquiry_cont }</div> -->
-							</div>
-						</a> <!-- member_box_link -->
-					</div> <!-- border_radius -->
-					</c:if>
-				</c:forEach>
-				</c:if> <!-- c:if 답변 완료만 뽑아내기 -->
-			</c:forEach> <!-- 문의게시판 리스트 -->
-			</div> <!-- inquiry_box -->
+											<!--  	
+											<div class="content_text">${i.inquiry_cont }</div>
+											-->	
+											<div class="content_right">
+												<c:if test="${empty ok.inquiry_update }">
+													${ok.inquiry_date.substring(0, 10) }
+												</c:if>
+												<c:if test="${!empty ok.inquiry_update }">
+													${ok.inquiry_update.substring(0, 10) }
+												</c:if>
+											</div>	
+										</div>
+									</a> <!-- member_box_link -->
+								</div> <!-- border_radius -->
+							</c:if>
+						</c:forEach>
+<%-- 					</c:if><!-- 답변 대기만 표시하기  --> --%>
+				</c:forEach> <!-- 문의게시판 리스트 -->
+			</div> <!-- inquiry_box -->	
 	
 		</div>	<!-- member_inquiry_category -->
 		

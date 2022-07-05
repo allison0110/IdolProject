@@ -295,6 +295,9 @@
 		display: none;
 	}
 	
+	.favo_celeb:hover{
+		color: gold;
+	}
 </style>
 
 <script type="text/javascript">
@@ -397,14 +400,12 @@
 					</div>
 					<div>
 					</div>
-					<div style="width: 60%">
 						<c:if test="${!empty mdto.member_introduction }">
-						${mdto.member_introduction }
+							<div style="width: 60%">${mdto.member_introduction }</div>
 						</c:if>
 						<c:if test="${empty mdto.member_introduction }">
-						[자기소개가 없습니다.]
+							<div>[자기소개가 없습니다.]</div>
 						</c:if>
-					</div>
 				</div>
 			
 				<div class="member_favorite_celeb">
@@ -419,14 +420,14 @@
 								<c:if test="${c.celeb_no == mc }">
 									<c:if test="${c.celeb_group != 'solo' }">
 										<div>
-										<a href="<%=request.getContextPath()%>/admin_groupMember_list.do?gName=${c.celeb_group}">
+										<a class="favo_celeb" href="<%=request.getContextPath()%>/admin_groupMember_list.do?gName=${c.celeb_group}">
 											${c.celeb_group }
 										</a>
 										</div>
 									</c:if>
 									<c:if test="${c.celeb_group == 'solo' }">
 										<div>
-										<a href="<%=request.getContextPath()%>/admin_celeb_content.do?no=${c.celeb_no}">
+										<a class="favo_celeb" href="<%=request.getContextPath()%>/admin_celeb_content.do?no=${c.celeb_no}">
 											${c.celeb_name }
 										</a>
 									</div>

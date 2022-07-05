@@ -7,6 +7,8 @@
     
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,11 +99,29 @@
 		font-size: 0.8em;
 	}
 	
+	.member_personal_sales {
+		display: flex;
+		width: 530px;
+	}
+	
+	.p_left {
+		flex: 50%;
+		max-width: 50%;
+		justify-content: center;
+	    display: flex;
+	    align-items: center;
+		
+	}
+	.p_right {
+		flex: 50%;
+		max-width: 50%;
+		
+	}
 </style>
 </head>
 <body>
 <!-- 구매내역 리스트 by user_id -->
-<c:set var="dto" value="${mList }" />
+<c:set var="list" value="${mList }" />
 
 	<div class="admin_memberInfo_wrapper">
 	
@@ -109,6 +129,30 @@
 	<jsp:include page="../include/admin_member_include.jsp" />
 	
 		<div class="admin_memberInfo_container">
+		<c:set var="qty" value="0" />
+		<c:set var="mile" value="0" />
+		<c:set var="total" value="0" />
+		<c:forEach items="${list }" var="dto">
+			<c:set var="qty" value="${qty+dto.order_qty }" />
+			<c:set var="mile" value="${mile+dto.order_mileage }" />
+			<c:set var="total" value="${total+dto.order_total }" />
+		</c:forEach>
+		
+		<div class="member_personal_sales">
+					<div class="p_left">
+						<c:forEach begin="0" end="0" items="${list }" var="p">
+							ID: ${p.order_userid }
+						</c:forEach>
+					</div>
+				
+					<div class="p_right">
+						<div>총 수량: <fmt:formatNumber value="${qty }" />개</div>
+						<div>총 마일리지: <fmt:formatNumber value="${mile }" />원</div>
+						<div>총 구매 금액: <fmt:formatNumber value="${total }" />원</div>
+					</div>
+			
+		</div>
+		
 		
 		<%
 		

@@ -22,6 +22,10 @@
 		height: 100%;
 		background-color: black;
 	}
+	a{
+		color:white;
+		text-decoration: none;
+	}
 	.admin_member_inquiry_cont_wrapper {
 		display: flex;
 		flex-direction: column;
@@ -85,6 +89,7 @@
 	    flex-direction: column;
 	    justify-content: center;
 	    font-size: 1.5em;
+	    margin-bottom: 50px;
 	}
 	
 	.btn{
@@ -122,6 +127,12 @@
 	.rbtn:hover{
 		color: gold;
 	}
+	
+	.reply_titel{
+		font-family: 'Jua', sans-serif;
+		font-size: 1.6em;
+		margin-top: 50px;
+	}
 </style>
 
 </head>
@@ -150,6 +161,7 @@
 		<div class="admin_member_inquiry_container">
 		
 		<div class="left_side">
+		
 			<div class="inquiry_images_box">
 				<c:if test="${!empty imgsList }">
 					<div class="inquiry_img">
@@ -162,42 +174,45 @@
 				<c:if test="${empty imgsList }">
 					<div style="font-size: 1.3em">[첨부 파일이 없습니다].</div>
 				</c:if>
-				<!-- 주문 번호를 통한 이미지 불러오기 -->
-				<c:if test="${!empty ocont.order_no }">
-					<c:if test="${ocont.order_no == idto.order_no }">
-						<div class="member_order_imgageBox">
-							<a href="<%=request.getContextPath()%>/admin_order_productCont.do?no=${idto.order_no}">
-								<img alt="" src="./resources/upload/product/${olist[0] }">
-							</a>
-							<span style="font-size: 1.3em">[주문 상품 이미지]</span>
-						</div> <!-- member_inquiry_order -->
-					</c:if><!-- member_order_productInfo -->
+<!-- 				주문 번호를 통한 이미지 불러오기 -->
+<%-- 				<c:if test="${!empty ocont.order_no }"> --%>
+<%-- 					<c:if test="${ocont.order_no == idto.order_no }"> --%>
+<!-- 						<div class="member_order_imgageBox"> -->
+<%-- 							<a href="<%=request.getContextPath()%>/admin_order_productCont.do?no=${idto.order_no}"> --%>
+<%-- 								<img alt="" src="./resources/upload/product/${olist[0] }"> --%>
+<!-- 							</a> -->
+<!-- 							<span style="font-size: 1.3em">[주문 상품 이미지]</span> -->
+<!-- 						</div> member_inquiry_order -->
+<%-- 					</c:if><!-- member_order_productInfo --> --%>
+<%-- 				</c:if> --%>
+<%-- 				<c:if test="${empty ocont.order_no }"> --%>
+<!-- 					<div style="font-size: 1.3em">[주문 상품 첨부 파일이 없습니다].</div> -->
+<%-- 				</c:if> --%>
+				
+				
+				<!-- 상품 넘버를 통한 상품 이미지 -->
+				<c:if test="${!empty pcont.product_no }">
+<!-- 					<div class="member_order_imgageBox"> -->
+						<c:if test="${pcont.product_no == idto.product_no }">
+							<div class="member_order_imgageBox">
+								<a href="<%=request.getContextPath() %>/admin_product_content.do?no=${idto.product_no}">
+									<img alt="" src="./resources/upload/product/${plist[0] }">
+									<span style="font-size: 1.3em">[상품 이미지]</span>
+								</a>
+							</div>
+						</c:if>
+<!-- 					</div> -->
+				</c:if>		
+				<c:if test="${empty pcont.product_no }">
+				<div style="font-size: 1.3em">[ 상품 첨부 파일이 없습니다].</div>
 				</c:if>
-				<c:if test="${empty ocont.order_no }">
-					<div style="font-size: 1.3em">[주문 상품 첨부 파일이 없습니다].</div>
-				</c:if>
-			</div> <!-- inquiry_images_box -->
+			</div> inquiry_images_box
 		</div> <!-- left_side -->
 		
 		<div class="right_side">
 			<div class="member_inquiry_box">
 			
-				<!-- 상품 넘버를 통한 상품 이미지 -->
-	<%-- 				<c:if test="${!empty pcont.product_no }"> --%>
-	<!-- 					<div class="member_inquiry_productInfo"> -->
-	<%-- 						<c:if test="${pcont.product_no == idto.product_no }"> --%>
-	<!-- 							<div class="member_inquiry_product"> -->
-	<%-- 								<a href="<%=request.getContextPath() %>/admin_product_content.do?no=${idto.product_no}"> --%>
-	<!-- 									[임시 상품 이미지] -->
-	<%-- 									<img alt="" src="./resources/upload/product/${plist[0] }"> --%>
-	<!-- 									<div> -->
-	<%-- 										상품 이름 : ${pcont.product_name} --%>
-	<!-- 									</div> -->
-	<!-- 								</a> -->
-	<!-- 							</div> -->
-	<%-- 						</c:if> --%>
-	<!-- 					</div>member_inquiry_productInfo -->
-	<%-- 				</c:if>	 --%>
+				
 				
 				
 				
@@ -271,6 +286,7 @@
 				<c:forEach items="${glist }" var="gdto">
 					<c:if test="${idto.inquiry_no != gdto.inquiry_no }">
 					<div class="inquiry_reply_boxes">
+					<div class="reply_titel" style="color:gold">[답변글]</div>
 						<div>
 							No. : ${gdto.inquiry_no }
 						</div>
