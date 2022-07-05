@@ -40,4 +40,9 @@
  		delete from follow_follower where f_no = #{fno} and follower_name = #{login} and f_type =#{type}
  	</delete>
  	
+ 	<!-- 좋아요 갯수 count(곡) -->
+ 	<select id="countFollowMusic" parameterType="int" resultType="int">
+ 		select count(*) from follow_follower where follow_no= #{no} and f_type='MUSIC'
+ 	</select>
+ 	
  </mapper>

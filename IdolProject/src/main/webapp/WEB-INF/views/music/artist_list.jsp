@@ -10,7 +10,6 @@
 </head>
 <body>
 	
-	
 	<c:forEach items="${artistList }" var="i">
 		<a href="<%=request.getContextPath()%>/artist_content.do?no=${i.celeb_no}">
 			<img src="resources\\upload\\celeb/${i.celeb_pimage }"

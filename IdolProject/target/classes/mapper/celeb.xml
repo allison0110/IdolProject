@@ -35,11 +35,14 @@
 		<![CDATA[select *from CELEB where CELEB_NO = #{cno}]]>
 	</select>
 	
-	
 	<!-- 경연 -->
 	<!-- // 그룹 내의 셀럽 리스트 -->
 	<select id="artistList" parameterType="String" resultType="celebDTO">
 		select * from celeb where celeb_group = #{group}
+	</select>
+	
+	<select id="searchCeleb" parameterType="String" resultType="celebDTO">
+		select * from celeb where lower(celeb_name) like lower('%' || #{name} || '%') order by celeb_no asc
 	</select>
 
 </mapper>    

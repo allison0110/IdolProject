@@ -18,6 +18,12 @@ public class GroupDAOImpl implements GroupDAO {
 
 		return this.sqlSession.selectOne("groupInfo", celeb_group);
 	}
+
+	@Override
+	public List<GroupDTO> searchGroup(String group) {
+		
+		return this.sqlSession.selectList("searchGroup", group);
+	}
 	
 
 }

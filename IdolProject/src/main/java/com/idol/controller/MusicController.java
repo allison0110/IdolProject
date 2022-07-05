@@ -1,10 +1,15 @@
 package com.idol.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.idol.model.CelebDAO;
 import com.idol.model.CelebDTO;
+import com.idol.model.FollowDAO;
+import com.idol.model.FollowDTO;
+import com.idol.model.GroupDAO;
+import com.idol.model.GroupDTO;
+import com.idol.model.MemberDTO;
 import com.idol.model.MusicDAO;
 import com.idol.model.MusicDTO;
 
@@ -24,6 +34,10 @@ public class MusicController {
 	private CelebDAO celebDAO;
 	@Autowired
 	private MusicDAO musicDAO;
+	@Autowired
+	private GroupDAO groupDAO;
+	@Autowired
+	private FollowDAO followDAO;
 	
 	@RequestMapping("artist_list.do")
 	public String artist_list(@RequestParam("group") String group, Model model) {
@@ -39,7 +53,7 @@ public class MusicController {
 	public String artist_content(HttpServletRequest request,
 			@RequestParam("no") int no, Model model) {
 		
-		String type;   // 보여줄 화면 ( 상세정보 / 곡 / 앨범 / 포토 )
+		String type;   // 보여줄 화면 ( 상세정보 / 곡  / 포토 )
 		
 		if(request.getParameter("type") != null) {
 			type = request.getParameter("type");
@@ -47,10 +61,24 @@ public class MusicController {
 			type = "detail";    // 처음으로 들어올 경우
 		}
 		
+		// 상세정보 탭
 		CelebDTO dto = this.celebDAO.getCelebInfo(no);
+		GroupDTO gdto = null;
+		if (dto.getCeleb_group() != "solo") {
+			gdto = this.groupDAO.getGroupInfo(dto.getCeleb_group());
+		}
+		List<CelebDTO> groupMember = this.celebDAO.getArtistList(dto.getCeleb_group());
+		List<CelebDTO> agencyMember = new ArrayList<CelebDTO>();
+		List<CelebDTO> artistList = this.celebDAO.getCelebList();
 		
-		List<CelebDTO> artistList = this.celebDAO.getArtistList(dto.getCeleb_group());
+		for(int i=0; i<artistList.size(); i++) {
+			if((dto.getCeleb_agency().equalsIgnoreCase(artistList.get(i).getCeleb_agency())) 
+					&& !(dto.getCeleb_group().equalsIgnoreCase(artistList.get(i).getCeleb_group()))) {
+				agencyMember.add(artistList.get(i));
+			}
+		}
 		
+		// music 탭
 		List<MusicDTO> musicList = new ArrayList<MusicDTO>();
 		
 		if(dto.getCeleb_group().equalsIgnoreCase("solo")) {
@@ -59,10 +87,27 @@ public class MusicController {
 			musicList = this.musicDAO.getMusicList_group(dto.getCeleb_group());
 		}
 		
+		// photo 탭
+		String image = dto.getCeleb_pimage();
+		StringTokenizer st = new StringTokenizer(image, "|");
+		String[] array = new String[st.countTokens()];
+		List<String> imageList = new ArrayList<String>();
+		
+		for(int j=0; j<array.length; j++){
+			array[j] = st.nextToken();
+		}
+		for(int i=0; i<array.length; i++) {
+			imageList.add(array[i].trim());
+		}
+		
+		
 		model.addAttribute("dto", dto);
+		model.addAttribute("gdto", gdto);
 		model.addAttribute("type", type);
-		model.addAttribute("artistList", artistList);
+		model.addAttribute("groupMember", groupMember);	
+		model.addAttribute("agencyMember", agencyMember);
 		model.addAttribute("musicList", musicList);
+		model.addAttribute("imageList", imageList);
 		
 		return "music/artist_content";
 	}
@@ -72,6 +117,8 @@ public class MusicController {
 			@RequestParam("no") int no, Model model) {
 		
 		MusicDTO dto = this.musicDAO.getMusicCont(no);
+		
+		int countFollow = this.followDAO.countFollowMusic(no);
 		
 		String composer = dto.getMusic_composer();
 		StringTokenizer st = new StringTokenizer(composer, ",");
@@ -99,21 +146,143 @@ public class MusicController {
 		
 		List<CelebDTO> artistList = this.celebDAO.getCelebList();
 		
-		System.out.println(composerList.size());
-		System.out.println(artistList.size());
-		for(int i=0; i<composerList.size();i++) {
-			for(int j=0; j<artistList.size(); j++) {
-				System.out.println(composerList.get(i).substring(0,2));
-				System.out.println(artistList.get(j).getCeleb_name().substring(0,2));
-				System.out.println();
-			}
-		}
-		
 		model.addAttribute("dto", dto);
 		model.addAttribute("composerList", composerList);
 		model.addAttribute("lyricstList", lyricstList);
 		model.addAttribute("artistList", artistList);
+		model.addAttribute("countFollow", countFollow);
 		
 		return "music/music_content";
+	}
+	
+	@RequestMapping("group_content.do")
+	public String group_content(HttpServletRequest request,
+			@RequestParam("group") String group, Model model) {
+		
+		GroupDTO gdto = this.groupDAO.getGroupInfo(group);
+		List<CelebDTO> groupMember = this.celebDAO.getArtistList(gdto.getGroup_name());
+		
+		String type;   // 보여줄 화면 ( 상세정보 / 곡  / 포토 )
+		
+		if(request.getParameter("type") != null) {
+			type = request.getParameter("type");
+		}else {
+			type = "detail";    // 처음으로 들어올 경우
+		}
+		
+		// 상세정보 탭
+		List<CelebDTO> agencyMember = new ArrayList<CelebDTO>();
+		List<CelebDTO> artistList = this.celebDAO.getCelebList();
+		
+		for(int i=0; i<artistList.size(); i++) {
+			if((groupMember.get(0).getCeleb_agency().equalsIgnoreCase(artistList.get(i).getCeleb_agency())) 
+					&& !(gdto.getGroup_name().equalsIgnoreCase(artistList.get(i).getCeleb_group()))) {
+				agencyMember.add(artistList.get(i));
+			}
+		}
+		
+		// music 탭
+		List<MusicDTO> musicList = new ArrayList<MusicDTO>();
+		
+			musicList = this.musicDAO.getMusicList_group(gdto.getGroup_name());
+		
+		// photo 탭
+		String image = gdto.getGroup_image();
+		StringTokenizer st = new StringTokenizer(image, "|");
+		String[] array = new String[st.countTokens()];
+		List<String> imageList = new ArrayList<String>();
+		
+		for(int j=0; j<array.length; j++){
+			array[j] = st.nextToken();
+		}
+		for(int i=0; i<array.length; i++) {
+			imageList.add(array[i].trim());
+		}
+		
+		model.addAttribute("gdto", gdto);
+		model.addAttribute("groupMember", groupMember);
+		model.addAttribute("type", type);
+		model.addAttribute("agencyMember", agencyMember);
+		model.addAttribute("musicList", musicList);
+		model.addAttribute("imageList", imageList);
+		
+		
+		return "music/group_content";
+	}
+	
+	@RequestMapping("music_search.do")
+	public void music_search(@RequestParam("field") String field,
+			@RequestParam("keyword") String keyword,
+			HttpServletResponse response) throws IOException {
+		
+		List<CelebDTO> cdto = new ArrayList<CelebDTO>();
+		List<GroupDTO> gdto = new ArrayList<GroupDTO>();
+		List<MusicDTO> mdto = new ArrayList<MusicDTO>();
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		if(field.equalsIgnoreCase("artist")) {
+			cdto = this.celebDAO.searchCeleb(keyword);
+			if(cdto != null) {
+				out.println("<script>");
+				out.println("location.href='artist_content.do?no=" + cdto.get(0).getCeleb_no() + "'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('정확한 정보를 입력해 주세요.')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+			
+		}else if(field.equalsIgnoreCase("group")){
+			gdto = this.groupDAO.searchGroup(keyword);
+			if(gdto != null) {
+				out.println("<script>");
+				out.println("location.href='group_content.do?group=" + gdto.get(0).getGroup_name() + "'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('정확한 정보를 입력해 주세요.')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+			
+		}else {
+			mdto = this.musicDAO.musicSearch(keyword);
+			if(mdto != null) {
+				out.println("<script>");
+				out.println("location.href='user_music_content.do?no=" + mdto.get(0).getMusic_no() + "'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('정확한 정보를 입력해 주세요.')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+		}
+		
+	}
+	
+	@RequestMapping("music_like.do")
+	public void music_like(@RequestParam("no") int no,
+			HttpSession session,
+			HttpServletResponse response) {
+		
+//		MemberDTO login = (MemberDTO)session.getAttribute("login_id");
+//		
+//		HashMap<String, Object> param = new HashMap<String, Object>();
+//		
+//		param.put("login_no", login.getMember_no());
+//		param.put("fno", fno);
+//		param.put("type", type);
+//		
+//		maps.put("login_no", (int)login.getMember_no());
+//		maps.put("login_id", (String)login.getMember_id());
+//		maps.put("id_no", (int)id.getMember_no());
+//		maps.put("id_id", (String)id.getMember_id());
+//		
+//		int check = this.followDAO.insertFollowMusic(param);
 	}
 }
