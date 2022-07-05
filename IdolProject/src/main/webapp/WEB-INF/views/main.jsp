@@ -106,7 +106,7 @@
       }
       
       .main_section04{
-      height: 60%;
+      height: 700px;
       width: 100%;
       margin: 0 auto;
       background-color: #CCE5FF;
