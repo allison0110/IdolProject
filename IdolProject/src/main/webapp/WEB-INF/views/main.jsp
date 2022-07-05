@@ -106,19 +106,25 @@
       }
       
       .main_section04{
-      height: 500px;
+      height: 60%;
       width: 100%;
       margin: 0 auto;
       background-color: #CCE5FF;
       }
       .albumSwiper{
       width:95%;
+      height: 70%;
       }
       .albumSwiper-wrap{
       min-height: 100%;
       margin: 0 auto;
       padding-top: 20px;
       padding-bottom: 40px;
+      }
+      
+      .albumSwiper .swiper-wrapper{
+      height: 400px;
+      
       }
       
       #view_all{
@@ -139,6 +145,7 @@
     text-align: center;
     display: block;
     font-weight: 400;
+    padding-top: 16px;
 
      
      }
@@ -322,7 +329,7 @@
 		loop: true,
         grabCursor: true,
         autoplay: {
-            delay: 4000,
+            delay: 3000,
           },
         scrollbar: {
             el: ".swiper-scrollbar",
