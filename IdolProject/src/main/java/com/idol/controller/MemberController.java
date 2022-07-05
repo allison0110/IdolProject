@@ -435,7 +435,7 @@ public class MemberController {
 		
 		session.invalidate();
 		
-		return "main";
+		return "redirect:/";
 	}
 	
 	//마이페이지 - 회원정보 관리 폼으로 이동

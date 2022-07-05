@@ -87,6 +87,9 @@ public class MusicController {
 			musicList = this.musicDAO.getMusicList_group(dto.getCeleb_group());
 		}
 		
+		//album 탭
+		List<MusicDTO> albumList = this.musicDAO.getAlbumList_solo(dto.getCeleb_name());
+		
 		// photo 탭
 		String image = dto.getCeleb_pimage();
 		StringTokenizer st = new StringTokenizer(image, "|");
@@ -108,6 +111,7 @@ public class MusicController {
 		model.addAttribute("agencyMember", agencyMember);
 		model.addAttribute("musicList", musicList);
 		model.addAttribute("imageList", imageList);
+		model.addAttribute("albumList", albumList);
 		
 		return "music/artist_content";
 	}
@@ -185,7 +189,10 @@ public class MusicController {
 		List<MusicDTO> musicList = new ArrayList<MusicDTO>();
 		
 			musicList = this.musicDAO.getMusicList_group(gdto.getGroup_name());
-		
+		//album 탭
+		List<MusicDTO> albumList = this.musicDAO.getAlbumList_group(gdto.getGroup_name());
+			
+			
 		// photo 탭
 		String image = gdto.getGroup_image();
 		StringTokenizer st = new StringTokenizer(image, "|");
@@ -205,6 +212,7 @@ public class MusicController {
 		model.addAttribute("agencyMember", agencyMember);
 		model.addAttribute("musicList", musicList);
 		model.addAttribute("imageList", imageList);
+		model.addAttribute("albumList", albumList);
 		
 		
 		return "music/group_content";

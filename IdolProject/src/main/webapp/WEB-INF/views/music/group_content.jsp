@@ -239,7 +239,7 @@
 					</div>
 					
 					<div class="menu_gray">
-						앨범
+						<a href="<%=request.getContextPath() %>/group_content.do?group=${gdto.group_name}&type=album">앨범</a>
 					</div>
 					
 					<div class="menu_gray">
@@ -370,7 +370,7 @@
 					</div>
 					
 					<div class="menu_gray">
-						앨범
+						<a href="<%=request.getContextPath() %>/group_content.do?group=${gdto.group_name}&type=album">앨범</a>
 					</div>
 					
 					<div class="menu_gray">
@@ -429,6 +429,77 @@
 			</c:if>
 			<!-- 곡 End -->
 			
+			<c:if test="${type == 'album' }">
+			<div class="menu">
+					<div class="menu_gray">
+						<a href="<%=request.getContextPath() %>/group_content.do?group=${gdto.group_name}">상세정보</a>
+					</div>
+					
+					<div class="menu_gray">
+						<a href="<%=request.getContextPath() %>/group_content.do?group=${gdto.group_name}&type=music">곡</a>
+					</div>
+					
+					<div class="menu_white">
+						앨범
+					</div>
+					
+					<div class="menu_gray">
+						<a href="<%=request.getContextPath() %>/group_content.do?group=${gdto.group_name}&type=photo">포토/스토리</a>
+					</div>
+					
+					<div class="menu_gray">
+						비디오
+					</div>
+					
+					<div class="menu_gray">
+						팬
+					</div>
+					
+					<div class="menu_gray">
+						Hi-Fi
+					</div>
+				</div>
+				
+				<br><br><br>
+				<div style="text-align: right;"><b>최신순</b>&nbsp;&nbsp;|&nbsp;&nbsp;가나다순&nbsp;&nbsp;|&nbsp;&nbsp;인기순</div><br>
+				<hr width="100%" color="lightgray">
+				
+				<div class="music_grid">
+				
+					<c:forEach items="${albumList }" var="album">
+					
+						<div class="music_row">
+							<div class="music_image">
+								<a href="<%=request.getContextPath() %>/user_album_content.do?no=${album.music_no }">
+								<img src="resources\\upload\\music/${album.music_coverimage.substring(0, album.music_coverimage.length()-1) }"
+											width="100" height="100">
+								</a>
+							</div>
+							
+							<div class="music_content">
+								<c:if test="${album.music_aname.length() > 26}">
+									<b>${album.music_aname.substring(0,25) }...</b>
+								</c:if>
+								<c:if test="${album.music_aname.length() <= 25}">
+									<b>${album.music_aname }</b>
+								</c:if>
+								<br>
+								<%-- ${i.music_aname } --%><br><br>
+								<span style="color:green;">
+										${album.group_name }
+								</span><br>
+								${album.music_release_date.substring(0,10) }
+							</div>
+						</div>
+					
+					</c:forEach>
+					
+				</div>
+			
+			
+			
+			</c:if>
+			<!-- 앨범 End -->
 			<c:if test="${type == 'photo' }">
 				
 				<div class="menu">
@@ -441,7 +512,7 @@
 					</div>
 					
 					<div class="menu_gray">
-						앨범
+						<a href="<%=request.getContextPath() %>/group_content.do?group=${gdto.group_name}&type=album">앨범</a>
 					</div>
 					
 					<div class="menu_white">
