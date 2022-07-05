@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
-<%@ include file="../include/user_top.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -111,7 +110,7 @@
 </head>
 <body>
 	
-	<!-- include top 영역 -->
+	<%@ include file="../include/user_top.jsp" %>
 	
 	<div class="wrapper" align="center">
 	
@@ -247,5 +246,6 @@
 		</div>
 		
 	</div>
+	<%@include file="../include/user_bottom.jsp" %>
 </body>
 </html>

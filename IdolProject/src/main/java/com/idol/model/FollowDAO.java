@@ -17,6 +17,10 @@ public interface FollowDAO {
 
 	int deleteLike(HashMap<String, Object> param);
 
+	int countFollowMusic(int no);
+
+	int insertFollowMusic(int no);
+
 	
 
 

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../include/user_top.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,7 +114,7 @@
 </head>
 <body>
 	
-	<!-- include top 영역 -->
+	<%@ include file="../include/user_top.jsp" %>
 	
 	<div class="wrapper" align="center">
 	
@@ -193,6 +192,6 @@
 		</div>
 		
 	</div>
-	
+	<%@include file="../include/user_bottom.jsp" %>
 </body>
 </html>

@@ -83,7 +83,7 @@
           <div id="artist-box">
             <ul class="artist-menu">
               <li>
-                <a href="#">SHINEE</a>
+                <a href="<%=request.getContextPath()%>/group_content.do?group=SHINEE">SHINEE</a>
               </li>
               <li>
                 <a href="<%=request.getContextPath()%>/artist_content.do?no=22">싸이</a>
@@ -92,31 +92,31 @@
                 <a href="#">(여자)아이들</a>
               </li>
               <li>
-                <a href="#">AESPA</a>
+                <a href="<%=request.getContextPath()%>/group_content.do?group=AESPA">AESPA</a>
               </li>
               <li>
-                <a href="#">BTS</a>
+                <a href="<%=request.getContextPath()%>/group_content.do?group=방탄소년단(BTS)">BTS</a>
               </li>
               <li>
-                <a href="#">BLACK PINK</a>
+                <a href="<%=request.getContextPath()%>/group_content.do?group=BLACKPINK">BLACK PINK</a>
               </li>
               <li>
-                <a href="#">RED VELVET</a>
+                <a href="<%=request.getContextPath()%>/group_content.do?group=레드벨벳">RED VELVET</a>
               </li>
               <li>
-                <a href="#">박재범</a>
+                <a href="<%=request.getContextPath()%>/artist_content.do?no=32">박재범</a>
               </li>
               <li>
-                <a href="#">STAYC</a>
+                <a href="<%=request.getContextPath()%>/group_content.do?group=STAYC">STAYC</a>
               </li>
               <li>
                 <a href="#">BEAST</a>
               </li>
               <li>
-                <a href="#">IVE</a>
+                <a href="<%=request.getContextPath()%>/group_content.do?group=IVE">IVE</a>
               </li>
               <li>
-                <a href="#">LE SSERAFIM</a>
+                <a href="<%=request.getContextPath()%>/group_content.do?group=LE SSERAFIM">LE SSERAFIM</a>
               </li>
             </ul>
 

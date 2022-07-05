@@ -10,4 +10,6 @@ public interface MusicDAO {
 
 	List<MusicDTO> getMusicList_solo(String name);
 
+	List<MusicDTO> musicSearch(String name);
+
 }

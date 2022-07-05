@@ -190,37 +190,32 @@
 			<div class="celeb_info">
 			
 				<div class="celeb_left">
-					<img src="resources\\upload\\celeb/${imageList.get(0) }"
+					<img src="resources\\upload\\group/${imageList.get(0) }"
 					width="200" height="200">
 				</div>
 				
 				<div class="celeb_right">
-					<span style="font-size:30px; weight:bold;">${dto.celeb_name}</span>
-					<span style="font-size:20px; weight:bold;">(${dto.celeb_realname })</span>
-					<br><br>
+					<h2>${gdto.group_name}</h2>
+					<c:forEach items="${groupMember }" var="i">
+						<a href="<%=request.getContextPath()%>/artist_content.do?no=${i.celeb_no}">${i.celeb_name }</a>
+						&nbsp;&nbsp;
+					</c:forEach>
+					<br><br><br>
 					
 					<div class="info_row">
 					
 						<div class="info_left">
 							데뷔<br><br>
-							생일<br><br>
 							활동유형<br><br>
 							소속사<br><br>
 						</div>
 						
 						<div class="info_right">
-							 ${dto.celeb_debutdate.substring(0,10) }<br><br>
-							 ${dto.celeb_dateofbirth.substring(0,10) }<br><br>
+							 ${groupMember.get(0).getCeleb_debutdate().substring(0, 10)}<br><br>
 							
-							 <c:if test="${dto.celeb_group != 'solo' }">
-							 	<a href="<%=request.getContextPath()%>/group_content.do?group=${dto.celeb_group}">${dto.celeb_group }(그룹)</a>
-							 </c:if>
+							 그룹<br><br>
 							 
-							 <c:if test="${dto.celeb_group == 'solo' }">
-							 	솔로
-							 </c:if>
-							 <br><br>
-							 ${dto.celeb_agency }<br><br>
+							 ${groupMember.get(0).getCeleb_agency() }<br><br>
 						</div>
 						
 					</div>
@@ -240,7 +235,7 @@
 					</div>
 					
 					<div class="menu_gray">
-						<a href="<%=request.getContextPath() %>/artist_content.do?no=${dto.celeb_no}&type=music">곡</a>
+						<a href="<%=request.getContextPath() %>/group_content.do?group=${gdto.group_name}&type=music">곡</a>
 					</div>
 					
 					<div class="menu_gray">
@@ -248,7 +243,7 @@
 					</div>
 					
 					<div class="menu_gray">
-						<a href="<%=request.getContextPath() %>/artist_content.do?no=${dto.celeb_no}&type=photo">포토/스토리</a>
+						<a href="<%=request.getContextPath() %>/group_content.do?group=${gdto.group_name}&type=photo">포토/스토리</a>
 					</div>
 					
 					<div class="menu_gray">
@@ -264,57 +259,50 @@
 					</div>
 				</div>
 				
-				<c:if test="${dto.celeb_group != 'solo' }">
-					<br><br>
-					<h2>&nbsp;&nbsp;아티스트 소개</h2><br>	
-					<hr width="100%" color="lightgray">
+				<br><br>
+				<h2>&nbsp;&nbsp;아티스트 소개</h2><br>	
+				<hr width="100%" color="lightgray">
+				
+				<div class="detail">
+					${gdto.group_info }
+				</div>
+
+				<br><br>
+				<h2>&nbsp;&nbsp;그룹 멤버</h2><br>
+				<hr width="100%" color="lightgray">
+			
+				<div class="detail_like">
 					
-					<div class="detail">
-						${gdto.group_info }
-					</div>
-				</c:if>
-				
-				<c:if test="${dto.celeb_group != 'solo' }">
-					<br><br>
-					<h2>&nbsp;&nbsp;그룹 멤버</h2><br>
-					<hr width="100%" color="lightgray">
-				
-					<div class="detail_like">
+					<c:forEach items="${groupMember }" var="i">
 						
-						<c:forEach items="${groupMember }" var="i">
-						
-							<c:if test="${dto.celeb_name !=  i.celeb_name}">
-							
-								<div class="like_row">
-									<div class="like">
-										<%	CelebDTO i = (CelebDTO)pageContext.getAttribute("i");
-											String image = i.getCeleb_pimage();
-											StringTokenizer st = new StringTokenizer(image, "|");
-											String[] array = new String[st.countTokens()];
-											
-											for(int j=0; j<array.length; j++){
-												array[j] = st.nextToken();
-											}
-											pageContext.setAttribute("image", array[0]);
-										%>
-										<img src="resources\\upload\\celeb/${image }"
-											width="100" height="100">
-									</div>
+						<div class="like_row">
+							<div class="like">
+								<%	CelebDTO i = (CelebDTO)pageContext.getAttribute("i");
+									String image = i.getCeleb_pimage();
+									StringTokenizer st = new StringTokenizer(image, "|");
+									String[] array = new String[st.countTokens()];
 									
-									<div class="like">
-										<b>${i.celeb_name }</b><br><br>
-										${i.celeb_group }<br><br>
-										${i.celeb_agency }
-									</div>
-								</div>
-								
-							</c:if>
+									for(int j=0; j<array.length; j++){
+										array[j] = st.nextToken();
+									}
+									pageContext.setAttribute("image", array[0]);
+								%>
+								<a href="<%=request.getContextPath()%>/artist_content.do?no=${i.celeb_no}">
+								<img src="resources\\upload\\celeb/${image }"
+									width="100" height="100"></a>
+							</div>
 							
-						</c:forEach>
+							<div class="like">
+								<a href="<%=request.getContextPath()%>/artist_content.do?no=${i.celeb_no}">
+								<b>${i.celeb_name }</b></a><br><br>
+								${i.celeb_group }<br><br>
+								${i.celeb_agency }
+							</div>
+						</div>
 						
-					</div>
-		
-				</c:if>
+					</c:forEach>
+					
+				</div>
 				
 				<c:if test="${agencyMember.size() != 0 }">
 					<br><br>
@@ -353,6 +341,7 @@
 									${i.celeb_group }
 									<c:if test="${i.celeb_group != 'solo'}">
 										</a>
+										
 									</c:if><br><br>
 									
 									${i.celeb_agency }
@@ -373,7 +362,7 @@
 				
 				<div class="menu">
 					<div class="menu_gray">
-						<a href="<%=request.getContextPath() %>/artist_content.do?no=${dto.celeb_no}">상세정보</a>
+						<a href="<%=request.getContextPath() %>/group_content.do?group=${gdto.group_name}">상세정보</a>
 					</div>
 					
 					<div class="menu_white">
@@ -385,7 +374,7 @@
 					</div>
 					
 					<div class="menu_gray">
-						<a href="<%=request.getContextPath() %>/artist_content.do?no=${dto.celeb_no}&type=photo">포토/스토리</a>
+						<a href="<%=request.getContextPath() %>/group_content.do?group=${gdto.group_name}&type=photo">포토/스토리</a>
 					</div>
 					
 					<div class="menu_gray">
@@ -427,14 +416,8 @@
 								<br>
 								${i.music_aname }<br><br>
 								<span style="color:green;">
-									<c:if test="${i.group_name == 'solo' }">
-										${i.celeb_name }
-									</c:if>
-									
-									<c:if test="${i.group_name != 'solo' }">
 										${i.group_name }
-									</c:if>
-								</span><br><br>
+								</span><br>
 								${i.music_release_date.substring(0,10) }
 							</div>
 						</div>
@@ -450,11 +433,11 @@
 				
 				<div class="menu">
 					<div class="menu_gray">
-						<a href="<%=request.getContextPath() %>/artist_content.do?no=${dto.celeb_no}">상세정보</a>
+						<a href="<%=request.getContextPath() %>/group_content.do?group=${gdto.group_name}">상세정보</a>
 					</div>
 					
 					<div class="menu_gray">
-						<a href="<%=request.getContextPath() %>/artist_content.do?no=${dto.celeb_no}&type=music">곡</a>
+						<a href="<%=request.getContextPath() %>/group_content.do?group=${gdto.group_name}&type=music">곡</a>
 					</div>
 					
 					<div class="menu_gray">
@@ -487,10 +470,37 @@
 					<c:forEach items="${imageList }" var="i">
 				
 						<div class="photo">
-							<img src="resources\\upload\\celeb/${i }"
+							<img src="resources\\upload\\group/${i }"
 										width="148" height="148">
 						</div>
 						
+					</c:forEach>
+					
+					<c:forEach items="${groupMember }" var="i">
+						
+						<%	CelebDTO i = (CelebDTO)pageContext.getAttribute("i");
+							String image = i.getCeleb_pimage();
+							StringTokenizer st = new StringTokenizer(image, "|");
+							String[] array = new String[st.countTokens()];
+							List<String> groupImageList = new ArrayList<String>();
+							
+							for(int k=0; k<array.length; k++){
+								array[k] = st.nextToken();
+							}
+							for(int l=0; l<array.length; l++) {
+								groupImageList.add(array[l].trim());
+							}
+							pageContext.setAttribute("groupImageList", groupImageList);
+						%>
+						<c:forEach items="${groupImageList }" var="j">
+						
+							<div class="photo">
+								<img src="resources\\upload\\celeb/${j }"
+										width="148" height="148">
+							</div>
+						
+						</c:forEach>
+					
 					</c:forEach>
 					
 				</div>
