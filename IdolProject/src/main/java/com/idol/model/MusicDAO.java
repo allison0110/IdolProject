@@ -12,4 +12,6 @@ public interface MusicDAO {
 
 	List<MusicDTO> musicSearch(String name);
 
+	List<MusicDTO> getAllList();
+
 }
