@@ -310,6 +310,7 @@
 			<form class="used_flex_wrapper" method="post" action="<%=request.getContextPath() %>/used_comment_write.do">
 				<input type="hidden" name="comment_writer" value="${id }">
 				<input type="hidden" name="used_nofk" value="${dto.used_no }">
+				<input type="hidden" name="category_unofk" value="${dto.category_unofk }">
 				<input type="hidden" name="page" value="${page}">
 				
 				<div class="used_comment_write">

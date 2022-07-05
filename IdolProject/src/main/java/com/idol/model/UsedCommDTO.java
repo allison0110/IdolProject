@@ -14,5 +14,5 @@ public class UsedCommDTO {
 	private int comment_step;
 	private int commnet_indent;
 	private int used_nofk;
-
+	private int category_unofk;
 }
