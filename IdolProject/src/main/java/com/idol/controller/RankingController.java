@@ -25,8 +25,6 @@ public class RankingController {
 	@Autowired
 	private RankingDAO rankingDao;
 	
-	@Autowired
-	private CommunityDAO communityDao;
 	
 	@RequestMapping("whole_ranking.do")
 	public String whole(HttpServletRequest request, Model model) {

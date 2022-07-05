@@ -9,7 +9,10 @@
    </select>
 
 	<select id="mainProductList" resultType="ProductDTO">
-		<![CDATA[select *from product order by product_no desc]]>
+		<![CDATA[select *from(select p.*,
+		row_number() over(order by p.product_input desc) rnum
+		from product p order by product_input desc)
+		where rnum >= 1 and rnum <= 10]]>
 	</select>
 
   <!-- // 큰카테고리의 신제품,이름,낮은가격,높은가격 기준으로 리스트를 불러옴 -->

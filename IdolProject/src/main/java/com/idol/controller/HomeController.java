@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.idol.model.EventDTO;
 import com.idol.model.ImagesDTO;
+import com.idol.model.MusicDAO;
+import com.idol.model.MusicDTO;
 import com.idol.model.PageDTO;
 import com.idol.model.ProductDAO;
 import com.idol.model.ProductDTO;
@@ -42,6 +44,8 @@ public class HomeController {
 	@Autowired
 	private UserEventDAO userEventDao;
 	
+	@Autowired
+	private MusicDAO musicDao;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -51,7 +55,7 @@ public class HomeController {
 		List<ImagesDTO> list= this.userImagesDAO.imagesList();
 		List<ProductDTO> mainplist = this.productDao.mainProductList();
 		List<EventDTO> elist = this.userEventDao.allList();
-		
+		List<MusicDTO> mainmlist = this.musicDao.getAllList();
 		
 		for(int i=0; i<10; i++) {
 			
@@ -73,7 +77,21 @@ public class HomeController {
 			mainplist.get(i).setProduct_image(result);
 		}
 		
+		for(int i=0; i<elist.size(); i++) {
+			StringTokenizer eventTokenizer = new StringTokenizer(elist.get(i).getNotice_image(),"|");
+			String st = eventTokenizer.nextToken();
+			elist.get(i).setNotice_image(st);
+
+			}
+
+		for(int i=0; i<mainmlist.size(); i++) {
+			StringTokenizer eventTokenizer = new StringTokenizer(mainmlist.get(i).getMusic_coverimage(),"|");
+			String str = eventTokenizer.nextToken();
+			mainmlist.get(i).setMusic_coverimage(str);
+			
+		}
 		
+		model.addAttribute("mlist", mainmlist);
 		model.addAttribute("plist", mainplist);
 		model.addAttribute("images", list);
 		model.addAttribute("elist", elist);
