@@ -26,13 +26,17 @@
  		<typeAlias type="com.idol.model.OrderDTO" alias="OrderDTO"/>
  		<typeAlias type="com.idol.model.CartDAO" alias="CartDAO"/>
  		<typeAlias type="com.idol.model.CartDTO" alias="CartDTO"/>
+
+
  		
  		<typeAlias type="com.idol.model.MusicDTO" alias="musicDTO"/>
  		<typeAlias type="com.idol.model.GroupDTO" alias="groupDTO"/>
  		<typeAlias type="com.idol.model.NoticeDTO" alias="noticeDTO"/>
  		<typeAlias type="com.idol.model.AdminDTO" alias="adminDTO"/>
+ 		
 		<typeAlias type="com.idol.model.UserEventDAO" alias="eventDAO"/>
  		<typeAlias type="com.idol.model.EventDTO" alias="eventDTO"/>
+ 		
 		<typeAlias type="com.idol.model.PageDTO" alias="pageDTO"/>
 		<typeAlias type="com.idol.model.ProductCategoryDTO" alias="pCategoryDTO"/>
 		<typeAlias type="com.idol.model.Inquiry_CategoryDTO" alias="iCategoryDTO"/>
@@ -43,10 +47,12 @@
 		<typeAlias type="com.idol.model.Comm_CommentDTO" alias="CommCommDTO"/>
 		<typeAlias type="com.idol.model.DateRangeDTO" alias="dRangeDTO"/>
 		<typeAlias type="com.idol.model.ImagesDTO" alias="imagesDTO"/>
+
 		<typeAlias type="com.idol.model.UserImagesDAO" alias="imagedao"/>
 
 		<typeAlias type="com.idol.model.RankingDTO" alias="rankingDTO"/>
 		<typeAlias type="com.idol.model.RankingDAO" alias="RankingDAO"/>
+		
 		<typeAlias type="com.idol.model.BoardDAO" alias="BoardDAO"/>
 		<typeAlias type="com.idol.model.BoardDTO" alias="BoardDTO"/>
 		<typeAlias type="com.idol.model.BoardCategoryDAO" alias="BoardCategoryDAO"/>
@@ -60,7 +66,7 @@
 
 		
 		
- 	<typeAlias type="com.idol.model.AdminCelebDAO" alias="AcelebDAO"/>
+ 		<typeAlias type="com.idol.model.AdminCelebDAO" alias="AcelebDAO"/>
  		<typeAlias type="com.idol.model.AdminMusicDAO" alias="AmusicDAO"/>
  		<typeAlias type="com.idol.model.AdminImagesDAO" alias="AimagesDAO"/>
  		<typeAlias type="com.idol.model.AdminGroupDAO" alias="AgroupDAO"/>
@@ -69,6 +75,9 @@
  		<typeAlias type="com.idol.model.AdminMemberDAO" alias="AmemberDAO"/>
 				 
 		 
+		 
+		 
+		 <typeAlias type="com.idol.model.RankingDAO" alias="RankingDAO"/>
 	</typeAliases>  	
 	
 </configuration>
