@@ -13,9 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.idol.model.AdminCelebDAO;
 import com.idol.model.AdminMemberDAO;
 import com.idol.model.AdminProductDAO;
+import com.idol.model.BoardCategoryDTO;
+import com.idol.model.BoardCommentDTO;
+import com.idol.model.BoardDTO;
 import com.idol.model.CelebDTO;
 import com.idol.model.Comm_CategoryDTO;
 import com.idol.model.Comm_CommentDTO;
@@ -60,9 +62,35 @@ public class AdminMemberController {
 		
 		List<Inquiry_CategoryDTO> iclist = this.dao.getInquiryCategoryList();
 		
+		List<MemberDTO> mlist = this.dao.getMemberList();
+		
+		int first = 1;
+		int second = 2;
+		int third = 3;
+		int fourth = 4;
+		int fiveth = 5;
+		
+		// 카테고리 별로 문의 게시판 리스트 뽑기
+		List<InquiryDTO> returnList = this.dao.getInquiryListByCategory(first);
+		List<InquiryDTO> itemsList = this.dao.getInquiryListByCategory(second);
+		List<InquiryDTO> transList = this.dao.getInquiryListByCategory(third);
+		List<InquiryDTO> exchangeList = this.dao.getInquiryListByCategory(fourth);
+		List<InquiryDTO> etcList = this.dao.getInquiryListByCategory(fiveth);
+		List<InquiryDTO> OkList = this.dao.getInquiryOkList();
+		
+		model.addAttribute("returnList", returnList);
+		model.addAttribute("itemsList", itemsList);
+		model.addAttribute("transList", transList);
+		model.addAttribute("exchangeList", exchangeList);
+		model.addAttribute("etcList", etcList);
+		model.addAttribute("OkList", OkList);
+		
+		model.addAttribute("mList", mlist);
+		
 		model.addAttribute("iList", list);
 		
 		model.addAttribute("icList", iclist);
+		
 		
 		return "admin/admin_member_contact";
 	}
@@ -225,6 +253,7 @@ public class AdminMemberController {
 		PrintWriter out = response.getWriter();
 		
 		if(check > 0) {
+			
 			System.out.println("originNo2 : " + originNo);
 			out.println("<script>");
 			out.println("alert('답변 글 작성 성공 :)')");
@@ -326,8 +355,13 @@ public class AdminMemberController {
 	@RequestMapping("admin_member_cont.do")
 	public String getMemberAlldate(@RequestParam("no") int no, @RequestParam("id") String id, Model model) {
 		
+		System.out.println("NO. : " + no);
+		
+		System.out.println("id : "  + id);
+		
 		MemberDTO dto = this.dao.getMemberCont(no);
 		
+		// 맴버가 좋아하는 셀럽 번호를 쪼개서 보내자 !
 		String mCeleb = dto.getMember_favorite_celeb();
 		
 		System.out.println("mCeleb : " + mCeleb);
@@ -349,8 +383,20 @@ public class AdminMemberController {
 			
 		}
 		
+		// 맴버 주소를 토크나져로 조지쟈! 
+		String address = dto.getMember_address();
 		
+		StringTokenizer addressToken = new StringTokenizer(address, "|");
+		
+		String[] addressList = new String[addressToken.countTokens()];
+		
+		for(int i = 0; i < addressList.length; i++) {
+			addressList[i] = addressToken.nextToken();
+		}
+		
+
 		List<OrderDTO> orderList = this.dao.getMemberOrderListByID(id);
+		
 		
 		List<UsedDTO> usedList = this.dao.getUsedListById(id);
 		
@@ -358,38 +404,75 @@ public class AdminMemberController {
 		
 		List<Used_CategoryDTO> used_category = this.dao.getUsedCategory();
 		
+		
 		List<CommunityDTO> commList = this.dao.getCommunityListById(id);
 		
 		List<Comm_CommentDTO> commCommList = this.dao.getCommunityCommById(id);
 		
 		List<Comm_CategoryDTO> comm_category = this.dao.getCommunityCategory();
 		
+		
 		List<InquiryDTO> inquiryList = this.dao.getinquiryListById(id);
 		
 		List<Inquiry_CategoryDTO> inquiry_category = this.dao.getInquiryCategoryList();
+		
 		
 		List<CelebDTO> celebList = this.dao.getCelebList();
 		
 		List<GroupDTO> groupList = this.dao.getGroupList();
 		
+		
+		System.out.println("commList  " + commList.size());
+		
 		model.addAttribute("mdto", dto);
+		
 		model.addAttribute("orderList", orderList);
+		
 		model.addAttribute("usedList", usedList);
 		model.addAttribute("usedCommList", usedCommList);
 		model.addAttribute("used_category", used_category);
+		
 		model.addAttribute("commList", commList);
 		model.addAttribute("commCommList", commCommList);
 		model.addAttribute("comm_category", comm_category);
+		
 		model.addAttribute("inquiryList", inquiryList);
 		model.addAttribute("inquiry_category", inquiry_category);
+		
 		model.addAttribute("celebList", celebList);
 		model.addAttribute("groupList", groupList);
+		
+		model.addAttribute("address", addressList);
+		
 		
 		return "admin/admin_member_cont";
 	}
 	
 	
-	
+	@RequestMapping("admin_inquiry_showMore.do")
+	public String getInquiryAllListByCategory(@RequestParam("no") int no, Model model) {
+		
+			
+		if(no == 0) {
+			
+			List<InquiryDTO> olist = this.dao.getInquiryOkList();
+			
+			model.addAttribute("okList", olist);
+			
+		}else {
+			
+			List<InquiryDTO> clist = this.dao.getInquiryListByCategory(no);
+			
+			model.addAttribute("categoryByNo", clist);
+		}
+		
+		
+		List<MemberDTO> mlist = this.dao.getMemberList();
+		
+		model.addAttribute("mList", mlist);
+		
+		return "admin/admin_inquiry_listByCate";
+	}
 	
 	
 	

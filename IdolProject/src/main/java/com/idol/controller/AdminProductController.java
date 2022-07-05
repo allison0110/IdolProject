@@ -412,21 +412,20 @@ public class AdminProductController {
 		
 		OrderDTO dto = this.dao.getOrderCont(no);
 		
-		String imgs = dto.getOrder_pimage();
+		String address = dto.getOrder_receiveraddress();
 		
-		StringTokenizer tokenizer = new StringTokenizer(imgs, "|");
+		StringTokenizer addrToken = new StringTokenizer(address, "|");
 		
-		String[] imgsList = new String[tokenizer.countTokens()];
+		String[] addrArray = new String[addrToken.countTokens()];
 		
-		for(int i =0; i < imgsList.length; i ++) {
-			
-			imgsList[i] = tokenizer.nextToken();
-			
+		for(int i = 0; i < addrArray.length; i++) {
+			addrArray[i] = addrToken.nextToken();
 		}
 		
+		model.addAttribute("address", addrArray);
+	
 		model.addAttribute("orderCont", dto);
 		
-		model.addAttribute("imgsList", imgsList);
 		
 		return "admin/admin_order_cont";
 		
@@ -438,39 +437,41 @@ public class AdminProductController {
 	@RequestMapping("admin_order_groupCont.do")
 	public String getOrderGroupList(Model model, @RequestParam("no") int no) {
 		
+		// orderGroup list 불러오기 by no
 		List<OrderDTO> oList = this.dao.getOrderContList(no);
 		
 		System.out.println("=== product cont img list ===");
 		
-		String[] imgsList2 = null;
+		String[] addrArray = null;
 
 		for(int i = 0; i < oList.size(); i++) {
 		
 			OrderDTO odto = oList.get(i);
 			
-			String imgs2 = odto.getOrder_pimage();
+			String addr = odto.getOrder_receiveraddress();
 			
-			System.out.println("imgs2 : " + imgs2);
+			System.out.println("addr : " + addr);
 			
-			StringTokenizer tokenizer2 = new StringTokenizer(imgs2, "|");
+			StringTokenizer tokenizer2 = new StringTokenizer(addr, "|");
 			
-			imgsList2 = new String[tokenizer2.countTokens()];
+			addrArray = new String[tokenizer2.countTokens()];
 			
-			for(int j = 0; j < imgsList2.length; j++) {
+			for(int j = 0; j < addrArray.length; j++) {
 				
-				imgsList2[j] = tokenizer2.nextToken();
+				addrArray[j] = tokenizer2.nextToken();
 				
-				System.out.println("imgsList2 :" + imgsList2[j]);
+				System.out.println("addrArray :" + addrArray[j]);
 			}
 		}
 		
-		model.addAttribute("oimgsList", imgsList2);
 		
+		
+		
+		// 사진리스트 [잘 안됌]
+		model.addAttribute("addrArray", addrArray);
+		
+		// orderGroup list 불러오기 by no 
 		model.addAttribute("oList", oList);
-		
-		System.out.println("imgsList2_length : " + imgsList2.length);
-		System.out.println("imgsList2 : " + imgsList2);
-		
 		
 		
 		return "admin/admin_order_group";

@@ -36,6 +36,12 @@ public class MusicDAOImpl implements MusicDAO {
 		
 		return sqlSession.selectList("musicList_solo", name);
 	}
+
+	@Override
+	public List<MusicDTO> musicSearch(String name) {
+		
+		return sqlSession.selectList("musicSearch", name);
+	}
 	
 	
 	

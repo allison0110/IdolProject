@@ -12,8 +12,9 @@ public class Comm_CommentDTO {
 	private String comment_update;
 	private int comment_group;
 	private int comment_step;
-	private int commnet_indent;
-	private int used_nofk;
+	private int comment_indent;
+	private int commnet_nofk;
+	private int category_cnofk;
 	
 
 }

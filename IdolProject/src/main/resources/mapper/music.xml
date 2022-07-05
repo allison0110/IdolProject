@@ -21,6 +21,9 @@
 		select * from music where celeb_name = #{name} order by music_release_date desc, music_no asc
 	</select>
 	
+	<select id="musicSearch" parameterType="String" resultType="musicDTO">
+		select * from music where lower(music_name) like lower('%' || #{name} || '%') order by music_no asc
+	</select>
 	
 	
 	<select id="mainAllList" resultType="musicDTO">

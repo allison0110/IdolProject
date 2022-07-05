@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ADMIN MEMBER MAIN</title>
 <style type="text/css">
 	
 	html, body {
@@ -15,11 +15,7 @@
 		margin: 0px;
 		height: 100%;
 		background-color: black;
-	}
-	
-	.member_atag {
-		text-decoration: none;
-		color: white;
+		font-family: 'Press Start 2P', 'Jua', monospace;
 	}
 	
 	.admin_member_main_wrapper{
@@ -29,13 +25,28 @@
 	
 	}
 	
-	.member_container{
+	.admin_member_main_container{
 		display: flex;
 	    flex-direction: row;
 	    flex-wrap: wrap;
-		
+		gap: 10px;
+		justify-content: center;
+		width: 80%;
+    	align-self: center;
 	}
 	
+	.member_info_box {
+		width: 200px;
+    	/*height: 300px;*/
+    	display: flex;
+    	flex-direction: column;
+		align-items: center;
+		text-transform: uppercase;
+	}
+	.member_atag {
+		text-decoration: none;
+		color: white;
+	}
 	
 	.member_img {
 		width: 200px;
@@ -48,43 +59,45 @@
 		height: 100%;
 	}
 
+	.member_info_box:hover {
+		opacity: 0.4;
+	
+	}
+	
+	.idNname {
+		margin: 4px;
+	}
+
 </style>
 </head>
 <body>
 <c:set var="mlist" value="${mList }" />
+
 	<div class="admin_member_main_wrapper">
 	
 	<jsp:include page="../include/admin_top_include.jsp" />
 	<jsp:include page="../include/admin_member_include.jsp" />
 	
 		<div class="admin_member_main_container">
-			<div class="member_container">
 			<c:forEach items="${mlist }" var="dto">
+			<div class="member_info_box">
 				<a class="member_atag" href="<%=request.getContextPath()%>/admin_member_cont.do?no=${dto.member_no}&id=${dto.member_id}">
-					<div class="member_info">
-						<div class="member_img">
-					 		<img alt="" src="./resources/upload/member_image/${dto.member_no }/${dto.member_image}">
+					<div class="member_img">
+				 		<img alt="" src="./resources/upload/member_image/${dto.member_no }/${dto.member_image}">
+					</div>
+					<div class="member_info_box">
+						<div class="idNname" style="color: gold">
+							${dto.member_id }
 						</div>
-						<div>
-						아이디 :  ${dto.member_id }
+						<div class="idNname" style="color: #eeeeee">
+							${dto.member_nickname }
 						</div>
-						<div>
-						닉네임 : ${dto.member_nickname }
-						</div>
-						<div>
-						이메일 : ${dto.member_email }
-						</div>
-						<div>
-						 좋아하는 셀럽(임시) : ${dto.member_favorite_celeb }
-						</div>
-						<div>
-						 ${dto.member_join_date.substring(0, 10) }
-						</div>			
-					</div> <!-- member_info -->
+						
+						
+					</div>			
 				</a>
-			</c:forEach>
 			</div><!-- member_container -->
-			
+			</c:forEach>
 		</div> <!-- admin_member_main_container -->
 	
 	</div> <!-- admin_member_main_wrapper -->

@@ -14,5 +14,6 @@ public class UsedCommentDTO {
 	private int comment_step;
 	private int comment_indent;
 	private int used_nofk;
+	private int category_unofk;
 	
 }

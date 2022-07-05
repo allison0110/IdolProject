@@ -78,6 +78,8 @@ public class AdminCelebController {
 		
 		List<NoticeDTO> nList = this.dao.getNoticeList();
 		
+		
+		
 		model.addAttribute("iList", iList);
 		
 		model.addAttribute("mList", mList);

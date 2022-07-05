@@ -144,6 +144,9 @@
 			
 				<div class="product_cont_detail">
 					<div>
+						NO. ${dto.product_no }
+					</div>
+					<div>
 						${dto.product_name }
 					</div>
 					<div>

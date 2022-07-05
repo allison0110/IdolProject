@@ -10,6 +10,10 @@
 <head>
 <meta charset="UTF-8">
 <title>ADMIN CELEB CONTENT</title>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.6.0.js"></script>
+
+
 <style type="text/css">
 	
 	html, body {
@@ -50,7 +54,7 @@
 	.admin_content_box {
 		color: white;
 		font-family: 'VT323', 'Jua', monospace;
-		font-size: 1.3em;
+		font-size: 1.6em;
 		margin-left: 10%;
 	}
 	
@@ -99,7 +103,8 @@
 	
 	.notice_title {
 		align-self: center;
-		
+		display: flex;
+		flex-direction: row;
 	}
 	
 	
@@ -110,6 +115,8 @@
 		/*height: 600px;*/
 		width: 40%;
 		height: 40%;
+		position: sticky;
+		top: 50px;
 	}
 	
 	.celeb_slider img{
@@ -128,10 +135,36 @@
 		height: 100%;
 		width: 100%;
 	}
+	
+	.notice_cont {
+		display: none;
+	}
+	
+	.notice_title {
+		color: gold;
+	}
+	
+	.click_this_img {
+		color: red;
+		background-color: red;
+		font-size:
+	}
+	
+	
 </style>
 
 <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Creepster&family=East+Sea+Dokdo&family=Jua&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kirang+Haerang&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 
+<script type="text/javascript">
+
+	$(function(){
+		$('.notice_title').click(function(){
+			$(this).next().slideToggle().siblings('.notice_cont').slideUp();
+		});
+		
+	});
+
+</script>
 </head>
 <body>
 	
@@ -197,7 +230,7 @@
 							<div class="notice_title">
 								[${cNdto.notice_title }]
 							</div>
-							<div>
+							<div class="notice_cont">
 								${cNdto.notice_cont }
 							</div>
 						</div>
@@ -209,7 +242,7 @@
 							<div class="notice_title">
 								[${gNdto.notice_title }]
 							</div>
-							<div>
+							<div class="notice_cont">
 								${gNdto.notice_cont }
 							</div>
 						</div>

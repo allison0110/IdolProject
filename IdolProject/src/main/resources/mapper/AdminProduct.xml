@@ -73,7 +73,7 @@
     	
     	<!-- 맴버별 구매내역 불러오기 -->
     	<select id="getMemberPurchase" parameterType="String" resultType="OrderDTO">
-    		select * from order_product where order_userid = #{name}
+    		select * from order_product where order_userid = #{name} order by order_date desc
     	</select>
     	
     	<!-- 기간별 판매 내역 불러오기 -->
