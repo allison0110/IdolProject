@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
-<%@ include file="../include/user_top.jsp" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -110,7 +110,7 @@
 </style>
 </head>
 <body>
-	
+	<%@ include file="../include/user_top.jsp" %>
 	<!-- include top 영역 -->
 	
 	<div class="wrapper" align="center">
@@ -183,14 +183,24 @@
 						<div class="used_one">
 						
 							<div class="used_up">
-								<img src="resources\\upload\\used/${i.used_image }"
+								<img src="./resources/upload/used/${i.used_image }"
 								width="100%" height="100%">
 							</div>
 							
 							<div class="used_down">
 								<br>
+								<c:if test="${i.category_unofk == 1}">
+									<c:set var="category" value="판매"/>
+								</c:if>
+								<c:if test="${i.category_unofk == 2}">
+									<c:set var="category" value="구매"/>
+								</c:if>
+								<c:if test="${i.category_unofk == 3}">
+									<c:set var="category" value="교환"/>
+								</c:if>
 								<c:if test="${i.used_saltatus == 0}">
-									<span style="color: blue;">판매,</span>
+									<span style="color: blue;">판매,  ${category }</span>
+									
 								</c:if>
 								<c:if test="${i.used_saltatus == 1}">
 									<span style="color: blue;">완료,</span>
@@ -247,5 +257,6 @@
 		</div>
 		
 	</div>
+	<%@include file="../include/user_bottom.jsp" %>
 </body>
 </html>

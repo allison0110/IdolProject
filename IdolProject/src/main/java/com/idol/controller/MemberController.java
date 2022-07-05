@@ -236,7 +236,7 @@ public class MemberController {
 			
 			out.println("<script>");
 			out.println("alert('회원가입 완료되었습니다')");
-			out.println("location.href='/controller/'"); //회원가입완료 후 메인화면으로 이동하기
+			out.println("location.href='"+request.getContentType()+"/'"); //회원가입완료 후 메인화면으로 이동하기
 			out.println("</script>");
 		}else {
 			out.println("<script>");
@@ -280,7 +280,7 @@ public class MemberController {
 			
 			out.println("<script>");
 			out.println("alert('로그인 성공')");
-			out.println("location.href='/controller/'");
+			out.println("location.href='"+request.getContextPath()+"/'");
 			out.println("</script>");
 			
 		}else if(check == 0) {
@@ -557,7 +557,7 @@ public class MemberController {
 		
 		//요청을 넘기는 곳의 정보  - mypage_*.jsp 또는 feed_*.jsp
 		String uri = request.getParameter("uri");
-		String path = "/controller/WEB-INF/views/member";
+		String path = request.getContextPath()+"/WEB-INF/views/member";
 		System.out.println("uri"+uri);
 		System.out.println("path"+path);
 		
