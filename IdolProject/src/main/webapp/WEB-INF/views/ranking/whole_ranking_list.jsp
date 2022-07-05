@@ -118,7 +118,7 @@ display: flex;
 							<h3 class="block_text_header"></h3>
 							<ol>
 								<li class="member_block">
-									<img src="./resources/upload/${midto.member_image }">
+									<img src="./resources/upload/member_image/${midto.member_no }/${midto.member_image }">
 									<div id="member_nickname_div">
 										<a href="<%=request.getContextPath()%>/myfeed.do?no=${midto.member_no}">${midto.member_nickname }</a>
 									</div>
@@ -141,7 +141,7 @@ display: flex;
 							<h3 class="block_text_header"></h3>
 							<ol>
 								<li class="member_block">
-									<img src="./resources/upload/${pdto.member_image }">
+									<img src="./resources/upload/member_image/${pdto.member_no }/${pdto.member_image }">
 									<div id="member_nickname_div">
 										<a href="<%=request.getContextPath()%>/myfeed.do?no=${pdto.member_no}">${pdto.member_nickname }</a>
 									</div>
@@ -166,7 +166,7 @@ display: flex;
 						<h3 class="block_text_header"></h3>
 						<ol>
 							<li class="member_block">
-								<img src="./resources/upload/${medto.member_image }">
+								<img src="./resources/upload/member_image/${medto.member_no }/${medto.member_image }">
 								<div id="member_nickname_div">
 									<a href="<%=request.getContextPath()%>/myfeed.do?no=${medto.member_no}">${medto.member_nickname }</a>
 								</div>
@@ -190,7 +190,7 @@ display: flex;
 						<h3 class="block_text_header"></h3>
 						<ol>
 							<li class="member_block">
-								<img src="./resources/upload/${cdto.member_image }">
+								<img src="./resources/upload/member_image/${cdto.member_no }/${cdto.member_image }">
 								<div id="member_nickname_div">
 									<a href="<%=request.getContextPath()%>/myfeed.do?no=${cdto.member_no}">${cdto.member_nickname }</a>
 								</div>
@@ -214,7 +214,7 @@ display: flex;
 						<h3 class="block_text_header"></h3>
 						<ol>
 							<li class="member_block">
-								<img src="./resources/upload/${rdto.member_image }">
+								<img src="./resources/upload/member_image/${rdto.member_no }/${rdto.member_image }">
 								<div id="member_nickname_div">
 									<a href="<%=request.getContextPath()%>/myfeed.do?no=${rdto.member_no}">${rdto.member_nickname }</a>
 								</div>
@@ -238,7 +238,7 @@ display: flex;
 						<h3 class="block_text_header"></h3>
 						<ol>
 							<li class="member_block">
-								<img src="./resources/upload/${bdto.member_image }">
+								<img src="./resources/upload/member_image/${bdto.member_no }/${bdto.member_image }">
 								<div id="member_nickname_div">
 									<a href="<%=request.getContextPath()%>/myfeed.do?no=${bdto.member_no}">${bdto.member_nickname }</a>
 								</div>

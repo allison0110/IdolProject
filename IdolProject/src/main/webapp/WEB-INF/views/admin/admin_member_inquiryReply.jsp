@@ -27,7 +27,7 @@
 	 			<input type="hidden" name="category_inofk" value="${icont.category_inofk }">
 	 			<input type="hidden" name="originNo" value="${oldNo }">
 				<div>
-					<input name="inquiry_title" value="(RE임시)${icont.inquiry_title }">
+					<input name="inquiry_title" value="(RE)${icont.inquiry_title }">
 				</div>
 		 		<div>
 		 			<textarea name="inquiry_cont" rows="20" cols="33"></textarea>

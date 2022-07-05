@@ -1,3 +1,4 @@
+<%@page import="com.idol.model.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -13,6 +14,11 @@
 	    <link rel="stylesheet" href="./resources/css/gnb.css" />
 	    <link rel="stylesheet" href="./resources/css/main.css" />
 		<title>YOUR CELEB</title>
+		<script type="text/javascript">
+		function loginAlert() {
+		      alert("사용 권한이 없습니다. 로그인 해주세요");
+		  } 
+		</script>
 	</head>
 	<body>
 		<!-- include header -->
@@ -42,7 +48,7 @@
               <li><a href="<%=request.getContextPath()%>/community_boardList.do">FORUM</a></li>
               <li><a href="<%=request.getContextPath()%>/event_list.do?board_id=1&category_id=1">EVENT</a></li>
               <li><a href="<%=request.getContextPath()%>/whole_ranking.do">MEMBERS</a></li>
-              <li><a href="#">MARKET</a></li>
+              <li><a href="<%=request.getContextPath()%>/used_list.do">MARKET</a></li>
             </ul>
             
           </div>
@@ -72,7 +78,15 @@
               <!-- SEARCH -->
               <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
 			  <!-- CART -->
-              <li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
+			  <%
+			  	MemberDTO memberdto = (MemberDTO)session.getAttribute("loginInfo");
+			  	if(memberdto != null){
+			  	int memno = memberdto.getMember_no();
+			  	pageContext.setAttribute("memno", memno);
+			  	}
+			  %>
+              <li><a href="<%=request.getContextPath()%>/product_cartList.do?memno=${memno}">
+              <i class="fa-solid fa-cart-shopping"></i></a></li>
             </ul> 
             <%} %>
           </div>

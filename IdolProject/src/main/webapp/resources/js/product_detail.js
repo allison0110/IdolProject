@@ -194,7 +194,7 @@ infoMileage.addEventListener('mouseleave',function(){
     
     /*스와이퍼 안쪽으로 마우스가 들어나고 나갈때 발생하는 버튼 view이벤트*/
     let swiperBtn = document.querySelector('.swiper-btn');
-    let swiperCont = document.querySelector('.swiper-container');
+    let swiperCont = document.querySelector('.swiper-container1');
     
     swiperCont.addEventListener('mouseenter',function(event){
     	swiperBtn.style.display = 'block';
@@ -212,7 +212,7 @@ infoMileage.addEventListener('mouseleave',function(){
     	swiperBtn.style.display = 'none';
     });
     
-	const swiper = new Swiper('.swiper-container', {
+	const swiper1 = new Swiper('.swiper-container1', {
     //기본 셋팅
     //방향 셋팅 vertical 수직, horizontal 수평 설정이 없으면 수평
     direction: 'horizontal',

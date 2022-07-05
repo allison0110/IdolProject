@@ -53,4 +53,10 @@ public class UsedDAOImpl implements UsedDAO{
 
 		return this.sqlSession.selectList(pdto.getField()+"1", pdto);
 	}
+
+	//중고 카테고리 리스트 
+	@Override
+	public List<Used_CategoryDTO> getUsedCategory() {
+		return this.sqlSession.selectList("usedCategory");
+	}
 }

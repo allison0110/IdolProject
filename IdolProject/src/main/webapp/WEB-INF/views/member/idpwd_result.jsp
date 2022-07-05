@@ -48,12 +48,7 @@
 		String find = (String)request.getAttribute("find");
 		String result = (String)request.getAttribute("result");
 		
-		System.out.println("jsp result:"+result);
-		System.out.println("jsp find:"+find);
 	%>
-	
-<%-- 	<c:set var="find" value="${find }"/>
-	<c:set var="result" value="${result }"/> --%>
 	
 	<c:if test="${find == 'id' }">
 		<c:set var="word" value="아이디"/>
@@ -86,7 +81,7 @@
 					<a href="<%=request.getContextPath()%>/findIdPwd.do">비밀번호찾기</a>
 					</c:if>
 					<c:if test="${find == 'pwd' }">
-					<a href="<%=request.getContextPath()%>/main.jsp">메인화면</a>
+					<a href="<%=request.getContextPath()%>/">메인화면</a>
 					</c:if>
 					</td>
 				</tr>

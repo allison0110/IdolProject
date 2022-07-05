@@ -111,7 +111,7 @@ height:80px;
 					<ul>
 						<li>
 							<div class="rankContent_row_image">
-								<img src="./resources/upload/member_image/1/${dto.member_image }">
+								<img src="./resources/upload/member_image/${dto.member_no }/${dto.member_image }">
 							</div>
 							<div class="rankContent_wrap">
 								<div class="rankContent_row_header">

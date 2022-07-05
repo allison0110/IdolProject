@@ -18,5 +18,6 @@ public class UsedDTO {
 	private int used_price;
 	private int used_status;
 	private int used_saltatus;
+	private String used_product;
 	
 }

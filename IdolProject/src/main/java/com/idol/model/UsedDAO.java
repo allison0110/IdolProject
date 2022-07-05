@@ -17,5 +17,8 @@ public interface UsedDAO {
 	public int searchBoardCount(String field, String keyword);
 
 	public List<UsedDTO> searchBoardList(PageDTO pdto);
+	
+	public List<Used_CategoryDTO> getUsedCategory();
+
 
 }

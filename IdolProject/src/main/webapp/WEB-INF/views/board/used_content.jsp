@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -166,8 +166,8 @@
 </style>
 </head>
 <body>
-	
 	<%@ include file="../include/user_top.jsp" %>
+	<!-- include top 영역 -->
 	
 	<div class="wrapper" align="center">
 		<c:set var="dto" value="${dto }" />
@@ -208,7 +208,7 @@
 					<table border="1" cellspacing="0" width="100%">
 				    	<tr>
 				   			<th>제품명</th>
-				    		<td>used_product</td>
+				    		<td>${used_product}</td>
 				    	</tr>
 				    	
 				    	<tr>
@@ -232,9 +232,16 @@
 				</div>
 				
 				<div class="used_cont">
-					${dto.used_cont }
-					<img src="resources\\upload\\used/${dto.used_image }"
+				<% pageContext.setAttribute("replaceChar", "\n"); %>
+				<c:set var="content" value="${fn:replace(dto.used_cont, replaceChar, '<br>') }"/>
+				  	${content }
+				
+					<c:set var="images" value="${Images }" />
+					<c:forEach items="${images }" var="img">
+						<img src="resources\\upload\\used/${img}"
 								width="100%" height="100%" />
+					</c:forEach>
+					
 				</div>
 
 			</div>

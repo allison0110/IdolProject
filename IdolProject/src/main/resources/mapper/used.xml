@@ -21,12 +21,12 @@
 	
 	<insert id="used_add" parameterType="usedDTO">
 		<selectKey resultType="int" keyProperty="used_no" order="BEFORE">
-			select max(used_no) from used_board
+			<![CDATA[select nvl(max(used_no),0) from used_board]]>
 		</selectKey>
-		insert into board values(#{used_no} + 1, #{used_userid}, 
+		insert into used_board values(#{used_no} + 1, #{used_userid}, 
 				#{used_title}, #{used_cont}, #{used_image},
-				default, sysdate, '', 1, #{used_size}, 
-				#{used_price}, #{used_status}, 0)
+				default, sysdate, '', #{category_unofk}, #{used_size}, 
+				#{used_price}, #{used_status}, 0, #{used_product})
 	</insert>
 	
 	<update id="used_read" parameterType="int">
@@ -101,6 +101,10 @@
 					where used_userid like '%' || #{keyword} || '%')
 					where rnum >= #{startNo} and rnum <= #{endNo}
 	    ]]>
+	</select>
+	
+	<select id="usedCategory" resultType="com.idol.model.Used_CategoryDTO">
+		select * from used_category
 	</select>
 	
 </mapper>

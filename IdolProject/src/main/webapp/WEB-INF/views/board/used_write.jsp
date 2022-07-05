@@ -113,8 +113,8 @@
 </style>
 </head>
 <body>
-	
 	<%@ include file="../include/user_top.jsp" %>
+	<!-- include top 영역 -->
 	
 	<div class="wrapper" align="center">
 	
@@ -129,7 +129,8 @@
 			</div>
 			
 			<div class="used_notice">
-				
+				<br><h3>YOUR CELEB 중고장터는 거래 안전지대가 아닙니다.<br>
+				판매/구매 행위에 관하여 최대한 신중히 하셔야 되시며 반드시 만약의 경우를 대비해주세요.</h3>
 			</div>
 			
 			<form class="used_flex_wrapper" method="post" enctype="multipart/form-data"
@@ -138,6 +139,15 @@
 				
 				<div class="table">
 					<table border="1" cellspacing="0" width="100%">
+						<tr>
+				   			<th>분류</th>
+				    		<td> <select class="navy" name="category_unofk">
+				    		<c:set  var="category" value="${Category }"/>
+				    			<c:forEach items="${category }" var="c">
+				    				<option value="${c.category_uno }"> ${c.category_uname }</option>
+				    			</c:forEach>
+								 </select> </td>
+				    	</tr>
 				    	<tr>
 				   			<th>글 제목</th>
 				    		<td> <input class="white" name="used_title"> </td>
@@ -173,13 +183,13 @@
 				</div>
 				
 				<div class="upload">
-					<input type="file" name="used_image" multiple />
+					<input type="file" name="file1" multiple="multiple" />
 					파일 크기 제한 : 2.00MB (허용 확장자 : *.jpeg;*.jpg;*.png;*.gif;)
 				</div>
 				
 				<div class="submit">
 					<div class="submit_left">
-						<a href="location.history.back()" style="text-decoration:none; color:red;">돌아가기</a>
+						<a href="<%=request.getContextPath() %>/used_list.do" style="text-decoration:none; color:red;">돌아가기</a>
 					</div>
 					
 					<div class="submit_right">

@@ -21,7 +21,7 @@
   
   <!-- 게시물 추천수가 10개 이상인 게시물 출력 -->
   <select id="BestList" resultType="BoardDTO">
-  	<![CDATA[select *from community_board where COMMUNITY_RECOMMEND > 10 order by community_date desc]]>
+  	<![CDATA[select *from community_board where COMMUNITY_RECOMMEND >= 5 order by community_date desc, community_recommend desc]]>
   </select>
   
   <!-- 일반주제 게시물 리스트 출력 -->
@@ -73,5 +73,15 @@
   	<![CDATA[update community_board set community_recommend = community_recommend - 1 where community_no = #{bno}]]>
   </update>
   
+  <!-- 게시물 작성갯수에 따른 유저랭킹 -->
+  <select id="rangkingList" resultType="BoardrankingDTO">
+	<![CDATA[select  MEMBER_NO, COMMUNITY_USERID as MEMBER_ID, count(COMMUNITY_USERID) as BOARDCOUNT  from community_board cb join member m on cb.community_userid = m.member_id 
+			group by COMMUNITY_USERID, MEMBER_NO order by count(COMMUNITY_USERID) desc]]>
+  </select>  
+  
+  <!-- 게시물 리스트를 카테고리별로 최신날짜 및 추천수 순으로 가져온다. -->
+  <select id="boardDateRecommendList" parameterType="int" resultType="BoardDTO">
+  	<![CDATA[select * from community_board where CATEGORY_CNOFK = #{cno} order by community_date desc, COMMUNITY_RECOMMEND desc]]>
+  </select>
   
   </mapper>

@@ -1,8 +1,12 @@
 package com.idol.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.idol.model.MemberDTO;
@@ -21,6 +26,7 @@ import com.idol.model.UsedCommentDAO;
 import com.idol.model.UsedCommDTO;
 import com.idol.model.UsedDAO;
 import com.idol.model.UsedDTO;
+import com.idol.model.Used_CategoryDTO;
 
 @Controller
 public class IdolController {
@@ -60,6 +66,18 @@ public class IdolController {
 		// 페이지에 해당하는 게시물을 가져오는 메서드 호출
 		List<UsedDTO> list = this.usedDAO.getUsedList(dto);
 		
+		//이미지 추출하기 
+		
+		for(int i=0; i<list.size(); i++) {
+			if(list.get(i).getUsed_image() != null ) {
+			StringTokenizer st = new StringTokenizer(list.get(i).getUsed_image(), "|");
+			String image = st.nextToken();
+			
+			list.get(i).setUsed_image(image);
+			}
+		}
+		
+		
 		model.addAttribute("List", list);
 		model.addAttribute("Paging", dto);
 		
@@ -73,7 +91,12 @@ public class IdolController {
 		String id = request.getParameter("id").trim();
 		// 임시 //
 		
+		//중고 카테고리 리스트
+		List<Used_CategoryDTO> cdto = this.usedDAO.getUsedCategory();
+		
 		model.addAttribute("id", id);
+		model.addAttribute("Category", cdto);
+		
 		return "board/used_write";
 	}
 	
@@ -83,9 +106,32 @@ public class IdolController {
 			MultipartHttpServletRequest mRequest, Model model) throws IOException {
 		
 		// 임시 //
-		String id = mRequest.getParameter("id").trim();
+//		String id = mRequest.getParameter("id").trim();
 		// 임시 //
+		String path = "C:\\Users\\ayss3\\Documents\\FinalProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\used";
+		Iterator<String> iterator = mRequest.getFileNames();
+		String uploadFileName = iterator.next();
+		
+		List<MultipartFile> fileList =  mRequest.getFiles(uploadFileName);
+		
+		String dbFileName = "";
+		
+		
+		for(MultipartFile mFile : fileList) {
+			
+			String originFileName = mFile.getOriginalFilename(); // 원본 파일 명
+		
 				
+				String saveFile = System.currentTimeMillis() + originFileName;
+				
+				dbFileName += saveFile + "|";
+			
+				mFile.transferTo(new File(path+"/"+saveFile));
+				
+		}
+		//dto에 파일이름 저장하기 
+		dto.setUsed_image(dbFileName);
+		
 		int check = this.usedDAO.insertUsed(dto);
 		
 		response.setContentType("text/html; charset=UTF-8");
@@ -94,7 +140,7 @@ public class IdolController {
 		
 		if(check > 0) {
 			out.println("<script>");
-			out.println("location.href='used_list.do?id='" + id);
+			out.println("location.href='used_list.do'");
 			out.println("</script>");
 		}else {
 			out.println("<script>");
@@ -116,6 +162,20 @@ public class IdolController {
 		// 게시글 상세 내역을 조회하는 메서드 호출
 		UsedDTO dto = this.usedDAO.usedCont(no);
 		
+		//이미지 분할하여 저장
+		List<String> images = new ArrayList<String>();
+		
+		StringTokenizer st = new StringTokenizer(dto.getUsed_image(), "|");
+		
+		while(st.hasMoreTokens()) {
+			
+			String str = st.nextToken();
+			if(str != null) {
+			images.add(str);
+			}
+			
+		}
+		
 		// 게시글 댓글 리스트 조회
 		List<UsedCommDTO> comment_list = this.usedCommentDAO.getUsedCommentList(no);
 		
@@ -123,6 +183,7 @@ public class IdolController {
 		model.addAttribute("comment_list", comment_list);
 		model.addAttribute("id", id);
 		model.addAttribute("page", nowPage);
+		model.addAttribute("Images", images);
 		
 		return "board/used_content";
 	}
