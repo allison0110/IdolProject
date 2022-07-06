@@ -205,7 +205,7 @@
 		<div class="slider-nav">
 			<c:forEach items="${ilist }" var="dto" varStatus="num">
 				<c:if test="${dto.image_visible == '1' }">
-					<a class="image_link" href="${dto.image_link }">
+					<a class="image_link" href="<%=request.getContextPath()%>/admin_images_content.do?no=${dto.image_no}">
 						<span class="slider_numbering">${num.count }</span><img alt="" src="./resources/upload/images/${dto.image_path }">
 					</a>
 				</c:if>
