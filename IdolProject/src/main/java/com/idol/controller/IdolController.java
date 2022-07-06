@@ -109,56 +109,61 @@ public class IdolController {
 	}
 	
 	@RequestMapping("used_write_ok.do")
-	public void used_write_ok(UsedDTO dto,
-			HttpServletResponse response,
-			MultipartHttpServletRequest mRequest, Model model) throws IOException {
-		
-		// 임시 //
-//		String id = mRequest.getParameter("id").trim();
-		// 임시 //
-		
-		String path = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\used";
-		Iterator<String> iterator = mRequest.getFileNames();
-		String uploadFileName = iterator.next();
-		
-		List<MultipartFile> fileList =  mRequest.getFiles(uploadFileName);
-		
-		String dbFileName = "";
-		
-		
-		for(MultipartFile mFile : fileList) {
-			
-			String originFileName = mFile.getOriginalFilename(); // 원본 파일 명
-		
-				
-				String saveFile = System.currentTimeMillis() + originFileName;
-				
-				dbFileName += saveFile + "|";
-			
-				mFile.transferTo(new File(path+"/"+saveFile));
-				
-		}
-		//dto에 파일이름 저장하기 
-		dto.setUsed_image(dbFileName);
-		
-		int check = this.usedDAO.insertUsed(dto);
-		
-		response.setContentType("text/html; charset=UTF-8");
-		
-		PrintWriter out = response.getWriter();
-		
-		if(check > 0) {
-			out.println("<script>");
-			out.println("location.href='used_list.do'");
-			out.println("</script>");
-		}else {
-			out.println("<script>");
-			out.println("alert('게시글 추가 실패')");
-			out.println("history.back()");
-			out.println("</script>");
-		}
-		
-	}
+	   public void used_write_ok(UsedDTO dto,
+	         HttpServletResponse response,
+	         MultipartHttpServletRequest mRequest, Model model) throws IOException {
+	      
+	      // 임시 //
+//	      String id = mRequest.getParameter("id").trim();
+	      // 임시 //
+	      
+	      String path = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\used";
+	      Iterator<String> iterator = mRequest.getFileNames();
+	      String uploadFileName = iterator.next();
+	      long filesize = 0;
+	      List<MultipartFile> fileList =  mRequest.getFiles(uploadFileName);
+	      
+	      String dbFileName = "";
+	      
+	      
+	      for(MultipartFile mFile : fileList) {
+	         
+	         String originFileName = mFile.getOriginalFilename(); // 원본 파일 명
+	      
+	            
+	            String saveFile = System.currentTimeMillis() + originFileName;
+	            
+	            dbFileName += saveFile + "|";
+	         
+	            mFile.transferTo(new File(path+"/"+saveFile));
+	            
+	      }
+	      //dto에 파일이름 저장하기 
+	      
+	      if(filesize == 0) {
+	         dbFileName ="";
+	      }
+	      
+	      dto.setUsed_image(dbFileName);
+	      
+	      int check = this.usedDAO.insertUsed(dto);
+	      
+	      response.setContentType("text/html; charset=UTF-8");
+	      
+	      PrintWriter out = response.getWriter();
+	      
+	      if(check > 0) {
+	         out.println("<script>");
+	         out.println("location.href='used_list.do'");
+	         out.println("</script>");
+	      }else {
+	         out.println("<script>");
+	         out.println("alert('게시글 추가 실패')");
+	         out.println("history.back()");
+	         out.println("</script>");
+	      }
+	      
+	   }
 	
 	@RequestMapping("used_content.do")
 	public String used_content(@RequestParam("no") int no,
@@ -174,16 +179,21 @@ public class IdolController {
 		//이미지 분할하여 저장
 		List<String> images = new ArrayList<String>();
 		
-		StringTokenizer st = new StringTokenizer(dto.getUsed_image(), "|");
-		
-		while(st.hasMoreTokens()) {
+		if(dto.getUsed_image() != null) {
 			
-			String str = st.nextToken();
-			if(str != null) {
-			images.add(str);
+			StringTokenizer st = new StringTokenizer(dto.getUsed_image(), "|");
+			
+			while(st.hasMoreTokens()) {
+				
+				String str = st.nextToken();
+				if(str != null) {
+				images.add(str);
+				}
+				
 			}
 			
 		}
+		
 		
 		// 게시글 댓글 리스트 조회
 		List<UsedCommDTO> comment_list = this.usedCommentDAO.getUsedCommentList(no);

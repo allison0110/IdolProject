@@ -215,12 +215,7 @@
 					
 					<div class="used_flex_row">
 						<div style="width: 30px; height: 30px; border-radius: 70%; overflow: hidden;">
-							<c:forEach items="${mdtoList }" var="j">
-								<c:if test="${j.member_id == dto.used_userid }">
-									<img src="./resources/upload/member_image/${j.member_no }/${j.member_image }"
-										width="100%" height="100%">
-								</c:if>
-							</c:forEach>
+							
 							<c:forEach items="${mdtoList }" var="j">
 								<c:if test="${j.member_id == dto.used_userid }">
 									<c:if test="${j.member_image != null }">

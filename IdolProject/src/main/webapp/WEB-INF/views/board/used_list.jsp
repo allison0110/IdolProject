@@ -216,10 +216,16 @@
 						<a href="<%=request.getContextPath() %>/used_content.do?no=${i.used_no }&id=${loginInfo.member_id}&page=${paging.page }">
 						</c:if>
 						<div class="used_one" >
-						
+							
 							<div class="used_up">
+								<c:if test="${!empty i.used_image }">
 								<img src="./resources/upload/used/${i.used_image }"
 								width="100%" height="250px">
+								</c:if>
+								<c:if test="${empty i.used_image }">
+								<img src="./resources/upload/used/noImage.png"
+								width="100%" height="250px">
+								</c:if>
 							</div>
 							
 							<div class="used_down">
