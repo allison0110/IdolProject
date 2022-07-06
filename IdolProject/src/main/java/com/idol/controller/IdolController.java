@@ -117,7 +117,7 @@ public class IdolController {
 //		String id = mRequest.getParameter("id").trim();
 		// 임시 //
 		
-		String path = "C:\\Users\\sjasj\\Documents\\IDOL\\IdolProject\\src\\main\\webapp\\resources\\upload\\used";
+		String path = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\used";
 		Iterator<String> iterator = mRequest.getFileNames();
 		String uploadFileName = iterator.next();
 		
