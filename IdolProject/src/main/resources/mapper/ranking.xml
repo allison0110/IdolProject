@@ -9,6 +9,7 @@
 <select id="accumulated" parameterType="HashMap" resultType="rankingDTO">
 	select * from (select 
 		m.member_no, 
+		m.member_id,
 		m.member_introduction, 
 		m.member_nickname, 
 		m.member_image, 
@@ -21,13 +22,14 @@
 		<if test="keyword != null and !keyword.equals('')">
 			and m.member_nickname like '%'||#{keyword}||'%'
 		</if>
-		group by member_no, member_introduction, member_nickname, member_image 
+		group by member_no, member_id, member_introduction, member_nickname, member_image 
 		order by score desc) where <![CDATA[ rnum >= 1  and rnum <= #{rnum}]]>
 </select>
 
 <select id="message" parameterType="HashMap" resultType="rankingDTO">
 	select * from (select
 		m.member_no, 
+		m.member_id,
 		m.member_introduction, 
 		m.member_nickname, 
 		m.member_image, 
@@ -39,13 +41,14 @@
 		<if test="keyword != null and !keyword.equals('')">
 			and m.member_nickname like '%'||#{keyword}||'%'
 		</if>
-		group by member_no, member_introduction, member_nickname, member_image
+		group by member_no, member_id, member_introduction, member_nickname, member_image
 		order by score desc) where <![CDATA[ rnum >= 1  and rnum <= #{rnum}]]>
 </select>
 
 <select id="purchase" parameterType="HashMap" resultType="rankingDTO">
 	select * from (select
 		m.member_no, 
+		m.member_id,
 		m.member_introduction, 
 		m.member_nickname, 
 		m.member_image, 
@@ -57,7 +60,7 @@
 		<if test="keyword != null and !keyword.equals('')">
 			and m.member_nickname like '%'||#{keyword}||'%'
 		</if>
-		group by member_no, member_introduction, member_nickname, member_image
+		group by member_no, member_id, member_introduction, member_nickname, member_image
 		order by score desc) where <![CDATA[ rnum >= 1  and rnum <= #{rnum}]]>
 
 </select>
@@ -76,6 +79,7 @@
 <select id="referrals" parameterType="HashMap" resultType="rankingDTO">
 	select * from (select
 		m.member_no, 
+		m.member_id,
 		m.member_introduction, 
 		m.member_nickname, 
 		m.member_image, 
@@ -87,13 +91,14 @@
 		<if test="keyword != null and !keyword.equals('')">
 			and m.member_nickname like '%'||#{keyword}||'%'
 		</if>
-		group by member_no, member_introduction, member_nickname, member_image
+		group by member_no, member_id, member_introduction, member_nickname, member_image
 		order by score desc) where <![CDATA[rnum >= 1  and rnum <= #{rnum}]]>
 </select>
 
 <select id="comment" parameterType="HashMap" resultType="rankingDTO">
 	select * from (select
 		m.member_no, 
+		m.member_id,
 		m.member_introduction, 
 		m.member_nickname, 
 		m.member_image, 
@@ -105,7 +110,7 @@
 		<if test="keyword != null and !keyword.equals('')">
 			and m.member_nickname like '%'||#{keyword}||'%'
 		</if>
-		group by member_no, member_introduction, member_nickname, member_image
+		group by member_no, member_id, member_introduction, member_nickname, member_image
 		order by score desc) where <![CDATA[rnum >= 1  and rnum <= #{rnum}]]>
 	
 </select>
