@@ -1,8 +1,8 @@
+<%@page import="com.idol.model.CelebDTO"%>
 <%@page import="java.util.StringTokenizer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="../include/user_top.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +17,7 @@
 	
 	.wrapper	{
 		font-family: NotoSans Kor;
+		margin : 0 0 50px 0;
 	}
 	
 	.music_wrapper {
@@ -65,16 +66,12 @@
 	.lyrics{
 		padding: 10px;
 		height: 200px;
-		font-size: 15px;
-		color: gray;
 		overflow: hidden;
 	}
 	
 	.lyrics_auto{
+		display: none;
 		padding: 10px;
-		height: auto;
-		font-size: 15px;
-		color: gray;
 	}
 	
 	.fold{
@@ -127,48 +124,72 @@
 		border-radius: 15px;
 	}
 	
+	#lyrics{
+		border: 0;
+		font-size: 15px;
+		color: gray;
+		width: 500px;
+		height: 200px;
+		overflow: hidden;
+		resize: none;
+	}
+	
+	#lyrics_auto{
+		border: 0;
+		font-size: 15px;
+		color: gray;
+		width: 500px;
+		min-height: 200px;
+		overflow: hidden;
+		resize: none;
+	}
+	
 	button.foldbutton{
 		background-color: white;
 		border: 0;
+	}
+	
+	button.like{
+		background-color: white;
+		border: 0;
+		font-size: 20px;
+		color: green;
 	}
 </style>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
-$(function(){
-	  var lyrics = $('.lyrics'),
-	      animateTime = 500,
-	      button = $('.foldbutton');
-	  button.click(function(){
-	    if(lyrics.height() == 'auto'){
-	    	autoHeightAnimate(lyrics, animateTime);
-	    } else {
-	    	lyrics.stop().animate({ height: '200px' }, animateTime);
-	    }
-	  });
-	})
-
-	/* Function to animate height: auto */
-	function autoHeightAnimate(element, time){
-	  	var curHeight = element.height(), // Get Default Height
-	        autoHeight = element.css('height', 'auto').height(); // Get Auto Height
-	    	  element.height(curHeight); // Reset to Default Height
-	    	  element.stop().animate({ height: autoHeight }, time); // Animate to Auto Height
-	}
+	
+	$( document ).ready( function() {
+        $( '.foldbutton' ).click( function() {
+          $( '.lyrics_auto' ).slideToggle( 400, 'swing', function(){
+        	  	$('#lyrics_auto').height(1).height( $('#lyrics_auto').prop('scrollHeight')+12 );
+        	  if($('.foldbutton').html() == '펼치기'){
+        		  $('.foldbutton').html('접기')
+        	  } else{
+        		  $('.foldbutton').html('펼치기')
+        	  }
+          });
+          $('.lyrics').slideToggle();
+          
+        } );
+      } );
+	
 </script>
 
 </head>
 <body>
-
+	<%@ include file="../include/user_top.jsp" %>
+	
 	<div class="wrapper" align="center">
 		
 		<div class="music_search">
-			<form method="post" action="<%=request.getContextPath() %>/artist_search.do">
+			<form method="post" action="<%=request.getContextPath() %>/music_search.do">
 			      
 		      	<select class="green" name="field">
 				    <option value="artist">가수</option>
 				    <option value="group">그룹</option>
-				    <option value="writer">곡</option>
+				    <option value="music">곡</option>
 			    </select>
 			    
 		      	<input class="green" name="keyword">&nbsp;
@@ -193,18 +214,30 @@ $(function(){
 				
 				<div class="music_right">
 					<span style="font-size:30px; weight:bold;">${dto.music_name}</span><br>
-					<span style="font-size:20px; weight:bold; color:green;">${dto.celeb_name }</span>
-					<br><br><br>
+					
+					<span style="font-size:20px; weight:bold; color:green;">
+						<c:if test="${dto.group_name == 'solo' }">
+							${dto.celeb_name }
+						</c:if>
+						
+						<c:if test="${dto.group_name != 'solo' }">
+							${dto.group_name }
+						</c:if>
+					</span>
+					<br><br>
 					
 					<div class="info_row">
 						<div class="info_left">
 							앨범<br><br>
 							발매일<br><br>
+							<%-- <button class="like"
+								onclick="location.href='<%=request.getContextPath()%>/music_like.do?no=${dto.music_no}'">♡</button> --%>
 						</div>
 						
 						<div class="info_right">
 							 ${dto.music_aname }<br><br>
-							 ${dto.music_release_date.substring(0,10) }
+							 ${dto.music_release_date.substring(0,10) }<br><br>
+							 <h2>${countFollow }</h2>
 						</div>
 					</div>
 					
@@ -218,21 +251,15 @@ $(function(){
 			<hr width="100%" color="lightgray">
 			
 			<div class="lyrics">
-				${dto.music_lyrics }
-				asd<br>
-				asd<br>
-				asd<br>
-				asd<br>
-				asd<br>
-				asd<br>
-				asd<br>
-				asd<br>
-				
-				
+				<textarea id="lyrics" readonly>${dto.music_lyrics }</textarea>
+			</div>
+			
+			<div class="lyrics_auto">
+				<textarea id="lyrics_auto" readonly>${dto.music_lyrics }</textarea>
 			</div>
 			
 			<div class="fold">
-				<button class="foldbutton">접기</button>
+				<button class="foldbutton">펼치기</button>
 			</div>
 			
 			<br><br>
@@ -249,13 +276,27 @@ $(function(){
 						
 							<c:set var="a" value="0" />
 							
-							<!-- 데이터 안의 이름을 통일할 필요가 있음. 싸이 / 싸이 (PSY) -->
+							<!-- 싸이의 경우 싸이 (PSY) 라고 작사/작곡가에 기재되어 있다... -->
 							<c:forEach items="${artistList }" var="j">
-								<c:if test="${i.substring(0,2).equalsIgnoreCase(j.celeb_name.substring(0,2))}">
-									<img src="resources\\upload\\celeb/${j.celeb_pimage }"
+								
+								<c:if test="${i.equalsIgnoreCase(j.celeb_name)}">
+									<%	CelebDTO j = (CelebDTO)pageContext.getAttribute("j");
+											String image = j.getCeleb_pimage();
+											StringTokenizer st = new StringTokenizer(image, "|");
+											String[] array = new String[st.countTokens()];
+											
+											for(int k=0; k<array.length; k++){
+												array[k] = st.nextToken();
+											}
+											pageContext.setAttribute("image", array[0]);
+										%>
+									<a href="<%=request.getContextPath()%>/artist_content.do?no=${j.celeb_no}">
+									<img src="resources\\upload\\celeb/${image }"
 									width="100%" height="100%">
+									</a>
 									<c:set var="a" value="1" />
 								</c:if>
+								
 							</c:forEach>
 							
 							<c:if test="${a == 0 }">
@@ -283,9 +324,21 @@ $(function(){
 							
 							<!-- 데이터 안의 이름을 통일할 필요가 있음. 싸이 / 싸이 (PSY) -->
 							<c:forEach items="${artistList }" var="j">
-								<c:if test="${i.substring(0,2).equalsIgnoreCase(j.celeb_name.substring(0,2))}">
-									<img src="resources\\upload\\celeb/${j.celeb_pimage }"
+								<c:if test="${i.equalsIgnoreCase(j.celeb_name)}">
+									<%	CelebDTO j = (CelebDTO)pageContext.getAttribute("j");
+											String image = j.getCeleb_pimage();
+											StringTokenizer st = new StringTokenizer(image, "|");
+											String[] array = new String[st.countTokens()];
+											
+											for(int k=0; k<array.length; k++){
+												array[k] = st.nextToken();
+											}
+											pageContext.setAttribute("image", array[0]);
+										%>
+									<a href="<%=request.getContextPath()%>/artist_content.do?no=${j.celeb_no}">
+									<img src="resources\\upload\\celeb/${image }"
 									width="100%" height="100%">
+									</a>
 									<c:set var="a" value="1" />
 								</c:if>
 							</c:forEach>
@@ -309,6 +362,6 @@ $(function(){
 		</div>
 		
 	</div>
-	
+	<%@ include file="../include/user_bottom.jsp" %>
 </body>
 </html>

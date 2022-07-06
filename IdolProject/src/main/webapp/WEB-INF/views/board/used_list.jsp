@@ -112,7 +112,6 @@
 <body>
 	<%@ include file="../include/user_top.jsp" %>
 	<!-- include top 영역 -->
-	
 	<div class="wrapper" align="center">
 	
 		<div class="used_wrapper">
@@ -152,8 +151,19 @@
 					
 				</div>
 				
+				<script type="text/javascript">
+				function loginAlert() {
+				      alert("사용 권한이 없습니다. 로그인 해주세요");
+				  } 
+				</script>
+				
 				<div class="used_right">
+					<c:if test="${login_id == null }">
+					<button class="navy" onclick="loginAlert()">쓰기</button>&nbsp;&nbsp;
+					</c:if>
+					<c:if test="${!empty login_id }">
 					<button class="navy" onclick="location.href='<%=request.getContextPath() %>/used_write.do?id=${loginInfo.member_id }'">쓰기</button>&nbsp;&nbsp;
+					</c:if>
 					<button class="navy" onclick="location.href='<%=request.getContextPath() %>/used_list.do?id=${loginInfo.member_id }'">목록</button><br><br>
 					
 					<form method="post" action="<%=request.getContextPath() %>/used_search.do">
@@ -178,9 +188,13 @@
 				<div class="used_list">
 					
 					<c:forEach items="${list }" var="i">
-					
+						<c:if test="${login_id == null }">
+						  <a onclick="alert('읽기 권한이 없습니다.'); return false;">
+						</c:if>
+						<c:if test="${!empty login_id }">
 						<a href="<%=request.getContextPath() %>/used_content.do?no=${i.used_no }&id=${loginInfo.member_id}&page=${paging.page }">
-						<div class="used_one">
+						</c:if>
+						<div class="used_one" >
 						
 							<div class="used_up">
 								<img src="./resources/upload/used/${i.used_image }"

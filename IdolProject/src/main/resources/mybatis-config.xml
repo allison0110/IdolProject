@@ -31,9 +31,6 @@
  		<typeAlias type="com.idol.model.NoticeDTO" alias="noticeDTO"/>
  		<typeAlias type="com.idol.model.AdminDTO" alias="adminDTO"/>
  		<typeAlias type="com.idol.model.EventDTO" alias="eventDTO"/>
-		<typeAlias type="com.idol.model.EventDTO" alias="eventDTO"/>
- 		<typeAlias type="com.idol.model.EventDTO" alias="eventDTO"/>
- 		
 		<typeAlias type="com.idol.model.PageDTO" alias="pageDTO"/>
 		<typeAlias type="com.idol.model.ProductCategoryDTO" alias="pCategoryDTO"/>
 		<typeAlias type="com.idol.model.Inquiry_CategoryDTO" alias="iCategoryDTO"/>

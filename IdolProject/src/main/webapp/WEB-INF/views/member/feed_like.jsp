@@ -141,7 +141,7 @@
 					</div>			
 					<div class="music_info">
 						<span class="m_aname"><%=mdto.getMusic_aname() %></span> <br>
-						<a href="<%=request.getContextPath()%>"><span class="m_name"><%=mdto.getMusic_name() %></span></a> <br>
+						<a href="<%=request.getContextPath()%>/user_music_content.do?no=<%=mdto.getMusic_no()%>"><span class="m_name"><%=mdto.getMusic_name() %></span></a> <br>
 			<%
 					String celeb ="";
 					if(mdto.getGroup_name() == "solo"){

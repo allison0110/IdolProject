@@ -53,5 +53,17 @@ public class FollowDAOImpl implements FollowDAO {
 		return this.sqlSession.delete("delLike", param);
 	}
 
+	@Override
+	public int countFollowMusic(int no) {
+		
+		return this.sqlSession.selectOne("countFollowMusic", no);
+	}
+
+	@Override
+	public int insertFollowMusic(int no) {
+		
+		return this.sqlSession.insert("insertFollow", no);
+	}
+
 
 }

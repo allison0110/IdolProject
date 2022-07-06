@@ -60,7 +60,7 @@ public class AdminCelebController {
 		session.invalidate();
 		
 		
-		return "main";
+		return "redirect:/";
 	}
 	
 	

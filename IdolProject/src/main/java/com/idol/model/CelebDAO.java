@@ -14,5 +14,5 @@ public interface CelebDAO {
 	
 	// 경연
 	List<CelebDTO> getArtistList(String group);
-	
+	List<CelebDTO> searchCeleb(String name);
 }
