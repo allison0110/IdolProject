@@ -44,7 +44,7 @@
 	
 	.upload{
 		background-color: #EEEEEE;
-		height: 20px;
+		height: auto;
 		padding: 15px;
 	}
 	

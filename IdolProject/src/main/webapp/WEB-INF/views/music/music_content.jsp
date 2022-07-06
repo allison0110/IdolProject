@@ -128,7 +128,7 @@
 		border: 0;
 		font-size: 15px;
 		color: gray;
-		width: 500px;
+		width: 300px;
 		height: 200px;
 		overflow: hidden;
 		resize: none;
@@ -138,7 +138,7 @@
 		border: 0;
 		font-size: 15px;
 		color: gray;
-		width: 500px;
+		width: 300px;
 		min-height: 200px;
 		overflow: hidden;
 		resize: none;
@@ -217,11 +217,15 @@
 					
 					<span style="font-size:20px; weight:bold; color:green;">
 						<c:if test="${dto.group_name == 'solo' }">
-							${dto.celeb_name }
+							<c:forEach items="${artistList }" var="i">
+								<c:if test="${i.celeb_name == dto.celeb_name }">
+									<a href="<%=request.getContextPath() %>/artist_content.do?no=${i.celeb_no }">${dto.celeb_name }</a>
+								</c:if>
+							</c:forEach>
 						</c:if>
 						
 						<c:if test="${dto.group_name != 'solo' }">
-							${dto.group_name }
+							<a href="<%=request.getContextPath()%>/group_content.do?group=${dto.group_name }">${dto.group_name }</a>
 						</c:if>
 					</span>
 					<br><br>
@@ -230,8 +234,17 @@
 						<div class="info_left">
 							앨범<br><br>
 							발매일<br><br>
-							<%-- <button class="like"
-								onclick="location.href='<%=request.getContextPath()%>/music_like.do?no=${dto.music_no}'">♡</button> --%>
+							
+							<c:if test="${confirmFollow == 1 }">
+								<button class="like"
+								onclick="location.href='<%=request.getContextPath()%>/music_unlike.do?no=${dto.music_no}&type=music'">♥</button>
+							</c:if>
+							
+							<c:if test="${confirmFollow == 0 }">
+								<button class="like"
+								onclick="location.href='<%=request.getContextPath()%>/music_like.do?no=${dto.music_no}&type=music'">♡</button>
+							</c:if>
+								
 						</div>
 						
 						<div class="info_right">
