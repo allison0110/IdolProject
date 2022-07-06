@@ -339,7 +339,7 @@ margin-bottom: 40px;
 								</c:if>
 								</div>
 								<span class="member_nickname">
-									<a href="<%=request.getContextPath()%>/myfeed.do?no=${bdto.member_no}">${bdto.member_nickname }</a>
+									<a href="<%=request.getContextPath()%>/myfeed.do?id=${bdto.member_id}">${bdto.member_nickname }</a>
 								</span>
 								
 								<c:if test="${bdto.score <= 0 }">
