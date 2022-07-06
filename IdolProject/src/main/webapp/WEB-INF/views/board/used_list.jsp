@@ -85,6 +85,7 @@
 	.used_member{
 		display: flex;
 		flex-direction: row;
+		height: 30px;
 	}
 	.used_member_image {
 		flex: 1;
@@ -92,8 +93,8 @@
 		overflow: hidden;
 	}
 	.used_member_id{
-		flex: 9;
-		padding: 0 10px;
+		flex: 6;
+		padding: 5px 10px;
 	}
 	
 	.used_comment_hit{
