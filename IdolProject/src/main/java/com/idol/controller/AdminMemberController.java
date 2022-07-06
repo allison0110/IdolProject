@@ -475,6 +475,20 @@ public class AdminMemberController {
 	}
 	
 	
+	@RequestMapping("admin_killing_member.do")
+	public String killMember(Model model) {
+		
+		List<MemberDTO> list = this.dao.getKilledMemberList();
+		
+		model.addAttribute("people", list);
+		
+		return "admin/admin_killingField";
+	}
+	
+	
+	
+	
+	
 	
 	
 	

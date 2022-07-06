@@ -164,7 +164,7 @@
      		<c:if test="${dto.image_visible == 1 }">
      	     <div class="swiper-slide" id="main_img1">
         	    <div class="swiper-slide-img-wrap" >
-        	    <a href="<%=request.getContextPath()%>/${dto.getImage_link()}">
+        	   	<a href="<%=request.getContextPath() %>/${dto.image_link}">
             	  <img
                 	src="./resources/upload/images/${dto.getImage_path() }"/></a>
             	</div>
@@ -180,12 +180,12 @@
     </main>
 
 		
-	<!-- 상품swiper -->
+	<!-- ?�품swiper -->
 	<div class="main_section02">
 		<div class="item-sec">
 			<h1 align="center" id="mainH1">New Items</h1>
 			<div id="view_all">
-   				<a href="<%=request.getContextPath()%>/product_list.do?cno=100"><span>전체보기</span></a>
+   				<a href="<%=request.getContextPath()%>/product_list.do?cno=100"><span>?�체보기</span></a>
    			</div>
   	 		<div class="swiper productSwiper">
      			<div class="swiper-wrapper">
@@ -201,7 +201,7 @@
 	            	  						<a href="<%=request.getContextPath()%>/product_list.do?id=${pdto.product_no}">
 	            	  							<span class="card_title">${pdto.product_name }</span>
 	            	  						</a>
-	            	  						<span class="card_price">₩ ${pdto.product_price }
+	            	  						<span class="card_price">?? ${pdto.product_price }
 				            	  				<a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
 	            	  						</span>
 	            	  					</div>
@@ -218,7 +218,7 @@
    		</div>
 	</div>
 		
-	<!-- 이슈swiper -->
+	<!-- ?�슈swiper -->
 	<c:set var="paging" value="${Paging }"/>
 	<c:set var="cid" value="${cid }"/>
 	<c:set var="bid" value="${bid }"/>
@@ -278,7 +278,7 @@
 		
   <script>
  /*  function loginAlert() {
-      alert("사용 권한이 없습니다. 로그인 해주세요");
+      alert("?�용 권한?? ?�습?�다. 로그?? ?�주?�요");
   }
  */  
     const swiper = new Swiper("#mainSwiper", {

@@ -6,6 +6,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="dto" value="${feedInfo.get('mInfo') }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -224,6 +225,13 @@
 	.cancel_btn:hover{
 		background-color:#f7f5f5;
 	}
+	
+/*  	.feed_headImag_box {  */
+/* 		background-image: url('./resources/upload/member_image/${dto.getMember_no() }/${dto.getMember_cover() }');  */
+/*  		width: 100%;  */
+/*  		height: 100%;  */
+/* 		background-size: cover;  */
+/*  	}  */
 </style>
 <script type="text/javascript">
 
@@ -247,6 +255,8 @@
 			<div class="feed_headImg">
 				<c:if test="${!empty dto.getMember_cover() }">
 					<img alt="" src="./resources/upload/member_image/${dto.getMember_no() }/${dto.getMember_cover() }">
+<!-- 					<div class="feed_headImag_box"> -->
+<!-- 					</div> -->
 				</c:if>
 				<c:if test="${empty dto.getMember_cover() }">
 					<i class="bi bi-card-image" style="font-size: 5em;text-align: center;margin-left: 25px;"></i>

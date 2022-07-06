@@ -12,7 +12,7 @@
 		</selectKey>
 		insert into used_comment values(#{comment_no} + 1, #{comment_writer},
 				#{comment_cont}, sysdate, '',
-				#{comment_no} + 1, 0, 0, #{used_nofk}, #{category_unofk})
+				#{comment_no} + 1, 0, 0, #{used_nofk})
 	</insert>
 	
 	<select id="used_comment_list" parameterType="int" resultType="usedCommDTO">
