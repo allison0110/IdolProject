@@ -120,7 +120,7 @@ public class IdolController {
 		String path = "C:\\Users\\sjasj\\Documents\\IDOL\\IdolProject\\src\\main\\webapp\\resources\\upload\\used";
 		Iterator<String> iterator = mRequest.getFileNames();
 		String uploadFileName = iterator.next();
-		
+		long filesize = 0;
 		List<MultipartFile> fileList =  mRequest.getFiles(uploadFileName);
 		
 		String dbFileName = "";
@@ -139,6 +139,11 @@ public class IdolController {
 				
 		}
 		//dto에 파일이름 저장하기 
+		
+		if(filesize == 0) {
+			dbFileName ="";
+		}
+		
 		dto.setUsed_image(dbFileName);
 		
 		int check = this.usedDAO.insertUsed(dto);
@@ -174,15 +179,17 @@ public class IdolController {
 		//이미지 분할하여 저장
 		List<String> images = new ArrayList<String>();
 		
-		StringTokenizer st = new StringTokenizer(dto.getUsed_image(), "|");
-		
-		while(st.hasMoreTokens()) {
+		if(dto.getUsed_image() != null) {
+			StringTokenizer st = new StringTokenizer(dto.getUsed_image(), "|");
 			
-			String str = st.nextToken();
-			if(str != null) {
-			images.add(str);
+			while(st.hasMoreTokens()) {
+				
+				String str = st.nextToken();
+				if(str != null) {
+				images.add(str);
+				}
+				
 			}
-			
 		}
 		
 		// 게시글 댓글 리스트 조회
