@@ -204,7 +204,7 @@
 						
 							<div class="used_up">
 								<img src="./resources/upload/used/${i.used_image }"
-								width="100%" height="100%">
+								width="100%" height="250px">
 							</div>
 							
 							<div class="used_down">
