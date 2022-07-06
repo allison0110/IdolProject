@@ -60,9 +60,21 @@ public class FollowDAOImpl implements FollowDAO {
 	}
 
 	@Override
-	public int insertFollowMusic(int no) {
+	public int insertFollowMusic(HashMap<String, Object> param) {
 		
-		return this.sqlSession.insert("insertFollow", no);
+		return this.sqlSession.insert("insertFollowMusic", param);
+	}
+
+	@Override
+	public List<FollowDTO> followerListMusic(int no) {
+		
+		return this.sqlSession.selectList("followerListMusic", no);
+	}
+
+	@Override
+	public int unFollowMusic(HashMap<String, Object> param) {
+		
+		return this.sqlSession.delete("unFollowMusic", param);
 	}
 
 

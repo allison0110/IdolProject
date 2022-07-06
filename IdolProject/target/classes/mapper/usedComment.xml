@@ -26,4 +26,7 @@
 			where comment_no = #{no}
 	</update>
 	
+	<select id="allComment" resultType="usedCommDTO">
+			select * from used_comment
+	</select>
 </mapper>
