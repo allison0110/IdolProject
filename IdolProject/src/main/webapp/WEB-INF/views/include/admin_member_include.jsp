@@ -79,11 +79,11 @@
 
 	<div class="celeb_link_tag">
 	
-		<div class="killing_btn">
-			<a class="killing" href="<%=request.getContextPath()%>/admin_killing_member.do">
-				KILLING-FIELD
-			</a>
-		</div>
+<!-- 		<div class="killing_btn"> -->
+<%-- 			<a class="killing" href="<%=request.getContextPath()%>/admin_killing_member.do"> --%>
+<!-- 				KILLING-FIELD -->
+<!-- 			</a> -->
+<!-- 		</div> -->
 		
 		<div class="insert_btn">
 			<a href="<%=request.getContextPath()%>/admin_member_contact.do">
