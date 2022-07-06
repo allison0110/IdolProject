@@ -185,8 +185,15 @@ margin-bottom: 40px;
 					<ul>
 						<c:forEach items="${milist }" var="midto">
 							<li class="overview_item">
+							
+							
 								<div class="overview_img_wrap">
+								<c:if test="${!empty midto.member_image }">
 									<img src="./resources/upload/member_image/${midto.member_no }/${midto.member_image }">
+								</c:if>
+								<c:if test="${empty midto.member_image }">
+									<img src="./resources/upload/celeb/프사없음.jpeg">
+								</c:if>
 								</div>
 								<span class="member_nickname">
 									<a href="<%=request.getContextPath()%>/myfeed.do?id=${midto.member_id}">${midto.member_nickname }</a>
@@ -208,7 +215,12 @@ margin-bottom: 40px;
 						<c:forEach items="${plist }" var="pdto">
 							<li class="overview_item">
 								<div class="overview_img_wrap">
-								<img src="./resources/upload/member_image/${pdto.member_no }/${pdto.member_image }">
+								<c:if test="${!empty pdto.member_image }">
+									<img src="./resources/upload/member_image/${pdto.member_no }/${pdto.member_image }">
+								</c:if>
+								<c:if test="${empty pdto.member_image }">
+									<img src="./resources/upload/celeb/프사없음.jpeg">
+								</c:if>
 								</div>
 								<span class="member_nickname">
 									<a href="<%=request.getContextPath()%>/myfeed.do?id=${pdto.member_id}">${pdto.member_nickname }</a>
@@ -230,7 +242,12 @@ margin-bottom: 40px;
 						<c:forEach items="${melist }" var="medto">
 							<li class="overview_item">
 								<div class="overview_img_wrap">
-								<img src="./resources/upload/member_image/${medto.member_no }/${medto.member_image }">
+								<c:if test="${!empty medto.member_image }">
+									<img src="./resources/upload/member_image/${medto.member_no }/${medto.member_image }">
+								</c:if>
+								<c:if test="${empty medto.member_image }">
+									<img src="./resources/upload/celeb/프사없음.jpeg">
+								</c:if>
 								</div>
 								<span class="member_nickname">
 									<a href="<%=request.getContextPath()%>/myfeed.do?id=${medto.member_id}">${medto.member_nickname }</a>
@@ -254,7 +271,12 @@ margin-bottom: 40px;
 						<c:forEach items="${relist }" var="rdto">
 							<li class="overview_item">
 								<div class="overview_img_wrap">
-								<img src="./resources/upload/member_image/${rdto.member_no }/${rdto.member_image }">
+								<c:if test="${!empty rdto.member_image }">
+									<img src="./resources/upload/member_image/${rdto.member_no }/${rdto.member_image }">
+								</c:if>
+								<c:if test="${empty rdto.member_image }">
+									<img src="./resources/upload/celeb/프사없음.jpeg">
+								</c:if>
 								</div>
 								<span class="member_nickname">
 									<a href="<%=request.getContextPath()%>/myfeed.do?id=${rdto.member_id}">${rdto.member_nickname }</a>
@@ -276,7 +298,12 @@ margin-bottom: 40px;
 						<c:forEach items="${colist }" var="cdto">
 							<li class="overview_item">
 								<div class="overview_img_wrap">
-								<img src="./resources/upload/member_image/${cdto.member_no }/${cdto.member_image }">
+								<c:if test="${!empty cdto.member_image }">
+									<img src="./resources/upload/member_image/${cdto.member_no }/${cdto.member_image }">
+								</c:if>
+								<c:if test="${empty cdto.member_image }">
+									<img src="./resources/upload/celeb/프사없음.jpeg">
+								</c:if>
 								</div>
 								<span class="member_nickname">
 									<a href="<%=request.getContextPath()%>/myfeed.do?id=${cdto.member_id}">${cdto.member_nickname }</a>
@@ -304,7 +331,12 @@ margin-bottom: 40px;
 						<c:if test="${biList.size() > 0 }">
 							<li class="overview_item">
 								<div class="overview_img_wrap">
-								<img src="./resources/upload/member_image/${bdto.member_no }/${bdto.member_image }">
+								<c:if test="${!empty bdto.member_image }">
+									<img src="./resources/upload/member_image/${bdto.member_no }/${bdto.member_image }">
+								</c:if>
+								<c:if test="${empty bdto.member_image }">
+									<img src="./resources/upload/celeb/프사없음.jpeg">
+								</c:if>
 								</div>
 								<span class="member_nickname">
 									<a href="<%=request.getContextPath()%>/myfeed.do?no=${bdto.member_no}">${bdto.member_nickname }</a>

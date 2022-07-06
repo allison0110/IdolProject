@@ -119,7 +119,12 @@ margin-bottom: 24px;
 					<ul>
 						<li>
 							<div class="rankContent_row_image">
-								<img src="./resources/upload/member_image/${dto.member_no }/${dto.member_image }">
+							<c:if test="${!empty dto.member_image }">
+									<img src="./resources/upload/member_image/${dto.member_no }/${dto.member_image }">
+								</c:if>
+								<c:if test="${empty dto.member_image }">
+									<img src="./resources/upload/celeb/프사없음.jpeg">
+								</c:if>
 							</div>
 							<div class="rankContent_wrap">
 								<div class="rankContent_row_header">

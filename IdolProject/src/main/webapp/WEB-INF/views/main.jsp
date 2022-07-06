@@ -180,12 +180,12 @@
     </main>
 
 		
-	<!-- ?�품swiper -->
+	<!-- product swiper -->
 	<div class="main_section02">
 		<div class="item-sec">
 			<h1 align="center" id="mainH1">New Items</h1>
 			<div id="view_all">
-   				<a href="<%=request.getContextPath()%>/product_list.do?cno=100"><span>?�체보기</span></a>
+   				<a href="<%=request.getContextPath()%>/product_list.do?cno=100"><span>전체보기</span></a>
    			</div>
   	 		<div class="swiper productSwiper">
      			<div class="swiper-wrapper">
@@ -218,7 +218,7 @@
    		</div>
 	</div>
 		
-	<!-- ?�슈swiper -->
+	<!-- issue swiper -->
 	<c:set var="paging" value="${Paging }"/>
 	<c:set var="cid" value="${cid }"/>
 	<c:set var="bid" value="${bid }"/>
@@ -277,10 +277,7 @@
 	</div>
 		
   <script>
- /*  function loginAlert() {
-      alert("?�용 권한?? ?�습?�다. 로그?? ?�주?�요");
-  }
- */  
+
     const swiper = new Swiper("#mainSwiper", {
    	  slidesPerView: 1,
       spaceBetween: 20,
