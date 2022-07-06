@@ -164,7 +164,7 @@
      		<c:if test="${dto.image_visible == 1 }">
      	     <div class="swiper-slide" id="main_img1">
         	    <div class="swiper-slide-img-wrap" >
-        	    <a href="${dto.getImage_link()}">
+        	    <a href="<%=request.getContextPath()%>/${dto.getImage_link()}">
             	  <img
                 	src="./resources/upload/images/${dto.getImage_path() }"/></a>
             	</div>

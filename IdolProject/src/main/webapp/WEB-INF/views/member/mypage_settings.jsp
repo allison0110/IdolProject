@@ -295,10 +295,10 @@
 			</div><!-- class="celeb_container" end -->
 			</c:if>
 			
-			<%
+			<%-- <%
 				String[] mem_fav = request.getParameterValues("mem_fav");
 			
-			%>
+			%> --%>
 			
 			<script type="text/javascript">
 			

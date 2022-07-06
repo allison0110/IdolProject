@@ -38,5 +38,15 @@
             m.group_name, m.celeb_name
     ) gm ON m.music_no = gm.mno
   </select>
+  
+  <select id="albumList_group" resultType="musicDTO" parameterType="String">
+  	select * from music where music_no in (select min(music_no) from music 
+  		where group_name=#{group_name} group by music_aname)
+  </select>
+  
+   <select id="albumList_solo" resultType="musicDTO" parameterType="String">
+  	select * from music where music_no in (select min(music_no) from music 
+  		where celeb_name=#{celeb_name} group by music_aname)
+  </select>
 	
   </mapper>

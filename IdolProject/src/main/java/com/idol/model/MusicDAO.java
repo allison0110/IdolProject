@@ -14,4 +14,8 @@ public interface MusicDAO {
 
 	List<MusicDTO> getAllList();
 
+	List<MusicDTO> getAlbumList_group(String group_name);
+
+	List<MusicDTO> getAlbumList_solo(String celeb_name);
+
 }

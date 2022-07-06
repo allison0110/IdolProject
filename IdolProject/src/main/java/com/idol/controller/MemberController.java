@@ -236,7 +236,7 @@ public class MemberController {
 			
 			out.println("<script>");
 			out.println("alert('회원가입 완료되었습니다')");
-			out.println("location.href='"+request.getContentType()+"/'"); //회원가입완료 후 메인화면으로 이동하기
+			out.println("location.href='"+request.getContextPath()+"/'"); //회원가입완료 후 메인화면으로 이동하기
 			out.println("</script>");
 		}else {
 			out.println("<script>");
@@ -435,7 +435,7 @@ public class MemberController {
 		
 		session.invalidate();
 		
-		return "main";
+		return "redirect:/";
 	}
 	
 	//마이페이지 - 회원정보 관리 폼으로 이동
