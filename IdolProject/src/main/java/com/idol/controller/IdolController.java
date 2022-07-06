@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.idol.model.MemberDAO;
 import com.idol.model.MemberDTO;
 import com.idol.model.PageDTO;
 import com.idol.model.UsedCommentDAO;
@@ -35,6 +36,8 @@ public class IdolController {
 	private UsedDAO usedDAO;
 	@Autowired
 	private UsedCommentDAO usedCommentDAO;
+	@Autowired
+	private MemberDAO memberDAO;
 	
 	private final int rowsize = 20;     // 한 페이지당 보여질 게시물의 수
 	private int totalRecord = 0;       // DB 상의 전체 게시물의 수
@@ -77,9 +80,14 @@ public class IdolController {
 			}
 		}
 		
+		List<MemberDTO> mdtoList = this.memberDAO.getMemeberList();
+
+		List<UsedCommDTO> commentList = this.usedCommentDAO.getAllCommentList();
 		
 		model.addAttribute("List", list);
 		model.addAttribute("Paging", dto);
+		model.addAttribute("mdtoList", mdtoList);
+		model.addAttribute("commentList", commentList);
 		
 		return "board/used_list";
 	}
@@ -108,7 +116,8 @@ public class IdolController {
 		// 임시 //
 //		String id = mRequest.getParameter("id").trim();
 		// 임시 //
-		String path = "C:\\Users\\ayss3\\Documents\\FinalProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\used";
+		
+		String path = "C:\\Users\\sjasj\\Documents\\IDOL\\IdolProject\\src\\main\\webapp\\resources\\upload\\used";
 		Iterator<String> iterator = mRequest.getFileNames();
 		String uploadFileName = iterator.next();
 		
@@ -179,11 +188,17 @@ public class IdolController {
 		// 게시글 댓글 리스트 조회
 		List<UsedCommDTO> comment_list = this.usedCommentDAO.getUsedCommentList(no);
 		
+		List<MemberDTO> mdtoList = this.memberDAO.getMemeberList();
+		
+		List<UsedCommDTO> allCommentList = this.usedCommentDAO.getAllCommentList();
+		
 		model.addAttribute("dto", dto);
 		model.addAttribute("comment_list", comment_list);
+		model.addAttribute("allCommentList", allCommentList);
 		model.addAttribute("id", id);
 		model.addAttribute("page", nowPage);
 		model.addAttribute("Images", images);
+		model.addAttribute("mdtoList", mdtoList);
 		
 		return "board/used_content";
 	}
@@ -217,6 +232,7 @@ public class IdolController {
 	@RequestMapping("used_comment_write.do")
 	public void used_comment_write(UsedCommDTO dto,
 			@RequestParam("page") int nowPage,
+			HttpSession session,
 			HttpServletResponse response) throws IOException {
 		
 		response.setContentType("text/html; charset=UTF-8");

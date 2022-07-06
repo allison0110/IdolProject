@@ -78,7 +78,27 @@
 	
 	.used_down {
 		flex: 1;
+		padding: 10px;
 	
+	}
+	
+	.used_member{
+		display: flex;
+		flex-direction: row;
+	}
+	.used_member_image {
+		flex: 1;
+		border-radius: 70%;
+		overflow: hidden;
+	}
+	.used_member_id{
+		flex: 9;
+		padding: 0 10px;
+	}
+	
+	.used_comment_hit{
+		text-align: right;
+		color: gray;
 	}
 	
 	button.gray{
@@ -104,7 +124,7 @@
 	}
 	
 	input.keyword {
-		height: 23px
+		height: 30px;
 	}
 	
 </style>
@@ -188,19 +208,17 @@
 							</div>
 							
 							<div class="used_down">
-								<br>
-								<c:if test="${i.category_unofk == 1}">
-									<c:set var="category" value="판매"/>
-								</c:if>
-								<c:if test="${i.category_unofk == 2}">
-									<c:set var="category" value="구매"/>
-								</c:if>
-								<c:if test="${i.category_unofk == 3}">
-									<c:set var="category" value="교환"/>
-								</c:if>
-								<c:if test="${i.used_saltatus == 0}">
-									<span style="color: blue;">판매,  ${category }</span>
-									
+								
+								<c:if test="${i.used_saltatus == 0 }">
+									<c:if test="${i.category_unofk == 1}">
+										<span style="color: blue;">판매,</span>
+									</c:if>
+									<c:if test="${i.category_unofk == 2}">
+										<span style="color: blue;">구매,</span>
+									</c:if>
+									<c:if test="${i.category_unofk == 3}">
+										<span style="color: blue;">교환,</span>
+									</c:if>
 								</c:if>
 								<c:if test="${i.used_saltatus == 1}">
 									<span style="color: blue;">완료,</span>
@@ -217,7 +235,44 @@
 								<br>
 								판매 가격 : <fmt:formatNumber value="${i.used_price }"/>원
 								<br><br>
-								${i.used_userid }
+								
+								<div class="used_member">
+									<div class="used_member_image">
+										<c:forEach items="${mdtoList }" var="j">
+											<c:if test="${j.member_id == i.used_userid }">
+												<c:if test="${j.member_image != null }">
+													<img src="./resources/upload/member_image/${j.member_no }/${j.member_image }"
+														width="100%" height="100%">
+												</c:if>
+												<c:if test="${j.member_image == null }">
+													<img src="resources\\upload\\used/프사없음.jpeg"
+														width="100%" height="100%">
+												</c:if>
+											</c:if>
+										</c:forEach>
+									</div>
+									
+									<div class="used_member_id">
+										${i.used_userid }
+									</div>
+								</div>
+								
+								<div class="used_comment_hit">
+									<img src="./resources/upload/used/comment_icon.png"
+													width="12" height="12">
+													
+									<c:set var="a" value="0" />
+									<c:forEach items="${commentList }" var="j">
+										<c:if test="${j.used_nofk == i.used_no }">
+											<c:set var="a" value="${a+1}" />
+										</c:if>
+									</c:forEach>
+									${a }
+									
+									<img src="./resources/upload/used/hit_icon.png"
+													width="15" height="12">
+									${i.used_hit }
+								</div>
 							</div>
 							
 						</div>

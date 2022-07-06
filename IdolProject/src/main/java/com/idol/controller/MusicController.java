@@ -114,11 +114,22 @@ public class MusicController {
 	
 	@RequestMapping("user_music_content.do")
 	public String music_content(
-			@RequestParam("no") int no, Model model) {
+			@RequestParam("no") int no,
+			HttpSession session, Model model) {
 		
 		MusicDTO dto = this.musicDAO.getMusicCont(no);
 		
 		int countFollow = this.followDAO.countFollowMusic(no);
+		List<FollowDTO> followerList = this.followDAO.followerListMusic(no);
+		MemberDTO mdto = (MemberDTO)session.getAttribute("loginInfo");
+		int confirmFollow = 0;
+		if(mdto != null) {
+			for(int i=0; i<followerList.size();i++) {
+				if(followerList.get(i).getFollower_no() == mdto.getMember_no()) {
+					confirmFollow = 1;
+				}
+			}
+		}
 		
 		String composer = dto.getMusic_composer();
 		StringTokenizer st = new StringTokenizer(composer, ",");
@@ -151,6 +162,7 @@ public class MusicController {
 		model.addAttribute("lyricstList", lyricstList);
 		model.addAttribute("artistList", artistList);
 		model.addAttribute("countFollow", countFollow);
+		model.addAttribute("confirmFollow", confirmFollow);
 		
 		return "music/music_content";
 	}
@@ -268,21 +280,73 @@ public class MusicController {
 	@RequestMapping("music_like.do")
 	public void music_like(@RequestParam("no") int no,
 			HttpSession session,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws IOException {
 		
-//		MemberDTO login = (MemberDTO)session.getAttribute("login_id");
-//		
-//		HashMap<String, Object> param = new HashMap<String, Object>();
-//		
-//		param.put("login_no", login.getMember_no());
-//		param.put("fno", fno);
-//		param.put("type", type);
-//		
-//		maps.put("login_no", (int)login.getMember_no());
-//		maps.put("login_id", (String)login.getMember_id());
-//		maps.put("id_no", (int)id.getMember_no());
-//		maps.put("id_id", (String)id.getMember_id());
-//		
-//		int check = this.followDAO.insertFollowMusic(param);
+		MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
+		MusicDTO mdto = this.musicDAO.getMusicCont(no);
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		if(dto == null) {
+			out.println("<script>");
+			out.println("alert('먼저 로그인을 해주세요.')");
+			out.println("history.back()");
+			out.println("</script>");
+		}else {
+			HashMap<String, Object> param = new HashMap<String, Object>();
+			
+			param.put("follow_no", no);
+			param.put("follow_name", mdto.getGroup_name());
+			param.put("follower_no", dto.getMember_no());
+			param.put("follower_name", dto.getMember_id());
+			
+			int check = this.followDAO.insertFollowMusic(param);
+			
+			if(check > 0) {
+				out.println("<script>");
+				out.println("alert('관심곡으로 등록하였습니다.')");
+				out.println("location.href='user_music_content.do?no=" + no + "'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('관심곡 등록에 실패하였습니다.')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+		}
+		
+	}
+	
+	@RequestMapping("music_unlike.do")
+	public void music_unlike(@RequestParam("no") int no,
+			HttpSession session,
+			HttpServletResponse response) throws IOException {
+		
+		MemberDTO dto = (MemberDTO)session.getAttribute("loginInfo");
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		
+		param.put("follow_no", no);
+		param.put("follower_no", dto.getMember_no());
+		
+		int check = this.followDAO.unFollowMusic(param);
+		
+		if(check > 0) {
+			out.println("<script>");
+			out.println("alert('관심곡을 취소하였습니다.')");
+			out.println("location.href='user_music_content.do?no=" + no + "'");
+			out.println("</script>");
+		}else {
+			out.println("<script>");
+			out.println("alert('관심곡 취소에 실패하였습니다.')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+		
 	}
 }

@@ -10,5 +10,7 @@ public interface UsedCommentDAO {
 
 	public int usedCommentDelete(int no);
 
+	public List<UsedCommDTO> getAllCommentList();
+
 	
 }

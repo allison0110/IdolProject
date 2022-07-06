@@ -45,4 +45,23 @@
  		select count(*) from follow_follower where follow_no= #{no} and f_type='MUSIC'
  	</select>
  	
+ 	<!-- 팔로우기능(곡) -->
+ 	<insert id="insertFollowMusic" parameterType="HashMap">
+ 		 <selectKey resultType="int" keyProperty="f_no"  order="BEFORE">
+			select case when max(f_no) is null then 1 else max(f_no)+1 end from follow_follower
+		</selectKey>
+		
+		insert into follow_follower values(#{f_no}, 'MUSIC', #{follow_no}, #{follow_name}, #{follower_no}, #{follower_name})
+ 	</insert>
+ 	
+ 	<!-- 곡 팔로워 리스트 -->
+ 	<select id="followerListMusic" parameterType="int" resultType="followDTO">
+ 		select * from follow_follower where follow_no = #{no} and f_type='MUSIC'
+ 	</select>
+ 	
+ 	<!-- 곡 언팔로우 -->
+ 	<delete id="unFollowMusic" parameterType="HashMap">
+ 		delete from follow_follower where follow_no = #{follow_no} and follower_no = #{follower_no} and f_type = 'MUSIC'
+ 	</delete>
+ 	
  </mapper>
