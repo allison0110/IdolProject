@@ -30,4 +30,12 @@ public class UsedCommentDAOImpl implements UsedCommentDAO{
 		return this.sqlSession.update("used_comment_delete", no);
 	}
 
+	@Override
+	public List<UsedCommDTO> getAllCommentList() {
+		
+		return this.sqlSession.selectList("allComment");
+	}
+
+	
+
 }

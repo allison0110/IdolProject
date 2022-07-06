@@ -77,7 +77,7 @@ public interface AdminMemberDAO {
 	public List<InquiryDTO> getInquiryOkList();
 	
 	
-	
+	public List<MemberDTO> getKilledMemberList();
 	
 	
 }

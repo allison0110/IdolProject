@@ -59,6 +59,20 @@
 		flex-direction: row;
 	}
 	
+	.used_comment_icon{
+		width: auto;
+	}
+	.icon{
+		width: 30px;
+		height: 30px;
+		border-radius: 70%;
+		overflow: hidden;
+	}
+	
+	.used_comment{
+		flex: 30;
+	}
+	
 	.used_left{
 		flex: 1;
 		text-align: left;
@@ -86,7 +100,7 @@
 	
 	.used_comment_bottom{
 		background-color: #EEEEEE;
-		height: 20px;
+		height: 30px;
 	}
 	
 	.used_comment_write{
@@ -161,6 +175,7 @@
 		border: solid 1px red;
 		border-radius: 5px;
 		font-size: 8px;
+		padding: 0 0 0 2px;
 	}
 	
 </style>
@@ -197,9 +212,36 @@
 					<br>
 					<h2>${dto.used_title }</h2>
 					<br>
-					<b>${dto.used_userid }</b>&nbsp;&nbsp;조회수&nbsp;<b>${dto.used_hit }</b>&nbsp;&nbsp;
-					댓글&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${dto.used_date }
 					
+					<div class="used_flex_row">
+						<div style="width: 30px; height: 30px; border-radius: 70%; overflow: hidden;">
+							
+							<c:forEach items="${mdtoList }" var="j">
+								<c:if test="${j.member_id == dto.used_userid }">
+									<c:if test="${j.member_image != null }">
+										<img src="./resources/upload/member_image/${j.member_no }/${j.member_image }"
+											width="100%" height="100%">
+									</c:if>
+									<c:if test="${j.member_image == null }">
+										<img src="resources\\upload\\used/프사없음.jpeg"
+											width="100%" height="100%">
+									</c:if>
+								</c:if>
+							</c:forEach>
+						</div>
+						<div style="padding: 10px;">
+							<b>${dto.used_userid }</b>&nbsp;&nbsp;조회수&nbsp;<b>${dto.used_hit }</b>&nbsp;&nbsp;
+							댓글&nbsp;&nbsp;
+							<c:set var="a" value="0" />
+							<c:forEach items="${allCommentList }" var="j">
+								<c:if test="${j.used_nofk == dto.used_no }">
+									<c:set var="a" value="${a+1}" />
+								</c:if>
+							</c:forEach>
+							${a }&nbsp;&nbsp;&nbsp;
+							${dto.used_date }
+						</div>
+					</div>
 					
 				</div>
 				
@@ -208,7 +250,7 @@
 					<table border="1" cellspacing="0" width="100%">
 				    	<tr>
 				   			<th>제품명</th>
-				    		<td>${used_product}</td>
+				    		<td>${dto.used_product}</td>
 				    	</tr>
 				    	
 				    	<tr>
@@ -262,40 +304,66 @@
 			
 			<div class="used_flex_wrapper">
 				<div class="used_comment_head">
-					댓글
+					댓글&nbsp;
+					<c:set var="a" value="0" />
+					<c:forEach items="${allCommentList }" var="i">
+						<c:if test="${i.used_nofk == dto.used_no }">
+							<c:set var="a" value="${a+1 }" />
+						</c:if>
+					</c:forEach>
+					<span style="color: green;">${a }</span>
 				</div>
 				
 				<div class="used_comment">
 				
 					<c:forEach items="${comment_list }" var="i">
 					
-						<!-- 유저 아이콘 div -->
 						<div class="used_comment_flex_row">
-				
-							<div class="used_left">
-								${i.comment_writer } &nbsp;&nbsp; <span style="color:lightgray">${i.comment_date.substring(0,16) }</span>
-								&nbsp;&nbsp; <c:if test="${i.comment_writer == dto.used_userid }"><input class="red" type="text" value="글 작성자"></c:if>
-								
+							<div class="used_comment_icon">
+								<div class="icon">
+									<c:forEach items="${mdtoList }" var="j">
+										<c:if test="${j.member_id == i.comment_writer }">
+											<c:if test="${j.member_image != null }">
+												<img src="./resources/upload/member_image/${j.member_no }/${j.member_image }"
+													width="100%" height="100%">
+											</c:if>
+											<c:if test="${j.member_image == null }">
+												<img src="resources\\upload\\used/프사없음.jpeg"
+													width="100%" height="100%">
+											</c:if>
+										</c:if>
+									</c:forEach>
+								</div>
 							</div>
-							
-							<div class="used_right">
-								<a href="<%=request.getContextPath() %>/used_comment_comment.do?no=${i.comment_no }&id=${id}&page=${page }">답글</a>
-								&nbsp;&nbsp;
-								
-								<c:if test="${i.comment_writer == id }">
-									<a href="<%=request.getContextPath() %>/used_comment_modify.do?no=${i.comment_no }&page=${page }">수정</a>
-									&nbsp;&nbsp;
+							<div class="used_comment">
+								<div class="used_comment_flex_row">
+									<div class="used_left">
+										${i.comment_writer } &nbsp;&nbsp; <span style="color:lightgray">${i.comment_date.substring(0,16) }</span>
+										&nbsp;&nbsp; <c:if test="${i.comment_writer == dto.used_userid }"><input class="red" type="text" value="글 작성자"></c:if>
+										
+									</div>
 									
-									<a onclick="if(confirm('정말로 삭제하시겠습니까?')){
-										location.href='<%=request.getContextPath() %>/used_comment_delete.do?no=${i.comment_no }&nofk=${i.used_nofk }&id=${id}&page=${page }'}
-										else{ return; }">삭제</a>
-								</c:if>
+									<div class="used_right">
+										<a href="<%=request.getContextPath() %>/used_comment_comment.do?no=${i.comment_no }&id=${id}&page=${page }">답글</a>
+										&nbsp;&nbsp;
+										
+										<c:if test="${i.comment_writer == id }">
+											<a href="<%=request.getContextPath() %>/used_comment_modify.do?no=${i.comment_no }&page=${page }">수정</a>
+											&nbsp;&nbsp;
+											
+											<a onclick="if(confirm('정말로 삭제하시겠습니까?')){
+												location.href='<%=request.getContextPath() %>/used_comment_delete.do?no=${i.comment_no }&nofk=${i.used_nofk }&id=${id}&page=${page }'}
+												else{ return; }">삭제</a>
+										</c:if>
+									</div>
+									
+								</div>
+								
+								<div class="used_comment_cont">
+									${i.comment_cont }
+								</div>
+								
 							</div>
-							
-						</div>
-						
-						<div class="used_comment_cont">
-							${i.comment_cont }
 						</div>
 						
 						<hr color="#EEEEEE">
@@ -308,7 +376,7 @@
 			</div>
 			
 			<form class="used_flex_wrapper" method="post" action="<%=request.getContextPath() %>/used_comment_write.do">
-				<input type="hidden" name="comment_writer" value="${id }">
+				<input type="hidden" name="comment_writer" value="${login_id }">
 				<input type="hidden" name="used_nofk" value="${dto.used_no }">
 				<input type="hidden" name="category_unofk" value="${dto.category_unofk }">
 				<input type="hidden" name="page" value="${page}">
