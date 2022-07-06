@@ -168,41 +168,25 @@
 						CELEB
 					</a>
 				</div>
-				<!--<div>
-					<a href="<%=request.getContextPath() %>/admin_celeb_insert.do">
-						INSERT
-					</a>
-				</div>-->
+				
 				<div>
 					<a href="<%=request.getContextPath() %>/admin_group_list.do">
 						GROUP
 					</a>
 				</div>
-				<!-- <div>
-					<a href="<%=request.getContextPath() %>/admin_group_insert.do">
-						INSERT
-					</a> 
-				</div>	-->
+				
 				<div>
 					<a href="<%=request.getContextPath() %>/admin_music_list.do">
 						MUSIC
 					</a>
 				</div>
-				<!--<div>
-					<a href="<%=request.getContextPath() %>/admin_music_insert.do">
-						INSERT
-					</a>
-				</div>	-->			
+						
 				<div>
 					<a href="<%=request.getContextPath() %>/admin_images_list.do">
 						IMAGES
 					</a>
 				</div>
-				<!--<div>
-					<a href="<%=request.getContextPath() %>/admin_image_insert.do">
-						INSERT 
-					</a>
-				</div>-->	
+					
 				<div>
 					<a href="<%=request.getContextPath() %>/admin_notice_list.do">
 						NOTICE
@@ -219,9 +203,6 @@
 						MEMBER						
 					</a>
 				</div>
-				<!--<div>
-					<a>INSERT</a>
-				</div>-->	
 				
 				<div class="admin_id_session" style="cursor: pointer">
 					WELLCOME ${admin_id } :D
