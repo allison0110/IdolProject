@@ -86,6 +86,7 @@ color: #7082A7
 .overview_blocks{
 display: flex;
 flex-wrap: wrap;
+margin-bottom: 40px;
 
 }
 
@@ -141,13 +142,23 @@ flex-wrap: wrap;
 	text-align: center;
 	font-size: 14px;
 	padding: 4px 0;
-	background-color: #ccc;
-	color: #242424;
+	background-color: #E1F6FF;
+ 	color: #0984C1;
+ 	-webkit-border-radius: 3px;
+ 	cursor:pointer;
+}
+
+.overview_block .overview_block_seemore:hover{
+	background: #0984C1;
+	color: #E1F6FF;
+	cursor:pointer;
 }
 
 .w_rank_cont_wrap{
 	width: 100%;
 }
+
+
 </style>
 </head>
 <body>

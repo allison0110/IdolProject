@@ -13,9 +13,9 @@
 		m.member_nickname, 
 		m.member_image, 
 		max(mm.mileage_accumulated) score, 
-		row_number() over(order by m.member_no desc) rnum
+		row_number() over(order by max(mm.mileage_accumulated) desc) rnum
 	from member m left join mileage_master mm 
-		on m.member_no = mm.mileage_memno  
+		on m.member_no = mm.mileage_memno
 		where mileage_accumulated is not null 
 		and mileage_type != '회원가입 적립'
 		<if test="keyword != null and !keyword.equals('')">
@@ -32,7 +32,7 @@
 		m.member_nickname, 
 		m.member_image, 
 		count(mm.mileage_type) score,
-		row_number() over(order by m.member_no desc) rnum
+		row_number() over(order by count(mm.mileage_type) desc) rnum
 	from member m left join mileage_master mm 
 		on m.member_no=mm.mileage_memno 
 		where mm.mileage_type='게시글 등록 획득'
@@ -50,7 +50,7 @@
 		m.member_nickname, 
 		m.member_image, 
 		count(mm.mileage_type) score,
-		row_number() over(order by m.member_no desc) rnum
+		row_number() over(order by count(mm.mileage_type) desc) rnum
 	from member m left join mileage_master mm 
 		on m.member_no=mm.mileage_memno 
 		where mm.mileage_type='제품구매 획득'
@@ -80,7 +80,7 @@
 		m.member_nickname, 
 		m.member_image, 
 		max(cb.community_recommend) score,
-		row_number() over(order by m.member_no desc) rnum
+		row_number() over(order by max(cb.community_recommend) desc) rnum
 	from member m left join community_board cb 
 		on m.member_id=cb.community_userid 
 		where community_recommend is not null
@@ -98,7 +98,7 @@
 		m.member_nickname, 
 		m.member_image, 
 		count(cc.comment_no) score,
-		row_number() over(order by m.member_no desc) rnum
+		row_number() over(order by count(cc.comment_no) desc) rnum
 	from member m left join community_comment cc
 		on m.member_id=cc.comment_writer
 		where cc.comment_no is not null

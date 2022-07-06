@@ -185,7 +185,7 @@
 		<div class="item-sec">
 			<h1 align="center" id="mainH1">New Items</h1>
 			<div id="view_all">
-   				<a href="<%=request.getContextPath()%>/product_list.do"><span>전체보기</span></a>
+   				<a href="<%=request.getContextPath()%>/product_list.do?cno=100"><span>전체보기</span></a>
    			</div>
   	 		<div class="swiper productSwiper">
      			<div class="swiper-wrapper">

@@ -43,6 +43,28 @@ padding-bottom: 16px;
 .main {
   margin-left: 200px; /* Same as the width of the sidenav */
 }
+
+input[type=submit] {
+	margin-top:4px;
+    padding:4px 8px; 
+  
+    background:#E1F6FF; 
+    color: #0984C1;
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+}
+
+input[type=submit]:hover{
+	background: #0984C1;
+	color: #E1F6FF;
+}
+
+input[type=text]{
+    width: 136px;
+
+}
 </style>
 </head>
 <body>
@@ -57,7 +79,6 @@ padding-bottom: 16px;
   				<!-- 게시글 추천수 많은 순.. community_recommend -->
 				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=referrals">Most referrals</a>
   				<a href="<%=request.getContextPath()%>/detail_ranking.do?key=birth">Today's birthdays</a>
-  				<a href="<%=request.getContextPath()%>/chat.do">chatting</a>
   			</div>
   			<form method="get" action='<%=request.getContextPath()%>/detail_ranking.do'>
 

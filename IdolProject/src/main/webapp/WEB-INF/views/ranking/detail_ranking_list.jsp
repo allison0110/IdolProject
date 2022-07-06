@@ -84,6 +84,14 @@ width:550px;
 height:80px;
 }
 
+.rank_wrapper h2{
+margin-bottom: 24px;
+    margin-top: 24px;
+    font-size: 32px;
+    font-weight: 400;
+    color: #384764;
+}
+
 </style>
 </head>
 <body>
