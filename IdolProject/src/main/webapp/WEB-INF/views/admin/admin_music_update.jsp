@@ -6,12 +6,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ADMIN MUSIC UPDATE</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Creepster&family=East+Sea+Dokdo&family=Gamja+Flower&family=Gugi&family=Jua&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kirang+Haerang&family=Nosifer&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Press+Start+2P&family=VT323&family=Wallpoet&display=swap" rel="stylesheet">
+
 <style type="text/css">
+	
 	html, body {
 		margin: 0px;
 		padding: 0px;
 		height: 100%;
+		background-color: black;
 	}
 	
 	.admin_music_modify_wrapper {
@@ -28,14 +33,19 @@
 	}
 	
 	.music_img_container {
-		width: 100%;
+		max-width: 50%;
 		flex: 50%;
+		display: flex;
+	    align-items: center;
+	    justify-content: center;
 		
 	}
 	
 	.music_imgBoxes {
-		width: 300px;
-		height: 400px;
+		width: 60%;
+   	 	height: 60%;
+   	 	margin-left: 20%;
+
 	}
 	
 	.music_imgBoxes img{
@@ -45,15 +55,40 @@
 	
 	.music_modify_form {
 		flex: 50%;
-		display: flex;
+		max-width: 50%;
+		flex-direction: column;
+    	display: flex;
     	align-items: center;
 	}
+	
+	
 	
 	#link {
 		height: 200px;
 		width: 300px;
 	}
 	
+	
+	.music_update_form {
+		font-family: 'Jua', sans-serif;
+		color: white;
+		margin-right: 20%;
+	}
+	
+	·update_btn {
+	
+	}
+	
+	.btn {
+		background-color: black;
+		color: white;
+		font-family: 'Creepster', cursive;
+		font-size: 1.9em;
+		cursor: pointer;
+	}
+	.btn:hover{
+		color: red;
+	}
 </style>
 </head>
 <body>
@@ -63,6 +98,9 @@
 	<c:set var="glist" value="${gList }" />
 	
 	<div class="admin_music_modify_wrapper">
+	
+	<jsp:include page="../include/admin_top_include.jsp" />
+	<jsp:include page="../include/admin_music_include.jsp" />
 	
 		<div class="admin_music_modify_container">
 		
@@ -76,15 +114,15 @@
 		
 			<div class="music_modify_form">
 			
-				<form enctype="multipart/form-data" method="post" 
+				<form class="music_update_form" enctype="multipart/form-data" method="post" 
 					action="<%=request.getContextPath() %>/admin_music_update_ok.do">
 					
 					<input type="hidden" value="${mCont.music_coverimage }" name="oldimgs">
 					
 					<input type="hidden" value="${mCont.music_no }" name="music_no">
 					
-					<div>
-						그룹 선택 
+					<div class="music_update_form_selecter">
+						<div>그룹 선택 </div>
 						<select name="group_name">	
 							<c:forEach items="${glist }" var="gdto">
 								<c:if test="${gdto.group_name == mCont.group_name }">
@@ -101,7 +139,7 @@
 							</c:forEach>	
 						</select>
 						
-						셀럽 선택
+						<div>셀럽 선택</div>
 						<select name="celeb_name">	
 							<option value="">
 							선택 안함
@@ -121,34 +159,40 @@
 						</select>
 					</div>
 					<div>
-						<label for="aname">앨범 이름</label> <input id="aname" name="music_aname" value="${mCont.music_aname }" >
+						<div>앨범 이름 </div>
+						<input id="aname" name="music_aname" value="${mCont.music_aname }" >
 					</div>
 					<div>
-						<label for="name">곡명</label> <input id="name" name="music_name" value="${mCont.music_name }">
+						<div>곡명</div>
+						<input id="name" name="music_name" value="${mCont.music_name }">
 					</div>
 					<div>
-						<label for="lyrics">가사</label> <textarea rows="20" cols="50" id="lyrics" name="music_lyrics">${mCont.music_lyrics }</textarea>
+						<textarea rows="20" cols="50" id="lyrics" name="music_lyrics">${mCont.music_lyrics }</textarea>
 					</div>
 					<div>
-						<label for="composer">작곡가</label> <input id="composer" name="music_composer" value="${mCont.music_composer }">
+						<div>작곡가</div>
+						<input id="composer" name="music_composer" value="${mCont.music_composer }">
 					</div>
 					<div>
-						<label for="lyricst">작사가</label> <input id="lyricst" name="music_lyricst" value="${mCont.music_lyricst }">
+						<div>작사가</div>
+						<input id="lyricst" name="music_lyricst" value="${mCont.music_lyricst }">
 					</div>
 					
 					<div>
-						<label for="link">뮤비 링크</label> <textarea name="music_movie_link" rows="15" cols="25">${mCont.music_movie_link }</textarea> 
+						<div>뮤비 링크</div>
+						<textarea name="music_movie_link" rows="15" cols="25">${mCont.music_movie_link }</textarea> 
 					</div>
 					<div>
-						<label for="release">발매일</label> <input id="release" type="date" name="music_release_date" value="${mCont.music_release_date.substring(0, 10) }">
+						<div>발매일</div>
+						<input id="release" type="date" name="music_release_date" value="${mCont.music_release_date.substring(0, 10) }">
 					</div>
 					
 					<div>
 						<input type="file" name="file1" multiple="multiple">
 					</div>
 					<div class="update_btn">
-						<input type="submit" value="고!">
-						<input type="reset" value="다시작성">
+						<input class="btn" type="submit" value="GO!!!">
+						<input class="btn" type="reset" value="RESET">
 					</div>
 				</form>
 				
@@ -165,3 +209,8 @@
 
 </body>
 </html>
+
+
+
+
+
