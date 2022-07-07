@@ -158,13 +158,13 @@
 						<div>
 							수량:<%=dto.getOrder_qty() %>
 						</div>
+						
+						<div>
+							상품 가격 :<%=String.format("%,d", dto.getOrder_pprice()) %> 원
+						</div>
 						<div>
 							총금액:<%=String.format("%,d", dto.getOrder_total()) %> 원
 						</div>
-						<div>
-							운송비 :<%=String.format("%,d", dto.getOrder_pprice()) %> 원
-						</div>
-						
 						<div>
 							수취인 :<%=dto.getOrder_receivername() %>
 						</div>
