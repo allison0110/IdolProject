@@ -1,7 +1,11 @@
 ﻿package com.idol.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -208,6 +212,9 @@ public class MemberController {
 		dto.setMember_dateofbirth(birth);
 		dto.setMember_favorite_celeb(fav);
 		
+		//회원가입시 프로필사진은 프사없음으로 초기화 
+		dto.setMember_image("프사없음.jpeg");
+		
 		int check = dao.insertMember(dto);
 		
 		response.setContentType("text/html; charset=UTF-8");
@@ -235,8 +242,8 @@ public class MemberController {
 			session.setAttribute("login_id", dto.getMember_id());
 			
 			out.println("<script>");
-			out.println("alert('회원가입 완료되었습니다')");
-			out.println("location.href='"+request.getContextPath()+"/'"); //회원가입완료 후 메인화면으로 이동하기
+			/* out.println("alert('회원가입 완료되었습니다')"); */
+			out.println("location.href='makeFolder.do?id="+dto.getMember_id()+"'"); //회원가입완료 후 메인화면으로 이동하기
 			out.println("</script>");
 		}else {
 			out.println("<script>");
@@ -247,6 +254,69 @@ public class MemberController {
 		
 		//Printwriter를 안쓰면 (알림창안떠도되면
 		//String타입메서드에 return "redirect:/" ; 로 쓰면 main.jsp로 갈 수 있음 
+		
+	}
+	
+	//회원가입 즉시 프사없음폴더 만들기
+	@RequestMapping("makeFolder.do")
+	public void makeFolder(@RequestParam("id")String id, HttpServletResponse response, 
+			 		HttpServletRequest request) throws Exception {
+		
+		MemberDTO dto = dao.getMemInfo(id);
+		
+		//회원가입 시, 회원 이미지 '프사없음'사진으로 초기화 
+		String uploadPath = "C:\\Users\\ayss3\\Documents\\FinalProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\member_image";
+				
+				
+		//회원번호 폴더가 생김
+		String homedir = uploadPath +"/"+dto.getMember_no();
+				
+		File path1 = new File(homedir);
+			
+		//폴더가 존재하지 않으면 폴더 만들어주기
+		if(! path1.exists()) {
+				path1.mkdir();
+		}
+		
+		//원본파일 불러주기
+		FileInputStream fis = new FileInputStream("C:\\Users\\ayss3\\Documents\\FinalProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\celeb\\프사없음.jpeg");
+		
+		//원본파일 복사될 곳 
+		FileOutputStream fos = new FileOutputStream(homedir+"/프사없음.jpeg");
+		
+		int readByte = 0;
+		
+		while(true) {
+			
+			readByte = fis.read();
+			
+			if(readByte == -1) {
+				break;
+			}
+			
+			fos.write(readByte);
+		}
+		
+		fos.close();fis.close();	
+		
+		File check = new File(homedir+"/프사없음.jpeg");
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		if(check.exists()) {
+			
+			out.println("<script>");
+			out.println("alert('회원가입 완료되었습니다')");
+			out.println("location.href='"+request.getContextPath()+"/'"); //회원가입완료 후 메인화면으로 이동하기
+			out.println("</script>");
+		}else {
+			out.println("<script>");
+			out.println("alert('회원가입 실패(파일오류)')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
 		
 	}
 	

@@ -201,7 +201,7 @@
 	            	  						<a href="<%=request.getContextPath()%>/product_list.do?id=${pdto.product_no}">
 	            	  							<span class="card_title">${pdto.product_name }</span>
 	            	  						</a>
-	            	  						<span class="card_price">?? ${pdto.product_price }
+	            	  						<span class="card_price">￦ ${pdto.product_price }
 				            	  				<a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
 	            	  						</span>
 	            	  					</div>
