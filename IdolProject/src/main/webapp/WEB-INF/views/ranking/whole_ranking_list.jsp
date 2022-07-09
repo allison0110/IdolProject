@@ -86,6 +86,7 @@ color: #7082A7
 .overview_blocks{
 display: flex;
 flex-wrap: wrap;
+margin-bottom: 40px;
 
 }
 
@@ -141,13 +142,23 @@ flex-wrap: wrap;
 	text-align: center;
 	font-size: 14px;
 	padding: 4px 0;
-	background-color: #ccc;
-	color: #242424;
+	background-color: #E1F6FF;
+ 	color: #0984C1;
+ 	-webkit-border-radius: 3px;
+ 	cursor:pointer;
+}
+
+.overview_block .overview_block_seemore:hover{
+	background: #0984C1;
+	color: #E1F6FF;
+	cursor:pointer;
 }
 
 .w_rank_cont_wrap{
 	width: 100%;
 }
+
+
 </style>
 </head>
 <body>
@@ -174,11 +185,18 @@ flex-wrap: wrap;
 					<ul>
 						<c:forEach items="${milist }" var="midto">
 							<li class="overview_item">
+							
+							
 								<div class="overview_img_wrap">
+								<c:if test="${!empty midto.member_image }">
 									<img src="./resources/upload/member_image/${midto.member_no }/${midto.member_image }">
+								</c:if>
+								<c:if test="${empty midto.member_image }">
+									<img src="./resources/upload/celeb/프사없음.jpeg">
+								</c:if>
 								</div>
 								<span class="member_nickname">
-									<a href="<%=request.getContextPath()%>/myfeed.do?no=${midto.member_no}">${midto.member_nickname }</a>
+									<a href="<%=request.getContextPath()%>/myfeed.do?id=${midto.member_id}">${midto.member_nickname }</a>
 								</span>
 								<span class="member_score">
 									<fmt:formatNumber value="${midto.score }" />
@@ -197,10 +215,15 @@ flex-wrap: wrap;
 						<c:forEach items="${plist }" var="pdto">
 							<li class="overview_item">
 								<div class="overview_img_wrap">
-								<img src="./resources/upload/member_image/${pdto.member_no }/${pdto.member_image }">
+								<c:if test="${!empty pdto.member_image }">
+									<img src="./resources/upload/member_image/${pdto.member_no }/${pdto.member_image }">
+								</c:if>
+								<c:if test="${empty pdto.member_image }">
+									<img src="./resources/upload/celeb/프사없음.jpeg">
+								</c:if>
 								</div>
 								<span class="member_nickname">
-									<a href="<%=request.getContextPath()%>/myfeed.do?no=${pdto.member_no}">${pdto.member_nickname }</a>
+									<a href="<%=request.getContextPath()%>/myfeed.do?id=${pdto.member_id}">${pdto.member_nickname }</a>
 								</span>
 								<span class="member_score">
 									<fmt:formatNumber value="${pdto.score }" />
@@ -219,10 +242,15 @@ flex-wrap: wrap;
 						<c:forEach items="${melist }" var="medto">
 							<li class="overview_item">
 								<div class="overview_img_wrap">
-								<img src="./resources/upload/member_image/${medto.member_no }/${medto.member_image }">
+								<c:if test="${!empty medto.member_image }">
+									<img src="./resources/upload/member_image/${medto.member_no }/${medto.member_image }">
+								</c:if>
+								<c:if test="${empty medto.member_image }">
+									<img src="./resources/upload/celeb/프사없음.jpeg">
+								</c:if>
 								</div>
 								<span class="member_nickname">
-									<a href="<%=request.getContextPath()%>/myfeed.do?no=${medto.member_no}">${medto.member_nickname }</a>
+									<a href="<%=request.getContextPath()%>/myfeed.do?id=${medto.member_id}">${medto.member_nickname }</a>
 								</span>
 								<span class="member_score">
 									<fmt:formatNumber value="${medto.score }" />
@@ -243,10 +271,15 @@ flex-wrap: wrap;
 						<c:forEach items="${relist }" var="rdto">
 							<li class="overview_item">
 								<div class="overview_img_wrap">
-								<img src="./resources/upload/member_image/${rdto.member_no }/${rdto.member_image }">
+								<c:if test="${!empty rdto.member_image }">
+									<img src="./resources/upload/member_image/${rdto.member_no }/${rdto.member_image }">
+								</c:if>
+								<c:if test="${empty rdto.member_image }">
+									<img src="./resources/upload/celeb/프사없음.jpeg">
+								</c:if>
 								</div>
 								<span class="member_nickname">
-									<a href="<%=request.getContextPath()%>/myfeed.do?no=${rdto.member_no}">${rdto.member_nickname }</a>
+									<a href="<%=request.getContextPath()%>/myfeed.do?id=${rdto.member_id}">${rdto.member_nickname }</a>
 								</span>
 								<span class="member_score">
 									<fmt:formatNumber value="${rdto.score }" />
@@ -265,10 +298,15 @@ flex-wrap: wrap;
 						<c:forEach items="${colist }" var="cdto">
 							<li class="overview_item">
 								<div class="overview_img_wrap">
-								<img src="./resources/upload/member_image/${cdto.member_no }/${cdto.member_image }">
+								<c:if test="${!empty cdto.member_image }">
+									<img src="./resources/upload/member_image/${cdto.member_no }/${cdto.member_image }">
+								</c:if>
+								<c:if test="${empty cdto.member_image }">
+									<img src="./resources/upload/celeb/프사없음.jpeg">
+								</c:if>
 								</div>
 								<span class="member_nickname">
-									<a href="<%=request.getContextPath()%>/myfeed.do?no=${cdto.member_no}">${cdto.member_nickname }</a>
+									<a href="<%=request.getContextPath()%>/myfeed.do?id=${cdto.member_id}">${cdto.member_nickname }</a>
 								</span>
 								<span class="member_score">
 									<fmt:formatNumber value="${cdto.score }" />
@@ -293,10 +331,15 @@ flex-wrap: wrap;
 						<c:if test="${biList.size() > 0 }">
 							<li class="overview_item">
 								<div class="overview_img_wrap">
-								<img src="./resources/upload/member_image/${bdto.member_no }/${bdto.member_image }">
+								<c:if test="${!empty bdto.member_image }">
+									<img src="./resources/upload/member_image/${bdto.member_no }/${bdto.member_image }">
+								</c:if>
+								<c:if test="${empty bdto.member_image }">
+									<img src="./resources/upload/celeb/프사없음.jpeg">
+								</c:if>
 								</div>
 								<span class="member_nickname">
-									<a href="<%=request.getContextPath()%>/myfeed.do?no=${bdto.member_no}">${bdto.member_nickname }</a>
+									<a href="<%=request.getContextPath()%>/myfeed.do?id=${bdto.member_id}">${bdto.member_nickname }</a>
 								</span>
 								
 								<c:if test="${bdto.score <= 0 }">

@@ -93,7 +93,6 @@ public class EventController {
 		model.addAttribute("cid", cid);
 		model.addAttribute("Paging", pageDto);
 		
-		
 		return "event/user_event_list";
 		
 	}
@@ -116,11 +115,16 @@ public class EventController {
 		for (int i = 1; i < images.length; i++) {
 			temp_images.add(images[i]);
 		}
-		
 		dto.setNotice_images(temp_images);
 		
+		System.out.println(page);
+		
 		model.addAttribute("Cont", dto);
-		model.addAttribute("Page", page.equals(null) ? 1 : page);
+		model.addAttribute("Page", page == null ? 1 : page);
+		
+		System.out.println("images"+ images);
+		
+		
 		
 		return "event/user_event_cont";
 	}
@@ -134,6 +138,7 @@ public class EventController {
 		List<EventDTO> items = this.userEventDao.allList();
 		List<HashMap<String, Object>> result = new ArrayList<HashMap<String, Object>>();
 		
+		
 		for (int i = 0; i < items.size(); i++) {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			EventDTO item = items.get(i);
@@ -144,6 +149,7 @@ public class EventController {
 			map.put("no", item.getNotice_no());
 			map.put("bid", item.getNotice_type() == "CELEB" ? 1 : 2);
 			map.put("image", st);
+			
 			
 			result.add(map);
 		}

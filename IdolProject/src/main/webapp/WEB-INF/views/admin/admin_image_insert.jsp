@@ -78,7 +78,7 @@
 				<div class="admin_images_insert_text">
 				
 					<div> 
-						IMAGE PATH <input name="image_link" value="<%=request.getContextPath()%>/"> 
+						IMAGE PATH <input name="image_link"> 
 					</div>
 					
 					<div> 

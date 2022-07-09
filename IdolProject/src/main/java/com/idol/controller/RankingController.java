@@ -47,6 +47,7 @@ public class RankingController {
 		for(int i=0; i<memberList.size(); i++) {
 			RankingDTO rankingDto = new RankingDTO();
 			rankingDto.setMember_no(memberList.get(i).getMember_no());
+			rankingDto.setMember_id(memberList.get(i).getMember_id());
 			rankingDto.setMember_image(memberList.get(i).getMember_image());
 			rankingDto.setMember_introduction(memberList.get(i).getMember_introduction());
 			rankingDto.setMember_nickname(memberList.get(i).getMember_nickname());
@@ -108,6 +109,7 @@ public class RankingController {
 			for(int i=0; i<memberList.size(); i++) {
 				RankingDTO rankingDto = new RankingDTO();
 				rankingDto.setMember_no(memberList.get(i).getMember_no());
+				rankingDto.setMember_id(memberList.get(i).getMember_id());
 				rankingDto.setMember_image(memberList.get(i).getMember_image());
 				rankingDto.setMember_introduction(memberList.get(i).getMember_introduction());
 				rankingDto.setMember_nickname(memberList.get(i).getMember_nickname());

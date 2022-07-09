@@ -84,6 +84,14 @@ width:550px;
 height:80px;
 }
 
+.rank_wrapper h2{
+margin-bottom: 24px;
+    margin-top: 24px;
+    font-size: 32px;
+    font-weight: 400;
+    color: #384764;
+}
+
 </style>
 </head>
 <body>
@@ -111,7 +119,12 @@ height:80px;
 					<ul>
 						<li>
 							<div class="rankContent_row_image">
-								<img src="./resources/upload/member_image/${dto.member_no }/${dto.member_image }">
+							<c:if test="${!empty dto.member_image }">
+									<img src="./resources/upload/member_image/${dto.member_no }/${dto.member_image }">
+								</c:if>
+								<c:if test="${empty dto.member_image }">
+									<img src="./resources/upload/celeb/프사없음.jpeg">
+								</c:if>
 							</div>
 							<div class="rankContent_wrap">
 								<div class="rankContent_row_header">
