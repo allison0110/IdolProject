@@ -76,8 +76,11 @@ public interface AdminMemberDAO {
 	//완료  문의 게시판 리스트 가져오기
 	public List<InquiryDTO> getInquiryOkList();
 	
-	
+	// 생일 및 가입일이 00/01/01인 경우 리스트 불러오기 (회원 정지 리스트)
 	public List<MemberDTO> getKilledMemberList();
+	
+	// 회원 검색
+	public List<MemberDTO> getSearchMemberList(String id);
 	
 	
 }

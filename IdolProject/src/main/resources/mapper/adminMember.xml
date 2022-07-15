@@ -152,11 +152,19 @@
 			select * from inquiry_board where INQUIRY_STATUS = '1' and INQUIRY_STEP = '0' order by inquiry_date desc 
 		</select>
 		
-		
+		<!-- 정지 회원 리스트 불러오기 -->
 		<select id="killed" resultType="memberDTO">
 			select * from member where MEMBER_JOIN_DATE = '00/01/01' and MEMBER_DATEOFBIRTH = '00/01/01'		
 		</select>
 		
+		<!-- 맴버 검색 리스트 가져오기 -->
+		<select id="searchMemberList" parameterType="String" resultType="memberDTO">
+			select * from member where lower(member_id) like '%' || #{id} || '%'
+		</select>
+   		
+   		<!-- 맴버 생일 및 가입일 00/01/01로 바꾸기 -->
+   		
+   		
    		
    		
    </mapper> 

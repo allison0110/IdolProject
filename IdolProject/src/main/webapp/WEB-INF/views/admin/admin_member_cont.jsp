@@ -56,7 +56,8 @@
 		display: flex;
 	    flex-direction: column;
 	    align-items: center;
-	    margin-bottom: 55px;
+	    padding-bottom: 55px;
+	    width: 50%;
 	}
 	
 	.member_personal_info {
@@ -298,6 +299,13 @@
 	.favo_celeb:hover{
 		color: gold;
 	}
+	
+	.killing_btn {
+	 	color: white;
+	 	background-color: black;
+	 	cursor: pointer;
+	}
+	
 </style>
 
 <script type="text/javascript">
@@ -441,6 +449,12 @@
 						[좋아하는 셀럽이 아직 없습니다 :( ]
 					</c:if>
 				</div> <!-- member_favorite_celeb -->
+			<div>
+				<input class="killing_btn" type="button" value="KILLING"
+				onclick="location.href='<%=request.getContextPath()%>/admin_member_killing?id=${mdto.member_id}'">
+			
+			</div>	
+				
 			</div> <!-- member_content -->
 		</div> <!-- member_content_wrapper -->
 		
@@ -520,62 +534,62 @@
 				
 				
 				
-				<c:forEach items="${inquirylist }" var="i">
-					<c:if test="${i.inquiry_status =='1' }">
-					<div class="member_inquiry_category_box">
-						[답변완료]
-					</div>
-						<div class="member_inquiry_box">
-							<a style="width: 100%" href="<%=request.getContextPath() %>/admin_member_inquiryCont.do?no=${i.inquiry_no}
-										&pno=${i.product_no}&ono=${i.order_no}&gno=${i.inquiry_group}">
-							<div class="member_inquiry_link">
-								<div class="left_side_div">
-									<div class="left_side board_no">
-										No. ${i.inquiry_no }
-									</div>
-									<div class="left_side groupNo">
-										GROUP : ${i.inquiry_group }
-									</div>	
-								</div>
+<%-- 				<c:forEach items="${inquirylist }" var="i"> --%>
+<%-- 					<c:if test="${i.inquiry_status =='1' }"> --%>
+<!-- 					<div class="member_inquiry_category_box"> -->
+<!-- 						[답변완료] -->
+<!-- 					</div> -->
+<!-- 						<div class="member_inquiry_box"> -->
+<%-- 							<a style="width: 100%" href="<%=request.getContextPath() %>/admin_member_inquiryCont.do?no=${i.inquiry_no} --%>
+<%-- 										&pno=${i.product_no}&ono=${i.order_no}&gno=${i.inquiry_group}"> --%>
+<!-- 							<div class="member_inquiry_link"> -->
+<!-- 								<div class="left_side_div"> -->
+<!-- 									<div class="left_side board_no"> -->
+<%-- 										No. ${i.inquiry_no } --%>
+<!-- 									</div> -->
+<!-- 									<div class="left_side groupNo"> -->
+<%-- 										GROUP : ${i.inquiry_group } --%>
+<!-- 									</div>	 -->
+<!-- 								</div> -->
 								
-								<div class="right_side_div">
-									<span class="right_side userid">
-										${i.inquiry_userid }
-									</span>
-									<span class="right_side board_title">
-										${i.inquiry_title }
-									</span>
+<!-- 								<div class="right_side_div"> -->
+<!-- 									<span class="right_side userid"> -->
+<%-- 										${i.inquiry_userid } --%>
+<!-- 									</span> -->
+<!-- 									<span class="right_side board_title"> -->
+<%-- 										${i.inquiry_title } --%>
+<!-- 									</span> -->
 									
-									<span class="right_side">
-										<c:if test="${i.inquiry_step == '0'}">
-											원글 
-										</c:if>
-										<c:if test="${i.inquiry_step == '1'}">
-											댓글 
-										</c:if>
-										<c:if test="${i.inquiry_step > '1'}">
-											대댓글 
-										</c:if>
-									</span>
+<!-- 									<span class="right_side"> -->
+<%-- 										<c:if test="${i.inquiry_step == '0'}"> --%>
+<!-- 											원글  -->
+<%-- 										</c:if> --%>
+<%-- 										<c:if test="${i.inquiry_step == '1'}"> --%>
+<!-- 											댓글  -->
+<%-- 										</c:if> --%>
+<%-- 										<c:if test="${i.inquiry_step > '1'}"> --%>
+<!-- 											대댓글  -->
+<%-- 										</c:if> --%>
+<!-- 									</span> -->
 									 
-									<span class="right_side">
-										<c:if test="${!empty i.inquiry_update }">
-											${i.inquiry_update.substring(0, 10) }
-										</c:if>
-										<c:if test="${empty i.inquiry_update }">
-											${i.inquiry_date.substring(0, 10) }
-										</c:if>
-									</span>
+<!-- 									<span class="right_side"> -->
+<%-- 										<c:if test="${!empty i.inquiry_update }"> --%>
+<%-- 											${i.inquiry_update.substring(0, 10) } --%>
+<%-- 										</c:if> --%>
+<%-- 										<c:if test="${empty i.inquiry_update }"> --%>
+<%-- 											${i.inquiry_date.substring(0, 10) } --%>
+<%-- 										</c:if> --%>
+<!-- 									</span> -->
 								
-								</div>
-							</div>			
-							</a>
-						</div>
-					</c:if>
-					<c:if test="${empty inquirylist }">
-						<div>답변완료 게시물이 없습니다</div>
-					</c:if>
-				</c:forEach>
+<!-- 								</div> -->
+<!-- 							</div>			 -->
+<!-- 							</a> -->
+<!-- 						</div> -->
+<%-- 					</c:if> --%>
+<%-- 					<c:if test="${empty inquirylist }"> --%>
+<!-- 						<div>답변완료 게시물이 없습니다</div> -->
+<%-- 					</c:if> --%>
+<%-- 				</c:forEach> --%>
 				
 			</div> <!-- member_inquiry -->
 			

@@ -480,15 +480,35 @@ public class AdminMemberController {
 		
 		List<MemberDTO> list = this.dao.getKilledMemberList();
 		
+		List<MemberDTO> meberList = this.dao.getMemberList();
+				
 		model.addAttribute("people", list);
+		
+		model.addAttribute("mList", meberList);
 		
 		return "admin/admin_killingField";
 	}
 	
+	@RequestMapping("admin_member_search.do")
+	public String searchmember(@RequestParam("member_id") String id,
+			Model model) {
+		
+		System.err.println("member_id : " + id);
+		
+		List<MemberDTO> list = this.dao.getSearchMemberList(id);
+		
+		model.addAttribute("mList", list);
+		
+		return "admin/admin_member_main";
+	}
 	
 	
-	
-	
+	@RequestMapping("admin_member_killing")
+	public void killingMember(@RequestParam("id") String id, HttpServletResponse response) {
+		
+		
+		
+	}
 	
 	
 	

@@ -639,7 +639,7 @@ public class MemberController {
 		
 		
 		int result =0;
-		String uploadPath = "C:\\Users\\ayss3\\Documents\\FinalProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\member_image";
+		String uploadPath = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\member_image";
 				
 				//업로드된 파일들의 이름 목록을 제공하는 메서드
 				Iterator<String> it = multi.getFileNames();
@@ -732,7 +732,7 @@ public class MemberController {
 		System.out.println("old_img:"+old_img);
 		
 		int result =0;
-		String uploadPath = "C:\\Users\\ayss3\\Documents\\FinalProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\member_image";
+		String uploadPath = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\member_image";
 				
 				//업로드된 파일들의 이름 목록을 제공하는 메서드
 				Iterator<String> it = multi.getFileNames();
@@ -1290,7 +1290,7 @@ public class MemberController {
 		List<MultipartFile> fileList = multi.getFiles(uploadFileName);
 
 		
-		String path = "C:\\NCS\\IdolProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\inquiry_board";
+		String path = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\inquiry_board";
 
 		String dbFileName = "";
 
@@ -1455,7 +1455,7 @@ public class MemberController {
 		List<MultipartFile> fileList = multi.getFiles(uploadFileName);
 
 
-		String path = "C:\\Users\\ayss3\\Documents\\FinalProject\\IdolProject\\src\\main\\webapp\\resources\\upload\\inquiry_board";
+		String path = "C:\\Users\\JUNGHWAN\\Documents\\The Final\\IdolProject\\src\\main\\webapp\\resources\\upload\\inquiry_board";
 
 		String dbFileName = "";
 

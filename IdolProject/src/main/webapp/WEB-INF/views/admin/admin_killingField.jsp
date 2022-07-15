@@ -67,6 +67,7 @@
 <body>
 	
 	<c:set var="list" value="${people }" />
+	<c:set var="mlist" value="${mList }" />
 	
 	<div class="killing_wrapper">
 	<jsp:include page="../include/admin_top_include.jsp" />
@@ -101,6 +102,24 @@
 					</div>
 				</c:forEach>
 			</c:if>
+			<c:if test="${empty list }">
+				<div>
+					<div>정지 회원 리스트가 없습니다.</div>
+				</div>
+			</c:if>
+			
+			
+			<div>
+				<select>
+					<c:forEach items="${mlist }" var="mdto">
+						<option>
+							${mdto.member_id }
+						</option>
+					</c:forEach> 
+				</select>
+			
+			</div>
+			
 		</div> <!-- killing_container -->
 	</div> <!-- killing_wrapper -->
 
