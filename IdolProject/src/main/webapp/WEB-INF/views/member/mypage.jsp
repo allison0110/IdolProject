@@ -195,8 +195,6 @@
 				</span>
 				</a>
 				</div>
-				
-			
 			</div> <!-- class="mypage_main_top" end -->
 		
 			<div class="recent_order">
@@ -211,42 +209,38 @@
 			
 			<!-- 구매내역 있으면 for문돌려 3개까지 보이기(order_item) -->
 			<c:if test="${!empty oList }">
+			<c:set var="olist" value="${oList }"/>
 			
-			<% 
-				List<OrderDTO> oList = (List<OrderDTO>)request.getAttribute("oList");
-			
-				int size =0;
-				
-				if(oList.size()<=3){ size = oList.size();}
-				else{size = 3 ;}
-			
-				for(int i=0; i<size; i++){
-					OrderDTO odto = oList.get(i);
-					
-					DecimalFormat format = new DecimalFormat("###,###");
-					String price = format.format(odto.getOrder_total());
-			%>		
-				
-					<a href="<%=request.getContextPath()%>/orderlist_cont.do?ogno=<%=odto.getOrder_group() %>">
+			<c:set var="orderCount" value="1"/> 
+			<c:set var="orderFlag" value="false"/> 
+			<c:forEach items="${olist }" var="order">
+				<c:if test="${not orderFlag }">
+				<a href="<%=request.getContextPath()%>/orderlist_cont.do?ogno=${order.getOrder_group()}">
 					<div class="order_item">
 					
 					<div class="order_photo">
-					<img src="./resources/upload/product/<%=odto.getOrder_pimage() %>" >
+					<img src="./resources/upload/product/${order.getOrder_pimage() }" >
 					</div>
 					<div class="order_info">
 						<span style="font-size:15px; color: gray;">
-						<%=odto.getOrder_date().substring(0,10) %>
+						${order.getOrder_date().substring(0,10) }
 						</span> <br>
 						<span style="font-size:1.2em; font-weight:bold;">
-						<%=odto.getOrder_pname() %></span><br>
-						<span style="font-size:0.9em;"><%=odto.getOrder_qty() %>개 </span>|
-						<span style="font-size:0.9em;"> <%=price %>원 </span>
+						${order.getOrder_pname() }</span><br>
+						<span style="font-size:0.9em;">${order.getOrder_qty() }개 </span>|
+						<span style="font-size:0.9em;"> <fmt:formatNumber value="${order.order_total }"/>원 </span>
 					</div> 
 					
 					</div> <!-- class="order_item" -->
 					</a>
-				
-			<% 	}//for문 %>
+					<c:set var="orderCount" value="${orderCount +1 }"/>				
+				</c:if>
+				<c:if test="${orderCount == 4 }">
+					<c:set var="orderFlag" value="true"/>
+				</c:if>
+			</c:forEach>
+			
+			
 			</c:if>
 			</div><!-- class="recent_order_content" end -->
 			
@@ -256,62 +250,43 @@
 			<a href="<%=request.getContextPath()%>/inquiry_list.do"> <span class="recent_title">최근 문의내역</span>&nbsp; <i class="bi bi-plus"></i></a>
 			<hr align="left"  width="100%" color="lightgray">
 			<div class="recent_qna_content"> 
-			<c:if test="${!empty iList }">
 			<!-- 문의내역 최신 3개만 보이기 -->
-			<%
-				List<InquiryDTO> inquiry = (List<InquiryDTO>)request.getAttribute("iList");
-				
-				int isize = 0;
-				
-				if(inquiry.size()<=3){ isize = inquiry.size();}
-				else{isize = 3 ;}
-				
-				for(int i=0; i<isize; i++){
-					
-					InquiryDTO idto = inquiry.get(i);
-					
-					//카테고리구분
-					String icategory ="";
-					switch(idto.getCategory_inofk()){
-					case 1: 
-						icategory ="취소/환불";
-						break;
-					case 2: 
-						icategory ="상품문의";
-						break;
-					case 3: 
-						icategory ="배송";
-						break;
-					case 4: 
-						icategory ="교환";
-						break;
-					case 5: 
-						icategory ="기타";
-						break;
-				
-					}
-					//답변상태
-					String status = "";
-					String color ="";
-					if(idto.getInquiry_status() == 0){
-						status ="답변대기";
-						color = "#ff5722";
-					}else{
-						status="답변완료";
-						color="black";
-					}
-			%>
-				<a href="<%=request.getContextPath()%>/inquiry_cont.do?no=<%=idto.getInquiry_no()%>&page=1">
+			<c:if test="${!empty iList }">
+			
+			<c:set var="inquiry" value="${iList }"/>
+			<c:set var="flag" value="false"/> <!-- jstl 반복문 break -->
+			<c:set var="count" value="1"/>
+			<c:forEach items="${inquiry }" var="i">
+				<c:if test="${not flag }">
+					<a href="<%=request.getContextPath()%>/inquiry_cont.do?no=${i.getInquiry_no() }&page=1">
 				<div class="qna_item">
-					<span style="color: #1f3093;font-size: 0.9em;"> [<%=icategory %>]</span>
-					&nbsp;<span><%=idto.getInquiry_title() %></span><br>
+					<span style="color: #1f3093;font-size: 0.9em;">
+					<c:choose>
+								<c:when test="${i.getCategory_inofk() ==1}">[취소/환불]</c:when>
+								<c:when test="${i.getCategory_inofk() ==2}">[상품문의]</c:when>
+								<c:when test="${i.getCategory_inofk() ==3}">[배송]</c:when>
+								<c:when test="${i.getCategory_inofk() ==4}">[교환]</c:when>
+								<c:when test="${i.getCategory_inofk() ==5}">[기타]</c:when>
+					</c:choose>
+					</span>
+					&nbsp;<span>${i.getInquiry_title() }</span><br>
 					<span style="color: #858080;font-size: 0.9em; font-weight:normal;">
-					<%=idto.getInquiry_date().substring(0, 10) %></span>│ 
-					<span style="color:<%=color %>;font-size: 0.9em;"><%=status %> </span>
+					${i.getInquiry_date().substring(0, 10) }</span>│ 
+					<c:if test="${i.inquiry_status == 0 }">
+					<span style="color:#ff5722;font-size: 0.9em;">답변대기 </span>
+					</c:if>
+					<c:if test="${i.inquiry_status == 1 }">
+					<span style="color:black;font-size: 0.9em;">답변완료 </span>
+					</c:if>
 				</div><!-- class="qna_item" end -->
 				</a>
-			<%	}
-			%>
+				<c:set var="count" value="${count +1 }"/>
+				</c:if>
+				
+				<c:if test="${count == 4 }">
+				 <c:set var="flag" value="true"/>
+				</c:if>
+			</c:forEach>
 			</c:if>
 			<c:if test="${empty iList }">
 			<span>문의내역 없음</span>

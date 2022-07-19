@@ -42,6 +42,7 @@
 <body>
 	<c:set var="dto" value="${loginInfo }"/> <!--로그인회원 정보 저장 -->
 	<c:set var="list" value="${List }"/>
+	<c:set var="plist" value="${pCont }"/> <!-- 제품정보 -->
 	<c:set var="paging" value="${paging }"/>
 	<c:set var="search_date" value="${search_date }"/><!-- 날짜조회 -->
 	
@@ -135,69 +136,40 @@
 				<th>상태</th>
 			</tr>
 			<c:if test="${!empty List }">
-				<%
-					List<InquiryDTO> list = (List<InquiryDTO>)request.getAttribute("List");
-					List<ProductDTO> pCont = (List<ProductDTO>)request.getAttribute("pCont");
-					
-					for(int i=0; i<list.size(); i++){
-						
-						InquiryDTO idto = list.get(i); //문의게시글
-						ProductDTO product = pCont.get(i); //제품정보
-						
-						//카테고리
-						String category ="";
-						switch(idto.getCategory_inofk()){
-						case 1:
-							category ="취소/환불";
-							break;
-						case 2:
-							category ="상품문의";
-							break;
-						case 3:
-							category ="배송";
-							break;
-						case 4:
-							category ="교환";
-							break;
-						case 5:
-							category ="기타";
-							break;
-						}
-						
-				%>		
-					<!-- 테이블 행 시작  -->
+				<c:forEach items="${list }" var="inquiry">
 					<tr>
-						<%-- <td><%=idto.getInquiry_no() %></td>	 --%>			
-						<td class="qna_td"><%=category %></td>
-					
-					<!-- 상품 정보  -->
-					<% if(idto.getProduct_no() == 0){ //상품정보가 없으면 %> 
-						<td  class="qna_product"> </td>	
-					<% }else{ //상품정보가 있으면 %>
-						<td  class="qna_product">
-						<a href="<%=request.getContextPath()%>/product_detail.do?pno=<%=product.getProduct_no()%>">
-						<%=product.getProduct_name() %></a>
+						<td class="qna_td">
+							<c:choose>
+								<c:when test="${inquiry.getCategory_inofk() ==1}">취소/환불</c:when>
+								<c:when test="${inquiry.getCategory_inofk() ==2}">상품문의</c:when>
+								<c:when test="${inquiry.getCategory_inofk() ==3}">배송</c:when>
+								<c:when test="${inquiry.getCategory_inofk() ==4}">교환</c:when>
+								<c:when test="${inquiry.getCategory_inofk() ==5}">기타</c:when>
+							</c:choose>
 						</td>
-					<%}%>
+						<td class="qna_product"> 
+							<c:forEach items="${plist }" var="p">
+								<c:if test="${inquiry.getProduct_no() == p.getProduct_no() }">
+								<a href="<%=request.getContextPath()%>/product_detail.do?pno=${p.getProduct_no() }">
+								  ${p.product_name }</a>
+								</c:if>
+							</c:forEach>
+						</td>
 						<td class="qnaboard_title">
-							<a href="<%=request.getContextPath()%>/inquiry_cont.do?no=<%=idto.getInquiry_no() %>&page=${paging.getPage()}"><%=idto.getInquiry_title() %></a>
+						<a href="<%=request.getContextPath()%>/inquiry_cont.do?no=${inquiry.getInquiry_no() }&page=${paging.getPage()}">${inquiry.getInquiry_title() }</a>
 						</td>
-						<td class="qna_td"><%=idto.getInquiry_date().substring(0,10) %></td>
-							<% 
-						//답변상태
-						String status ="";
-						
-						if(idto.getInquiry_status() == 0){
-							status ="답변대기";
-					%>
-						<td class="qna_td">	<span style="color:#ff5722;"><%=status %></span></td>
-					<% 	}else{
-							status ="답변완료";
-					%>
-						<td class="qna_td">	<%=status %></td>
-					<% } %>	
+						<td class="qna_td">${inquiry.getInquiry_date().substring(0,10) }</td>
+						<td class="qna_td">	
+						<c:if test="${inquiry.getInquiry_status() == 0 }">
+						<span style="color:#ff5722;">답변대기</span>
+						</c:if>
+						<c:if test="${inquiry.getInquiry_status() == 1 }">
+						답변완료
+						</c:if>
+						</td>
 					</tr>
-				<%	}%>
+				
+				</c:forEach>
 			</c:if>
 			<tr>
 				<td colspan="6" align="right">
