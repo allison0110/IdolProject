@@ -1054,15 +1054,13 @@ public class MemberController {
 			
 			InquiryDTO idto = list.get(i);
 			
-			if(idto.getProduct_no() == 0) {//문의게시글에 상품정보가 없으면 null값 넣어주기 
-				
-				pList.add(null);
-				
-			}else {//문의게시글에 상품정보가 있으면 정보를 불러와 넣어주기 
-				
-			ProductDTO product = this.pdao.getProductDetail(idto.getProduct_no());
+			if(idto.getProduct_no() != 0) {
+			
+				ProductDTO product = this.pdao.getProductDetail(idto.getProduct_no());
 				pList.add(product);
 			}
+			
+			
 		}
 		
 		
