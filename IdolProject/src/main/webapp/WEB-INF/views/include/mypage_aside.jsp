@@ -209,6 +209,7 @@
 						<li><a href="<%=request.getContextPath()%>/mileage_list.do">마일리지 내역</a></li>
 						<li><a href="<%=request.getContextPath()%>/order_list.do">주문 내역</a></li>
 						<li><a href="<%=request.getContextPath()%>/inquiry_list.do">문의 내역</a></li>
+						<li><a href="<%=request.getContextPath()%>/member_delete.do">회원 탈퇴</a></li>
 						<li><a href="<%=request.getContextPath()%>/logout.do">로그아웃</a></li>
 					</ul>
 			

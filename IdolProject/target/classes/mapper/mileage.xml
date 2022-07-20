@@ -37,4 +37,8 @@
  	select * from mileage_master where mileage_memno = #{member_no} order by mileage_mno desc 
  </select>
  
+ 
+ <!-- 탈퇴한 회원 정보 삭제하기 -->
+ 
+ 
  </mapper>

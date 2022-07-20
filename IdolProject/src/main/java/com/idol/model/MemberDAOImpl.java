@@ -123,6 +123,12 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.selectList("MemAllList");
 	}
 
+	//회원 탈퇴(삭제)
+	@Override
+	public int deleteMember(String loginId) {
+		return this.sqlSession.delete("deleteMember", loginId);
+	}
+
 	
 
 

@@ -1865,4 +1865,51 @@ public class MemberController {
 		return "member/feed_posting";
 	}
 	
+
+	//회원탈퇴
+	@RequestMapping("member_delete.do")
+	public String member_delete() {
+		return "member/member_delete";
+	
 	}
+	
+	//회원탈퇴 완료
+	@RequestMapping("member_delete_Ok.do")
+	public void member_deleteOK(HttpSession session, HttpServletResponse response
+			, HttpServletRequest request) throws IOException {
+		
+		String loginId = (String)session.getAttribute("login_id");
+		
+		int check = this.dao.deleteMember(loginId);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		if(check>0) {//회원정보 삭제 완료
+			
+			//그 외 회원에 해당하는 연관정보삭제
+//			this.odao.deleteOrder(loginId); //구매정보 삭제
+//			this.followDao.deleteAll(loginId); //팔로우,팔로워 삭제
+//			this.comDao.deleteCoummunity(loginId); //커뮤니티게시글 삭제?
+//			this.idao.deleteInquiry(loginId); //문의게시글 삭제
+//			this.mdao.deleteInfo(loginId); //마일리지 데이터 삭제
+			
+			out.println("<script>");
+			out.println("alert('회원탈퇴 완료')");
+			out.println("location.href='"+request.getContextPath()+"/'"); 
+			out.println("</script>");
+			
+		}else {
+			out.println("<script>");
+			out.println("alert('회원탈퇴 실패')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+		
+		
+	}
+
+	
+	
+}

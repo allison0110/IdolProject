@@ -48,5 +48,13 @@ public class MileageDAOImpl implements MileageDAO {
 	}
 
 	
+	//탈퇴한회원 정보 삭제
+	@Override
+	public int deleteInfo(String loginId) {
+		return this.sqlSession.delete("deleteMemMile", loginId );
+		
+	}
+
+	
 
 }

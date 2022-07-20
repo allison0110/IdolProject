@@ -20,4 +20,6 @@ public interface MemberDAO {
 	MemberDTO getMemberCont(int mno);
 	List<MemberDTO> getMemeberList();
 	
+	int deleteMember(String loginId);
+	
 }

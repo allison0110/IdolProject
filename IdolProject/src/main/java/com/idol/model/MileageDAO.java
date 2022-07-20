@@ -11,5 +11,6 @@ public interface MileageDAO {
 	
 
 	List<MileageDTO> getMileageList(int member_no);
+	int deleteInfo(String loginId);
 	
 }

@@ -95,4 +95,9 @@
 	<![CDATA[select *from MEMBER order by MEMBER_NO desc]]>
 	</select>
 	
+	<!-- 회원 삭제 -->
+	<delete id="deleteMember" parameterType="String">
+		delete from member where member_id = #{loginId}
+	</delete>
+	
 </mapper>
